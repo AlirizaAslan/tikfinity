@@ -12,8 +12,11 @@ from .google_oauth import GoogleOAuth
 import json
 import random
 import secrets
+import logging
 from TikTokLive import TikTokLiveClient
 from TikTokLive.client.errors import UserOfflineError, UserNotFoundError
+
+logger = logging.getLogger(__name__)
 
 def terms_of_service(request):
     return render(request, 'tiktok_live/terms.html')
@@ -563,33 +566,95 @@ def verify_ownership(request, account_id):
 
 def check_live_status(request, username):
     """Check if TikTok user is live using TikTokLive"""
-    try:
-        username = username.strip('@')
-        client = TikTokLiveClient(unique_id=username)
+    from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
+    import asyncio
+    
+    username_clean = username.strip('@')
+    logger.info(f"Checking live status for: @{username_clean}")
+    
+    def check_live():
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
         
         try:
-            # Try to get room info - if successful, user is live
-            room_info = client.room_info
-            return JsonResponse({
-                'success': True,
-                'is_live': True,
-                'username': username
-            })
-        except (UserOfflineError, UserNotFoundError):
-            return JsonResponse({
-                'success': True,
-                'is_live': False,
-                'username': username
-            })
+            client = TikTokLiveClient(unique_id=username_clean)
+            
+            async def test_connection():
+                try:
+                    # Try to connect to the live stream
+                    logger.info(f"Attempting to connect to @{username_clean}...")
+                    await client.start()
+                    
+                    # Wait for connection to stabilize
+                    await asyncio.sleep(2)
+                    
+                    # If we get here without exception, user is live
+                    logger.info(f"Successfully connected! @{username_clean} is LIVE")
+                    
+                    # Disconnect cleanly
+                    try:
+                        await client.disconnect()
+                    except:
+                        pass
+                    
+                    return True
+                    
+                except UserOfflineError:
+                    logger.info(f"@{username_clean} is OFFLINE (UserOfflineError)")
+                    return False
+                except UserNotFoundError:
+                    logger.info(f"@{username_clean} NOT FOUND (UserNotFoundError)")
+                    return False
+                except Exception as e:
+                    logger.error(f"Error checking @{username_clean}: {type(e).__name__}: {e}")
+                    return False
+            
+            result = loop.run_until_complete(asyncio.wait_for(test_connection(), timeout=10))
+            return result
+            
+        except asyncio.TimeoutError:
+            logger.warning(f"Timeout checking @{username_clean} - assuming OFFLINE")
+            return False
         except Exception as e:
-            return JsonResponse({
-                'success': True,
-                'is_live': False,
-                'username': username,
-                'error': str(e)
-            })
-    except Exception as e:
+            logger.error(f"Unexpected error for @{username_clean}: {type(e).__name__}: {e}")
+            return False
+        finally:
+            try:
+                loop.close()
+            except:
+                pass
+    
+    try:
+        with ThreadPoolExecutor() as executor:
+            future = executor.submit(check_live)
+            is_live = future.result(timeout=12)
+        
+        status = "LIVE" if is_live else "OFFLINE"
+        logger.info(f"Final status for @{username_clean}: {status}")
+        
         return JsonResponse({
-            'success': False,
+            'success': True,
+            'is_live': is_live,
+            'status': status,
+            'username': username_clean,
+            'message': f'@{username_clean} is currently {status}'
+        })
+        
+    except FuturesTimeoutError:
+        logger.error(f"Executor timeout for @{username_clean}")
+        return JsonResponse({
+            'success': True,
+            'is_live': False,
+            'status': 'OFFLINE',
+            'username': username_clean,
+            'error': 'Connection timeout'
+        })
+    except Exception as e:
+        logger.error(f"Exception in check_live_status: {type(e).__name__}: {e}")
+        return JsonResponse({
+            'success': True,
+            'is_live': False,
+            'status': 'OFFLINE',
+            'username': username_clean,
             'error': str(e)
-        }, status=400)
+        })

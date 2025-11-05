@@ -105,11 +105,6 @@ TIKTOK_CLIENT_KEY = 'awetpevtlfsy47tp'  # Add your TikTok Client Key here
 TIKTOK_CLIENT_SECRET = 'Nr5j2AlDuFE5dhDzFBh7RkGLn2afajy1'  # Add your TikTok Client Secret here
 TIKTOK_REDIRECT_URI = 'https://onlinesolve.net/tiktok/auth/tiktok/callback/'
 
-# Google OAuth Settings
-GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET = 'YOUR_GOOGLE_CLIENT_SECRET'
-GOOGLE_REDIRECT_URI = 'http://127.0.0.1:8000/tiktok/auth/google/callback/'
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

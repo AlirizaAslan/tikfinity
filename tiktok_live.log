@@ -6849,3 +6849,38 @@ INFO 2025-11-05 21:30:26,530 live_connector ✅ DIRECT: Successfully sent like t
 INFO 2025-11-05 21:30:27,355 live_connector Connection successful!
 INFO 2025-11-05 21:30:27,355 consumers ✅ TikTok connection successful: @dayfloodengin
 INFO 2025-11-05 21:30:27,357 consumers WebSocket disconnecting: @dayfloodengin
+ERROR 2025-11-05 23:34:33,955 views Critical error in check_live_status: 'str' object has no attribute 'get_type'
+ERROR 2025-11-05 23:34:46,460 views Critical error in check_live_status: 'str' object has no attribute 'get_type'
+ERROR 2025-11-05 23:34:58,742 views Critical error in check_live_status: 'str' object has no attribute 'get_type'
+ERROR 2025-11-05 23:43:14,045 views Unexpected error checking @dayfloodengin: 'str' object has no attribute 'get_type'
+ERROR 2025-11-05 23:43:16,287 views Unexpected error checking @dln_elezz: 'str' object has no attribute 'get_type'
+ERROR 2025-11-05 23:43:48,092 views Unexpected error checking @buketclpn: 'str' object has no attribute 'get_type'
+ERROR 2025-11-05 23:44:06,153 views Unexpected error checking @buketclpn: 'str' object has no attribute 'get_type'
+INFO 2025-11-05 23:46:02,990 views Checking live status for: @buketclpn
+INFO 2025-11-05 23:46:03,377 views Attempting to connect to @buketclpn...
+INFO 2025-11-05 23:46:09,118 views Successfully connected! @buketclpn is LIVE
+INFO 2025-11-05 23:46:09,205 views Final status for @buketclpn: LIVE
+INFO 2025-11-05 23:46:11,281 views Checking live status for: @buketclpn
+INFO 2025-11-05 23:46:11,599 views Attempting to connect to @buketclpn...
+INFO 2025-11-05 23:46:16,483 views Successfully connected! @buketclpn is LIVE
+INFO 2025-11-05 23:46:16,581 views Final status for @buketclpn: LIVE
+INFO 2025-11-05 23:46:25,840 views Checking live status for: @dayfloodengin
+INFO 2025-11-05 23:46:26,172 views Attempting to connect to @dayfloodengin...
+INFO 2025-11-05 23:46:27,987 views @dayfloodengin is OFFLINE (UserOfflineError)
+INFO 2025-11-05 23:46:27,988 views Final status for @dayfloodengin: OFFLINE
+INFO 2025-11-05 23:46:43,080 views Checking live status for: @buketclpn
+INFO 2025-11-05 23:46:43,393 views Attempting to connect to @buketclpn...
+INFO 2025-11-05 23:46:45,062 views @buketclpn is OFFLINE (UserOfflineError)
+INFO 2025-11-05 23:46:45,062 views Final status for @buketclpn: OFFLINE
+INFO 2025-11-05 23:47:52,569 views Checking live status for: @buketclpn
+INFO 2025-11-05 23:47:52,885 views Attempting to connect to @buketclpn...
+INFO 2025-11-05 23:47:53,873 views @buketclpn is OFFLINE (UserOfflineError)
+INFO 2025-11-05 23:47:53,874 views Final status for @buketclpn: OFFLINE
+INFO 2025-11-05 23:48:11,715 views Checking live status for: @buketclpn
+INFO 2025-11-05 23:48:12,038 views Attempting to connect to @buketclpn...
+INFO 2025-11-05 23:48:13,161 views @buketclpn is OFFLINE (UserOfflineError)
+INFO 2025-11-05 23:48:13,162 views Final status for @buketclpn: OFFLINE
+INFO 2025-11-05 23:48:35,147 views Checking live status for: @alizefit
+INFO 2025-11-05 23:48:35,469 views Attempting to connect to @alizefit...
+INFO 2025-11-05 23:48:40,514 views Successfully connected! @alizefit is LIVE
+INFO 2025-11-05 23:48:40,600 views Final status for @alizefit: LIVE

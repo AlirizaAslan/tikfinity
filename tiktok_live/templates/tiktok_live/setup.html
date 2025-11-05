@@ -28,14 +28,12 @@
         .menu-item.active { background: #252525; border-left-color: #fe2c55; color: #fe2c55; }
         .menu-item i { width: 20px; }
         
-        #submenuPanel { position: fixed; left: 250px; top: 0; width: 250px; height: 100vh; background: #1a1a1a; border-right: 1px solid #333; overflow-y: auto; z-index: 99; transform: translateX(-100%); transition: transform 0.3s; }
-        #submenuPanel.open { transform: translateX(0); }
-        .panel-title { padding: 20px; font-size: 1.2em; font-weight: bold; border-bottom: 1px solid #333; }
-        .submenu-item { padding: 15px 20px; cursor: pointer; transition: all 0.3s; border-left: 3px solid transparent; }
+        .submenu-container { max-height: 0; overflow: hidden; transition: max-height 0.3s; background: #151515; }
+        .submenu-container.open { max-height: 500px; }
+        .submenu-item { padding: 12px 20px 12px 40px; cursor: pointer; transition: all 0.3s; border-left: 3px solid transparent; font-size: 0.9em; color: #aaa; }
         .submenu-item:hover { background: #252525; color: #fe2c55; border-left-color: #fe2c55; }
         
-        .main-content { margin-left: 250px; padding: 30px; min-height: 100vh; transition: margin-left 0.3s; }
-        .main-content.shifted { margin-left: 500px; }
+        .main-content { margin-left: 250px; padding: 30px; min-height: 100vh; }
         
         .section { background: #1a1a1a; padding: 30px; border-radius: 12px; margin-bottom: 20px; }
         .section h3 { color: #667eea; margin-bottom: 15px; }
@@ -68,31 +66,71 @@
         </div>
         <div class="separator"></div>
         
-        <div class="menu-item" onclick="openSubmenu('Start', ['Dashboard', 'Quick Start', 'Status'])">
+        <div class="menu-item" onclick="toggleSubmenu(this)">
             <i class="fas fa-play"></i> Start
         </div>
+        <div class="submenu-container">
+            <div class="submenu-item">Dashboard</div>
+            <div class="submenu-item">Quick Start</div>
+            <div class="submenu-item">Status</div>
+        </div>
         
-        <div class="menu-item active" onclick="openSubmenu('Setup', ['TikTok Connection', 'Points System', 'Level Settings', 'OBS Integration', 'Advanced Settings'], true)">
+        <div class="menu-item active" onclick="toggleSubmenu(this)">
             <i class="fas fa-cog"></i> Setup
+        </div>
+        <div class="submenu-container open">
+            <div class="submenu-item" onclick="scrollToSection('tiktokName')">TikTok Connection</div>
+            <div class="submenu-item" onclick="scrollToSection('pointsSystemSettings')">Points System</div>
+            <div class="submenu-item" onclick="scrollToSection('levelSettings')">Level Settings</div>
+            <div class="submenu-item" onclick="scrollToSection('obsConnection')">OBS Integration</div>
+            <div class="submenu-item" onclick="scrollToSection('advancedSettings')">Advanced Settings</div>
         </div>
         
         <div class="separator"></div>
         <div style="padding: 10px 20px; color: #888; font-size: 0.9em;"><i class="fas fa-desktop"></i></div>
         
-        <div class="menu-item" onclick="openSubmenu('Overlay Gallery', ['Coin Match PRO', 'Wheel Of Actions PRO', 'Gift Cannon PRO', 'Chat', 'Gift Feed', 'Points Animation'])">
+        <div class="menu-item" onclick="toggleSubmenu(this)">
             <i class="fas fa-th"></i> Overlay Gallery
         </div>
+        <div class="submenu-container">
+            <div class="submenu-item">Coin Match PRO</div>
+            <div class="submenu-item">Wheel Of Actions PRO</div>
+            <div class="submenu-item">Gift Cannon PRO</div>
+            <div class="submenu-item">Chat</div>
+            <div class="submenu-item">Gift Feed</div>
+            <div class="submenu-item">Points Animation</div>
+        </div>
         
-        <div class="menu-item" onclick="openSubmenu('Goal Overlays', ['Likes PRO', 'Shares PRO', 'Follows PRO', 'Viewer Count PRO', 'Custom Goals'])">
+        <div class="menu-item" onclick="toggleSubmenu(this)">
             <i class="fas fa-bullseye"></i> Goal Overlays
         </div>
-        
-        <div class="menu-item" onclick="openSubmenu('Gift Overlays', ['Rose', 'TikTok', 'Finger Heart', 'Doughnut', 'Galaxy'])">
-            <i class="fas fa-gift"></i> Gift Overlays
+        <div class="submenu-container">
+            <div class="submenu-item">Likes PRO</div>
+            <div class="submenu-item">Shares PRO</div>
+            <div class="submenu-item">Follows PRO</div>
+            <div class="submenu-item">Viewer Count PRO</div>
+            <div class="submenu-item">Custom Goals</div>
         </div>
         
-        <div class="menu-item" onclick="openSubmenu('Last X Overlays', ['Last Follower', 'Last Gifter', 'Last Subscriber', 'Last Sharer'])">
+        <div class="menu-item" onclick="toggleSubmenu(this)">
+            <i class="fas fa-gift"></i> Gift Overlays
+        </div>
+        <div class="submenu-container">
+            <div class="submenu-item">Rose</div>
+            <div class="submenu-item">TikTok</div>
+            <div class="submenu-item">Finger Heart</div>
+            <div class="submenu-item">Doughnut</div>
+            <div class="submenu-item">Galaxy</div>
+        </div>
+        
+        <div class="menu-item" onclick="toggleSubmenu(this)">
             <i class="fas fa-history"></i> Last X Overlays
+        </div>
+        <div class="submenu-container">
+            <div class="submenu-item">Last Follower</div>
+            <div class="submenu-item">Last Gifter</div>
+            <div class="submenu-item">Last Subscriber</div>
+            <div class="submenu-item">Last Sharer</div>
         </div>
         
         <div class="menu-item">
@@ -102,12 +140,24 @@
         <div class="separator"></div>
         <div style="padding: 10px 20px; color: #888; font-size: 0.9em;"><i class="fas fa-bolt"></i></div>
         
-        <div class="menu-item" onclick="openSubmenu('Sound Alerts', ['Gift Sounds', 'Follow Sounds', 'Share Sounds', 'Custom Sounds'])">
+        <div class="menu-item" onclick="toggleSubmenu(this)">
             <i class="fas fa-volume-up"></i> Sound Alerts
         </div>
+        <div class="submenu-container">
+            <div class="submenu-item">Gift Sounds</div>
+            <div class="submenu-item">Follow Sounds</div>
+            <div class="submenu-item">Share Sounds</div>
+            <div class="submenu-item">Custom Sounds</div>
+        </div>
         
-        <div class="menu-item" onclick="openSubmenu('Actions & Events', ['Gift Actions', 'Follow Actions', 'Comment Actions', 'Custom Events'])">
+        <div class="menu-item" onclick="toggleSubmenu(this)">
             <i class="fas fa-bolt"></i> Actions & Events
+        </div>
+        <div class="submenu-container">
+            <div class="submenu-item">Gift Actions</div>
+            <div class="submenu-item">Follow Actions</div>
+            <div class="submenu-item">Comment Actions</div>
+            <div class="submenu-item">Custom Events</div>
         </div>
         
         <div class="separator"></div>
@@ -117,12 +167,22 @@
             <i class="far fa-comments"></i> Chat Commands
         </div>
         
-        <div class="menu-item" onclick="openSubmenu('Chatbot', ['Settings', 'Auto Responses', 'Keyword Triggers'])">
+        <div class="menu-item" onclick="toggleSubmenu(this)">
             <i class="fas fa-robot"></i> Chatbot
         </div>
+        <div class="submenu-container">
+            <div class="submenu-item">Settings</div>
+            <div class="submenu-item">Auto Responses</div>
+            <div class="submenu-item">Keyword Triggers</div>
+        </div>
         
-        <div class="menu-item" onclick="openSubmenu('TTS Chat', ['Settings', 'Voice Selection', 'Overlay'])">
+        <div class="menu-item" onclick="toggleSubmenu(this)">
             <i class="fas fa-microphone"></i> TTS Chat
+        </div>
+        <div class="submenu-container">
+            <div class="submenu-item">Settings</div>
+            <div class="submenu-item">Voice Selection</div>
+            <div class="submenu-item">Overlay</div>
         </div>
         
         <div class="separator"></div>
@@ -139,27 +199,49 @@
         <div class="separator"></div>
         <div style="padding: 10px 20px; color: #888; font-size: 0.9em;"><i class="fas fa-headphones"></i></div>
         
-        <div class="menu-item" onclick="openSubmenu('Song Requests', ['Settings', 'Queue', 'Overlay'])">
+        <div class="menu-item" onclick="toggleSubmenu(this)">
             <i class="fas fa-music"></i> Song Requests
+        </div>
+        <div class="submenu-container">
+            <div class="submenu-item">Settings</div>
+            <div class="submenu-item">Queue</div>
+            <div class="submenu-item">Overlay</div>
         </div>
         
         <div class="separator"></div>
         <div style="padding: 10px 20px; color: #888; font-size: 0.9em;"><i class="fas fa-gamepad"></i></div>
         
-        <div class="menu-item" onclick="openSubmenu('Likeathon', ['Settings', 'Overlay'])">
+        <div class="menu-item" onclick="toggleSubmenu(this)">
             <i class="fas fa-heart"></i> Likeathon
         </div>
+        <div class="submenu-container">
+            <div class="submenu-item">Settings</div>
+            <div class="submenu-item">Overlay</div>
+        </div>
         
-        <div class="menu-item" onclick="openSubmenu('Timer', ['Subathon', 'Countdown', 'Stopwatch'])">
+        <div class="menu-item" onclick="toggleSubmenu(this)">
             <i class="fas fa-clock"></i> Timer
         </div>
-        
-        <div class="menu-item" onclick="openSubmenu('Wheel of Fortune', ['Settings', 'Overlay'])">
-            <i class="fas fa-dharmachakra"></i> Wheel of Fortune
+        <div class="submenu-container">
+            <div class="submenu-item">Subathon</div>
+            <div class="submenu-item">Countdown</div>
+            <div class="submenu-item">Stopwatch</div>
         </div>
         
-        <div class="menu-item" onclick="openSubmenu('Points Drop', ['Settings', 'Overlay'])">
+        <div class="menu-item" onclick="toggleSubmenu(this)">
+            <i class="fas fa-dharmachakra"></i> Wheel of Fortune
+        </div>
+        <div class="submenu-container">
+            <div class="submenu-item">Settings</div>
+            <div class="submenu-item">Overlay</div>
+        </div>
+        
+        <div class="menu-item" onclick="toggleSubmenu(this)">
             <i class="fas fa-coins"></i> Points Drop
+        </div>
+        <div class="submenu-container">
+            <div class="submenu-item">Settings</div>
+            <div class="submenu-item">Overlay</div>
         </div>
         
         <div class="separator"></div>
@@ -179,11 +261,6 @@
         <div class="menu-item">
             <i class="fas fa-code"></i> Event API
         </div>
-    </div>
-    
-    <div id="submenuPanel">
-        <div class="panel-title" id="submenuTitle">Menu</div>
-        <div id="submenuContent"></div>
     </div>
     
     <div class="main-content">
@@ -253,39 +330,11 @@
     </div>
 
     <script>
-        let currentPanel = null;
-        
-        function openSubmenu(title, items, hasScroll = false) {
-            const panel = document.getElementById('submenuPanel');
-            const titleEl = document.getElementById('submenuTitle');
-            const content = document.getElementById('submenuContent');
-            const mainContent = document.querySelector('.main-content');
-            
-            if (currentPanel === title && panel.classList.contains('open')) {
-                panel.classList.remove('open');
-                mainContent.classList.remove('shifted');
-                currentPanel = null;
-                return;
+        function toggleSubmenu(menuItem) {
+            const submenu = menuItem.nextElementSibling;
+            if (submenu && submenu.classList.contains('submenu-container')) {
+                submenu.classList.toggle('open');
             }
-            
-            titleEl.textContent = title;
-            content.innerHTML = '';
-            
-            const sections = ['tiktokName', 'pointsSystemSettings', 'levelSettings', 'obsConnection', 'advancedSettings'];
-            
-            items.forEach((item, idx) => {
-                const div = document.createElement('div');
-                div.className = 'submenu-item';
-                div.textContent = item;
-                if (hasScroll && idx < sections.length) {
-                    div.onclick = () => scrollToSection(sections[idx]);
-                }
-                content.appendChild(div);
-            });
-            
-            panel.classList.add('open');
-            mainContent.classList.add('shifted');
-            currentPanel = title;
         }
         
         function scrollToSection(sectionId) {
