@@ -1,0 +1,1137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#: .\DjangoAdmin\urls.py:64
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-24 22:49+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\DjangoAdmin\urls.py:59
+msgid "home/"
+msgstr "trang-chu/"
+
+#: .\DjangoAdmin\urls.py:66
+msgid "body-mass-index-calculator/"
+msgstr "may-tinh-chi-so-khoi-co-the/"
+
+#: .\DjangoAdmin\urls.py:67
+msgid "basal-metabolic-rate-calculator/"
+msgstr "may-tinh-ty-le-trao-doi-chat-co-ban/"
+
+#: .\DjangoAdmin\urls.py:68
+msgid "total-daily-energy-expenditure-calculator/"
+msgstr "may-tinh-tong-nang-luong-tieu-thu-hang-ngay/"
+
+#: .\DjangoAdmin\urls.py:69
+msgid "ideal-weight-calculator/"
+msgstr "may-tinh-can-nang-ly-tuong/"
+
+#: .\DjangoAdmin\urls.py:70
+msgid "macro-calculator/"
+msgstr "may-tinh-vi-mo/"
+
+#: .\DjangoAdmin\urls.py:71
+msgid "body-fat-calculator/"
+msgstr "may-tinh-luong-mo-co-the/"
+
+#: .\DjangoAdmin\urls.py:72
+msgid "water-intake/"
+msgstr "luong-nuoc-uong-vao/"
+
+#: .\DjangoAdmin\urls.py:75
+msgid "lean-body-mass-calculator/"
+msgstr "may-tinh-khoi-luong-co-nac/"
+
+#: .\DjangoAdmin\urls.py:76
+msgid "waist-hip-ratio-calculator/"
+msgstr "may-tinh-ty-le-eo-hong/"
+
+#: .\DjangoAdmin\urls.py:77
+msgid "waist-height-ratio-calculator/"
+msgstr "may-tinh-ty-le-chieu-cao-eo/"
+
+#: .\DjangoAdmin\urls.py:78
+msgid "fat-free-mass-index-calculator/"
+msgstr "may-tinh-chỉ-so-khoi-luong-khong-co-chat-beo/"
+
+#: .\DjangoAdmin\urls.py:79
+msgid "body-shape-calculator/"
+msgstr "may-tinh-hinh-dang-co-the/"
+
+#: .\DjangoAdmin\urls.py:80
+msgid "target-heart-rate-calculator/"
+msgstr "may-tinh-nhip-tim-muc-tieu/"
+
+#: .\DjangoAdmin\urls.py:81
+msgid "wilks-calculator/"
+msgstr "may-tinh-wilks/"
+
+#: .\DjangoAdmin\urls.py:82
+msgid "bra-size-calculator/"
+msgstr "may-tinh-cỡ-ao-nguc/"
+
+#: .\DjangoAdmin\urls.py:83
+msgid "one-rep-max-calculator/"
+msgstr "may-tinh-mot-rep-max/"
+
+#: .\DjangoAdmin\urls.py:84
+msgid "steps-calories-calculator/"
+msgstr "may-tinh-luong-calo-buoc-chan/"
+
+#: .\DjangoAdmin\urls.py:85
+msgid "child-height-prediction-calculator/"
+msgstr "may-tinh-du-doan-chieu-cao-cua-tre-em/"
+
+#: .\DjangoAdmin\urls.py:86
+msgid "jump-rope-calories-calculator/"
+msgstr "may-tinh-luong-calo-nhay-day/"
+
+#: .\DjangoAdmin\urls.py:87
+msgid "cycling-calories-calculator/"
+msgstr "may-tinh-luong-calo-khi-dap-xe/"
+
+#: .\DjangoAdmin\urls.py:88
+msgid "step-distance-calculator/"
+msgstr "may-tinh-khoang-cach-buoc-chan/"
+
+#: .\DjangoAdmin\urls.py:89
+msgid "heart-rate-zone-calculator/"
+msgstr "may-tinh-vung-nhip-tim/"
+
+#: .\DjangoAdmin\urls.py:90
+msgid "max-heart-rate-calculator/"
+msgstr "may-tinh-nhip-tim-toi-da/"
+
+#: .\DjangoAdmin\urls.py:91
+msgid "treadmill-calorie-calculator/"
+msgstr "may-tinh-calo-tren-may-chay-bo/"
+
+#: .\DjangoAdmin\urls.py:92
+msgid "swimming-calorie-calculator/"
+msgstr "may-tinh-luong-calo-khi-boi/"
+
+#: .\DjangoAdmin\urls.py:93
+msgid "walking-and-run-calorie-calculator/"
+msgstr "may-tinh-luong-calo-khi-di-bo-va-chay-bo/"
+
+#: .\DjangoAdmin\urls.py:94
+msgid "resting-metabolic-rate-calculator/"
+msgstr "may-tinh-ty-le-trao-doi-chat-khi-nghỉ-ngoi/"
+
+#: .\DjangoAdmin\urls.py:95
+msgid "weight-gain-calculator/"
+msgstr "may-tinh-tang-can/"
+
+#: .\DjangoAdmin\urls.py:96
+msgid "breastfeeding-mother-calorie-calculator/"
+msgstr "may-tinh-calo-cho-ba-mẹ-dang-cho-con-bu/"
+
+#: .\DjangoAdmin\urls.py:97
+msgid "absolute-neutrophil-count-calculator/"
+msgstr "may-tinh-dem-so-luong-bach-cau-trung-tinh-tuyet-doi/"
+
+#: .\DjangoAdmin\urls.py:98
+msgid "absolute-lymphocyte-count-calculator/"
+msgstr "may-tinh-dem-so-luong-te-bao-lympho-tuyet-doi/"
+
+#: .\DjangoAdmin\urls.py:99
+msgid "reticulocyte-index-calculator/"
+msgstr "may-tinh-chỉ-so-hong-cau-luoi/"
+
+#: .\DjangoAdmin\urls.py:100
+msgid "child-turcotte-pugh-score-calculator/"
+msgstr "may-tinh-diem-pugh-turcotte-tre-em/"
+
+#: .\DjangoAdmin\urls.py:101
+msgid "medication-dosage-calculator/"
+msgstr "may-tinh-lieu-luong-thuoc/"
+
+#: .\DjangoAdmin\urls.py:102
+msgid "ovulation-calculator/"
+msgstr "may-tinh-rung-trung/"
+
+#: .\DjangoAdmin\urls.py:103
+msgid "menstrual-cycle-calculator/"
+msgstr "may-tinh-chu-ky-kinh-nguyet/"
+
+#: .\DjangoAdmin\urls.py:104
+msgid "baby-weight-calculator/"
+msgstr "may-tinh-can-nang-cua-tre-so-sinh/"
+
+#: .\DjangoAdmin\urls.py:105
+msgid "baby-height-calculator/"
+msgstr "may-tinh-chieu-cao-cua-be/"
+
+#: .\DjangoAdmin\urls.py:106
+msgid "face-shape-calculator/"
+msgstr "may-tinh-hinh-dang-khuon-mat/"
+
+#: .\DjangoAdmin\urls.py:107
+msgid "face-shape-calculator-for-men/"
+msgstr "may-tinh-hinh-dang-khuon-mat-cho-nam-gioi/"
+
+#: .\DjangoAdmin\urls.py:108
+msgid "face-shape-calculator-for-women/"
+msgstr "may-tinh-hinh-dang-khuon-mat-cho-phu-nu/"
+
+#: .\DjangoAdmin\urls.py:111
+msgid "diabetes-risk-calculator/"
+msgstr "may-tinh-nguy-co-mac-benh-tieu-duong/"
+
+#: .\DjangoAdmin\urls.py:112
+msgid "blood-sugar-converter/"
+msgstr "may-chuyen-doi-duong-huyet/"
+
+#: .\DjangoAdmin\urls.py:113
+msgid "insulin-dosage-calculator/"
+msgstr "may-tinh-lieu-luong-insulin/"
+
+#: .\DjangoAdmin\urls.py:114
+msgid "estimated-average-glucose-calculator/"
+msgstr "may-tinh-luong-glucose-trung-binh-uoc-tinh/"
+
+#: .\DjangoAdmin\urls.py:115
+msgid "glycemic-index-calculator/"
+msgstr "may-tinh-chỉ-so-duong-huyet/"
+
+#: .\DjangoAdmin\urls.py:116
+msgid "cholesterol-ratio-calculator/"
+msgstr "may-tinh-ty-le-cholesterol/"
+
+#: .\DjangoAdmin\urls.py:117
+msgid "gout-diagnosis-calculator/"
+msgstr "may-tinh-chẩn-doan-benh-gut/"
+
+#: .\DjangoAdmin\urls.py:118
+msgid "sleep-calculator/"
+msgstr "may-tinh-giac-ngu/"
+
+#: .\DjangoAdmin\urls.py:119
+msgid "daily-fat-calculator/"
+msgstr "may-tinh-luong-mỡ-hang-ngay/"
+
+#: .\DjangoAdmin\urls.py:120
+msgid "daily-carbohydrate-calculator/"
+msgstr "may-tinh-carbohydrate-hang-ngay/"
+
+#: .\DjangoAdmin\urls.py:121
+msgid "daily-protein-calculator/"
+msgstr "may-tinh-protein-hang-ngay/"
+
+#: .\DjangoAdmin\urls.py:122
+msgid "preworkout-dosage-calculator/"
+msgstr "may-tinh-lieu-luong-truoc-khi-tap-luyen/"
+
+#: .\DjangoAdmin\urls.py:123
+msgid "creatine-dosage-calculator/"
+msgstr "may-tinh-lieu-luong-creatine/"
+
+#: .\DjangoAdmin\urls.py:124
+msgid "protein-dosage-calculator/"
+msgstr "may-tinh-lieu-luong-protein/"
+
+#: .\DjangoAdmin\urls.py:127
+msgid "body-mass-index-for-kids-calculator/"
+msgstr "may-tinh-chỉ-so-khoi-co-the-cho-tre-em/"
+
+#: .\DjangoAdmin\urls.py:128
+msgid "body-mass-index-for-men-calculator/"
+msgstr "may-tinh-chỉ-so-khoi-co-the-cho-nam-gioi/"
+
+#: .\DjangoAdmin\urls.py:129
+msgid "body-mass-index-for-women-calculator/"
+msgstr "may-tinh-chỉ-so-khoi-co-the-cho-phu-nu/"
+
+#: .\DjangoAdmin\urls.py:159
+msgid "fitness-and-health-calculator/"
+msgstr "may-tinh-suc-khoe-va-the-duc/"
+
+#: .\DjangoAdmin\urls.py:163
+msgid "unit-converts-list"
+msgstr "danh-sach-chuyen-doi-don-vi"
+
+#: .\DjangoAdmin\urls.py:167
+msgid "mathcalculators-list"
+msgstr "danh-sach-may-tinh-toan"
+
+#: .\DjangoAdmin\urls.py:170
+msgid "circular-sector-calculator/"
+msgstr "may-tinh-hinh-quat-tron/"
+
+#: .\DjangoAdmin\urls.py:171
+msgid "circle-calculator/"
+msgstr "may-tinh-vong-tron/"
+
+#: .\DjangoAdmin\urls.py:172
+msgid "circular-segment-calculator/"
+msgstr "may-tinh-phan-doan-tron/"
+
+#: .\DjangoAdmin\urls.py:173
+msgid "cone-calculator/"
+msgstr "may-tinh-hinh-non/"
+
+#: .\DjangoAdmin\urls.py:174
+msgid "cube-calculator/"
+msgstr "may-tinh-khoi-lap-phuong/"
+
+#: .\DjangoAdmin\urls.py:176
+msgid "square-calculator/"
+msgstr "may-tinh-vuong/"
+
+#: .\DjangoAdmin\urls.py:178
+msgid "root-calculator/"
+msgstr "may-tinh-can-bac-hai/"
+
+#: .\DjangoAdmin\urls.py:179
+msgid "square-root-calculator/"
+msgstr "may-tinh-can-bac-hai/"
+
+#: .\DjangoAdmin\urls.py:180
+msgid "cube-root-calculator/"
+msgstr "may-tinh-can-bac-ba/"
+
+#: .\DjangoAdmin\urls.py:182
+msgid "volume-calculator/"
+msgstr "may-tinh-khoi-luong/"
+
+#: .\DjangoAdmin\urls.py:184
+msgid "cube-volume-calculator/"
+msgstr "may-tinh-the-tich-khoi-lap-phuong/"
+
+#: .\DjangoAdmin\urls.py:185
+msgid "cuboid-volume-calculator/"
+msgstr "may-tinh-the-tich-hinh-hop-chu-nhat/"
+
+#: .\DjangoAdmin\urls.py:186
+msgid "sphere-volume-calculator/"
+msgstr "may-tinh-the-tich-hinh-cau/"
+
+#: .\DjangoAdmin\urls.py:187
+msgid "sphere-cap-volume-calculator/"
+msgstr "may-tinh-the-tich-nap-cau/"
+
+#: .\DjangoAdmin\urls.py:188
+msgid "cylinder-volume-calculator/"
+msgstr "may-tinh-the-tich-xi-lanh/"
+
+#: .\DjangoAdmin\urls.py:189
+msgid "cone-volume-calculator/"
+msgstr "may-tinh-the-tich-hinh-non/"
+
+#: .\DjangoAdmin\urls.py:190
+msgid "triangle-pyramid-volume-calculator/"
+msgstr "may-tinh-the-tich-hinh-chop-tam-giac/"
+
+#: .\DjangoAdmin\urls.py:191
+msgid "square-pyramid-volume-calculator/"
+msgstr "may-tinh-the-tich-hinh-chop-vuong/"
+
+#: .\DjangoAdmin\urls.py:192
+msgid "torus-volume-calculator/"
+msgstr "may-tinh-the-tich-hinh-xuyen/"
+
+#: .\DjangoAdmin\urls.py:193
+msgid "frustum-volume-calculator/"
+msgstr "may-tinh-the-tich-hinh-chop-cut/"
+
+#: .\DjangoAdmin\urls.py:194
+msgid "conical-frustum-volume-calculator/"
+msgstr "may-tinh-khoi-luong-that-vong-hinh-non/"
+
+#: .\DjangoAdmin\urls.py:195
+msgid "ellipsoid-volume-calculator/"
+msgstr "may-tinh-the-tich-hinh-elip/"
+
+#: .\DjangoAdmin\urls.py:196
+msgid "tube-volume-calculator/"
+msgstr "may-tinh-the-tich-ong/"
+
+#: .\DjangoAdmin\urls.py:197
+msgid "combination-calculator/"
+msgstr "may-tinh-ket-hop/"
+
+#: .\DjangoAdmin\urls.py:198
+msgid "permutation-calculator/"
+msgstr "may-tinh-hoan-vi/"
+
+#: .\DjangoAdmin\urls.py:199
+msgid "factorial-calculator/"
+msgstr "may-tinh-giai-thua/"
+
+#: .\DjangoAdmin\urls.py:200
+msgid "exponent-calculator/"
+msgstr "may-tinh-so-mũ/"
+
+#: .\DjangoAdmin\urls.py:201
+msgid "modular-arithmetic/"
+msgstr "so-hoc-mo-dun/"
+
+#: .\DjangoAdmin\urls.py:202
+msgid "logarithm-calculator/"
+msgstr "may-tinh-logarit/"
+
+#: .\DjangoAdmin\urls.py:203
+msgid "prime-factorization/"
+msgstr "phan-tich-thua-so-nguyen-to/"
+
+#: .\DjangoAdmin\urls.py:204
+msgid "standard-deviation/"
+msgstr "do-lech-chuẩn/"
+
+#: .\DjangoAdmin\urls.py:205
+msgid "geometric-mean/"
+msgstr "trung-binh-hinh-hoc/"
+
+#: .\DjangoAdmin\urls.py:206
+msgid "arithmetic-mean/"
+msgstr "trung-binh-so-hoc/"
+
+#: .\DjangoAdmin\urls.py:207
+msgid "harmonic-mean/"
+msgstr "trung-binh-dieu-hoa/"
+
+#: .\DjangoAdmin\urls.py:208
+msgid "greatest-common-divisor-least-common-multiple/"
+msgstr "uoc-chung-lon-nhat-boi-chung-nho-nhat/"
+
+#: .\DjangoAdmin\urls.py:211
+msgid "first-degree-equation-solver/"
+msgstr "giai-phuong-trinh-bac-nhat/"
+
+#: .\DjangoAdmin\urls.py:212
+msgid "second-degree-equation-solver/"
+msgstr "giai-phuong-trinh-bac-hai/"
+
+#: .\DjangoAdmin\urls.py:213
+msgid "third-degree-equation-solver/"
+msgstr "giai-phuong-trinh-bac-ba/"
+
+#: .\DjangoAdmin\urls.py:214
+msgid "fibonacci-calculator/"
+msgstr "may-tinh-fibonacci/"
+
+#: .\DjangoAdmin\urls.py:215
+msgid "first-order-inequality-solver/"
+msgstr "giai-bat-phuong-trinh-bac-nhat/"
+
+#: .\DjangoAdmin\urls.py:216
+msgid "second-order-inequality-solver/"
+msgstr "giai-bat-phuong-trinh-bac-hai/"
+
+#: .\DjangoAdmin\urls.py:217
+msgid "third-order-inequality-solver/"
+msgstr "giai-bat-phuong-trinh-bac-ba/"
+
+#: .\DjangoAdmin\urls.py:218
+msgid "fraction-calculator/"
+msgstr "may-tinh-phan-so/"
+
+#: .\DjangoAdmin\urls.py:219
+msgid "fraction-to-percentage/"
+msgstr "phan-so-thanh-phan-tram/"
+
+#: .\DjangoAdmin\urls.py:220
+msgid "percentage-to-fraction/"
+msgstr "phan-tram-sang-phan-so/"
+
+#: .\DjangoAdmin\urls.py:223
+msgid "fraction-simplifier-calculator/"
+msgstr "may-tinh-don-gian-hoa-phan-so/"
+
+#: .\DjangoAdmin\urls.py:224
+msgid "rounding-calculator/"
+msgstr "may-tinh-lam-tron/"
+
+#: .\DjangoAdmin\urls.py:225
+msgid "multiplicative-inverse-calculator/"
+msgstr "may-tinh-nghich-dao-phep-nhan/"
+
+#: .\DjangoAdmin\urls.py:226
+msgid "function-calculator/"
+msgstr "may-tinh-ham/"
+
+#: .\DjangoAdmin\urls.py:227
+msgid "inverse-function-calculator/"
+msgstr "may-tinh-ham-nghich-dao/"
+
+#: .\DjangoAdmin\urls.py:228
+msgid "number-comparison/"
+msgstr "so-sanh-so-luong/"
+
+#: .\DjangoAdmin\urls.py:231
+msgid "derivative-calculator/"
+msgstr "may-tinh-dao-ham/"
+
+#: .\DjangoAdmin\urls.py:232
+msgid "integral-calculator/"
+msgstr "may-tinh-tich-phan/"
+
+#: .\DjangoAdmin\urls.py:233
+msgid "trigonometric-calculator/"
+msgstr "may-tinh-luong-giac/"
+
+#: .\DjangoAdmin\urls.py:235
+msgid "random-generator/"
+msgstr "may-phat-ngẫu-nhien/"
+
+#: .\DjangoAdmin\urls.py:236
+msgid "percentage-increase/"
+msgstr "phan-tram-tang/"
+
+#: .\DjangoAdmin\urls.py:237
+msgid "absolute-value-calculator/"
+msgstr "may-tinh-gia-tri-tuyet-doi/"
+
+#: .\DjangoAdmin\urls.py:240
+msgid "binomial-coefficient-calculator/"
+msgstr "may-tinh-he-so-nhi-thuc/"
+
+#: .\DjangoAdmin\urls.py:241
+msgid "bitewise-calculator/"
+msgstr "may-tinh-bitewise/"
+
+#: .\DjangoAdmin\urls.py:242
+msgid "bit-shift-calculator/"
+msgstr "may-tinh-dich-chuyen-bit/"
+
+#: .\DjangoAdmin\urls.py:243
+msgid "binary-calculator/"
+msgstr "may-tinh-nhi-phan/"
+
+#: .\DjangoAdmin\urls.py:244
+msgid "antilog-calculator/"
+msgstr "may-tinh-phan-logarit/"
+
+#: .\DjangoAdmin\urls.py:245
+msgid "arithmetic-sequence-calculator/"
+msgstr "may-tinh-day-so-hoc/"
+
+#: .\DjangoAdmin\urls.py:248
+msgid "geometric-sequence-calculator/"
+msgstr "may-tinh-trinh-tu-hinh-hoc/"
+
+#: .\DjangoAdmin\urls.py:249
+msgid "harmonic-sequence-calculator/"
+msgstr "may-tinh-trinh-tu-hai-hoa/"
+
+#: .\DjangoAdmin\urls.py:250
+msgid "distance-between-two-points-calculator/"
+msgstr "may-tinh-khoang-cach-giua-hai-diem/"
+
+#: .\DjangoAdmin\urls.py:251
+msgid "slope-calculator/"
+msgstr "may-tinh-do-doc/"
+
+#: .\DjangoAdmin\urls.py:252
+msgid "complex-number-calculator/"
+msgstr "may-tinh-so-phuc/"
+
+#: .\DjangoAdmin\urls.py:253
+msgid "complex-conjugate-number-calculator/"
+msgstr "may-tinh-so-phuc-lien-hop/"
+
+#: .\DjangoAdmin\urls.py:256
+msgid "pythagorean-theorem-calculator/"
+msgstr "may-tinh-dinh-ly-pythagore/"
+
+#: .\DjangoAdmin\urls.py:257
+msgid "cosinus-theorem-calculator/"
+msgstr "may-tinh-dinh-ly-cosin/"
+
+#: .\DjangoAdmin\urls.py:258
+msgid "sine-theorem-calculator/"
+msgstr "may-tinh-dinh-ly-sin/"
+
+#: .\DjangoAdmin\urls.py:259
+msgid "complementary-angle-calculator/"
+msgstr "may-tinh-goc-bu-nhau/"
+
+#: .\DjangoAdmin\urls.py:260
+msgid "supplementary-angle-calculator/"
+msgstr "may-tinh-goc-bo-sung/"
+
+#: .\DjangoAdmin\urls.py:261
+msgid "triangle-inequality-calculator/"
+msgstr "may-tinh-bat-dẳng-thuc-tam-giac/"
+
+#: .\DjangoAdmin\urls.py:262
+msgid "clock-angle-calculator/"
+msgstr "may-tinh-goc-dong-ho/"
+
+#: .\DjangoAdmin\urls.py:265
+msgid "equation-solver"
+msgstr "giai-phuong-trinh"
+
+#: .\DjangoAdmin\urls.py:266
+msgid "inequality-solver/"
+msgstr "giai-bat-dẳng-thuc/"
+
+#: .\DjangoAdmin\urls.py:267
+msgid "30-60-90-triangle-calculator/"
+msgstr "may-tinh-tam-giac-30-60-90/"
+
+#: .\DjangoAdmin\urls.py:268
+msgid "45-45-90-triangle-calculator/"
+msgstr "may-tinh-tam-giac-45-45-90/"
+
+#: .\DjangoAdmin\urls.py:269
+msgid "matrix-calculator/"
+msgstr "may-tinh-ma-tran/"
+
+#: .\DjangoAdmin\urls.py:270
+msgid "matrix-inverse-calculator/"
+msgstr "may-tinh-nghich-dao-ma-tran/"
+
+#: .\DjangoAdmin\urls.py:271
+msgid "determinant-calculator/"
+msgstr "may-tinh-dinh-thuc/"
+
+#: .\DjangoAdmin\urls.py:272
+msgid "matrix-transpose-calculator/"
+msgstr "may-tinh-chuyen-vi-ma-tran/"
+
+#: .\DjangoAdmin\urls.py:298
+msgid "convert-volume/"
+msgstr "chuyen-doi-am-luong/"
+
+#: .\DjangoAdmin\urls.py:299
+msgid "convert-volume/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-am-luong/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:301
+msgid "convert-weight/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-trong-luong/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:302
+msgid "convert-weight/"
+msgstr "chuyen-doi-trong-luong/"
+
+#: .\DjangoAdmin\urls.py:306
+msgid "convert-length/"
+msgstr "chuyen-doi-chieu-dai/"
+
+#: .\DjangoAdmin\urls.py:307
+msgid "convert-length/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-chieu-dai/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:309
+msgid "convert-temperature/"
+msgstr "chuyen-doi-nhiet-do/"
+
+#: .\DjangoAdmin\urls.py:310
+msgid "convert-temperature/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-nhiet-do/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:312
+msgid "convert-area/"
+msgstr "chuyen-doi-dien-tich/"
+
+#: .\DjangoAdmin\urls.py:313
+msgid "convert-area/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-dien-tich/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:315
+msgid "convert-bits-bytes/"
+msgstr "chuyen-doi-bit-byte/"
+
+#: .\DjangoAdmin\urls.py:316
+msgid "convert-bits-bytes/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-bit-byte/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:318
+msgid "convert-angles/"
+msgstr "chuyen-doi-goc/"
+
+#: .\DjangoAdmin\urls.py:319
+msgid "convert-angles/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-goc/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:321
+msgid "convert-time/"
+msgstr "chuyen-doi-thoi-gian/"
+
+#: .\DjangoAdmin\urls.py:322
+msgid "convert-time/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-thoi-gian/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:325
+msgid "convert-number/"
+msgstr "chuyen-doi-so/"
+
+#: .\DjangoAdmin\urls.py:326
+msgid "convert-number/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-so/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:328
+msgid "convert-energy/"
+msgstr "chuyen-doi-nang-luong/"
+
+#: .\DjangoAdmin\urls.py:329
+msgid "convert-energy/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-nang-luong/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:332
+msgid "convert-speed/"
+msgstr "chuyen-doi-toc-do/"
+
+#: .\DjangoAdmin\urls.py:333
+msgid "convert-speed/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-toc-do/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:336
+msgid "convert-power/"
+msgstr "chuyen-doi-nang-luong/"
+
+#: .\DjangoAdmin\urls.py:337
+msgid "convert-power/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-nang-luong/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:341
+msgid "convert-timezones/"
+msgstr "chuyen-doi-mui-gio/"
+
+#: .\DjangoAdmin\urls.py:342
+msgid "convert-timezones/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-mui-gio/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:344
+msgid "convert-force/"
+msgstr "chuyen-doi-luc/"
+
+#: .\DjangoAdmin\urls.py:345
+msgid "convert-force/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-luc/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:347
+msgid "convert-pressure/"
+msgstr "chuyen-doi-ap-suat/"
+
+#: .\DjangoAdmin\urls.py:348
+msgid "convert-pressure/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-ap-suat/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:350
+msgid "convert-torque/"
+msgstr "chuyen-doi-mo-men-xoan/"
+
+#: .\DjangoAdmin\urls.py:351
+msgid "convert-torque/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-mo-men-xoan/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:353
+msgid "convert-radiation-absorbed/"
+msgstr "chuyen-doi-buc-xa-hap-thu/"
+
+#: .\DjangoAdmin\urls.py:354
+msgid "convert-radiation-absorbed/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-buc-xa-hap-thu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:356
+msgid "convert-radiation/"
+msgstr "chuyen-doi-buc-xa/"
+
+#: .\DjangoAdmin\urls.py:357
+msgid "convert-radiation/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-buc-xa/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:359
+msgid "convert-radiation-exposure/"
+msgstr "chuyen-doi-phoi-nhiem-buc-xa/"
+
+#: .\DjangoAdmin\urls.py:360
+msgid "convert-radiation-exposure/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-phoi-nhiem-buc-xa/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:362
+msgid "convert-radiation-activity/"
+msgstr "chuyen-doi-hoat-dong-buc-xa/"
+
+#: .\DjangoAdmin\urls.py:363
+msgid "convert-radiation-activity/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-hoat-dong-buc-xa/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:365
+msgid "convert-electric-charge/"
+msgstr "chuyen-doi-dien-tich/"
+
+#: .\DjangoAdmin\urls.py:366
+msgid "convert-electric-charge/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-dien-tich/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:368
+msgid "convert-molar-concentration/"
+msgstr "chuyen-doi-nong-do-mol/"
+
+#: .\DjangoAdmin\urls.py:369
+msgid "convert-molar-concentration/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-nong-do-mol/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:376
+msgid "convert-solution-concentration/"
+msgstr "chuyen-doi-nong-do-dung-dich/"
+
+#: .\DjangoAdmin\urls.py:377
+msgid "convert-solution-concentration/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-nong-do-dung-dich/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:380
+msgid "convert-dynamic-viscosity/"
+msgstr "chuyen-doi-do-nhot-dong/"
+
+#: .\DjangoAdmin\urls.py:381
+msgid "convert-dynamic-viscosity/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-do-nhot-dong/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:384
+msgid "convert-kinematic-viscosity/"
+msgstr "chuyen-doi-do-nhot-dong-hoc/"
+
+#: .\DjangoAdmin\urls.py:385
+msgid "convert-kinematic-viscosity/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-do-nhot-dong-hoc/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:387
+msgid "convert-surface-tension/"
+msgstr "chuyen-doi-suc-cang-be-mat/"
+
+#: .\DjangoAdmin\urls.py:388
+msgid "convert-surface-tension/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-suc-cang-be-mat/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:390
+msgid "convert-permeability/"
+msgstr "chuyen-doi-do-tham/"
+
+#: .\DjangoAdmin\urls.py:391
+msgid "convert-permeability/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-do-tham/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:394
+msgid "convert-luminance/"
+msgstr "chuyen-doi-do-sang/"
+
+#: .\DjangoAdmin\urls.py:395
+msgid "convert-luminance/<str:unit_from>-to-<str:unit_to>/"
+msgstr "chuyen-doi-do-sang/<str:unit_from>-thanh-<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:397
+msgid "convert-luminous-intensity/"
+msgstr "chuyen-doi-cuong-do-sang/"
+
+#: .\DjangoAdmin\urls.py:398
+msgid "convert-luminous-intensity/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-cuong-do-sang/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:400
+msgid "convert-illumination/"
+msgstr "chuyen-doi-anh-sang/"
+
+#: .\DjangoAdmin\urls.py:401
+msgid "convert-illumination/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-anh-sang/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:404
+msgid "convert-frequency-wavelength/"
+msgstr "chuyen-doi-tan-so-buoc-song/"
+
+#: .\DjangoAdmin\urls.py:405
+msgid "convert-frequency-wavelength/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-tan-so-buoc-song/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:413
+msgid "convert-pixel-density/"
+msgstr "chuyen-doi-mat-do-diem-anh/"
+
+#: .\DjangoAdmin\urls.py:414
+msgid "convert-pixel-density/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-mat-do-diem-anh/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:416
+msgid "convert-image-resolution/"
+msgstr "chuyen-doi-do-phan-giai-hinh-anh/"
+
+#: .\DjangoAdmin\urls.py:417
+msgid "convert-image-resolution/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-do-phan-giai-hinh-anh/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:420
+msgid "cooking-recipe-converter/"
+msgstr "cong-thuc-nau-an-chuyen-doi/"
+
+#: .\DjangoAdmin\urls.py:421
+msgid "cooking-recipe-converter/<str:unit_from>+<str:unit_to>/"
+msgstr "cong-thuc-nau-an-chuyen-doi/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:423
+msgid "electric-current-converter/"
+msgstr "bo-chuyen-doi-dong-dien/"
+
+#: .\DjangoAdmin\urls.py:424
+msgid "electric-current-converter/<str:unit_from>+<str:unit_to>/"
+msgstr "bo-chuyen-doi-dong-dien/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:427
+msgid "convert-density/"
+msgstr "chuyen-doi-mat-do/"
+
+#: .\DjangoAdmin\urls.py:428
+msgid "convert-density/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-mat-do/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:431
+msgid "convert-electric-conductance/"
+msgstr "chuyen-doi-do-dan-dien/"
+
+#: .\DjangoAdmin\urls.py:432
+msgid "convert-electric-conductance/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-do-dan-dien/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:434
+msgid "convert-electrical-conductivity/"
+msgstr "chuyen-doi-do-dan-dien/"
+
+#: .\DjangoAdmin\urls.py:435
+msgid "convert-electrical-conductivity/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-do-dan-dien/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:439
+msgid "convert-electric-field-strength/"
+msgstr "chuyen-doi-cuong-do-dien-truong/"
+
+#: .\DjangoAdmin\urls.py:440
+msgid "convert-electric-field-strength/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-cuong-do-dien-truong/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:443
+msgid "convert-electric-potential/"
+msgstr "chuyen-doi-dien-the/"
+
+#: .\DjangoAdmin\urls.py:444
+msgid "convert-electric-potential/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-dien-the/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:446
+msgid "convert-electrical-resistance/"
+msgstr "chuyen-doi-dien-tro/"
+
+#: .\DjangoAdmin\urls.py:447
+msgid "convert-electrical-resistance/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-dien-tro/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:451
+msgid "convert-electrostatic-capacitance/"
+msgstr "chuyen-doi-dien-dung-tinh-dien/"
+
+#: .\DjangoAdmin\urls.py:452
+msgid "convert-electrostatic-capacitance/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-dien-dung-tinh-dien/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:454
+msgid "convert-volume-flow/"
+msgstr "chuyen-doi-luu-luong-the-tich/"
+
+#: .\DjangoAdmin\urls.py:455
+msgid "convert-volume-flow/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-luu-luong-the-tich/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:457
+msgid "convert-molar-flow/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-luu-luong-mol/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:458
+msgid "convert-molar-flow/"
+msgstr "chuyen-doi-luu-luong-mol/"
+
+#: .\DjangoAdmin\urls.py:460
+msgid "convert-mass-flux-density/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-mat-do-thong-luong-khoi-luong/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:461
+msgid "convert-mass-flux-density/"
+msgstr "chuyen-doi-mat-do-thong-luong-khoi-luong/"
+
+#: .\DjangoAdmin\urls.py:463
+msgid "convert-mass-flow/"
+msgstr "chuyen-doi-luu-luong-khoi-luong/"
+
+#: .\DjangoAdmin\urls.py:464
+msgid "convert-mass-flow/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-luu-luong-khoi-luong/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:467
+msgid "convert-fuel-efficiency-mass/"
+msgstr "chuyen-doi-khoi-luong-hieu-qua-nhien-lieu/"
+
+#: .\DjangoAdmin\urls.py:468
+msgid "convert-fuel-efficiency-mass/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-khoi-luong-hieu-qua-nhien-lieu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:471
+msgid "convert-fuel-efficiency-volume/"
+msgstr "chuyen-doi-khoi-luong-hieu-suat-nhien-lieu/"
+
+#: .\DjangoAdmin\urls.py:472
+msgid "convert-fuel-efficiency-volume/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-khoi-luong-hieu-suat-nhien-lieu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:479
+msgid "convert-temperature-interval/"
+msgstr "chuyen-doi-khoang-nhiet-do/"
+
+#: .\DjangoAdmin\urls.py:480
+msgid "convert-temperature-interval/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-khoang-nhiet-do/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:483
+msgid "convert-thermal-expansion/"
+msgstr "chuyen-doi-su-gian-no-nhiet/"
+
+#: .\DjangoAdmin\urls.py:484
+msgid "convert-thermal-expansion/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-su-gian-no-nhiet/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:486
+msgid "convert-thermal-conductivity/"
+msgstr "chuyen-doi-do-dan-nhiet/"
+
+#: .\DjangoAdmin\urls.py:487
+msgid "convert-thermal-conductivity/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-do-dan-nhiet/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:489
+msgid "convert-thermal-resistance/"
+msgstr "chuyen-doi-dien-tro-nhiet/"
+
+#: .\DjangoAdmin\urls.py:490
+msgid "convert-thermal-resistance/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-dien-tro-nhiet/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:493
+msgid "convert-heat-density/"
+msgstr "chuyen-doi-mat-do-nhiet/"
+
+#: .\DjangoAdmin\urls.py:494
+msgid "convert-heat-density/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-mat-do-nhiet/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:497
+msgid "convert-heat-flux-density/"
+msgstr "chuyen-doi-mat-do-thong-luong-nhiet/"
+
+#: .\DjangoAdmin\urls.py:498
+msgid "convert-heat-flux-density/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-mat-do-thong-luong-nhiet/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:501
+msgid "convert-heat-transfer-coefficient/"
+msgstr "chuyen-doi-he-so-truyen-nhiet/"
+
+#: .\DjangoAdmin\urls.py:502
+msgid "convert-heat-transfer-coefficient/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-he-so-truyen-nhiet/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:505
+msgid "convert-specific-heat-capacity/"
+msgstr "chuyen-doi-nhiet-dung-rieng/"
+
+#: .\DjangoAdmin\urls.py:506
+msgid "convert-specific-heat-capacity/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-nhiet-dung-rieng/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:510
+msgid "convert-linear-charge-density/"
+msgstr "chuyen-doi-mat-do-dien-tich-tuyen-tinh/"
+
+#: .\DjangoAdmin\urls.py:511
+msgid "convert-linear-charge-density/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-mat-do-dien-tich-tuyen-tinh/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:514
+msgid "convert-surface-charge-density/"
+msgstr "chuyen-doi-mat-do-dien-tich-be-mat/"
+
+#: .\DjangoAdmin\urls.py:515
+msgid "convert-surface-charge-density/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-mat-do-dien-tich-be-mat/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:518
+msgid "convert-volume-charge-density/"
+msgstr "chuyen-doi-mat-do-dien-tich-the-tich/"
+
+#: .\DjangoAdmin\urls.py:519
+msgid "convert-volume-charge-density/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-mat-do-dien-tich-the-tich/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:522
+msgid "convert-linear-current-density/"
+msgstr "chuyen-doi-mat-do-dong-dien-tuyen-tinh/"
+
+#: .\DjangoAdmin\urls.py:523
+msgid "convert-linear-current-density/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-mat-do-dong-dien-tuyen-tinh/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:525
+msgid "convert-surface-current-density/"
+msgstr "chuyen-doi-mat-do-dong-dien-be-mat/"
+
+#: .\DjangoAdmin\urls.py:526
+msgid "convert-surface-current-density/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-mat-do-dong-dien-be-mat/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:529
+msgid "convert-inductance/"
+msgstr "chuyen-doi-do-tu-cam/"
+
+#: .\DjangoAdmin\urls.py:530
+msgid "convert-inductance/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-do-tu-cam/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:535
+msgid "convert-magnetomotive-force/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-luc-tu-dong/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:536
+msgid "convert-magnetomotive-force/"
+msgstr "chuyen-doi-luc-tu-dong/"
+
+#: .\DjangoAdmin\urls.py:539
+msgid "convert-magnetic-field-strength/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-cuong-do-tu-truong/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:540
+msgid "convert-magnetic-field-strength/"
+msgstr "chuyen-doi-cuong-do-tu-truong/"
+
+#: .\DjangoAdmin\urls.py:543
+msgid "convert-magnetic-flux/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-tu-thong/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:544
+msgid "convert-magnetic-flux/"
+msgstr "chuyen-doi-tu-thong/"
+
+#: .\DjangoAdmin\urls.py:546
+msgid "convert-magnetic-flux-density/"
+msgstr "chuyen-doi-mat-do-tu-thong/"
+
+#: .\DjangoAdmin\urls.py:547
+msgid "convert-magnetic-flux-density/<str:unit_from>+<str:unit_to>/"
+msgstr "chuyen-doi-mat-do-tu-thong/<str:unit_from>+<str:unit_to>/"
+
+#~ msgid "unit-converts-recommend-list"
+#~ msgstr "danh-sach-de-xuat-chuyen-doi-don-vi"
+
+#~ msgid "convert-timezones/<str:zone_from>-<str:zone_to>/"
+#~ msgstr "chuyen-doi-mui-gio/<str:zone_from>-<str:zone_to>/"

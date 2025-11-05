@@ -1,0 +1,1137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#: .\DjangoAdmin\urls.py:64
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-24 22:46+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\DjangoAdmin\urls.py:59
+msgid "home/"
+msgstr "kotiin/"
+
+#: .\DjangoAdmin\urls.py:66
+msgid "body-mass-index-calculator/"
+msgstr "painoindeksilaskin/"
+
+#: .\DjangoAdmin\urls.py:67
+msgid "basal-metabolic-rate-calculator/"
+msgstr "perusaineenvaihdunnan-laskuri/"
+
+#: .\DjangoAdmin\urls.py:68
+msgid "total-daily-energy-expenditure-calculator/"
+msgstr "kokonaispaivaenergiankulutuslaskuri/"
+
+#: .\DjangoAdmin\urls.py:69
+msgid "ideal-weight-calculator/"
+msgstr "ihannepainolaskin/"
+
+#: .\DjangoAdmin\urls.py:70
+msgid "macro-calculator/"
+msgstr "makrolaskin/"
+
+#: .\DjangoAdmin\urls.py:71
+msgid "body-fat-calculator/"
+msgstr "kehon-rasvalaskin/"
+
+#: .\DjangoAdmin\urls.py:72
+msgid "water-intake/"
+msgstr "vedenotto/"
+
+#: .\DjangoAdmin\urls.py:75
+msgid "lean-body-mass-calculator/"
+msgstr "vaharasvaisen-painon-laskin/"
+
+#: .\DjangoAdmin\urls.py:76
+msgid "waist-hip-ratio-calculator/"
+msgstr "vyotaron-lantiosuhteen-laskin/"
+
+#: .\DjangoAdmin\urls.py:77
+msgid "waist-height-ratio-calculator/"
+msgstr "vyotaron-korkeussuhteen-laskin/"
+
+#: .\DjangoAdmin\urls.py:78
+msgid "fat-free-mass-index-calculator/"
+msgstr "rasvaton-massaindeksilaskin/"
+
+#: .\DjangoAdmin\urls.py:79
+msgid "body-shape-calculator/"
+msgstr "kehon-muotolaskin/"
+
+#: .\DjangoAdmin\urls.py:80
+msgid "target-heart-rate-calculator/"
+msgstr "tavoitesykelaskin/"
+
+#: .\DjangoAdmin\urls.py:81
+msgid "wilks-calculator/"
+msgstr "wilks-laskin/"
+
+#: .\DjangoAdmin\urls.py:82
+msgid "bra-size-calculator/"
+msgstr "rintaliivien-kokolaskin/"
+
+#: .\DjangoAdmin\urls.py:83
+msgid "one-rep-max-calculator/"
+msgstr "yhden-toiston-maksimilaskin/"
+
+#: .\DjangoAdmin\urls.py:84
+msgid "steps-calories-calculator/"
+msgstr "askelten-kalorilaskin/"
+
+#: .\DjangoAdmin\urls.py:85
+msgid "child-height-prediction-calculator/"
+msgstr "lapsen-pituuden-ennustuslaskin/"
+
+#: .\DjangoAdmin\urls.py:86
+msgid "jump-rope-calories-calculator/"
+msgstr "hyppynaru-kalorilaskin/"
+
+#: .\DjangoAdmin\urls.py:87
+msgid "cycling-calories-calculator/"
+msgstr "pyorailykalorilaskin/"
+
+#: .\DjangoAdmin\urls.py:88
+msgid "step-distance-calculator/"
+msgstr "askeletaisyyslaskin/"
+
+#: .\DjangoAdmin\urls.py:89
+msgid "heart-rate-zone-calculator/"
+msgstr "sykealueen-laskin/"
+
+#: .\DjangoAdmin\urls.py:90
+msgid "max-heart-rate-calculator/"
+msgstr "max-sykelaskin/"
+
+#: .\DjangoAdmin\urls.py:91
+msgid "treadmill-calorie-calculator/"
+msgstr "juoksumaton-kalorilaskin/"
+
+#: .\DjangoAdmin\urls.py:92
+msgid "swimming-calorie-calculator/"
+msgstr "uimakalorilaskin/"
+
+#: .\DjangoAdmin\urls.py:93
+msgid "walking-and-run-calorie-calculator/"
+msgstr "kavely-ja-juoksu-kalorilaskin/"
+
+#: .\DjangoAdmin\urls.py:94
+msgid "resting-metabolic-rate-calculator/"
+msgstr "lepoaineenvaihduntanopeuslaskin/"
+
+#: .\DjangoAdmin\urls.py:95
+msgid "weight-gain-calculator/"
+msgstr "painonnousulaskuri/"
+
+#: .\DjangoAdmin\urls.py:96
+msgid "breastfeeding-mother-calorie-calculator/"
+msgstr "imettavan-aidin-kalorilaskin/"
+
+#: .\DjangoAdmin\urls.py:97
+msgid "absolute-neutrophil-count-calculator/"
+msgstr "absoluuttisen-neutrofiilien-maaran-laskin/"
+
+#: .\DjangoAdmin\urls.py:98
+msgid "absolute-lymphocyte-count-calculator/"
+msgstr "absoluuttisen-lymfosyyttimaaran-laskin/"
+
+#: .\DjangoAdmin\urls.py:99
+msgid "reticulocyte-index-calculator/"
+msgstr "retikulosyyttiindeksilaskin/"
+
+#: .\DjangoAdmin\urls.py:100
+msgid "child-turcotte-pugh-score-calculator/"
+msgstr "lapsi-turcotte-pugh-pistelaskin/"
+
+#: .\DjangoAdmin\urls.py:101
+msgid "medication-dosage-calculator/"
+msgstr "laakeannoslaskuri/"
+
+#: .\DjangoAdmin\urls.py:102
+msgid "ovulation-calculator/"
+msgstr "ovulaatiolaskin/"
+
+#: .\DjangoAdmin\urls.py:103
+msgid "menstrual-cycle-calculator/"
+msgstr "kuukautiskiertolaskin/"
+
+#: .\DjangoAdmin\urls.py:104
+msgid "baby-weight-calculator/"
+msgstr "vauvan-painolaskuri/"
+
+#: .\DjangoAdmin\urls.py:105
+msgid "baby-height-calculator/"
+msgstr "vauvan-pituuslaskuri/"
+
+#: .\DjangoAdmin\urls.py:106
+msgid "face-shape-calculator/"
+msgstr "kasvojen-muotolaskin/"
+
+#: .\DjangoAdmin\urls.py:107
+msgid "face-shape-calculator-for-men/"
+msgstr "kasvojen-muotolaskin-miehille/"
+
+#: .\DjangoAdmin\urls.py:108
+msgid "face-shape-calculator-for-women/"
+msgstr "kasvojen-muotolaskin-naisille/"
+
+#: .\DjangoAdmin\urls.py:111
+msgid "diabetes-risk-calculator/"
+msgstr "diabeteksen-riskilaskuri/"
+
+#: .\DjangoAdmin\urls.py:112
+msgid "blood-sugar-converter/"
+msgstr "verensokerin-muunnin/"
+
+#: .\DjangoAdmin\urls.py:113
+msgid "insulin-dosage-calculator/"
+msgstr "insuliinin-annoslaskuri/"
+
+#: .\DjangoAdmin\urls.py:114
+msgid "estimated-average-glucose-calculator/"
+msgstr "arvioitu-keskimaarainen-glukoosilaskin/"
+
+#: .\DjangoAdmin\urls.py:115
+msgid "glycemic-index-calculator/"
+msgstr "glykeemisen-indeksin-laskin/"
+
+#: .\DjangoAdmin\urls.py:116
+msgid "cholesterol-ratio-calculator/"
+msgstr "kolesterolisuhteen-laskin/"
+
+#: .\DjangoAdmin\urls.py:117
+msgid "gout-diagnosis-calculator/"
+msgstr "kihtidiagnoosin-laskin/"
+
+#: .\DjangoAdmin\urls.py:118
+msgid "sleep-calculator/"
+msgstr "unilaskin/"
+
+#: .\DjangoAdmin\urls.py:119
+msgid "daily-fat-calculator/"
+msgstr "paivittainen-rasvalaskin/"
+
+#: .\DjangoAdmin\urls.py:120
+msgid "daily-carbohydrate-calculator/"
+msgstr "paivittainen-hiilihydraattilaskin/"
+
+#: .\DjangoAdmin\urls.py:121
+msgid "daily-protein-calculator/"
+msgstr "paivittainen-proteiinilaskin/"
+
+#: .\DjangoAdmin\urls.py:122
+msgid "preworkout-dosage-calculator/"
+msgstr "harjoitusta-edeltava-annoslaskin/"
+
+#: .\DjangoAdmin\urls.py:123
+msgid "creatine-dosage-calculator/"
+msgstr "kreatiinin-annoslaskuri/"
+
+#: .\DjangoAdmin\urls.py:124
+msgid "protein-dosage-calculator/"
+msgstr "proteiinin-annoslaskuri/"
+
+#: .\DjangoAdmin\urls.py:127
+msgid "body-mass-index-for-kids-calculator/"
+msgstr "lasten-painoindeksilaskin/"
+
+#: .\DjangoAdmin\urls.py:128
+msgid "body-mass-index-for-men-calculator/"
+msgstr "miesten-painoindeksilaskin/"
+
+#: .\DjangoAdmin\urls.py:129
+msgid "body-mass-index-for-women-calculator/"
+msgstr "naisten-painoindeksilaskin/"
+
+#: .\DjangoAdmin\urls.py:159
+msgid "fitness-and-health-calculator/"
+msgstr "kunto--ja-terveyslaskin/"
+
+#: .\DjangoAdmin\urls.py:163
+msgid "unit-converts-list"
+msgstr "yksikko-muuntaa-luettelon"
+
+#: .\DjangoAdmin\urls.py:167
+msgid "mathcalculators-list"
+msgstr "matemaattisten-laskimien-luettelo"
+
+#: .\DjangoAdmin\urls.py:170
+msgid "circular-sector-calculator/"
+msgstr "pyorea-sektorilaskin/"
+
+#: .\DjangoAdmin\urls.py:171
+msgid "circle-calculator/"
+msgstr "ympyralaskin/"
+
+#: .\DjangoAdmin\urls.py:172
+msgid "circular-segment-calculator/"
+msgstr "pyorea-segmentin-laskin/"
+
+#: .\DjangoAdmin\urls.py:173
+msgid "cone-calculator/"
+msgstr "kartio-laskin/"
+
+#: .\DjangoAdmin\urls.py:174
+msgid "cube-calculator/"
+msgstr "kuutiolaskin/"
+
+#: .\DjangoAdmin\urls.py:176
+msgid "square-calculator/"
+msgstr "nelio-laskin/"
+
+#: .\DjangoAdmin\urls.py:178
+msgid "root-calculator/"
+msgstr "juurilaskin/"
+
+#: .\DjangoAdmin\urls.py:179
+msgid "square-root-calculator/"
+msgstr "neliojuuren-laskin/"
+
+#: .\DjangoAdmin\urls.py:180
+msgid "cube-root-calculator/"
+msgstr "kuution-juurilaskin/"
+
+#: .\DjangoAdmin\urls.py:182
+msgid "volume-calculator/"
+msgstr "tilavuuslaskuri/"
+
+#: .\DjangoAdmin\urls.py:184
+msgid "cube-volume-calculator/"
+msgstr "kuution-tilavuuslaskin/"
+
+#: .\DjangoAdmin\urls.py:185
+msgid "cuboid-volume-calculator/"
+msgstr "kuutiomainen-tilavuuslaskin/"
+
+#: .\DjangoAdmin\urls.py:186
+msgid "sphere-volume-calculator/"
+msgstr "pallon-tilavuuslaskin/"
+
+#: .\DjangoAdmin\urls.py:187
+msgid "sphere-cap-volume-calculator/"
+msgstr "sphere-cap-tilavuuslaskin/"
+
+#: .\DjangoAdmin\urls.py:188
+msgid "cylinder-volume-calculator/"
+msgstr "sylinterin-tilavuuslaskin/"
+
+#: .\DjangoAdmin\urls.py:189
+msgid "cone-volume-calculator/"
+msgstr "kartiotilavuuslaskin/"
+
+#: .\DjangoAdmin\urls.py:190
+msgid "triangle-pyramid-volume-calculator/"
+msgstr "kolmiopyramidin-tilavuuslaskin/"
+
+#: .\DjangoAdmin\urls.py:191
+msgid "square-pyramid-volume-calculator/"
+msgstr "nelion-pyramidin-tilavuuslaskin/"
+
+#: .\DjangoAdmin\urls.py:192
+msgid "torus-volume-calculator/"
+msgstr "toruksen-tilavuuslaskin/"
+
+#: .\DjangoAdmin\urls.py:193
+msgid "frustum-volume-calculator/"
+msgstr "frustum-tilavuuslaskin/"
+
+#: .\DjangoAdmin\urls.py:194
+msgid "conical-frustum-volume-calculator/"
+msgstr "kartiomainen-frustum-tilavuuslaskin/"
+
+#: .\DjangoAdmin\urls.py:195
+msgid "ellipsoid-volume-calculator/"
+msgstr "ellipsoidin-tilavuuslaskin/"
+
+#: .\DjangoAdmin\urls.py:196
+msgid "tube-volume-calculator/"
+msgstr "putken-tilavuuden-laskin/"
+
+#: .\DjangoAdmin\urls.py:197
+msgid "combination-calculator/"
+msgstr "yhdistelmalaskin/"
+
+#: .\DjangoAdmin\urls.py:198
+msgid "permutation-calculator/"
+msgstr "permutaatiolaskin/"
+
+#: .\DjangoAdmin\urls.py:199
+msgid "factorial-calculator/"
+msgstr "tekijalaskin/"
+
+#: .\DjangoAdmin\urls.py:200
+msgid "exponent-calculator/"
+msgstr "eksponenttilaskin/"
+
+#: .\DjangoAdmin\urls.py:201
+msgid "modular-arithmetic/"
+msgstr "modulaarinen-aritmetiikka/"
+
+#: .\DjangoAdmin\urls.py:202
+msgid "logarithm-calculator/"
+msgstr "logaritmin-laskin/"
+
+#: .\DjangoAdmin\urls.py:203
+msgid "prime-factorization/"
+msgstr "ensisijainen-kertoimia/"
+
+#: .\DjangoAdmin\urls.py:204
+msgid "standard-deviation/"
+msgstr "keskihajonta/"
+
+#: .\DjangoAdmin\urls.py:205
+msgid "geometric-mean/"
+msgstr "geometrinen-keskiarvo/"
+
+#: .\DjangoAdmin\urls.py:206
+msgid "arithmetic-mean/"
+msgstr "aritmeettinen-keskiarvo/"
+
+#: .\DjangoAdmin\urls.py:207
+msgid "harmonic-mean/"
+msgstr "harmoninen-keskiarvo/"
+
+#: .\DjangoAdmin\urls.py:208
+msgid "greatest-common-divisor-least-common-multiple/"
+msgstr "suurin-yhteinen-jakaja-pienin-yhteinen-kerrannainen/"
+
+#: .\DjangoAdmin\urls.py:211
+msgid "first-degree-equation-solver/"
+msgstr "ensimmaisen-asteen-yhtalon-ratkaisija/"
+
+#: .\DjangoAdmin\urls.py:212
+msgid "second-degree-equation-solver/"
+msgstr "toisen-asteen-yhtalon-ratkaisija/"
+
+#: .\DjangoAdmin\urls.py:213
+msgid "third-degree-equation-solver/"
+msgstr "kolmannen-asteen-yhtalon-ratkaisija/"
+
+#: .\DjangoAdmin\urls.py:214
+msgid "fibonacci-calculator/"
+msgstr "fibonacci-laskin/"
+
+#: .\DjangoAdmin\urls.py:215
+msgid "first-order-inequality-solver/"
+msgstr "ensimmaisen-asteen-epayhtalon-ratkaisija/"
+
+#: .\DjangoAdmin\urls.py:216
+msgid "second-order-inequality-solver/"
+msgstr "toisen-asteen-epayhtalon-ratkaisija/"
+
+#: .\DjangoAdmin\urls.py:217
+msgid "third-order-inequality-solver/"
+msgstr "kolmannen-asteen-epayhtalon-ratkaisija/"
+
+#: .\DjangoAdmin\urls.py:218
+msgid "fraction-calculator/"
+msgstr "murtolukulaskin/"
+
+#: .\DjangoAdmin\urls.py:219
+msgid "fraction-to-percentage/"
+msgstr "murto-osa-prosentiksi/"
+
+#: .\DjangoAdmin\urls.py:220
+msgid "percentage-to-fraction/"
+msgstr "prosenttiosuus-murto-osaan/"
+
+#: .\DjangoAdmin\urls.py:223
+msgid "fraction-simplifier-calculator/"
+msgstr "murto-osien-yksinkertaistuslaskin/"
+
+#: .\DjangoAdmin\urls.py:224
+msgid "rounding-calculator/"
+msgstr "pyoristyslaskin/"
+
+#: .\DjangoAdmin\urls.py:225
+msgid "multiplicative-inverse-calculator/"
+msgstr "kertova-kaanteislaskin/"
+
+#: .\DjangoAdmin\urls.py:226
+msgid "function-calculator/"
+msgstr "funktiolaskin/"
+
+#: .\DjangoAdmin\urls.py:227
+msgid "inverse-function-calculator/"
+msgstr "kaanteisfunktiolaskin/"
+
+#: .\DjangoAdmin\urls.py:228
+msgid "number-comparison/"
+msgstr "numerovertailu/"
+
+#: .\DjangoAdmin\urls.py:231
+msgid "derivative-calculator/"
+msgstr "johdannaislaskin/"
+
+#: .\DjangoAdmin\urls.py:232
+msgid "integral-calculator/"
+msgstr "integroitu-laskin/"
+
+#: .\DjangoAdmin\urls.py:233
+msgid "trigonometric-calculator/"
+msgstr "trigonometrinen-laskin/"
+
+#: .\DjangoAdmin\urls.py:235
+msgid "random-generator/"
+msgstr "satunnaisgeneraattori/"
+
+#: .\DjangoAdmin\urls.py:236
+msgid "percentage-increase/"
+msgstr "prosentuaalinen-lisays/"
+
+#: .\DjangoAdmin\urls.py:237
+msgid "absolute-value-calculator/"
+msgstr "itseisarvolaskin/"
+
+#: .\DjangoAdmin\urls.py:240
+msgid "binomial-coefficient-calculator/"
+msgstr "binomikertoimen-laskin/"
+
+#: .\DjangoAdmin\urls.py:241
+msgid "bitewise-calculator/"
+msgstr "purentainen-laskin/"
+
+#: .\DjangoAdmin\urls.py:242
+msgid "bit-shift-calculator/"
+msgstr "bittisiirtolaskin/"
+
+#: .\DjangoAdmin\urls.py:243
+msgid "binary-calculator/"
+msgstr "binaarilaskin/"
+
+#: .\DjangoAdmin\urls.py:244
+msgid "antilog-calculator/"
+msgstr "antilog-laskin/"
+
+#: .\DjangoAdmin\urls.py:245
+msgid "arithmetic-sequence-calculator/"
+msgstr "aritmeettinen-sekvenssilaskin/"
+
+#: .\DjangoAdmin\urls.py:248
+msgid "geometric-sequence-calculator/"
+msgstr "geometrinen-sekvenssilaskin/"
+
+#: .\DjangoAdmin\urls.py:249
+msgid "harmonic-sequence-calculator/"
+msgstr "harmonisen-sekvenssin-laskin/"
+
+#: .\DjangoAdmin\urls.py:250
+msgid "distance-between-two-points-calculator/"
+msgstr "kahden-pisteen-valinen-etaisyyslaskin/"
+
+#: .\DjangoAdmin\urls.py:251
+msgid "slope-calculator/"
+msgstr "kaltevuuslaskin/"
+
+#: .\DjangoAdmin\urls.py:252
+msgid "complex-number-calculator/"
+msgstr "kompleksilukulaskin/"
+
+#: .\DjangoAdmin\urls.py:253
+msgid "complex-conjugate-number-calculator/"
+msgstr "kompleksikonjugaattilukulaskin/"
+
+#: .\DjangoAdmin\urls.py:256
+msgid "pythagorean-theorem-calculator/"
+msgstr "pythagoraan-lauselaskin/"
+
+#: .\DjangoAdmin\urls.py:257
+msgid "cosinus-theorem-calculator/"
+msgstr "kosinuslauseen-laskin/"
+
+#: .\DjangoAdmin\urls.py:258
+msgid "sine-theorem-calculator/"
+msgstr "sinilauseen-laskin/"
+
+#: .\DjangoAdmin\urls.py:259
+msgid "complementary-angle-calculator/"
+msgstr "taydentava-kulmalaskin/"
+
+#: .\DjangoAdmin\urls.py:260
+msgid "supplementary-angle-calculator/"
+msgstr "lisakulmalaskin/"
+
+#: .\DjangoAdmin\urls.py:261
+msgid "triangle-inequality-calculator/"
+msgstr "kolmion-epayhtalolaskin/"
+
+#: .\DjangoAdmin\urls.py:262
+msgid "clock-angle-calculator/"
+msgstr "kellokulmalaskin/"
+
+#: .\DjangoAdmin\urls.py:265
+msgid "equation-solver"
+msgstr "yhtalon-ratkaisija"
+
+#: .\DjangoAdmin\urls.py:266
+msgid "inequality-solver/"
+msgstr "eriarvoisuuden-ratkaisija/"
+
+#: .\DjangoAdmin\urls.py:267
+msgid "30-60-90-triangle-calculator/"
+msgstr "30-60-90-kolmiolaskin/"
+
+#: .\DjangoAdmin\urls.py:268
+msgid "45-45-90-triangle-calculator/"
+msgstr "45-45-90-kolmiolaskin/"
+
+#: .\DjangoAdmin\urls.py:269
+msgid "matrix-calculator/"
+msgstr "matriisilaskin/"
+
+#: .\DjangoAdmin\urls.py:270
+msgid "matrix-inverse-calculator/"
+msgstr "matriisi-kaanteinen-laskin/"
+
+#: .\DjangoAdmin\urls.py:271
+msgid "determinant-calculator/"
+msgstr "determinanttilaskin/"
+
+#: .\DjangoAdmin\urls.py:272
+msgid "matrix-transpose-calculator/"
+msgstr "matriisitransponointilaskin/"
+
+#: .\DjangoAdmin\urls.py:298
+msgid "convert-volume/"
+msgstr "muuntaa-aanenvoimakkuutta/"
+
+#: .\DjangoAdmin\urls.py:299
+msgid "convert-volume/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-aanenvoimakkuutta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:301
+msgid "convert-weight/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-paino/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:302
+msgid "convert-weight/"
+msgstr "muuntaa-paino/"
+
+#: .\DjangoAdmin\urls.py:306
+msgid "convert-length/"
+msgstr "muuntaa-pituus/"
+
+#: .\DjangoAdmin\urls.py:307
+msgid "convert-length/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-pituus/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:309
+msgid "convert-temperature/"
+msgstr "muuntaa-lampotila/"
+
+#: .\DjangoAdmin\urls.py:310
+msgid "convert-temperature/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-lampotila/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:312
+msgid "convert-area/"
+msgstr "muuntaa-alue/"
+
+#: .\DjangoAdmin\urls.py:313
+msgid "convert-area/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-alue/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:315
+msgid "convert-bits-bytes/"
+msgstr "muuntaa-bittia-tavua/"
+
+#: .\DjangoAdmin\urls.py:316
+msgid "convert-bits-bytes/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-bittia-tavua/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:318
+msgid "convert-angles/"
+msgstr "muuntaa-kulmat/"
+
+#: .\DjangoAdmin\urls.py:319
+msgid "convert-angles/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-kulmat/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:321
+msgid "convert-time/"
+msgstr "muuntaa-aika/"
+
+#: .\DjangoAdmin\urls.py:322
+msgid "convert-time/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-aika/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:325
+msgid "convert-number/"
+msgstr "muuntaa-numero/"
+
+#: .\DjangoAdmin\urls.py:326
+msgid "convert-number/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-numero/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:328
+msgid "convert-energy/"
+msgstr "muuntaa-energiaa/"
+
+#: .\DjangoAdmin\urls.py:329
+msgid "convert-energy/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-energiaa/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:332
+msgid "convert-speed/"
+msgstr "muunnosnopeus/"
+
+#: .\DjangoAdmin\urls.py:333
+msgid "convert-speed/<str:unit_from>+<str:unit_to>/"
+msgstr "muunnosnopeus/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:336
+msgid "convert-power/"
+msgstr "muuntaa-teho/"
+
+#: .\DjangoAdmin\urls.py:337
+msgid "convert-power/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-teho/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:341
+msgid "convert-timezones/"
+msgstr "muuntaa-aikavyohykkeita/"
+
+#: .\DjangoAdmin\urls.py:342
+msgid "convert-timezones/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-aikavyohykkeita/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:344
+msgid "convert-force/"
+msgstr "muuntaa-voima/"
+
+#: .\DjangoAdmin\urls.py:345
+msgid "convert-force/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-voima/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:347
+msgid "convert-pressure/"
+msgstr "muuntaa-paine/"
+
+#: .\DjangoAdmin\urls.py:348
+msgid "convert-pressure/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-paine/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:350
+msgid "convert-torque/"
+msgstr "muunna-vaantomomentti/"
+
+#: .\DjangoAdmin\urls.py:351
+msgid "convert-torque/<str:unit_from>+<str:unit_to>/"
+msgstr "muunna-vaantomomentti/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:353
+msgid "convert-radiation-absorbed/"
+msgstr "muuntaa-absorboitunut-sateily/"
+
+#: .\DjangoAdmin\urls.py:354
+msgid "convert-radiation-absorbed/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-absorboitunut-sateily/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:356
+msgid "convert-radiation/"
+msgstr "muuntaa-sateilya/"
+
+#: .\DjangoAdmin\urls.py:357
+msgid "convert-radiation/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-sateilya/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:359
+msgid "convert-radiation-exposure/"
+msgstr "muuntaa-sateilyaltistusta/"
+
+#: .\DjangoAdmin\urls.py:360
+msgid "convert-radiation-exposure/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-sateilyaltistusta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:362
+msgid "convert-radiation-activity/"
+msgstr "muuntaa-sateilyaktiivisuutta/"
+
+#: .\DjangoAdmin\urls.py:363
+msgid "convert-radiation-activity/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-sateilyaktiivisuutta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:365
+msgid "convert-electric-charge/"
+msgstr "muuntaa-sahkovarauksen/"
+
+#: .\DjangoAdmin\urls.py:366
+msgid "convert-electric-charge/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-sahkovarauksen/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:368
+msgid "convert-molar-concentration/"
+msgstr "muuntaa-molaarinen-pitoisuus/"
+
+#: .\DjangoAdmin\urls.py:369
+msgid "convert-molar-concentration/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-molaarinen-pitoisuus/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:376
+msgid "convert-solution-concentration/"
+msgstr "muuntaa-liuoskonsentraatiota/"
+
+#: .\DjangoAdmin\urls.py:377
+msgid "convert-solution-concentration/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-liuoskonsentraatiota/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:380
+msgid "convert-dynamic-viscosity/"
+msgstr "muuntaa-dynaamista-viskositeettia/"
+
+#: .\DjangoAdmin\urls.py:381
+msgid "convert-dynamic-viscosity/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-dynaamista-viskositeettia/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:384
+msgid "convert-kinematic-viscosity/"
+msgstr "muuntaa-kinemaattista-viskositeettia/"
+
+#: .\DjangoAdmin\urls.py:385
+msgid "convert-kinematic-viscosity/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-kinemaattista-viskositeettia/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:387
+msgid "convert-surface-tension/"
+msgstr "muuntaa-pintajannitysta/"
+
+#: .\DjangoAdmin\urls.py:388
+msgid "convert-surface-tension/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-pintajannitysta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:390
+msgid "convert-permeability/"
+msgstr "muuntaa-lapaisevyytta/"
+
+#: .\DjangoAdmin\urls.py:391
+msgid "convert-permeability/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-lapaisevyytta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:394
+msgid "convert-luminance/"
+msgstr "muuntaa-luminanssi/"
+
+#: .\DjangoAdmin\urls.py:395
+msgid "convert-luminance/<str:unit_from>-to-<str:unit_to>/"
+msgstr "muuntaa-luminanssi/<str:unit_from>-muotoon-<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:397
+msgid "convert-luminous-intensity/"
+msgstr "muuntaa-valovoima/"
+
+#: .\DjangoAdmin\urls.py:398
+msgid "convert-luminous-intensity/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-valovoima/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:400
+msgid "convert-illumination/"
+msgstr "muuntaa-valaistus/"
+
+#: .\DjangoAdmin\urls.py:401
+msgid "convert-illumination/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-valaistus/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:404
+msgid "convert-frequency-wavelength/"
+msgstr "muuntaa-taajuuden-aallonpituus/"
+
+#: .\DjangoAdmin\urls.py:405
+msgid "convert-frequency-wavelength/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-taajuuden-aallonpituus/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:413
+msgid "convert-pixel-density/"
+msgstr "muuntaa-pikselitiheytta/"
+
+#: .\DjangoAdmin\urls.py:414
+msgid "convert-pixel-density/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-pikselitiheytta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:416
+msgid "convert-image-resolution/"
+msgstr "muuntaa-kuvan-resoluutio/"
+
+#: .\DjangoAdmin\urls.py:417
+msgid "convert-image-resolution/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-kuvan-resoluutio/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:420
+msgid "cooking-recipe-converter/"
+msgstr "ruoanlaittoreseptien-muuntaja/"
+
+#: .\DjangoAdmin\urls.py:421
+msgid "cooking-recipe-converter/<str:unit_from>+<str:unit_to>/"
+msgstr "ruoanlaittoreseptien-muuntaja/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:423
+msgid "electric-current-converter/"
+msgstr "sahkovirran-muunnin/"
+
+#: .\DjangoAdmin\urls.py:424
+msgid "electric-current-converter/<str:unit_from>+<str:unit_to>/"
+msgstr "sahkovirran-muunnin/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:427
+msgid "convert-density/"
+msgstr "muunna-tiheys/"
+
+#: .\DjangoAdmin\urls.py:428
+msgid "convert-density/<str:unit_from>+<str:unit_to>/"
+msgstr "muunna-tiheys/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:431
+msgid "convert-electric-conductance/"
+msgstr "muuntaa-sahkonjohtavuutta/"
+
+#: .\DjangoAdmin\urls.py:432
+msgid "convert-electric-conductance/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-sahkonjohtavuutta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:434
+msgid "convert-electrical-conductivity/"
+msgstr "muuntaa-sahkonjohtavuutta/"
+
+#: .\DjangoAdmin\urls.py:435
+msgid "convert-electrical-conductivity/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-sahkonjohtavuutta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:439
+msgid "convert-electric-field-strength/"
+msgstr "muuntaa-sahkokentan-voimakkuutta/"
+
+#: .\DjangoAdmin\urls.py:440
+msgid "convert-electric-field-strength/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-sahkokentan-voimakkuutta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:443
+msgid "convert-electric-potential/"
+msgstr "muuntaa-sahkopotentiaalia/"
+
+#: .\DjangoAdmin\urls.py:444
+msgid "convert-electric-potential/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-sahkopotentiaalia/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:446
+msgid "convert-electrical-resistance/"
+msgstr "muuntaa-sahkovastus/"
+
+#: .\DjangoAdmin\urls.py:447
+msgid "convert-electrical-resistance/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-sahkovastus/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:451
+msgid "convert-electrostatic-capacitance/"
+msgstr "muuntaa-sahkostaattista-kapasitanssia/"
+
+#: .\DjangoAdmin\urls.py:452
+msgid "convert-electrostatic-capacitance/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-sahkostaattista-kapasitanssia/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:454
+msgid "convert-volume-flow/"
+msgstr "muunna-tilavuusvirta/"
+
+#: .\DjangoAdmin\urls.py:455
+msgid "convert-volume-flow/<str:unit_from>+<str:unit_to>/"
+msgstr "muunna-tilavuusvirta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:457
+msgid "convert-molar-flow/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-molaarivirtausta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:458
+msgid "convert-molar-flow/"
+msgstr "muuntaa-molaarivirtausta/"
+
+#: .\DjangoAdmin\urls.py:460
+msgid "convert-mass-flux-density/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-massavuon-tiheys/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:461
+msgid "convert-mass-flux-density/"
+msgstr "muuntaa-massavuon-tiheys/"
+
+#: .\DjangoAdmin\urls.py:463
+msgid "convert-mass-flow/"
+msgstr "muuntaa-massavirtaa/"
+
+#: .\DjangoAdmin\urls.py:464
+msgid "convert-mass-flow/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-massavirtaa/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:467
+msgid "convert-fuel-efficiency-mass/"
+msgstr "muuntaa-polttoainetehokkuuden-massa/"
+
+#: .\DjangoAdmin\urls.py:468
+msgid "convert-fuel-efficiency-mass/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-polttoainetehokkuuden-massa/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:471
+msgid "convert-fuel-efficiency-volume/"
+msgstr "muuntaa-polttoainetehokkuuden-tilavuus/"
+
+#: .\DjangoAdmin\urls.py:472
+msgid "convert-fuel-efficiency-volume/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-polttoainetehokkuuden-tilavuus/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:479
+msgid "convert-temperature-interval/"
+msgstr "muuntaa-lampotilavali/"
+
+#: .\DjangoAdmin\urls.py:480
+msgid "convert-temperature-interval/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-lampotilavali/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:483
+msgid "convert-thermal-expansion/"
+msgstr "muuntaa-lampolaajenemista/"
+
+#: .\DjangoAdmin\urls.py:484
+msgid "convert-thermal-expansion/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-lampolaajenemista/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:486
+msgid "convert-thermal-conductivity/"
+msgstr "muuntaa-lammonjohtavuutta/"
+
+#: .\DjangoAdmin\urls.py:487
+msgid "convert-thermal-conductivity/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-lammonjohtavuutta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:489
+msgid "convert-thermal-resistance/"
+msgstr "muuntaa-lampovastus/"
+
+#: .\DjangoAdmin\urls.py:490
+msgid "convert-thermal-resistance/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-lampovastus/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:493
+msgid "convert-heat-density/"
+msgstr "muuntaa-lammon-tiheys/"
+
+#: .\DjangoAdmin\urls.py:494
+msgid "convert-heat-density/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-lammon-tiheys/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:497
+msgid "convert-heat-flux-density/"
+msgstr "muuntaa-lampovuon-tiheys/"
+
+#: .\DjangoAdmin\urls.py:498
+msgid "convert-heat-flux-density/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-lampovuon-tiheys/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:501
+msgid "convert-heat-transfer-coefficient/"
+msgstr "muuntaa-lammonsiirtokerroin/"
+
+#: .\DjangoAdmin\urls.py:502
+msgid "convert-heat-transfer-coefficient/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-lammonsiirtokerroin/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:505
+msgid "convert-specific-heat-capacity/"
+msgstr "muuntaa-ominaislampokapasiteettia/"
+
+#: .\DjangoAdmin\urls.py:506
+msgid "convert-specific-heat-capacity/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-ominaislampokapasiteettia/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:510
+msgid "convert-linear-charge-density/"
+msgstr "muuntaa-lineaarinen-varaustiheys/"
+
+#: .\DjangoAdmin\urls.py:511
+msgid "convert-linear-charge-density/<str:unit_from>+<str:unit_to>/"
+msgstr "muunna-lineaarinen-varaustiheys/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:514
+msgid "convert-surface-charge-density/"
+msgstr "muuntaa-pintavarauksen-tiheys/"
+
+#: .\DjangoAdmin\urls.py:515
+msgid "convert-surface-charge-density/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-pintavarauksen-tiheys/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:518
+msgid "convert-volume-charge-density/"
+msgstr "muuntaa-tilavuuden-lataustiheys/"
+
+#: .\DjangoAdmin\urls.py:519
+msgid "convert-volume-charge-density/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-tilavuuden-lataustiheys/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:522
+msgid "convert-linear-current-density/"
+msgstr "muunna-lineaarinen-virrantiheys/"
+
+#: .\DjangoAdmin\urls.py:523
+msgid "convert-linear-current-density/<str:unit_from>+<str:unit_to>/"
+msgstr "muunna-lineaarinen-virrantiheys/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:525
+msgid "convert-surface-current-density/"
+msgstr "muuntaa-pintavirran-tiheys/"
+
+#: .\DjangoAdmin\urls.py:526
+msgid "convert-surface-current-density/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-pintavirran-tiheys/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:529
+msgid "convert-inductance/"
+msgstr "muuntaa-induktanssi/"
+
+#: .\DjangoAdmin\urls.py:530
+msgid "convert-inductance/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-induktanssi/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:535
+msgid "convert-magnetomotive-force/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-magnetomotorista-voimaa/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:536
+msgid "convert-magnetomotive-force/"
+msgstr "muuntaa-magnetomotorista-voimaa/"
+
+#: .\DjangoAdmin\urls.py:539
+msgid "convert-magnetic-field-strength/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-magneettikentan-voimakkuutta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:540
+msgid "convert-magnetic-field-strength/"
+msgstr "muuntaa-magneettikentan-voimakkuutta/"
+
+#: .\DjangoAdmin\urls.py:543
+msgid "convert-magnetic-flux/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-magneettivuo/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:544
+msgid "convert-magnetic-flux/"
+msgstr "muuntaa-magneettivuo/"
+
+#: .\DjangoAdmin\urls.py:546
+msgid "convert-magnetic-flux-density/"
+msgstr "muuntaa-magneettivuon-tiheys/"
+
+#: .\DjangoAdmin\urls.py:547
+msgid "convert-magnetic-flux-density/<str:unit_from>+<str:unit_to>/"
+msgstr "muuntaa-magneettivuon-tiheys/<str:unit_from>+<str:unit_to>/"
+
+#~ msgid "unit-converts-recommend-list"
+#~ msgstr "yksikko-muuntaa-suositusluettelon"
+
+#~ msgid "convert-timezones/<str:zone_from>-<str:zone_to>/"
+#~ msgstr "muunna-aikavyohykkeet/<str:zone_from>-<str:zone_to>/"

@@ -1,0 +1,1137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#: .\DjangoAdmin\urls.py:64
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-24 22:47+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);\n"
+
+#: .\DjangoAdmin\urls.py:59
+msgid "home/"
+msgstr "baile/"
+
+#: .\DjangoAdmin\urls.py:66
+msgid "body-mass-index-calculator/"
+msgstr "aireamhan-inneacs-mais-coirp/"
+
+#: .\DjangoAdmin\urls.py:67
+msgid "basal-metabolic-rate-calculator/"
+msgstr "aireamhan-rata-meitibileach-basal/"
+
+#: .\DjangoAdmin\urls.py:68
+msgid "total-daily-energy-expenditure-calculator/"
+msgstr "aireamhan-caiteachais-fuinnimh-laethuil-iomlan/"
+
+#: .\DjangoAdmin\urls.py:69
+msgid "ideal-weight-calculator/"
+msgstr "aireamhan-meachan-idealach/"
+
+#: .\DjangoAdmin\urls.py:70
+msgid "macro-calculator/"
+msgstr "aireamhan-macra/"
+
+#: .\DjangoAdmin\urls.py:71
+msgid "body-fat-calculator/"
+msgstr "aireamhan-saill-comhlacht/"
+
+#: .\DjangoAdmin\urls.py:72
+msgid "water-intake/"
+msgstr "iontogail-uisce/"
+
+#: .\DjangoAdmin\urls.py:75
+msgid "lean-body-mass-calculator/"
+msgstr "aireamhan-mais-choirp-thrua/"
+
+#: .\DjangoAdmin\urls.py:76
+msgid "waist-hip-ratio-calculator/"
+msgstr "aireamhan-coimheas-cromain-waist/"
+
+#: .\DjangoAdmin\urls.py:77
+msgid "waist-height-ratio-calculator/"
+msgstr "aireamhan-coimheas-airde-waist/"
+
+#: .\DjangoAdmin\urls.py:78
+msgid "fat-free-mass-index-calculator/"
+msgstr "aireamhan-mais-inneacs-saor-in-aisce-saill/"
+
+#: .\DjangoAdmin\urls.py:79
+msgid "body-shape-calculator/"
+msgstr "aireamhan-cruth-coirp/"
+
+#: .\DjangoAdmin\urls.py:80
+msgid "target-heart-rate-calculator/"
+msgstr "sprioc-aireamhan-rata-croi/"
+
+#: .\DjangoAdmin\urls.py:81
+msgid "wilks-calculator/"
+msgstr "aireamhan-wilks/"
+
+#: .\DjangoAdmin\urls.py:82
+msgid "bra-size-calculator/"
+msgstr "aireamhan-meid-bra/"
+
+#: .\DjangoAdmin\urls.py:83
+msgid "one-rep-max-calculator/"
+msgstr "aireamhan-amhain-ionadai/"
+
+#: .\DjangoAdmin\urls.py:84
+msgid "steps-calories-calculator/"
+msgstr "ceimeanna-calrai-aireamhan/"
+
+#: .\DjangoAdmin\urls.py:85
+msgid "child-height-prediction-calculator/"
+msgstr "aireamhan-reamh-mheasta-airde-an-linbh/"
+
+#: .\DjangoAdmin\urls.py:86
+msgid "jump-rope-calories-calculator/"
+msgstr "aireamhan-calories-tead-leim/"
+
+#: .\DjangoAdmin\urls.py:87
+msgid "cycling-calories-calculator/"
+msgstr "aireamhan-calrai-rothaiochta/"
+
+#: .\DjangoAdmin\urls.py:88
+msgid "step-distance-calculator/"
+msgstr "aireamhan-achair-cheim"
+
+#: .\DjangoAdmin\urls.py:89
+msgid "heart-rate-zone-calculator/"
+msgstr "aireamhan-crios-rata-croi/"
+
+#: .\DjangoAdmin\urls.py:90
+msgid "max-heart-rate-calculator/"
+msgstr "aireamhan-rata-croi-uasta/"
+
+#: .\DjangoAdmin\urls.py:91
+msgid "treadmill-calorie-calculator/"
+msgstr "aireamhan-calorie-treadmill/"
+
+#: .\DjangoAdmin\urls.py:92
+msgid "swimming-calorie-calculator/"
+msgstr "aireamhan-calorie-snamha-/"
+
+#: .\DjangoAdmin\urls.py:93
+msgid "walking-and-run-calorie-calculator/"
+msgstr "aireamhan-calrai-siul-agus-rith/"
+
+#: .\DjangoAdmin\urls.py:94
+msgid "resting-metabolic-rate-calculator/"
+msgstr "aireamhan-rata-meitibileach-scithe/"
+
+#: .\DjangoAdmin\urls.py:95
+msgid "weight-gain-calculator/"
+msgstr "aireamhan-meachan-a-fhail/"
+
+#: .\DjangoAdmin\urls.py:96
+msgid "breastfeeding-mother-calorie-calculator/"
+msgstr "aireamhan-calorie-mathar-ata-ag-beathu-ciche/"
+
+#: .\DjangoAdmin\urls.py:97
+msgid "absolute-neutrophil-count-calculator/"
+msgstr "aireamhan-comhairimh-neodrofail-iomlan/"
+
+#: .\DjangoAdmin\urls.py:98
+msgid "absolute-lymphocyte-count-calculator/"
+msgstr "aireamhan-comhairimh-iomlan-limficiti/"
+
+#: .\DjangoAdmin\urls.py:99
+msgid "reticulocyte-index-calculator/"
+msgstr "aireamhan-inneacs-reticulocyte/"
+
+#: .\DjangoAdmin\urls.py:100
+msgid "child-turcotte-pugh-score-calculator/"
+msgstr "aireamhan-scor-turcotte-paiste-pugh/"
+
+#: .\DjangoAdmin\urls.py:101
+msgid "medication-dosage-calculator/"
+msgstr "aireamhan-daileog-cogas/"
+
+#: .\DjangoAdmin\urls.py:102
+msgid "ovulation-calculator/"
+msgstr "aireamhan-ovulation/"
+
+#: .\DjangoAdmin\urls.py:103
+msgid "menstrual-cycle-calculator/"
+msgstr "aireamhan-timthriall-miosta/"
+
+#: .\DjangoAdmin\urls.py:104
+msgid "baby-weight-calculator/"
+msgstr "aireamhan-meachan-babai/"
+
+#: .\DjangoAdmin\urls.py:105
+msgid "baby-height-calculator/"
+msgstr "aireamhan-airde-babai/"
+
+#: .\DjangoAdmin\urls.py:106
+msgid "face-shape-calculator/"
+msgstr "aireamhan-cruth-aghaidh/"
+
+#: .\DjangoAdmin\urls.py:107
+msgid "face-shape-calculator-for-men/"
+msgstr "aireamhan-cruth-aghaidh-dfhir/"
+
+#: .\DjangoAdmin\urls.py:108
+msgid "face-shape-calculator-for-women/"
+msgstr "aireamhan-cruth-aghaidh-do-mhna/"
+
+#: .\DjangoAdmin\urls.py:111
+msgid "diabetes-risk-calculator/"
+msgstr "aireamhan-riosca-diaibeiteas/"
+
+#: .\DjangoAdmin\urls.py:112
+msgid "blood-sugar-converter/"
+msgstr "tiontaire-siucra-fola/"
+
+#: .\DjangoAdmin\urls.py:113
+msgid "insulin-dosage-calculator/"
+msgstr "aireamhan-daileog-inslin/"
+
+#: .\DjangoAdmin\urls.py:114
+msgid "estimated-average-glucose-calculator/"
+msgstr "meanaireamhan-glucois-measta/"
+
+#: .\DjangoAdmin\urls.py:115
+msgid "glycemic-index-calculator/"
+msgstr "aireamhan-inneacs-glycemic/"
+
+#: .\DjangoAdmin\urls.py:116
+msgid "cholesterol-ratio-calculator/"
+msgstr "aireamhan-coimheas-colaistearoil/"
+
+#: .\DjangoAdmin\urls.py:117
+msgid "gout-diagnosis-calculator/"
+msgstr "aireamhan-diagnois-gout/"
+
+#: .\DjangoAdmin\urls.py:118
+msgid "sleep-calculator/"
+msgstr "aireamhan-codlata/"
+
+#: .\DjangoAdmin\urls.py:119
+msgid "daily-fat-calculator/"
+msgstr "aireamhan-saill-laethuil/"
+
+#: .\DjangoAdmin\urls.py:120
+msgid "daily-carbohydrate-calculator/"
+msgstr "aireamhan-laethuil-carbaihiodrait/"
+
+#: .\DjangoAdmin\urls.py:121
+msgid "daily-protein-calculator/"
+msgstr "aireamhan-laethuil-proitein/"
+
+#: .\DjangoAdmin\urls.py:122
+msgid "preworkout-dosage-calculator/"
+msgstr "aireamhan-daileog-reamh--workout-/"
+
+#: .\DjangoAdmin\urls.py:123
+msgid "creatine-dosage-calculator/"
+msgstr "aireamhan-daileog-creatine/"
+
+#: .\DjangoAdmin\urls.py:124
+msgid "protein-dosage-calculator/"
+msgstr "aireamhan-daileog-proitein/"
+
+#: .\DjangoAdmin\urls.py:127
+msgid "body-mass-index-for-kids-calculator/"
+msgstr "inneacs-mais-choirp-do-phaisti-aireamhan/"
+
+#: .\DjangoAdmin\urls.py:128
+msgid "body-mass-index-for-men-calculator/"
+msgstr "inneacs-mais-choirp-dfhir-aireamhan/"
+
+#: .\DjangoAdmin\urls.py:129
+msgid "body-mass-index-for-women-calculator/"
+msgstr "inneacs-mais-choirp-do-mhna-aireamhan/"
+
+#: .\DjangoAdmin\urls.py:159
+msgid "fitness-and-health-calculator/"
+msgstr "aireamhan-follaine-agus-slainte/"
+
+#: .\DjangoAdmin\urls.py:163
+msgid "unit-converts-list"
+msgstr "athraionn-aonad-liosta"
+
+#: .\DjangoAdmin\urls.py:167
+msgid "mathcalculators-list"
+msgstr "liosta-aireamhan-matamaitice"
+
+#: .\DjangoAdmin\urls.py:170
+msgid "circular-sector-calculator/"
+msgstr "aireamhan-earnala-ciorclach/"
+
+#: .\DjangoAdmin\urls.py:171
+msgid "circle-calculator/"
+msgstr "aireamhan-ciorcal/"
+
+#: .\DjangoAdmin\urls.py:172
+msgid "circular-segment-calculator/"
+msgstr "aireamhan-deighleog-chiorclach/"
+
+#: .\DjangoAdmin\urls.py:173
+msgid "cone-calculator/"
+msgstr "aireamhan-con/"
+
+#: .\DjangoAdmin\urls.py:174
+msgid "cube-calculator/"
+msgstr "aireamhan-ciub/"
+
+#: .\DjangoAdmin\urls.py:176
+msgid "square-calculator/"
+msgstr "aireamhan-cearnach/"
+
+#: .\DjangoAdmin\urls.py:178
+msgid "root-calculator/"
+msgstr "aireamhan-freimhe/"
+
+#: .\DjangoAdmin\urls.py:179
+msgid "square-root-calculator/"
+msgstr "aireamhan-freimhe-cearnach/"
+
+#: .\DjangoAdmin\urls.py:180
+msgid "cube-root-calculator/"
+msgstr "aireamhan-freimhe-ciub/"
+
+#: .\DjangoAdmin\urls.py:182
+msgid "volume-calculator/"
+msgstr "aireamhan-toirte/"
+
+#: .\DjangoAdmin\urls.py:184
+msgid "cube-volume-calculator/"
+msgstr "aireamhan-toirte-ciub/"
+
+#: .\DjangoAdmin\urls.py:185
+msgid "cuboid-volume-calculator/"
+msgstr "aireamhan-toirte-ciuboideach/"
+
+#: .\DjangoAdmin\urls.py:186
+msgid "sphere-volume-calculator/"
+msgstr "aireamhan-toirte-sfear/"
+
+#: .\DjangoAdmin\urls.py:187
+msgid "sphere-cap-volume-calculator/"
+msgstr "aireamhan-toirte-caipin-sfeir/"
+
+#: .\DjangoAdmin\urls.py:188
+msgid "cylinder-volume-calculator/"
+msgstr "aireamhan-toirte-sorcora/"
+
+#: .\DjangoAdmin\urls.py:189
+msgid "cone-volume-calculator/"
+msgstr "aireamhan-toirte-con/"
+
+#: .\DjangoAdmin\urls.py:190
+msgid "triangle-pyramid-volume-calculator/"
+msgstr "triantan-pirimid-toirte-aireamhan/"
+
+#: .\DjangoAdmin\urls.py:191
+msgid "square-pyramid-volume-calculator/"
+msgstr "aireamhan-toirte-pirimid-cearnach/"
+
+#: .\DjangoAdmin\urls.py:192
+msgid "torus-volume-calculator/"
+msgstr "aireamhan-toirte-torus/"
+
+#: .\DjangoAdmin\urls.py:193
+msgid "frustum-volume-calculator/"
+msgstr "aireamhan-toirte-frustum/"
+
+#: .\DjangoAdmin\urls.py:194
+msgid "conical-frustum-volume-calculator/"
+msgstr "aireamhan-toirte-frustum-conuil/"
+
+#: .\DjangoAdmin\urls.py:195
+msgid "ellipsoid-volume-calculator/"
+msgstr "aireamhan-toirte-eilipsoideach/"
+
+#: .\DjangoAdmin\urls.py:196
+msgid "tube-volume-calculator/"
+msgstr "aireamhan-toirte-feadain/"
+
+#: .\DjangoAdmin\urls.py:197
+msgid "combination-calculator/"
+msgstr "aireamhan-teaglaim/"
+
+#: .\DjangoAdmin\urls.py:198
+msgid "permutation-calculator/"
+msgstr "aireamhan-iomalartaithe/"
+
+#: .\DjangoAdmin\urls.py:199
+msgid "factorial-calculator/"
+msgstr "aireamhan-monarchan/"
+
+#: .\DjangoAdmin\urls.py:200
+msgid "exponent-calculator/"
+msgstr "aireamhan-easponantuil/"
+
+#: .\DjangoAdmin\urls.py:201
+msgid "modular-arithmetic/"
+msgstr "uimhriocht-mhodulach/"
+
+#: .\DjangoAdmin\urls.py:202
+msgid "logarithm-calculator/"
+msgstr "aireamhan-logartamach/"
+
+#: .\DjangoAdmin\urls.py:203
+msgid "prime-factorization/"
+msgstr "fachtoiriu-priomha/"
+
+#: .\DjangoAdmin\urls.py:204
+msgid "standard-deviation/"
+msgstr "diall-caighdeanach/"
+
+#: .\DjangoAdmin\urls.py:205
+msgid "geometric-mean/"
+msgstr "mean-geoimeadrach-/"
+
+#: .\DjangoAdmin\urls.py:206
+msgid "arithmetic-mean/"
+msgstr "mean-uimhriochtuil/"
+
+#: .\DjangoAdmin\urls.py:207
+msgid "harmonic-mean/"
+msgstr "mean-armonach/"
+
+#: .\DjangoAdmin\urls.py:208
+msgid "greatest-common-divisor-least-common-multiple/"
+msgstr "comhroinnteoir-is-lu-coitianta-iolra-/"
+
+#: .\DjangoAdmin\urls.py:211
+msgid "first-degree-equation-solver/"
+msgstr "reiteoir-cothromoide-ceadcheime/"
+
+#: .\DjangoAdmin\urls.py:212
+msgid "second-degree-equation-solver/"
+msgstr "reiteach-cothromoid-dara-ceim/"
+
+#: .\DjangoAdmin\urls.py:213
+msgid "third-degree-equation-solver/"
+msgstr "reiteach-cothromoid-triu-ceim/"
+
+#: .\DjangoAdmin\urls.py:214
+msgid "fibonacci-calculator/"
+msgstr "aireamhan-fibonacci"
+
+#: .\DjangoAdmin\urls.py:215
+msgid "first-order-inequality-solver/"
+msgstr "reiteoir-eagothroime-den-chead-ordu/"
+
+#: .\DjangoAdmin\urls.py:216
+msgid "second-order-inequality-solver/"
+msgstr "reiteoir-eagothroime-dara-hordu/"
+
+#: .\DjangoAdmin\urls.py:217
+msgid "third-order-inequality-solver/"
+msgstr "reiteoir-eagothroime-triu-ordu/"
+
+#: .\DjangoAdmin\urls.py:218
+msgid "fraction-calculator/"
+msgstr "aireamhan-codain/"
+
+#: .\DjangoAdmin\urls.py:219
+msgid "fraction-to-percentage/"
+msgstr "codan-go-ceatadan/"
+
+#: .\DjangoAdmin\urls.py:220
+msgid "percentage-to-fraction/"
+msgstr "ceatadan-go-codan/"
+
+#: .\DjangoAdmin\urls.py:223
+msgid "fraction-simplifier-calculator/"
+msgstr "aireamhan-simplithe-codain/"
+
+#: .\DjangoAdmin\urls.py:224
+msgid "rounding-calculator/"
+msgstr "aireamhan-slanaithe/"
+
+#: .\DjangoAdmin\urls.py:225
+msgid "multiplicative-inverse-calculator/"
+msgstr "aireamhan-inbheartach-iolrach/"
+
+#: .\DjangoAdmin\urls.py:226
+msgid "function-calculator/"
+msgstr "aireamhan-feidhmeanna/"
+
+#: .\DjangoAdmin\urls.py:227
+msgid "inverse-function-calculator/"
+msgstr "aireamhan-feidhm-inbheartach/"
+
+#: .\DjangoAdmin\urls.py:228
+msgid "number-comparison/"
+msgstr "comparaid-uimhreacha/"
+
+#: .\DjangoAdmin\urls.py:231
+msgid "derivative-calculator/"
+msgstr "aireamhan-diorthach/"
+
+#: .\DjangoAdmin\urls.py:232
+msgid "integral-calculator/"
+msgstr "aireamhan-slanuimhir/"
+
+#: .\DjangoAdmin\urls.py:233
+msgid "trigonometric-calculator/"
+msgstr "aireamhan-triantanach-/"
+
+#: .\DjangoAdmin\urls.py:235
+msgid "random-generator/"
+msgstr "gineadoir-randamach/"
+
+#: .\DjangoAdmin\urls.py:236
+msgid "percentage-increase/"
+msgstr "meadu-ceatadanach/"
+
+#: .\DjangoAdmin\urls.py:237
+msgid "absolute-value-calculator/"
+msgstr "aireamhan-luach-absaloideach/"
+
+#: .\DjangoAdmin\urls.py:240
+msgid "binomial-coefficient-calculator/"
+msgstr "aireamhan-comheifeacht-dhethearmach/"
+
+#: .\DjangoAdmin\urls.py:241
+msgid "bitewise-calculator/"
+msgstr "aireamhan-biewise/"
+
+#: .\DjangoAdmin\urls.py:242
+msgid "bit-shift-calculator/"
+msgstr "aireamhan-aistrithe-giotan/"
+
+#: .\DjangoAdmin\urls.py:243
+msgid "binary-calculator/"
+msgstr "aireamhan-denartha/"
+
+#: .\DjangoAdmin\urls.py:244
+msgid "antilog-calculator/"
+msgstr "aireamhan-antalog/"
+
+#: .\DjangoAdmin\urls.py:245
+msgid "arithmetic-sequence-calculator/"
+msgstr "seicheamh-uimhriochtuil-aireamhan/"
+
+#: .\DjangoAdmin\urls.py:248
+msgid "geometric-sequence-calculator/"
+msgstr "seicheamh-geoimeadrach-aireamhan/"
+
+#: .\DjangoAdmin\urls.py:249
+msgid "harmonic-sequence-calculator/"
+msgstr "seicheamh-armonach-aireamhan/"
+
+#: .\DjangoAdmin\urls.py:250
+msgid "distance-between-two-points-calculator/"
+msgstr "achar-idir-dha-phointe-aireamhan/"
+
+#: .\DjangoAdmin\urls.py:251
+msgid "slope-calculator/"
+msgstr "aireamhan-fana/"
+
+#: .\DjangoAdmin\urls.py:252
+msgid "complex-number-calculator/"
+msgstr "aireamhan-uimhreacha-casta/"
+
+#: .\DjangoAdmin\urls.py:253
+msgid "complex-conjugate-number-calculator/"
+msgstr "aireamhan-uimhir-chomhchuingeach-casta/"
+
+#: .\DjangoAdmin\urls.py:256
+msgid "pythagorean-theorem-calculator/"
+msgstr "aireamhan-teoirim-pythagorean/"
+
+#: .\DjangoAdmin\urls.py:257
+msgid "cosinus-theorem-calculator/"
+msgstr "aireamhan-teoirim-cosinus/"
+
+#: .\DjangoAdmin\urls.py:258
+msgid "sine-theorem-calculator/"
+msgstr "aireamhan-teoirim-sine/"
+
+#: .\DjangoAdmin\urls.py:259
+msgid "complementary-angle-calculator/"
+msgstr "aireamhan-uillinne-comhlantach/"
+
+#: .\DjangoAdmin\urls.py:260
+msgid "supplementary-angle-calculator/"
+msgstr "aireamhan-uillinne-forliontach/"
+
+#: .\DjangoAdmin\urls.py:261
+msgid "triangle-inequality-calculator/"
+msgstr "aireamhan-eagothroime-triantain/"
+
+#: .\DjangoAdmin\urls.py:262
+msgid "clock-angle-calculator/"
+msgstr "aireamhan-uillinn-an-chloig/"
+
+#: .\DjangoAdmin\urls.py:265
+msgid "equation-solver"
+msgstr "reiteoir-cothromoide"
+
+#: .\DjangoAdmin\urls.py:266
+msgid "inequality-solver/"
+msgstr "reiteoir-eagothroime/"
+
+#: .\DjangoAdmin\urls.py:267
+msgid "30-60-90-triangle-calculator/"
+msgstr "30-60-90-triantan-aireamhan/"
+
+#: .\DjangoAdmin\urls.py:268
+msgid "45-45-90-triangle-calculator/"
+msgstr "45-45-90-triantan-aireamhan/"
+
+#: .\DjangoAdmin\urls.py:269
+msgid "matrix-calculator/"
+msgstr "aireamhan-maitris/"
+
+#: .\DjangoAdmin\urls.py:270
+msgid "matrix-inverse-calculator/"
+msgstr "aireamhan-inbheartach-maitris/"
+
+#: .\DjangoAdmin\urls.py:271
+msgid "determinant-calculator/"
+msgstr "aireamhan-cinntitheach/"
+
+#: .\DjangoAdmin\urls.py:272
+msgid "matrix-transpose-calculator/"
+msgstr "aireamhan-trasui-maitris/"
+
+#: .\DjangoAdmin\urls.py:298
+msgid "convert-volume/"
+msgstr "tiontaigh-toirt/"
+
+#: .\DjangoAdmin\urls.py:299
+msgid "convert-volume/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-toirt/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:301
+msgid "convert-weight/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-meachan/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:302
+msgid "convert-weight/"
+msgstr "tiontaigh-meachan/"
+
+#: .\DjangoAdmin\urls.py:306
+msgid "convert-length/"
+msgstr "tiontaigh-fad/"
+
+#: .\DjangoAdmin\urls.py:307
+msgid "convert-length/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-fad/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:309
+msgid "convert-temperature/"
+msgstr "tiontaigh-teocht/"
+
+#: .\DjangoAdmin\urls.py:310
+msgid "convert-temperature/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-teocht/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:312
+msgid "convert-area/"
+msgstr "tiontaigh-limistear/"
+
+#: .\DjangoAdmin\urls.py:313
+msgid "convert-area/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-limistear/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:315
+msgid "convert-bits-bytes/"
+msgstr "tiontaigh-giotan-beart/"
+
+#: .\DjangoAdmin\urls.py:316
+msgid "convert-bits-bytes/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-giotan-beart/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:318
+msgid "convert-angles/"
+msgstr "uillinneacha-a-thiontu/"
+
+#: .\DjangoAdmin\urls.py:319
+msgid "convert-angles/<str:unit_from>+<str:unit_to>/"
+msgstr "uillinneacha-a-thiontu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:321
+msgid "convert-time/"
+msgstr "tiontaigh-am/"
+
+#: .\DjangoAdmin\urls.py:322
+msgid "convert-time/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-am/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:325
+msgid "convert-number/"
+msgstr "tiontaigh-uimhir/"
+
+#: .\DjangoAdmin\urls.py:326
+msgid "convert-number/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-uimhir/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:328
+msgid "convert-energy/"
+msgstr "tiontaigh-fuinneamh/"
+
+#: .\DjangoAdmin\urls.py:329
+msgid "convert-energy/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-fuinneamh/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:332
+msgid "convert-speed/"
+msgstr "tiontaigh-luas/"
+
+#: .\DjangoAdmin\urls.py:333
+msgid "convert-speed/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-luas/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:336
+msgid "convert-power/"
+msgstr "tiontaigh-cumhacht/"
+
+#: .\DjangoAdmin\urls.py:337
+msgid "convert-power/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-cumhacht/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:341
+msgid "convert-timezones/"
+msgstr "tiontaigh-criosanna-ama/"
+
+#: .\DjangoAdmin\urls.py:342
+msgid "convert-timezones/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-criosanna-ama/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:344
+msgid "convert-force/"
+msgstr "tiontaigh-forsa/"
+
+#: .\DjangoAdmin\urls.py:345
+msgid "convert-force/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-forsa/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:347
+msgid "convert-pressure/"
+msgstr "tiontaigh-bru/"
+
+#: .\DjangoAdmin\urls.py:348
+msgid "convert-pressure/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-bru/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:350
+msgid "convert-torque/"
+msgstr "chasmhoiminte-a-thiontu/"
+
+#: .\DjangoAdmin\urls.py:351
+msgid "convert-torque/<str:unit_from>+<str:unit_to>/"
+msgstr "chasmhoiminte-a-thiontu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:353
+msgid "convert-radiation-absorbed/"
+msgstr "tiontaigh-an-radaiocht-ionsuite/"
+
+#: .\DjangoAdmin\urls.py:354
+msgid "convert-radiation-absorbed/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-an-radaiocht-ionsuite/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:356
+msgid "convert-radiation/"
+msgstr "tiontaigh-radaiocht/"
+
+#: .\DjangoAdmin\urls.py:357
+msgid "convert-radiation/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-radaiocht/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:359
+msgid "convert-radiation-exposure/"
+msgstr "tiontaigh-nochtadh-radaiochta/"
+
+#: .\DjangoAdmin\urls.py:360
+msgid "convert-radiation-exposure/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-nochtadh-radaiochta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:362
+msgid "convert-radiation-activity/"
+msgstr "tiontaigh-gniomhaiocht-radaiochta/"
+
+#: .\DjangoAdmin\urls.py:363
+msgid "convert-radiation-activity/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-gniomhaiocht-radaiochta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:365
+msgid "convert-electric-charge/"
+msgstr "tiontaigh-lucht-leictreach/"
+
+#: .\DjangoAdmin\urls.py:366
+msgid "convert-electric-charge/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-lucht-leictreach/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:368
+msgid "convert-molar-concentration/"
+msgstr "tiontaigh-tiuchan-molar/"
+
+#: .\DjangoAdmin\urls.py:369
+msgid "convert-molar-concentration/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-tiuchan-molar/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:376
+msgid "convert-solution-concentration/"
+msgstr "tiontaigh-tiuchan-tuaslagain/"
+
+#: .\DjangoAdmin\urls.py:377
+msgid "convert-solution-concentration/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-tiuchan-tuaslagain/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:380
+msgid "convert-dynamic-viscosity/"
+msgstr "tiontaigh-slaodacht-dhinimiciuil/"
+
+#: .\DjangoAdmin\urls.py:381
+msgid "convert-dynamic-viscosity/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-slaodacht-dhinimiciuil/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:384
+msgid "convert-kinematic-viscosity/"
+msgstr "tiontaigh-slaodacht-chineimiteach/"
+
+#: .\DjangoAdmin\urls.py:385
+msgid "convert-kinematic-viscosity/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-slaodacht-chineimiteach/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:387
+msgid "convert-surface-tension/"
+msgstr "tiontaigh-teannas-dromchla/"
+
+#: .\DjangoAdmin\urls.py:388
+msgid "convert-surface-tension/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-teannas-dromchla/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:390
+msgid "convert-permeability/"
+msgstr "tiontaigh-trescaoilteacht/"
+
+#: .\DjangoAdmin\urls.py:391
+msgid "convert-permeability/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-trescaoilteacht/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:394
+msgid "convert-luminance/"
+msgstr "tiontaigh-luminance/"
+
+#: .\DjangoAdmin\urls.py:395
+msgid "convert-luminance/<str:unit_from>-to-<str:unit_to>/"
+msgstr "tiontaigh-luminance/<str:unit_from>-go-<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:397
+msgid "convert-luminous-intensity/"
+msgstr "tiontaigh-deine-lonruil/"
+
+#: .\DjangoAdmin\urls.py:398
+msgid "convert-luminous-intensity/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-deine-lonruil/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:400
+msgid "convert-illumination/"
+msgstr "tiontaigh-soilsiu/"
+
+#: .\DjangoAdmin\urls.py:401
+msgid "convert-illumination/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-soilsiu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:404
+msgid "convert-frequency-wavelength/"
+msgstr "tiontaigh-tonnfhad-miniciochta/"
+
+#: .\DjangoAdmin\urls.py:405
+msgid "convert-frequency-wavelength/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-tonnfhad-miniciochta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:413
+msgid "convert-pixel-density/"
+msgstr "tiontaigh-dlus-picteilin/"
+
+#: .\DjangoAdmin\urls.py:414
+msgid "convert-pixel-density/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-dlus-picteilin/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:416
+msgid "convert-image-resolution/"
+msgstr "tiontaigh-taifeach-iomha/"
+
+#: .\DjangoAdmin\urls.py:417
+msgid "convert-image-resolution/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-taifeach-iomha/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:420
+msgid "cooking-recipe-converter/"
+msgstr "tiontaire-oidis-cocaireachta/"
+
+#: .\DjangoAdmin\urls.py:421
+msgid "cooking-recipe-converter/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaire-oidis-cocaireachta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:423
+msgid "electric-current-converter/"
+msgstr "tiontaire-srutha-leictrigh/"
+
+#: .\DjangoAdmin\urls.py:424
+msgid "electric-current-converter/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaire-srutha-leictrigh/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:427
+msgid "convert-density/"
+msgstr "tiontaigh-dlus/"
+
+#: .\DjangoAdmin\urls.py:428
+msgid "convert-density/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-dlus/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:431
+msgid "convert-electric-conductance/"
+msgstr "tiontaigh-seoltacht-leictreach/"
+
+#: .\DjangoAdmin\urls.py:432
+msgid "convert-electric-conductance/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-seoltacht-leictreach/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:434
+msgid "convert-electrical-conductivity/"
+msgstr "seoltacht-leictreach-a-thiontu/"
+
+#: .\DjangoAdmin\urls.py:435
+msgid "convert-electrical-conductivity/<str:unit_from>+<str:unit_to>/"
+msgstr "seoltacht-leictreach-a-thiontu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:439
+msgid "convert-electric-field-strength/"
+msgstr "tiontaigh-neart-reimse-leictrigh/"
+
+#: .\DjangoAdmin\urls.py:440
+msgid "convert-electric-field-strength/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-neart-reimse-leictrigh/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:443
+msgid "convert-electric-potential/"
+msgstr "tiontaigh-poiteinseal-leictreach/"
+
+#: .\DjangoAdmin\urls.py:444
+msgid "convert-electric-potential/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-poiteinseal-leictreach/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:446
+msgid "convert-electrical-resistance/"
+msgstr "tiontaigh-friotaiocht-leictreach/"
+
+#: .\DjangoAdmin\urls.py:447
+msgid "convert-electrical-resistance/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-friotaiocht-leictreach/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:451
+msgid "convert-electrostatic-capacitance/"
+msgstr "tiontaigh-toilleas-leictreastatach/"
+
+#: .\DjangoAdmin\urls.py:452
+msgid "convert-electrostatic-capacitance/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-toilleas-leictreastatach/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:454
+msgid "convert-volume-flow/"
+msgstr "tiontaigh-sreabhadh-toirte/"
+
+#: .\DjangoAdmin\urls.py:455
+msgid "convert-volume-flow/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-sreabhadh-toirte/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:457
+msgid "convert-molar-flow/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-sreabhadh-molar/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:458
+msgid "convert-molar-flow/"
+msgstr "tiontaigh-sreabhadh-molar/"
+
+#: .\DjangoAdmin\urls.py:460
+msgid "convert-mass-flux-density/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-floscdhlus-mais/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:461
+msgid "convert-mass-flux-density/"
+msgstr "tiontaigh-floscdhlus-mais/"
+
+#: .\DjangoAdmin\urls.py:463
+msgid "convert-mass-flow/"
+msgstr "tiontaigh-ollsreabh/"
+
+#: .\DjangoAdmin\urls.py:464
+msgid "convert-mass-flow/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-ollsreabh/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:467
+msgid "convert-fuel-efficiency-mass/"
+msgstr "tiontaigh-mais-eifeachtulachta-breosla/"
+
+#: .\DjangoAdmin\urls.py:468
+msgid "convert-fuel-efficiency-mass/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-mais-eifeachtulachta-breosla/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:471
+msgid "convert-fuel-efficiency-volume/"
+msgstr "tiontaigh-eifeachtulacht-breosla/"
+
+#: .\DjangoAdmin\urls.py:472
+msgid "convert-fuel-efficiency-volume/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-eifeachtulacht-breosla/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:479
+msgid "convert-temperature-interval/"
+msgstr "tiontaigh-eatramh-teochta/"
+
+#: .\DjangoAdmin\urls.py:480
+msgid "convert-temperature-interval/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-eatramh-teochta/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:483
+msgid "convert-thermal-expansion/"
+msgstr "tiontaigh-leathnu-teirmeach/"
+
+#: .\DjangoAdmin\urls.py:484
+msgid "convert-thermal-expansion/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-leathnu-teirmeach/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:486
+msgid "convert-thermal-conductivity/"
+msgstr "tiontaigh-seoltacht-theirmeach/"
+
+#: .\DjangoAdmin\urls.py:487
+msgid "convert-thermal-conductivity/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-seoltacht-theirmeach/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:489
+msgid "convert-thermal-resistance/"
+msgstr "tiontaigh-friotaiocht-teirmeach/"
+
+#: .\DjangoAdmin\urls.py:490
+msgid "convert-thermal-resistance/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-friotaiocht-teirmeach/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:493
+msgid "convert-heat-density/"
+msgstr "tiontaigh-dlus-teasa/"
+
+#: .\DjangoAdmin\urls.py:494
+msgid "convert-heat-density/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-dlus-teasa/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:497
+msgid "convert-heat-flux-density/"
+msgstr "dlus-flosc-teasa-a-thiontu/"
+
+#: .\DjangoAdmin\urls.py:498
+msgid "convert-heat-flux-density/<str:unit_from>+<str:unit_to>/"
+msgstr "dlus-flosc-teasa-a-thiontu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:501
+msgid "convert-heat-transfer-coefficient/"
+msgstr "comheifeacht-aistrithe-teasa-a-thiontu/"
+
+#: .\DjangoAdmin\urls.py:502
+msgid "convert-heat-transfer-coefficient/<str:unit_from>+<str:unit_to>/"
+msgstr "comheifeacht-aistrithe-teasa-a-thiontu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:505
+msgid "convert-specific-heat-capacity/"
+msgstr "toilleadh-teasa-sonrach-a-thiontu/"
+
+#: .\DjangoAdmin\urls.py:506
+msgid "convert-specific-heat-capacity/<str:unit_from>+<str:unit_to>/"
+msgstr "toilleadh-teasa-sonrach-a-thiontu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:510
+msgid "convert-linear-charge-density/"
+msgstr "tiontaigh-dlus-luchta-lineach/"
+
+#: .\DjangoAdmin\urls.py:511
+msgid "convert-linear-charge-density/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-dlus-luchta-lineach/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:514
+msgid "convert-surface-charge-density/"
+msgstr "tiontaigh-dlus-luchtaithe-dromchla/"
+
+#: .\DjangoAdmin\urls.py:515
+msgid "convert-surface-charge-density/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-dlus-luchtaithe-dromchla/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:518
+msgid "convert-volume-charge-density/"
+msgstr "tiontaigh-dlus-luchta-toirte/"
+
+#: .\DjangoAdmin\urls.py:519
+msgid "convert-volume-charge-density/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-dlus-luchta-toirte/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:522
+msgid "convert-linear-current-density/"
+msgstr "tiontaigh-dlus-srutha-lineach/"
+
+#: .\DjangoAdmin\urls.py:523
+msgid "convert-linear-current-density/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-dlus-srutha-lineach/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:525
+msgid "convert-surface-current-density/"
+msgstr "tiontaigh-dlus-srutha-an-dromchla/"
+
+#: .\DjangoAdmin\urls.py:526
+msgid "convert-surface-current-density/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-dlus-srutha-an-dromchla/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:529
+msgid "convert-inductance/"
+msgstr "tiontaigh-ionduchtacht/"
+
+#: .\DjangoAdmin\urls.py:530
+msgid "convert-inductance/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-ionduchtacht/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:535
+msgid "convert-magnetomotive-force/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-forsa-maighneadach/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:536
+msgid "convert-magnetomotive-force/"
+msgstr "tiontaigh-forsa-maighneadach/"
+
+#: .\DjangoAdmin\urls.py:539
+msgid "convert-magnetic-field-strength/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-neart-an-reimse-mhaighneadaigh/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:540
+msgid "convert-magnetic-field-strength/"
+msgstr "tiontaigh-neart-an-reimse-mhaighneadaigh/"
+
+#: .\DjangoAdmin\urls.py:543
+msgid "convert-magnetic-flux/<str:unit_from>+<str:unit_to>/"
+msgstr "tiontaigh-flosc-maighneadach/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:544
+msgid "convert-magnetic-flux/"
+msgstr "tiontaigh-flosc-maighneadach/"
+
+#: .\DjangoAdmin\urls.py:546
+msgid "convert-magnetic-flux-density/"
+msgstr "dlus-flosc-maighneadach-a-thiontu/"
+
+#: .\DjangoAdmin\urls.py:547
+msgid "convert-magnetic-flux-density/<str:unit_from>+<str:unit_to>/"
+msgstr "dlus-flosc-maighneadach-a-thiontu/<str:unit_from>+<str:unit_to>/"
+
+#~ msgid "unit-converts-recommend-list"
+#~ msgstr "athraionn-aonad-liosta-molta"
+
+#~ msgid "convert-timezones/<str:zone_from>-<str:zone_to>/"
+#~ msgstr "tiontaigh-criosanna-ama/<str:zone_from>-<str:zone_to>/"

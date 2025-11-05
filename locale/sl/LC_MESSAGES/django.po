@@ -1,0 +1,1137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#: .\DjangoAdmin\urls.py:64
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-24 22:48+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+
+#: .\DjangoAdmin\urls.py:59
+msgid "home/"
+msgstr "domov/"
+
+#: .\DjangoAdmin\urls.py:66
+msgid "body-mass-index-calculator/"
+msgstr "kalkulator-indeksa-telesne-mase/"
+
+#: .\DjangoAdmin\urls.py:67
+msgid "basal-metabolic-rate-calculator/"
+msgstr "kalkulator-bazalnega-metabolizma/"
+
+#: .\DjangoAdmin\urls.py:68
+msgid "total-daily-energy-expenditure-calculator/"
+msgstr "kalkulator-skupne-dnevne-porabe-energije/"
+
+#: .\DjangoAdmin\urls.py:69
+msgid "ideal-weight-calculator/"
+msgstr "kalkulator-idealne-teze/"
+
+#: .\DjangoAdmin\urls.py:70
+msgid "macro-calculator/"
+msgstr "makro-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:71
+msgid "body-fat-calculator/"
+msgstr "kalkulator-telesne-mascobe/"
+
+#: .\DjangoAdmin\urls.py:72
+msgid "water-intake/"
+msgstr "dovod-vode/"
+
+#: .\DjangoAdmin\urls.py:75
+msgid "lean-body-mass-calculator/"
+msgstr "kalkulator-puste-telesne-mase/"
+
+#: .\DjangoAdmin\urls.py:76
+msgid "waist-hip-ratio-calculator/"
+msgstr "kalkulator-razmerja-med-pasom-in-boki/"
+
+#: .\DjangoAdmin\urls.py:77
+msgid "waist-height-ratio-calculator/"
+msgstr "kalkulator-razmerja-visine-pasu/"
+
+#: .\DjangoAdmin\urls.py:78
+msgid "fat-free-mass-index-calculator/"
+msgstr "kalkulator-indeksa-mase-brez-mascobe/"
+
+#: .\DjangoAdmin\urls.py:79
+msgid "body-shape-calculator/"
+msgstr "kalkulator-oblike-telesa/"
+
+#: .\DjangoAdmin\urls.py:80
+msgid "target-heart-rate-calculator/"
+msgstr "kalkulator-ciljnega-srcnega-utripa/"
+
+#: .\DjangoAdmin\urls.py:81
+msgid "wilks-calculator/"
+msgstr "wilksov-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:82
+msgid "bra-size-calculator/"
+msgstr "kalkulator-velikosti-nedrcka/"
+
+#: .\DjangoAdmin\urls.py:83
+msgid "one-rep-max-calculator/"
+msgstr "kalkulator-najvecjega-stevila-ponovitev/"
+
+#: .\DjangoAdmin\urls.py:84
+msgid "steps-calories-calculator/"
+msgstr "koraki-kalkulator-kalorij/"
+
+#: .\DjangoAdmin\urls.py:85
+msgid "child-height-prediction-calculator/"
+msgstr "kalkulator-za-napovedovanje-visine-otroka/"
+
+#: .\DjangoAdmin\urls.py:86
+msgid "jump-rope-calories-calculator/"
+msgstr "kalkulator-kalorij-za-skakalnico/"
+
+#: .\DjangoAdmin\urls.py:87
+msgid "cycling-calories-calculator/"
+msgstr "kalkulator-kalorij-pri-kolesarjenju/"
+
+#: .\DjangoAdmin\urls.py:88
+msgid "step-distance-calculator/"
+msgstr "kalkulator-razdalje-korakov/"
+
+#: .\DjangoAdmin\urls.py:89
+msgid "heart-rate-zone-calculator/"
+msgstr "kalkulator-obmocja-srcnega-utripa/"
+
+#: .\DjangoAdmin\urls.py:90
+msgid "max-heart-rate-calculator/"
+msgstr "kalkulator-najvisjega-srcnega-utripa/"
+
+#: .\DjangoAdmin\urls.py:91
+msgid "treadmill-calorie-calculator/"
+msgstr "kalkulator-kalorij-na-tekalni-stezi/"
+
+#: .\DjangoAdmin\urls.py:92
+msgid "swimming-calorie-calculator/"
+msgstr "kalkulator-kalorij-pri-plavanju/"
+
+#: .\DjangoAdmin\urls.py:93
+msgid "walking-and-run-calorie-calculator/"
+msgstr "kalkulator-kalorij-pri-hoji-in-teku/"
+
+#: .\DjangoAdmin\urls.py:94
+msgid "resting-metabolic-rate-calculator/"
+msgstr "kalkulator-stopnje-metabolizma-v-mirovanju/"
+
+#: .\DjangoAdmin\urls.py:95
+msgid "weight-gain-calculator/"
+msgstr "kalkulator-povecanja-telesne-teze/"
+
+#: .\DjangoAdmin\urls.py:96
+msgid "breastfeeding-mother-calorie-calculator/"
+msgstr "kalkulator-kalorij-za-dojece-matere/"
+
+#: .\DjangoAdmin\urls.py:97
+msgid "absolute-neutrophil-count-calculator/"
+msgstr "kalkulator-absolutnega-stevila-nevtrofilcev/"
+
+#: .\DjangoAdmin\urls.py:98
+msgid "absolute-lymphocyte-count-calculator/"
+msgstr "kalkulator-absolutnega-stevila-limfocitov/"
+
+#: .\DjangoAdmin\urls.py:99
+msgid "reticulocyte-index-calculator/"
+msgstr "kalkulator-retikulocitnega-indeksa/"
+
+#: .\DjangoAdmin\urls.py:100
+msgid "child-turcotte-pugh-score-calculator/"
+msgstr "otrok-turcotte-pugh-rezultat-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:101
+msgid "medication-dosage-calculator/"
+msgstr "kalkulator-odmerka-zdravil/"
+
+#: .\DjangoAdmin\urls.py:102
+msgid "ovulation-calculator/"
+msgstr "kalkulator-ovulacije/"
+
+#: .\DjangoAdmin\urls.py:103
+msgid "menstrual-cycle-calculator/"
+msgstr "kalkulator-menstrualnega-ciklusa/"
+
+#: .\DjangoAdmin\urls.py:104
+msgid "baby-weight-calculator/"
+msgstr "kalkulator-teze-dojencka/"
+
+#: .\DjangoAdmin\urls.py:105
+msgid "baby-height-calculator/"
+msgstr "kalkulator-visine-dojencka/"
+
+#: .\DjangoAdmin\urls.py:106
+msgid "face-shape-calculator/"
+msgstr "kalkulator-oblike-obraza/"
+
+#: .\DjangoAdmin\urls.py:107
+msgid "face-shape-calculator-for-men/"
+msgstr "kalkulator-oblike-obraza-za-moske/"
+
+#: .\DjangoAdmin\urls.py:108
+msgid "face-shape-calculator-for-women/"
+msgstr "kalkulator-oblike-obraza-za-zenske/"
+
+#: .\DjangoAdmin\urls.py:111
+msgid "diabetes-risk-calculator/"
+msgstr "kalkulator-tveganja-za-sladkorno-bolezen/"
+
+#: .\DjangoAdmin\urls.py:112
+msgid "blood-sugar-converter/"
+msgstr "pretvornik-krvnega-sladkorja/"
+
+#: .\DjangoAdmin\urls.py:113
+msgid "insulin-dosage-calculator/"
+msgstr "kalkulator-odmerka-insulina/"
+
+#: .\DjangoAdmin\urls.py:114
+msgid "estimated-average-glucose-calculator/"
+msgstr "kalkulator-ocenjene-povprecne-glukoze/"
+
+#: .\DjangoAdmin\urls.py:115
+msgid "glycemic-index-calculator/"
+msgstr "kalkulator-glikemicnega-indeksa/"
+
+#: .\DjangoAdmin\urls.py:116
+msgid "cholesterol-ratio-calculator/"
+msgstr "kalkulator-razmerja-holesterola/"
+
+#: .\DjangoAdmin\urls.py:117
+msgid "gout-diagnosis-calculator/"
+msgstr "kalkulator-diagnoze-protina/"
+
+#: .\DjangoAdmin\urls.py:118
+msgid "sleep-calculator/"
+msgstr "kalkulator-spanja/"
+
+#: .\DjangoAdmin\urls.py:119
+msgid "daily-fat-calculator/"
+msgstr "kalkulator-dnevne-mascobe/"
+
+#: .\DjangoAdmin\urls.py:120
+msgid "daily-carbohydrate-calculator/"
+msgstr "dnevni-kalkulator-ogljikovih-hidratov/"
+
+#: .\DjangoAdmin\urls.py:121
+msgid "daily-protein-calculator/"
+msgstr "kalkulator-dnevnih-beljakovin/"
+
+#: .\DjangoAdmin\urls.py:122
+msgid "preworkout-dosage-calculator/"
+msgstr "kalkulator-odmerka-pred-vadbo/"
+
+#: .\DjangoAdmin\urls.py:123
+msgid "creatine-dosage-calculator/"
+msgstr "kalkulator-odmerka-kreatina/"
+
+#: .\DjangoAdmin\urls.py:124
+msgid "protein-dosage-calculator/"
+msgstr "kalkulator-odmerka-beljakovin/"
+
+#: .\DjangoAdmin\urls.py:127
+msgid "body-mass-index-for-kids-calculator/"
+msgstr "kalkulator-indeksa-telesne-mase-za-otroke/"
+
+#: .\DjangoAdmin\urls.py:128
+msgid "body-mass-index-for-men-calculator/"
+msgstr "kalkulator-indeksa-telesne-mase-za-moske/"
+
+#: .\DjangoAdmin\urls.py:129
+msgid "body-mass-index-for-women-calculator/"
+msgstr "kalkulator-indeksa-telesne-mase-za-zenske/"
+
+#: .\DjangoAdmin\urls.py:159
+msgid "fitness-and-health-calculator/"
+msgstr "kalkulator-telesne-pripravljenosti-in-zdravja/"
+
+#: .\DjangoAdmin\urls.py:163
+msgid "unit-converts-list"
+msgstr "seznam-pretvorb-enot"
+
+#: .\DjangoAdmin\urls.py:167
+msgid "mathcalculators-list"
+msgstr "seznam-mathcalculators"
+
+#: .\DjangoAdmin\urls.py:170
+msgid "circular-sector-calculator/"
+msgstr "kalkulator-kroznega-sektorja/"
+
+#: .\DjangoAdmin\urls.py:171
+msgid "circle-calculator/"
+msgstr "krozni-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:172
+msgid "circular-segment-calculator/"
+msgstr "kalkulator-kroznih-segmentov/"
+
+#: .\DjangoAdmin\urls.py:173
+msgid "cone-calculator/"
+msgstr "stozcasti-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:174
+msgid "cube-calculator/"
+msgstr "kalkulator-kocke/"
+
+#: .\DjangoAdmin\urls.py:176
+msgid "square-calculator/"
+msgstr "kvadratni-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:178
+msgid "root-calculator/"
+msgstr "korenski-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:179
+msgid "square-root-calculator/"
+msgstr "kalkulator-kvadratnega-korena/"
+
+#: .\DjangoAdmin\urls.py:180
+msgid "cube-root-calculator/"
+msgstr "kalkulator-kubnega-korena/"
+
+#: .\DjangoAdmin\urls.py:182
+msgid "volume-calculator/"
+msgstr "kalkulator-prostornine/"
+
+#: .\DjangoAdmin\urls.py:184
+msgid "cube-volume-calculator/"
+msgstr "kalkulator-prostornine-kocke/"
+
+#: .\DjangoAdmin\urls.py:185
+msgid "cuboid-volume-calculator/"
+msgstr "kalkulator-prostornine-kvadra/"
+
+#: .\DjangoAdmin\urls.py:186
+msgid "sphere-volume-calculator/"
+msgstr "kalkulator-prostornine-krogle/"
+
+#: .\DjangoAdmin\urls.py:187
+msgid "sphere-cap-volume-calculator/"
+msgstr "kalkulator-prostornine-krogle-/"
+
+#: .\DjangoAdmin\urls.py:188
+msgid "cylinder-volume-calculator/"
+msgstr "kalkulator-prostornine-cilindra/"
+
+#: .\DjangoAdmin\urls.py:189
+msgid "cone-volume-calculator/"
+msgstr "kalkulator-volumna-stozca/"
+
+#: .\DjangoAdmin\urls.py:190
+msgid "triangle-pyramid-volume-calculator/"
+msgstr "kalkulator-prostornine-trikotne-piramide/"
+
+#: .\DjangoAdmin\urls.py:191
+msgid "square-pyramid-volume-calculator/"
+msgstr "kalkulator-prostornine-kvadratne-piramide/"
+
+#: .\DjangoAdmin\urls.py:192
+msgid "torus-volume-calculator/"
+msgstr "kalkulator-prostornine-torusa/"
+
+#: .\DjangoAdmin\urls.py:193
+msgid "frustum-volume-calculator/"
+msgstr "kalkulator-prostornine-frustuma/"
+
+#: .\DjangoAdmin\urls.py:194
+msgid "conical-frustum-volume-calculator/"
+msgstr "kalkulator-prostornine-stozcaste-frustume/"
+
+#: .\DjangoAdmin\urls.py:195
+msgid "ellipsoid-volume-calculator/"
+msgstr "elipsoidni-kalkulator-prostornine/"
+
+#: .\DjangoAdmin\urls.py:196
+msgid "tube-volume-calculator/"
+msgstr "kalkulator-prostornine-cevi/"
+
+#: .\DjangoAdmin\urls.py:197
+msgid "combination-calculator/"
+msgstr "kombinirani-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:198
+msgid "permutation-calculator/"
+msgstr "permutacijski-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:199
+msgid "factorial-calculator/"
+msgstr "faktorski-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:200
+msgid "exponent-calculator/"
+msgstr "eksponentni-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:201
+msgid "modular-arithmetic/"
+msgstr "modularna-aritmetika/"
+
+#: .\DjangoAdmin\urls.py:202
+msgid "logarithm-calculator/"
+msgstr "logaritemski-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:203
+msgid "prime-factorization/"
+msgstr "prafaktorizacija/"
+
+#: .\DjangoAdmin\urls.py:204
+msgid "standard-deviation/"
+msgstr "standardni-odklon/"
+
+#: .\DjangoAdmin\urls.py:205
+msgid "geometric-mean/"
+msgstr "geometricna-sredina/"
+
+#: .\DjangoAdmin\urls.py:206
+msgid "arithmetic-mean/"
+msgstr "aritmeticna-sredina/"
+
+#: .\DjangoAdmin\urls.py:207
+msgid "harmonic-mean/"
+msgstr "harmonicna-sredina/"
+
+#: .\DjangoAdmin\urls.py:208
+msgid "greatest-common-divisor-least-common-multiple/"
+msgstr "najvecji-skupni-delitelj-najmanjsi-skupni-veckratnik/"
+
+#: .\DjangoAdmin\urls.py:211
+msgid "first-degree-equation-solver/"
+msgstr "resevalec-enacb-prve-stopnje/"
+
+#: .\DjangoAdmin\urls.py:212
+msgid "second-degree-equation-solver/"
+msgstr "resevalec-enacb-druge-stopnje/"
+
+#: .\DjangoAdmin\urls.py:213
+msgid "third-degree-equation-solver/"
+msgstr "resevalec-enacb-tretje-stopnje/"
+
+#: .\DjangoAdmin\urls.py:214
+msgid "fibonacci-calculator/"
+msgstr "fibonacci-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:215
+msgid "first-order-inequality-solver/"
+msgstr "resevalec-neenakosti-prvega-reda/"
+
+#: .\DjangoAdmin\urls.py:216
+msgid "second-order-inequality-solver/"
+msgstr "resevalec-neenakosti-drugega-reda/"
+
+#: .\DjangoAdmin\urls.py:217
+msgid "third-order-inequality-solver/"
+msgstr "resevalec-neenakosti-tretjega-reda/"
+
+#: .\DjangoAdmin\urls.py:218
+msgid "fraction-calculator/"
+msgstr "kalkulator-ulomkov/"
+
+#: .\DjangoAdmin\urls.py:219
+msgid "fraction-to-percentage/"
+msgstr "ulomek-v-odstotek/"
+
+#: .\DjangoAdmin\urls.py:220
+msgid "percentage-to-fraction/"
+msgstr "odstotek-v-ulomek/"
+
+#: .\DjangoAdmin\urls.py:223
+msgid "fraction-simplifier-calculator/"
+msgstr "kalkulator-za-poenostavitev-ulomkov/"
+
+#: .\DjangoAdmin\urls.py:224
+msgid "rounding-calculator/"
+msgstr "kalkulator-zaokrozevanja/"
+
+#: .\DjangoAdmin\urls.py:225
+msgid "multiplicative-inverse-calculator/"
+msgstr "multiplikativni-inverzni-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:226
+msgid "function-calculator/"
+msgstr "funkcijski-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:227
+msgid "inverse-function-calculator/"
+msgstr "kalkulator-inverzne-funkcije/"
+
+#: .\DjangoAdmin\urls.py:228
+msgid "number-comparison/"
+msgstr "primerjava-stevilk/"
+
+#: .\DjangoAdmin\urls.py:231
+msgid "derivative-calculator/"
+msgstr "izpeljan-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:232
+msgid "integral-calculator/"
+msgstr "integralni-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:233
+msgid "trigonometric-calculator/"
+msgstr "trigonometricni-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:235
+msgid "random-generator/"
+msgstr "nakljucni-generator/"
+
+#: .\DjangoAdmin\urls.py:236
+msgid "percentage-increase/"
+msgstr "odstotek-povecanja/"
+
+#: .\DjangoAdmin\urls.py:237
+msgid "absolute-value-calculator/"
+msgstr "kalkulator-absolutne-vrednosti/"
+
+#: .\DjangoAdmin\urls.py:240
+msgid "binomial-coefficient-calculator/"
+msgstr "kalkulator-binomskega-koeficienta/"
+
+#: .\DjangoAdmin\urls.py:241
+msgid "bitewise-calculator/"
+msgstr "ugrizni-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:242
+msgid "bit-shift-calculator/"
+msgstr "kalkulator-bitnega-premika/"
+
+#: .\DjangoAdmin\urls.py:243
+msgid "binary-calculator/"
+msgstr "binarni-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:244
+msgid "antilog-calculator/"
+msgstr "antilog-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:245
+msgid "arithmetic-sequence-calculator/"
+msgstr "kalkulator-aritmeticnega-zaporedja/"
+
+#: .\DjangoAdmin\urls.py:248
+msgid "geometric-sequence-calculator/"
+msgstr "kalkulator-geometrijskega-zaporedja/"
+
+#: .\DjangoAdmin\urls.py:249
+msgid "harmonic-sequence-calculator/"
+msgstr "kalkulator-harmonicnega-zaporedja/"
+
+#: .\DjangoAdmin\urls.py:250
+msgid "distance-between-two-points-calculator/"
+msgstr "kalkulator-razdalje-med-dvema-tockama/"
+
+#: .\DjangoAdmin\urls.py:251
+msgid "slope-calculator/"
+msgstr "kalkulator-nagiba/"
+
+#: .\DjangoAdmin\urls.py:252
+msgid "complex-number-calculator/"
+msgstr "kalkulator-kompleksnih-stevil/"
+
+#: .\DjangoAdmin\urls.py:253
+msgid "complex-conjugate-number-calculator/"
+msgstr "kalkulator-kompleksnih-konjugiranih-stevil/"
+
+#: .\DjangoAdmin\urls.py:256
+msgid "pythagorean-theorem-calculator/"
+msgstr "kalkulator-pitagorovega-izreka/"
+
+#: .\DjangoAdmin\urls.py:257
+msgid "cosinus-theorem-calculator/"
+msgstr "kalkulator-kosinusnega-izreka/"
+
+#: .\DjangoAdmin\urls.py:258
+msgid "sine-theorem-calculator/"
+msgstr "kalkulator-sinusnega-izreka/"
+
+#: .\DjangoAdmin\urls.py:259
+msgid "complementary-angle-calculator/"
+msgstr "komplementarni-kotni-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:260
+msgid "supplementary-angle-calculator/"
+msgstr "dodatni-kotni-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:261
+msgid "triangle-inequality-calculator/"
+msgstr "kalkulator-neenakosti-trikotnika/"
+
+#: .\DjangoAdmin\urls.py:262
+msgid "clock-angle-calculator/"
+msgstr "kalkulator-urnega-kota/"
+
+#: .\DjangoAdmin\urls.py:265
+msgid "equation-solver"
+msgstr "resevalec-enacb"
+
+#: .\DjangoAdmin\urls.py:266
+msgid "inequality-solver/"
+msgstr "resevalec-neenakosti/"
+
+#: .\DjangoAdmin\urls.py:267
+msgid "30-60-90-triangle-calculator/"
+msgstr "30-60-90-trikotnik-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:268
+msgid "45-45-90-triangle-calculator/"
+msgstr "45-45-90-trikotnik-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:269
+msgid "matrix-calculator/"
+msgstr "matricni-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:270
+msgid "matrix-inverse-calculator/"
+msgstr "matricni-inverzni-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:271
+msgid "determinant-calculator/"
+msgstr "kalkulator-determinant/"
+
+#: .\DjangoAdmin\urls.py:272
+msgid "matrix-transpose-calculator/"
+msgstr "matricni-transponirani-kalkulator/"
+
+#: .\DjangoAdmin\urls.py:298
+msgid "convert-volume/"
+msgstr "pretvori-glasnost/"
+
+#: .\DjangoAdmin\urls.py:299
+msgid "convert-volume/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-glasnost/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:301
+msgid "convert-weight/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-tezo/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:302
+msgid "convert-weight/"
+msgstr "pretvori-tezo/"
+
+#: .\DjangoAdmin\urls.py:306
+msgid "convert-length/"
+msgstr "pretvori-dolzino/"
+
+#: .\DjangoAdmin\urls.py:307
+msgid "convert-length/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-dolzino/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:309
+msgid "convert-temperature/"
+msgstr "pretvori-temperaturo/"
+
+#: .\DjangoAdmin\urls.py:310
+msgid "convert-temperature/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-temperaturo/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:312
+msgid "convert-area/"
+msgstr "pretvori-obmocje/"
+
+#: .\DjangoAdmin\urls.py:313
+msgid "convert-area/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-obmocje/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:315
+msgid "convert-bits-bytes/"
+msgstr "pretvorba-bitov-v-bajte/"
+
+#: .\DjangoAdmin\urls.py:316
+msgid "convert-bits-bytes/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvorba-bitov-v-bajte/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:318
+msgid "convert-angles/"
+msgstr "pretvori-kote/"
+
+#: .\DjangoAdmin\urls.py:319
+msgid "convert-angles/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-kote/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:321
+msgid "convert-time/"
+msgstr "pretvori-cas/"
+
+#: .\DjangoAdmin\urls.py:322
+msgid "convert-time/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-cas/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:325
+msgid "convert-number/"
+msgstr "pretvori-stevilo/"
+
+#: .\DjangoAdmin\urls.py:326
+msgid "convert-number/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-stevilo/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:328
+msgid "convert-energy/"
+msgstr "pretvarjati-energijo/"
+
+#: .\DjangoAdmin\urls.py:329
+msgid "convert-energy/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvarjati-energijo/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:332
+msgid "convert-speed/"
+msgstr "pretvori-hitrost/"
+
+#: .\DjangoAdmin\urls.py:333
+msgid "convert-speed/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-hitrost/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:336
+msgid "convert-power/"
+msgstr "pretvorba-moci/"
+
+#: .\DjangoAdmin\urls.py:337
+msgid "convert-power/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvorba-moci/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:341
+msgid "convert-timezones/"
+msgstr "pretvori-casovne-pasove/"
+
+#: .\DjangoAdmin\urls.py:342
+msgid "convert-timezones/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-casovne-pasove/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:344
+msgid "convert-force/"
+msgstr "pretvori-silo/"
+
+#: .\DjangoAdmin\urls.py:345
+msgid "convert-force/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-silo/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:347
+msgid "convert-pressure/"
+msgstr "pretvori-pritisk/"
+
+#: .\DjangoAdmin\urls.py:348
+msgid "convert-pressure/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-pritisk/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:350
+msgid "convert-torque/"
+msgstr "pretvorba-navora/"
+
+#: .\DjangoAdmin\urls.py:351
+msgid "convert-torque/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvorba-navora/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:353
+msgid "convert-radiation-absorbed/"
+msgstr "pretvori-absorbirano-sevanje/"
+
+#: .\DjangoAdmin\urls.py:354
+msgid "convert-radiation-absorbed/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-absorbirano-sevanje/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:356
+msgid "convert-radiation/"
+msgstr "pretvori-sevanje/"
+
+#: .\DjangoAdmin\urls.py:357
+msgid "convert-radiation/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-sevanje/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:359
+msgid "convert-radiation-exposure/"
+msgstr "pretvori-izpostavljenost-sevanju/"
+
+#: .\DjangoAdmin\urls.py:360
+msgid "convert-radiation-exposure/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-izpostavljenost-sevanju/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:362
+msgid "convert-radiation-activity/"
+msgstr "pretvori-aktivnost-sevanja/"
+
+#: .\DjangoAdmin\urls.py:363
+msgid "convert-radiation-activity/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-aktivnost-sevanja/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:365
+msgid "convert-electric-charge/"
+msgstr "pretvori-elektricni-naboj/"
+
+#: .\DjangoAdmin\urls.py:366
+msgid "convert-electric-charge/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-elektricni-naboj/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:368
+msgid "convert-molar-concentration/"
+msgstr "pretvori-molsko-koncentracijo/"
+
+#: .\DjangoAdmin\urls.py:369
+msgid "convert-molar-concentration/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-molsko-koncentracijo/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:376
+msgid "convert-solution-concentration/"
+msgstr "pretvori-koncentracijo-raztopine/"
+
+#: .\DjangoAdmin\urls.py:377
+msgid "convert-solution-concentration/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-koncentracijo-raztopine/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:380
+msgid "convert-dynamic-viscosity/"
+msgstr "pretvorba-dinamicne-viskoznosti/"
+
+#: .\DjangoAdmin\urls.py:381
+msgid "convert-dynamic-viscosity/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvorba-dinamicne-viskoznosti/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:384
+msgid "convert-kinematic-viscosity/"
+msgstr "pretvorba-kinematicne-viskoznosti/"
+
+#: .\DjangoAdmin\urls.py:385
+msgid "convert-kinematic-viscosity/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvorba-kinematicne-viskoznosti/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:387
+msgid "convert-surface-tension/"
+msgstr "pretvori-povrsinsko-napetost/"
+
+#: .\DjangoAdmin\urls.py:388
+msgid "convert-surface-tension/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-povrsinsko-napetost/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:390
+msgid "convert-permeability/"
+msgstr "pretvori-prepustnost/"
+
+#: .\DjangoAdmin\urls.py:391
+msgid "convert-permeability/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-prepustnost/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:394
+msgid "convert-luminance/"
+msgstr "pretvori-svetilnost/"
+
+#: .\DjangoAdmin\urls.py:395
+msgid "convert-luminance/<str:unit_from>-to-<str:unit_to>/"
+msgstr "pretvori-svetilnost/<str:unit_from>-v-<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:397
+msgid "convert-luminous-intensity/"
+msgstr "pretvori-svetlobno-jakost/"
+
+#: .\DjangoAdmin\urls.py:398
+msgid "convert-luminous-intensity/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-svetlobno-jakost/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:400
+msgid "convert-illumination/"
+msgstr "pretvori-osvetlitev/"
+
+#: .\DjangoAdmin\urls.py:401
+msgid "convert-illumination/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-osvetlitev/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:404
+msgid "convert-frequency-wavelength/"
+msgstr "pretvori-frekvencno-valovno-dolzino/"
+
+#: .\DjangoAdmin\urls.py:405
+msgid "convert-frequency-wavelength/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-frekvencno-valovno-dolzino/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:413
+msgid "convert-pixel-density/"
+msgstr "pretvori-gostoto-slikovnih-pik/"
+
+#: .\DjangoAdmin\urls.py:414
+msgid "convert-pixel-density/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-gostoto-slikovnih-pik/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:416
+msgid "convert-image-resolution/"
+msgstr "pretvori-locljivost-slike/"
+
+#: .\DjangoAdmin\urls.py:417
+msgid "convert-image-resolution/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-locljivost-slike/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:420
+msgid "cooking-recipe-converter/"
+msgstr "pretvornik-kuharskih-receptov/"
+
+#: .\DjangoAdmin\urls.py:421
+msgid "cooking-recipe-converter/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvornik-kuharskih-receptov/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:423
+msgid "electric-current-converter/"
+msgstr "pretvornik-elektricnega-toka/"
+
+#: .\DjangoAdmin\urls.py:424
+msgid "electric-current-converter/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvornik-elektricnega-toka/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:427
+msgid "convert-density/"
+msgstr "pretvori-gostoto/"
+
+#: .\DjangoAdmin\urls.py:428
+msgid "convert-density/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-gostoto/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:431
+msgid "convert-electric-conductance/"
+msgstr "pretvoriti-elektricno-prevodnost/"
+
+#: .\DjangoAdmin\urls.py:432
+msgid "convert-electric-conductance/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvoriti-elektricno-prevodnost/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:434
+msgid "convert-electrical-conductivity/"
+msgstr "pretvoriti-elektricno-prevodnost/"
+
+#: .\DjangoAdmin\urls.py:435
+msgid "convert-electrical-conductivity/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvoriti-elektricno-prevodnost/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:439
+msgid "convert-electric-field-strength/"
+msgstr "pretvori-elektricno-poljsko-jakost/"
+
+#: .\DjangoAdmin\urls.py:440
+msgid "convert-electric-field-strength/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-elektricno-poljsko-jakost/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:443
+msgid "convert-electric-potential/"
+msgstr "pretvori-elektricni-potencial/"
+
+#: .\DjangoAdmin\urls.py:444
+msgid "convert-electric-potential/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-elektricni-potencial/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:446
+msgid "convert-electrical-resistance/"
+msgstr "pretvori-elektricni-upor/"
+
+#: .\DjangoAdmin\urls.py:447
+msgid "convert-electrical-resistance/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-elektricni-upor/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:451
+msgid "convert-electrostatic-capacitance/"
+msgstr "pretvori-elektrostaticno-kapacitivnost/"
+
+#: .\DjangoAdmin\urls.py:452
+msgid "convert-electrostatic-capacitance/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-elektrostaticno-kapacitivnost/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:454
+msgid "convert-volume-flow/"
+msgstr "pretvori-prostorninski-pretok/"
+
+#: .\DjangoAdmin\urls.py:455
+msgid "convert-volume-flow/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-prostorninski-pretok/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:457
+msgid "convert-molar-flow/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-molarni-pretok/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:458
+msgid "convert-molar-flow/"
+msgstr "pretvori-molarni-pretok/"
+
+#: .\DjangoAdmin\urls.py:460
+msgid "convert-mass-flux-density/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-gostoto-masnega-toka/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:461
+msgid "convert-mass-flux-density/"
+msgstr "pretvori-gostoto-masnega-toka/"
+
+#: .\DjangoAdmin\urls.py:463
+msgid "convert-mass-flow/"
+msgstr "pretvori-masni-pretok/"
+
+#: .\DjangoAdmin\urls.py:464
+msgid "convert-mass-flow/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-masni-pretok/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:467
+msgid "convert-fuel-efficiency-mass/"
+msgstr "pretvorba-mase-izkoristka-goriva/"
+
+#: .\DjangoAdmin\urls.py:468
+msgid "convert-fuel-efficiency-mass/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvorba-mase-izkoristka-goriva/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:471
+msgid "convert-fuel-efficiency-volume/"
+msgstr "pretvori-kolicino-izkoristka-goriva/"
+
+#: .\DjangoAdmin\urls.py:472
+msgid "convert-fuel-efficiency-volume/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-kolicino-izkoristka-goriva/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:479
+msgid "convert-temperature-interval/"
+msgstr "pretvorba-temperaturnega-intervala/"
+
+#: .\DjangoAdmin\urls.py:480
+msgid "convert-temperature-interval/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvorba-temperaturnega-intervala/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:483
+msgid "convert-thermal-expansion/"
+msgstr "pretvori-toplotno-raztezanje/"
+
+#: .\DjangoAdmin\urls.py:484
+msgid "convert-thermal-expansion/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-toplotno-raztezanje/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:486
+msgid "convert-thermal-conductivity/"
+msgstr "pretvori-toplotno-prevodnost/"
+
+#: .\DjangoAdmin\urls.py:487
+msgid "convert-thermal-conductivity/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-toplotno-prevodnost/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:489
+msgid "convert-thermal-resistance/"
+msgstr "pretvori-toplotni-upor/"
+
+#: .\DjangoAdmin\urls.py:490
+msgid "convert-thermal-resistance/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-toplotni-upor/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:493
+msgid "convert-heat-density/"
+msgstr "pretvori-toplotno-gostoto/"
+
+#: .\DjangoAdmin\urls.py:494
+msgid "convert-heat-density/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-toplotno-gostoto/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:497
+msgid "convert-heat-flux-density/"
+msgstr "pretvori-gostoto-toplotnega-toka/"
+
+#: .\DjangoAdmin\urls.py:498
+msgid "convert-heat-flux-density/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-gostoto-toplotnega-toka/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:501
+msgid "convert-heat-transfer-coefficient/"
+msgstr "pretvori-koeficient-toplotnega-prehoda/"
+
+#: .\DjangoAdmin\urls.py:502
+msgid "convert-heat-transfer-coefficient/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-koeficient-toplotnega-prehoda/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:505
+msgid "convert-specific-heat-capacity/"
+msgstr "pretvori-specificno-toplotno-kapaciteto/"
+
+#: .\DjangoAdmin\urls.py:506
+msgid "convert-specific-heat-capacity/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-specificno-toplotno-kapaciteto/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:510
+msgid "convert-linear-charge-density/"
+msgstr "pretvori-linearno-gostoto-naboja/"
+
+#: .\DjangoAdmin\urls.py:511
+msgid "convert-linear-charge-density/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-linearno-gostoto-naboja/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:514
+msgid "convert-surface-charge-density/"
+msgstr "pretvori-povrsinsko-gostoto-naboja/"
+
+#: .\DjangoAdmin\urls.py:515
+msgid "convert-surface-charge-density/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-povrsinsko-gostoto-naboja/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:518
+msgid "convert-volume-charge-density/"
+msgstr "pretvorba-prostornine-gostota-naboja/"
+
+#: .\DjangoAdmin\urls.py:519
+msgid "convert-volume-charge-density/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvorba-prostornine-gostota-naboja/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:522
+msgid "convert-linear-current-density/"
+msgstr "pretvori-linearno-gostoto-toka/"
+
+#: .\DjangoAdmin\urls.py:523
+msgid "convert-linear-current-density/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-linearno-gostoto-toka/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:525
+msgid "convert-surface-current-density/"
+msgstr "pretvori-gostoto-povrsinskega-toka/"
+
+#: .\DjangoAdmin\urls.py:526
+msgid "convert-surface-current-density/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-gostoto-povrsinskega-toka/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:529
+msgid "convert-inductance/"
+msgstr "pretvori-induktivnost/"
+
+#: .\DjangoAdmin\urls.py:530
+msgid "convert-inductance/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-induktivnost/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:535
+msgid "convert-magnetomotive-force/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-magnetomotorno-silo/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:536
+msgid "convert-magnetomotive-force/"
+msgstr "pretvori-magnetomotorno-silo/"
+
+#: .\DjangoAdmin\urls.py:539
+msgid "convert-magnetic-field-strength/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-jakost-magnetnega-polja/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:540
+msgid "convert-magnetic-field-strength/"
+msgstr "pretvori-jakost-magnetnega-polja/"
+
+#: .\DjangoAdmin\urls.py:543
+msgid "convert-magnetic-flux/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvorba-magnetnega-toka/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:544
+msgid "convert-magnetic-flux/"
+msgstr "pretvorba-magnetnega-toka/"
+
+#: .\DjangoAdmin\urls.py:546
+msgid "convert-magnetic-flux-density/"
+msgstr "pretvori-gostoto-magnetnega-pretoka/"
+
+#: .\DjangoAdmin\urls.py:547
+msgid "convert-magnetic-flux-density/<str:unit_from>+<str:unit_to>/"
+msgstr "pretvori-gostoto-magnetnega-pretoka/<str:unit_from>+<str:unit_to>/"
+
+#~ msgid "unit-converts-recommend-list"
+#~ msgstr "enota-pretvori-seznam-priporocil"
+
+#~ msgid "convert-timezones/<str:zone_from>-<str:zone_to>/"
+#~ msgstr "pretvori-casovne-pasove/<str:zone_from>-<str:zone_to>/"

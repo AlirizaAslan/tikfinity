@@ -1,0 +1,1137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#: .\DjangoAdmin\urls.py:64
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-24 22:46+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+#: .\DjangoAdmin\urls.py:59
+msgid "home/"
+msgstr "heimili/"
+
+#: .\DjangoAdmin\urls.py:66
+msgid "body-mass-index-calculator/"
+msgstr "likamsthyngdarstuthull-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:67
+msgid "basal-metabolic-rate-calculator/"
+msgstr "reiknivel-fyrir-grunnefnaskiptahratha/"
+
+#: .\DjangoAdmin\urls.py:68
+msgid "total-daily-energy-expenditure-calculator/"
+msgstr "reiknivel-fyrir-heildarorkunotkun-a-dag/"
+
+#: .\DjangoAdmin\urls.py:69
+msgid "ideal-weight-calculator/"
+msgstr "kjorthyngdarreiknivel/"
+
+#: .\DjangoAdmin\urls.py:70
+msgid "macro-calculator/"
+msgstr "thjothhagsreiknivel/"
+
+#: .\DjangoAdmin\urls.py:71
+msgid "body-fat-calculator/"
+msgstr "likamsfitu-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:72
+msgid "water-intake/"
+msgstr "vatnsinntaka/"
+
+#: .\DjangoAdmin\urls.py:75
+msgid "lean-body-mass-calculator/"
+msgstr "reiknivel-fyrir-halla-likamsthyngd/"
+
+#: .\DjangoAdmin\urls.py:76
+msgid "waist-hip-ratio-calculator/"
+msgstr "mittis-mjathmahlutfall-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:77
+msgid "waist-height-ratio-calculator/"
+msgstr "mittishaetharhlutfall-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:78
+msgid "fat-free-mass-index-calculator/"
+msgstr "reiknivel-fyrir-fitulausan-massastuthul/"
+
+#: .\DjangoAdmin\urls.py:79
+msgid "body-shape-calculator/"
+msgstr "likamsform-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:80
+msgid "target-heart-rate-calculator/"
+msgstr "reiknivel-fyrir-markpuls/"
+
+#: .\DjangoAdmin\urls.py:81
+msgid "wilks-calculator/"
+msgstr "wilks-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:82
+msgid "bra-size-calculator/"
+msgstr "brjostahaldara-staerth-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:83
+msgid "one-rep-max-calculator/"
+msgstr "einn-rep-max-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:84
+msgid "steps-calories-calculator/"
+msgstr "skref-hitaeiningar-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:85
+msgid "child-height-prediction-calculator/"
+msgstr "reiknivel-fyrir-spa-um-barnahaeth/"
+
+#: .\DjangoAdmin\urls.py:86
+msgid "jump-rope-calories-calculator/"
+msgstr "hoppa-reipi-kaloria-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:87
+msgid "cycling-calories-calculator/"
+msgstr "hjolreithar-kaloria-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:88
+msgid "step-distance-calculator/"
+msgstr "skrefa-fjarlaegth-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:89
+msgid "heart-rate-zone-calculator/"
+msgstr "hjartslattartithni-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:90
+msgid "max-heart-rate-calculator/"
+msgstr "hamarkspuls-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:91
+msgid "treadmill-calorie-calculator/"
+msgstr "kaloria-reiknivel-a-hlaupabretti/"
+
+#: .\DjangoAdmin\urls.py:92
+msgid "swimming-calorie-calculator/"
+msgstr "sund-kaloria-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:93
+msgid "walking-and-run-calorie-calculator/"
+msgstr "ganga-og-hlaupa-kaloria-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:94
+msgid "resting-metabolic-rate-calculator/"
+msgstr "reiknivel-fyrir-efnaskiptahratha-i-hvild/"
+
+#: .\DjangoAdmin\urls.py:95
+msgid "weight-gain-calculator/"
+msgstr "thyngdaraukningar-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:96
+msgid "breastfeeding-mother-calorie-calculator/"
+msgstr "kaloria-reiknivel-meth-barn-a-brjosti/"
+
+#: .\DjangoAdmin\urls.py:97
+msgid "absolute-neutrophil-count-calculator/"
+msgstr "reiknivel-fyrir-alger-daufkyrningafjolda/"
+
+#: .\DjangoAdmin\urls.py:98
+msgid "absolute-lymphocyte-count-calculator/"
+msgstr "reiknivel-fyrir-alger-eitilfrumufjolda/"
+
+#: .\DjangoAdmin\urls.py:99
+msgid "reticulocyte-index-calculator/"
+msgstr "reiknivel-fyrir-netfrumnavisitolu/"
+
+#: .\DjangoAdmin\urls.py:100
+msgid "child-turcotte-pugh-score-calculator/"
+msgstr "barn-turcotte-pugh-stig-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:101
+msgid "medication-dosage-calculator/"
+msgstr "lyfjaskammta-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:102
+msgid "ovulation-calculator/"
+msgstr "egglos-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:103
+msgid "menstrual-cycle-calculator/"
+msgstr "tithahrings-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:104
+msgid "baby-weight-calculator/"
+msgstr "barnathyngdarreiknivel/"
+
+#: .\DjangoAdmin\urls.py:105
+msgid "baby-height-calculator/"
+msgstr "barnahaeth-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:106
+msgid "face-shape-calculator/"
+msgstr "andlitsform-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:107
+msgid "face-shape-calculator-for-men/"
+msgstr "andlitsforma-reiknivel-fyrir-karla/"
+
+#: .\DjangoAdmin\urls.py:108
+msgid "face-shape-calculator-for-women/"
+msgstr "andlitsform-reiknivel-fyrir-konur/"
+
+#: .\DjangoAdmin\urls.py:111
+msgid "diabetes-risk-calculator/"
+msgstr "ahaettureiknivel-fyrir-sykursyki/"
+
+#: .\DjangoAdmin\urls.py:112
+msgid "blood-sugar-converter/"
+msgstr "blothsykursbreytir/"
+
+#: .\DjangoAdmin\urls.py:113
+msgid "insulin-dosage-calculator/"
+msgstr "insulin-skammta-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:114
+msgid "estimated-average-glucose-calculator/"
+msgstr "reiknivel-fyrir-aaetlath-methalglukosa/"
+
+#: .\DjangoAdmin\urls.py:115
+msgid "glycemic-index-calculator/"
+msgstr "blothsykursvisitolu-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:116
+msgid "cholesterol-ratio-calculator/"
+msgstr "kolesterol-hlutfall-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:117
+msgid "gout-diagnosis-calculator/"
+msgstr "gigtargreiningarreiknivel/"
+
+#: .\DjangoAdmin\urls.py:118
+msgid "sleep-calculator/"
+msgstr "svefnreiknivel/"
+
+#: .\DjangoAdmin\urls.py:119
+msgid "daily-fat-calculator/"
+msgstr "dagleg-fitu-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:120
+msgid "daily-carbohydrate-calculator/"
+msgstr "daglegur-kolvetnareiknivel/"
+
+#: .\DjangoAdmin\urls.py:121
+msgid "daily-protein-calculator/"
+msgstr "daglega-protein-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:122
+msgid "preworkout-dosage-calculator/"
+msgstr "skammta-reiknivel-fyrir-aefingu/"
+
+#: .\DjangoAdmin\urls.py:123
+msgid "creatine-dosage-calculator/"
+msgstr "kreatin-skammta-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:124
+msgid "protein-dosage-calculator/"
+msgstr "reiknivel-fyrir-proteinskammta/"
+
+#: .\DjangoAdmin\urls.py:127
+msgid "body-mass-index-for-kids-calculator/"
+msgstr "likamsthyngdarstuthull-fyrir-born-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:128
+msgid "body-mass-index-for-men-calculator/"
+msgstr "likamsthyngdarstuthull-fyrir-karla-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:129
+msgid "body-mass-index-for-women-calculator/"
+msgstr "likamsthyngdarstuthull-fyrir-konur-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:159
+msgid "fitness-and-health-calculator/"
+msgstr "likamsraektar--og-heilsureiknivel/"
+
+#: .\DjangoAdmin\urls.py:163
+msgid "unit-converts-list"
+msgstr "einingabreytir-listi"
+
+#: .\DjangoAdmin\urls.py:167
+msgid "mathcalculators-list"
+msgstr "lista-yfir-reiknivelar"
+
+#: .\DjangoAdmin\urls.py:170
+msgid "circular-sector-calculator/"
+msgstr "hringlaga-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:171
+msgid "circle-calculator/"
+msgstr "hringreiknivel/"
+
+#: .\DjangoAdmin\urls.py:172
+msgid "circular-segment-calculator/"
+msgstr "hringlaga-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:173
+msgid "cone-calculator/"
+msgstr "keila-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:174
+msgid "cube-calculator/"
+msgstr "teninga-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:176
+msgid "square-calculator/"
+msgstr "ferningsreiknivel/"
+
+#: .\DjangoAdmin\urls.py:178
+msgid "root-calculator/"
+msgstr "rot-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:179
+msgid "square-root-calculator/"
+msgstr "kvathratrot-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:180
+msgid "cube-root-calculator/"
+msgstr "teningarot-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:182
+msgid "volume-calculator/"
+msgstr "magn-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:184
+msgid "cube-volume-calculator/"
+msgstr "rummal-teninga-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:185
+msgid "cuboid-volume-calculator/"
+msgstr "rummalsreiknivel/"
+
+#: .\DjangoAdmin\urls.py:186
+msgid "sphere-volume-calculator/"
+msgstr "kulu-rummal-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:187
+msgid "sphere-cap-volume-calculator/"
+msgstr "kuluhettu-rummalsreiknivel/"
+
+#: .\DjangoAdmin\urls.py:188
+msgid "cylinder-volume-calculator/"
+msgstr "strokka-rummal-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:189
+msgid "cone-volume-calculator/"
+msgstr "keila-rummal-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:190
+msgid "triangle-pyramid-volume-calculator/"
+msgstr "thrihyrningur-pyramida-rummal-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:191
+msgid "square-pyramid-volume-calculator/"
+msgstr "ferningur-pyramida-rummal-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:192
+msgid "torus-volume-calculator/"
+msgstr "torus-rummal-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:193
+msgid "frustum-volume-calculator/"
+msgstr "tjonamagn-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:194
+msgid "conical-frustum-volume-calculator/"
+msgstr "keilulaga-rummalsreiknivel/"
+
+#: .\DjangoAdmin\urls.py:195
+msgid "ellipsoid-volume-calculator/"
+msgstr "sporbaug-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:196
+msgid "tube-volume-calculator/"
+msgstr "rummalsreiknivel-fyrir-ror/"
+
+#: .\DjangoAdmin\urls.py:197
+msgid "combination-calculator/"
+msgstr "samsett-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:198
+msgid "permutation-calculator/"
+msgstr "permutation-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:199
+msgid "factorial-calculator/"
+msgstr "thattareiknivel/"
+
+#: .\DjangoAdmin\urls.py:200
+msgid "exponent-calculator/"
+msgstr "veldisvisis-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:201
+msgid "modular-arithmetic/"
+msgstr "einingareikningur/"
+
+#: .\DjangoAdmin\urls.py:202
+msgid "logarithm-calculator/"
+msgstr "logaritma-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:203
+msgid "prime-factorization/"
+msgstr "frumthattun/"
+
+#: .\DjangoAdmin\urls.py:204
+msgid "standard-deviation/"
+msgstr "stathalfravik/"
+
+#: .\DjangoAdmin\urls.py:205
+msgid "geometric-mean/"
+msgstr "rumfraethilegt-methaltal/"
+
+#: .\DjangoAdmin\urls.py:206
+msgid "arithmetic-mean/"
+msgstr "reiknath-methaltal/"
+
+#: .\DjangoAdmin\urls.py:207
+msgid "harmonic-mean/"
+msgstr "harmonic-mean/"
+
+#: .\DjangoAdmin\urls.py:208
+msgid "greatest-common-divisor-least-common-multiple/"
+msgstr "staersti-sameiginlegi-deilirinn-minnsti-sameiginlegur-margfeldi/"
+
+#: .\DjangoAdmin\urls.py:211
+msgid "first-degree-equation-solver/"
+msgstr "fyrsta-stigs-jofnuleysi/"
+
+#: .\DjangoAdmin\urls.py:212
+msgid "second-degree-equation-solver/"
+msgstr "annar-grathu-jofnuleysi/"
+
+#: .\DjangoAdmin\urls.py:213
+msgid "third-degree-equation-solver/"
+msgstr "thrithja-stigs-jofnuleysi/"
+
+#: .\DjangoAdmin\urls.py:214
+msgid "fibonacci-calculator/"
+msgstr "fibonacci-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:215
+msgid "first-order-inequality-solver/"
+msgstr "fyrsta-flokks-ojofnuthur-leysa/"
+
+#: .\DjangoAdmin\urls.py:216
+msgid "second-order-inequality-solver/"
+msgstr "annars-stigs-ojofnuthur-leysa/"
+
+#: .\DjangoAdmin\urls.py:217
+msgid "third-order-inequality-solver/"
+msgstr "thrithja-stigs-ojofnuthur-leysa/"
+
+#: .\DjangoAdmin\urls.py:218
+msgid "fraction-calculator/"
+msgstr "brota-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:219
+msgid "fraction-to-percentage/"
+msgstr "brot-i-prosentu/"
+
+#: .\DjangoAdmin\urls.py:220
+msgid "percentage-to-fraction/"
+msgstr "prosenta-i-brot/"
+
+#: .\DjangoAdmin\urls.py:223
+msgid "fraction-simplifier-calculator/"
+msgstr "brotaeinfaldari-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:224
+msgid "rounding-calculator/"
+msgstr "namundunarreiknivel/"
+
+#: .\DjangoAdmin\urls.py:225
+msgid "multiplicative-inverse-calculator/"
+msgstr "margfoldunar-andhverfa-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:226
+msgid "function-calculator/"
+msgstr "virka-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:227
+msgid "inverse-function-calculator/"
+msgstr "ofug-virka-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:228
+msgid "number-comparison/"
+msgstr "numerasamanburthur/"
+
+#: .\DjangoAdmin\urls.py:231
+msgid "derivative-calculator/"
+msgstr "afleithur-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:232
+msgid "integral-calculator/"
+msgstr "samthaett-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:233
+msgid "trigonometric-calculator/"
+msgstr "hornafraethi-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:235
+msgid "random-generator/"
+msgstr "tilviljunarkennd-rafall/"
+
+#: .\DjangoAdmin\urls.py:236
+msgid "percentage-increase/"
+msgstr "prosentuhaekkun/"
+
+#: .\DjangoAdmin\urls.py:237
+msgid "absolute-value-calculator/"
+msgstr "algilda-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:240
+msgid "binomial-coefficient-calculator/"
+msgstr "reiknivel-meth-tvinomstuthli/"
+
+#: .\DjangoAdmin\urls.py:241
+msgid "bitewise-calculator/"
+msgstr "bitewise-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:242
+msgid "bit-shift-calculator/"
+msgstr "bitaskipti-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:243
+msgid "binary-calculator/"
+msgstr "tvofaldur-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:244
+msgid "antilog-calculator/"
+msgstr "antilog-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:245
+msgid "arithmetic-sequence-calculator/"
+msgstr "reiknivelaroth/"
+
+#: .\DjangoAdmin\urls.py:248
+msgid "geometric-sequence-calculator/"
+msgstr "geometrisk-roth-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:249
+msgid "harmonic-sequence-calculator/"
+msgstr "reiknivel-fyrir-harmonic-run/"
+
+#: .\DjangoAdmin\urls.py:250
+msgid "distance-between-two-points-calculator/"
+msgstr "fjarlaegth-milli-tveggja-punkta-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:251
+msgid "slope-calculator/"
+msgstr "halla-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:252
+msgid "complex-number-calculator/"
+msgstr "reiknivel-meth-floknum-tolum/"
+
+#: .\DjangoAdmin\urls.py:253
+msgid "complex-conjugate-number-calculator/"
+msgstr "reiknivel-fyrir-flokna-samtengda-tolu/"
+
+#: .\DjangoAdmin\urls.py:256
+msgid "pythagorean-theorem-calculator/"
+msgstr "pythagoras-setning-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:257
+msgid "cosinus-theorem-calculator/"
+msgstr "kosinus-setning-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:258
+msgid "sine-theorem-calculator/"
+msgstr "sinus-setning-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:259
+msgid "complementary-angle-calculator/"
+msgstr "vithbotar-hornreiknivel/"
+
+#: .\DjangoAdmin\urls.py:260
+msgid "supplementary-angle-calculator/"
+msgstr "vithbotar-hornreiknivel/"
+
+#: .\DjangoAdmin\urls.py:261
+msgid "triangle-inequality-calculator/"
+msgstr "thrihyrnings-ojofnuth-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:262
+msgid "clock-angle-calculator/"
+msgstr "klukkuhorn-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:265
+msgid "equation-solver"
+msgstr "jofnuleysari"
+
+#: .\DjangoAdmin\urls.py:266
+msgid "inequality-solver/"
+msgstr "ojofnuthur-leysa/"
+
+#: .\DjangoAdmin\urls.py:267
+msgid "30-60-90-triangle-calculator/"
+msgstr "30-60-90-thrihyrningsreiknivel/"
+
+#: .\DjangoAdmin\urls.py:268
+msgid "45-45-90-triangle-calculator/"
+msgstr "45-45-90-thrihyrningsreiknivel/"
+
+#: .\DjangoAdmin\urls.py:269
+msgid "matrix-calculator/"
+msgstr "fylkisreiknivel/"
+
+#: .\DjangoAdmin\urls.py:270
+msgid "matrix-inverse-calculator/"
+msgstr "fylki-andhverfa-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:271
+msgid "determinant-calculator/"
+msgstr "akvarthandi-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:272
+msgid "matrix-transpose-calculator/"
+msgstr "fylkisumfaersla-reiknivel/"
+
+#: .\DjangoAdmin\urls.py:298
+msgid "convert-volume/"
+msgstr "umbreyta-hljothstyrk/"
+
+#: .\DjangoAdmin\urls.py:299
+msgid "convert-volume/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-hljothstyrk/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:301
+msgid "convert-weight/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-thyngd/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:302
+msgid "convert-weight/"
+msgstr "umbreyta-thyngd/"
+
+#: .\DjangoAdmin\urls.py:306
+msgid "convert-length/"
+msgstr "umbreyta-lengd/"
+
+#: .\DjangoAdmin\urls.py:307
+msgid "convert-length/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-lengd/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:309
+msgid "convert-temperature/"
+msgstr "umbreyta-hitastigi/"
+
+#: .\DjangoAdmin\urls.py:310
+msgid "convert-temperature/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-hitastigi/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:312
+msgid "convert-area/"
+msgstr "umbreyta-svaethi/"
+
+#: .\DjangoAdmin\urls.py:313
+msgid "convert-area/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-svaethi/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:315
+msgid "convert-bits-bytes/"
+msgstr "umbreyta-bitum-baetum/"
+
+#: .\DjangoAdmin\urls.py:316
+msgid "convert-bits-bytes/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-bitum-baetum/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:318
+msgid "convert-angles/"
+msgstr "umbreyta-horn/"
+
+#: .\DjangoAdmin\urls.py:319
+msgid "convert-angles/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-horn/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:321
+msgid "convert-time/"
+msgstr "umbreyta-tima/"
+
+#: .\DjangoAdmin\urls.py:322
+msgid "convert-time/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-tima/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:325
+msgid "convert-number/"
+msgstr "umbreyta-tolu/"
+
+#: .\DjangoAdmin\urls.py:326
+msgid "convert-number/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-tolu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:328
+msgid "convert-energy/"
+msgstr "umbreyta-orku/"
+
+#: .\DjangoAdmin\urls.py:329
+msgid "convert-energy/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-orku/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:332
+msgid "convert-speed/"
+msgstr "umbreyta-hratha/"
+
+#: .\DjangoAdmin\urls.py:333
+msgid "convert-speed/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-hratha/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:336
+msgid "convert-power/"
+msgstr "umbreyta-afli/"
+
+#: .\DjangoAdmin\urls.py:337
+msgid "convert-power/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-afli/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:341
+msgid "convert-timezones/"
+msgstr "umbreyta-timabeltum/"
+
+#: .\DjangoAdmin\urls.py:342
+msgid "convert-timezones/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-timabeltum/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:344
+msgid "convert-force/"
+msgstr "umbreyta-krafti/"
+
+#: .\DjangoAdmin\urls.py:345
+msgid "convert-force/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-krafti/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:347
+msgid "convert-pressure/"
+msgstr "umbreyta-thrystingi/"
+
+#: .\DjangoAdmin\urls.py:348
+msgid "convert-pressure/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-thrystingi/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:350
+msgid "convert-torque/"
+msgstr "umbreyta-tog/"
+
+#: .\DjangoAdmin\urls.py:351
+msgid "convert-torque/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-tog/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:353
+msgid "convert-radiation-absorbed/"
+msgstr "umbreyta-geislun-sem-frasogast/"
+
+#: .\DjangoAdmin\urls.py:354
+msgid "convert-radiation-absorbed/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-geislun-sem-frasogast/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:356
+msgid "convert-radiation/"
+msgstr "umbreyta-geislun/"
+
+#: .\DjangoAdmin\urls.py:357
+msgid "convert-radiation/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-geislun/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:359
+msgid "convert-radiation-exposure/"
+msgstr "umbreyta-utsetningu-fyrir-geislun/"
+
+#: .\DjangoAdmin\urls.py:360
+msgid "convert-radiation-exposure/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-utsetningu-fyrir-geislun/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:362
+msgid "convert-radiation-activity/"
+msgstr "umbreyta-geislunarvirkni/"
+
+#: .\DjangoAdmin\urls.py:363
+msgid "convert-radiation-activity/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-geislunarvirkni/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:365
+msgid "convert-electric-charge/"
+msgstr "umbreyta-rafhlethslu/"
+
+#: .\DjangoAdmin\urls.py:366
+msgid "convert-electric-charge/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-rafhlethslu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:368
+msgid "convert-molar-concentration/"
+msgstr "umbreyta-molstyrk/"
+
+#: .\DjangoAdmin\urls.py:369
+msgid "convert-molar-concentration/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-molstyrk/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:376
+msgid "convert-solution-concentration/"
+msgstr "umbreyta-styrk-lausnar/"
+
+#: .\DjangoAdmin\urls.py:377
+msgid "convert-solution-concentration/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-styrk-lausnar/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:380
+msgid "convert-dynamic-viscosity/"
+msgstr "umbreyta-kraftmikilli-seigju/"
+
+#: .\DjangoAdmin\urls.py:381
+msgid "convert-dynamic-viscosity/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-kraftmikilli-seigju/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:384
+msgid "convert-kinematic-viscosity/"
+msgstr "umbreyta-kinematic-seigju/"
+
+#: .\DjangoAdmin\urls.py:385
+msgid "convert-kinematic-viscosity/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-kinematic-seigju/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:387
+msgid "convert-surface-tension/"
+msgstr "umbreyta-yfirborthsspennu/"
+
+#: .\DjangoAdmin\urls.py:388
+msgid "convert-surface-tension/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-yfirborthsspennu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:390
+msgid "convert-permeability/"
+msgstr "umbreyta-gegndraepi/"
+
+#: .\DjangoAdmin\urls.py:391
+msgid "convert-permeability/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-gegndraepi/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:394
+msgid "convert-luminance/"
+msgstr "umbreyta-birtu/"
+
+#: .\DjangoAdmin\urls.py:395
+msgid "convert-luminance/<str:unit_from>-to-<str:unit_to>/"
+msgstr "umbreyta-luminance/<str:unit_from>-i-<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:397
+msgid "convert-luminous-intensity/"
+msgstr "umbreyta-ljosstyrk/"
+
+#: .\DjangoAdmin\urls.py:398
+msgid "convert-luminous-intensity/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-ljosstyrk/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:400
+msgid "convert-illumination/"
+msgstr "umbreyta-lysingu/"
+
+#: .\DjangoAdmin\urls.py:401
+msgid "convert-illumination/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-lysingu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:404
+msgid "convert-frequency-wavelength/"
+msgstr "umbreyta-tithnibylgjulengd/"
+
+#: .\DjangoAdmin\urls.py:405
+msgid "convert-frequency-wavelength/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-tithnibylgjulengd/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:413
+msgid "convert-pixel-density/"
+msgstr "umbreyta-pixlathettleika/"
+
+#: .\DjangoAdmin\urls.py:414
+msgid "convert-pixel-density/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-pixlathettleika/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:416
+msgid "convert-image-resolution/"
+msgstr "umbreyta-myndupplausn/"
+
+#: .\DjangoAdmin\urls.py:417
+msgid "convert-image-resolution/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-myndupplausn/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:420
+msgid "cooking-recipe-converter/"
+msgstr "breytir-matreithsluuppskrift/"
+
+#: .\DjangoAdmin\urls.py:421
+msgid "cooking-recipe-converter/<str:unit_from>+<str:unit_to>/"
+msgstr "breytir-matreithsluuppskrift/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:423
+msgid "electric-current-converter/"
+msgstr "rafstraumsbreytir/"
+
+#: .\DjangoAdmin\urls.py:424
+msgid "electric-current-converter/<str:unit_from>+<str:unit_to>/"
+msgstr "rafstraumsbreytir/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:427
+msgid "convert-density/"
+msgstr "umbreyta-thettleika/"
+
+#: .\DjangoAdmin\urls.py:428
+msgid "convert-density/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-thettleika/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:431
+msgid "convert-electric-conductance/"
+msgstr "umbreyta-rafleithni/"
+
+#: .\DjangoAdmin\urls.py:432
+msgid "convert-electric-conductance/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-rafleithni/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:434
+msgid "convert-electrical-conductivity/"
+msgstr "umbreyta-rafleithni/"
+
+#: .\DjangoAdmin\urls.py:435
+msgid "convert-electrical-conductivity/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-rafleithni/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:439
+msgid "convert-electric-field-strength/"
+msgstr "umbreyta-styrk-rafsviths/"
+
+#: .\DjangoAdmin\urls.py:440
+msgid "convert-electric-field-strength/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-styrk-rafsviths/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:443
+msgid "convert-electric-potential/"
+msgstr "umbreyta-rafgetu/"
+
+#: .\DjangoAdmin\urls.py:444
+msgid "convert-electric-potential/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-rafgetu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:446
+msgid "convert-electrical-resistance/"
+msgstr "umbreyta-rafvithnam/"
+
+#: .\DjangoAdmin\urls.py:447
+msgid "convert-electrical-resistance/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-rafvithnam/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:451
+msgid "convert-electrostatic-capacitance/"
+msgstr "umbreyta-rafstothueiginleika/"
+
+#: .\DjangoAdmin\urls.py:452
+msgid "convert-electrostatic-capacitance/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-rafstothueiginleika/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:454
+msgid "convert-volume-flow/"
+msgstr "umbreyta-rummalsflaethi/"
+
+#: .\DjangoAdmin\urls.py:455
+msgid "convert-volume-flow/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-rummalsflaethi/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:457
+msgid "convert-molar-flow/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-molflaethi/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:458
+msgid "convert-molar-flow/"
+msgstr "umbreyta-molflaethi/"
+
+#: .\DjangoAdmin\urls.py:460
+msgid "convert-mass-flux-density/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-massaflaethisthettleika/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:461
+msgid "convert-mass-flux-density/"
+msgstr "umbreyta-massaflaethisthettleika/"
+
+#: .\DjangoAdmin\urls.py:463
+msgid "convert-mass-flow/"
+msgstr "umbreyta-massaflaethi/"
+
+#: .\DjangoAdmin\urls.py:464
+msgid "convert-mass-flow/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-massaflaethi/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:467
+msgid "convert-fuel-efficiency-mass/"
+msgstr "umbreyta-eldsneytisnytingarmassa/"
+
+#: .\DjangoAdmin\urls.py:468
+msgid "convert-fuel-efficiency-mass/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-eldsneytisnytingarmassa/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:471
+msgid "convert-fuel-efficiency-volume/"
+msgstr "umbreyta-eldsneytisnytni-rummali/"
+
+#: .\DjangoAdmin\urls.py:472
+msgid "convert-fuel-efficiency-volume/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-eldsneytisnytni-rummali/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:479
+msgid "convert-temperature-interval/"
+msgstr "umbreyta-hitabil/"
+
+#: .\DjangoAdmin\urls.py:480
+msgid "convert-temperature-interval/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-hitabil/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:483
+msgid "convert-thermal-expansion/"
+msgstr "umbreyta-hitauppstreymi/"
+
+#: .\DjangoAdmin\urls.py:484
+msgid "convert-thermal-expansion/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-hitauppstreymi/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:486
+msgid "convert-thermal-conductivity/"
+msgstr "umbreyta-varmaleithni/"
+
+#: .\DjangoAdmin\urls.py:487
+msgid "convert-thermal-conductivity/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-varmaleithni/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:489
+msgid "convert-thermal-resistance/"
+msgstr "umbreyta-hitauppstreymi/"
+
+#: .\DjangoAdmin\urls.py:490
+msgid "convert-thermal-resistance/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-hitauppstreymi/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:493
+msgid "convert-heat-density/"
+msgstr "umbreyta-hitathettleika/"
+
+#: .\DjangoAdmin\urls.py:494
+msgid "convert-heat-density/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-hitathettleika/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:497
+msgid "convert-heat-flux-density/"
+msgstr "umbreyta-hitaflaethisthettleika/"
+
+#: .\DjangoAdmin\urls.py:498
+msgid "convert-heat-flux-density/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-hitaflaethisthettleika/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:501
+msgid "convert-heat-transfer-coefficient/"
+msgstr "umbreyta-varmaflutningsstuthli/"
+
+#: .\DjangoAdmin\urls.py:502
+msgid "convert-heat-transfer-coefficient/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-varmaflutningsstuthli/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:505
+msgid "convert-specific-heat-capacity/"
+msgstr "umbreyta-serstakri-hitagetu/"
+
+#: .\DjangoAdmin\urls.py:506
+msgid "convert-specific-heat-capacity/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-serstakri-hitagetu/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:510
+msgid "convert-linear-charge-density/"
+msgstr "umbreyta-linulegri-hlethsluthettleika/"
+
+#: .\DjangoAdmin\urls.py:511
+msgid "convert-linear-charge-density/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-linulegri-hlethsluthettleika/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:514
+msgid "convert-surface-charge-density/"
+msgstr "umbreyta-yfirborthshlethsluthettleika/"
+
+#: .\DjangoAdmin\urls.py:515
+msgid "convert-surface-charge-density/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-yfirborthshlethsluthettleika/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:518
+msgid "convert-volume-charge-density/"
+msgstr "umbreyta-rummal-hlethsluthettleika/"
+
+#: .\DjangoAdmin\urls.py:519
+msgid "convert-volume-charge-density/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-rummal-hlethsluthettleika/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:522
+msgid "convert-linear-current-density/"
+msgstr "umbreyta-linulegum-straumthettleika/"
+
+#: .\DjangoAdmin\urls.py:523
+msgid "convert-linear-current-density/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-linulegum-straumthettleika/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:525
+msgid "convert-surface-current-density/"
+msgstr "umbreyta-yfirborthsstraumthettleika/"
+
+#: .\DjangoAdmin\urls.py:526
+msgid "convert-surface-current-density/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-yfirborthsstraumthettleika/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:529
+msgid "convert-inductance/"
+msgstr "umbreyta-inductance/"
+
+#: .\DjangoAdmin\urls.py:530
+msgid "convert-inductance/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-inductance/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:535
+msgid "convert-magnetomotive-force/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-segulkrafti/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:536
+msgid "convert-magnetomotive-force/"
+msgstr "umbreyta-segulkrafti/"
+
+#: .\DjangoAdmin\urls.py:539
+msgid "convert-magnetic-field-strength/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-segulsvithsstyrk/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:540
+msgid "convert-magnetic-field-strength/"
+msgstr "umbreyta-segulsvithsstyrk/"
+
+#: .\DjangoAdmin\urls.py:543
+msgid "convert-magnetic-flux/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-segulflaethi/<str:unit_from>+<str:unit_to>/"
+
+#: .\DjangoAdmin\urls.py:544
+msgid "convert-magnetic-flux/"
+msgstr "umbreyta-segulflaethi/"
+
+#: .\DjangoAdmin\urls.py:546
+msgid "convert-magnetic-flux-density/"
+msgstr "umbreyta-segulflaethisthettleika/"
+
+#: .\DjangoAdmin\urls.py:547
+msgid "convert-magnetic-flux-density/<str:unit_from>+<str:unit_to>/"
+msgstr "umbreyta-segulflaethisthettleika/<str:unit_from>+<str:unit_to>/"
+
+#~ msgid "unit-converts-recommend-list"
+#~ msgstr "einingabreytir-maela-meth-lista"
+
+#~ msgid "convert-timezones/<str:zone_from>-<str:zone_to>/"
+#~ msgstr "umbreyta-timabeltum/<str:zone_from>-<str:zone_to>/"

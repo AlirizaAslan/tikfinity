@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otomatik Cevaplar - TikFinity</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f0f; color: #fff; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 15px; margin-bottom: 30px; }
+        .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; transition: all 0.3s; text-decoration: none; display: inline-block; }
+        .btn-primary { background: #667eea; color: white; }
+        .btn-success { background: #10b981; color: white; }
+        .btn-danger { background: #ef4444; color: white; }
+        .response-card { background: #1a1a1a; padding: 20px; border-radius: 12px; margin-bottom: 15px; border-left: 4px solid #10b981; }
+        .response-header { display: flex; justify-content: space-between; align-items: center; }
+        .keyword { color: #667eea; font-weight: bold; font-size: 1.2em; }
+        .response-text { color: #ddd; margin-top: 10px; padding: 10px; background: #252525; border-radius: 6px; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; }
+        .modal-content { background: #1a1a1a; max-width: 600px; margin: 100px auto; padding: 30px; border-radius: 12px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: #888; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #333; background: #252525; color: #fff; border-radius: 8px; font-size: 1em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💬 Otomatik Cevaplar</h1>
+            <p>Belirli anahtar kelimelere otomatik cevaplar oluşturun</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <button class="btn btn-primary" onclick="openCreateModal()">+ Yeni Otomatik Cevap</button>
+            <a href="{% url 'tiktok_live:dashboard' %}" class="btn btn-danger">← Geri Dön</a>
+        </div>
+
+        <div id="responsesList">
+            {% for response in responses %}
+            <div class="response-card">
+                <div class="response-header">
+                    <div>
+                        <div class="keyword">🔑 {{ response.keyword }}</div>
+                        <div style="color: #888; font-size: 0.9em;">@{{ response.account.username }}</div>
+                    </div>
+                    <button class="btn btn-danger" onclick="deleteResponse({{ response.id }})">Sil</button>
+                </div>
+                <div class="response-text">
+                    {{ response.response_text }}
+                </div>
+            </div>
+            {% empty %}
+            <p style="text-align: center; color: #888; padding: 40px;">Henüz otomatik cevap oluşturmadınız.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="createModal" class="modal">
+        <div class="modal-content">
+            <h2>Yeni Otomatik Cevap</h2>
+            <form id="responseForm">
+                <div class="form-group">
+                    <label>Hesap Seçin</label>
+                    <select id="accountId" required>
+                        {% for account in accounts %}
+                        <option value="{{ account.id }}">@{{ account.username }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Anahtar Kelime</label>
+                    <input type="text" id="keyword" placeholder="Örn: merhaba, selam" required>
+                    <small style="color: #888;">Kullanıcı bu kelimeyi yazdığında otomatik cevap verilecek</small>
+                </div>
+                <div class="form-group">
+                    <label>Cevap Metni</label>
+                    <textarea id="responseText" rows="4" placeholder="Örn: Merhaba! Yayınıma hoş geldin 🎉" required></textarea>
+                    <small style="color: #888;">[username] ile kullanıcı adını ekleyebilirsiniz</small>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button type="submit" class="btn btn-success">Oluştur</button>
+                    <button type="button" class="btn btn-danger" onclick="closeCreateModal()">İptal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openCreateModal() {
+            document.getElementById('createModal').style.display = 'block';
+        }
+
+        function closeCreateModal() {
+            document.getElementById('createModal').style.display = 'none';
+        }
+
+        document.getElementById('responseForm').onsubmit = async (e) => {
+            e.preventDefault();
+
+            const data = {
+                account_id: document.getElementById('accountId').value,
+                keyword: document.getElementById('keyword').value,
+                response_text: document.getElementById('responseText').value
+            };
+
+            const response = await fetch('{% url "tiktok_live:create_auto_response" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                location.reload();
+            } else {
+                alert('Bir hata oluştu');
+            }
+        };
+
+        async function deleteResponse(responseId) {
+            if (!confirm('Bu otomatik cevabı silmek istediğinizden emin misiniz?')) return;
+
+            const response = await fetch(`/tiktok/auto-responses/${responseId}/delete/`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            });
+
+            if (response.ok) {
+                location.reload();
+            } else {
+                alert('Bir hata oluştu');
+            }
+        }
+    </script>
+</body>
+</html>

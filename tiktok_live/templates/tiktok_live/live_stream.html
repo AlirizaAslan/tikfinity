@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canlı Yayın - @{{ username }}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f0f; color: #fff; }
+        .container { max-width: 1600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .main-grid { display: grid; grid-template-columns: 1fr 400px; gap: 20px; }
+        .stats-panel { background: #1a1a1a; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .stat-box { background: #252525; padding: 15px; border-radius: 8px; text-align: center; }
+        .stat-box .label { color: #888; font-size: 0.85em; margin-bottom: 5px; }
+        .stat-box .value { font-size: 1.8em; font-weight: bold; color: #667eea; }
+        .interactions-panel { background: #1a1a1a; padding: 20px; border-radius: 12px; height: calc(100vh - 250px); overflow-y: auto; }
+        .filter-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .filter-tab { padding: 8px 16px; background: #252525; border: none; border-radius: 6px; color: #fff; cursor: pointer; transition: all 0.3s; }
+        .filter-tab.active { background: #667eea; }
+        .interaction-item { background: #252525; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #667eea; animation: slideIn 0.3s; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        .interaction-item.comment { border-left-color: #3b82f6; }
+        .interaction-item.gift { border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
+        .interaction-item.follow { border-left-color: #10b981; background: rgba(16, 185, 129, 0.1); }
+        .interaction-item.like { border-left-color: #ef4444; }
+        .interaction-item.join { border-left-color: #8b5cf6; }
+        .interaction-item.share { border-left-color: #06b6d4; background: rgba(6, 182, 212, 0.1); }
+        .interaction-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .username { font-weight: bold; color: #667eea; }
+        .timestamp { color: #888; font-size: 0.85em; }
+        .message { color: #ddd; }
+        .gift-info { color: #f59e0b; font-weight: bold; }
+        .status-badge { padding: 5px 15px; border-radius: 20px; font-size: 0.85em; }
+        .status-connected { background: #10b981; }
+        .status-disconnected { background: #ef4444; }
+        .owner-badge { padding: 3px 10px; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); border-radius: 12px; font-size: 0.75em; margin-left: 10px; }
+        .user-menu { position: absolute; top: 20px; right: 20px; display: flex; gap: 10px; align-items: center; }
+        .user-info { background: rgba(0,0,0,0.3); padding: 8px 16px; border-radius: 8px; }
+        .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; transition: all 0.3s; }
+        .btn-primary { background: #667eea; color: white; }
+        .btn-danger { background: #ef4444; color: white; }
+        .sidebar { background: #1a1a1a; padding: 20px; border-radius: 12px; }
+        .sidebar h3 { margin-bottom: 15px; }
+        .quick-actions { display: flex; flex-direction: column; gap: 10px; }
+    </style>
+</head>
+<body>
+    <div class="user-menu">
+        <div class="user-info">👤 {{ user.username }}</div>
+        <a href="{% url 'tiktok_live:dashboard' %}" class="btn btn-primary" style="text-decoration: none;">← Dashboard</a>
+        <a href="{% url 'tiktok_live:logout' %}" class="btn btn-danger" style="text-decoration: none;">Çıkış</a>
+    </div>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>🎥 Canlı Yayın: @{{ username }}</h1>
+                {% if is_owner %}
+                <span class="owner-badge">👑 Your Account</span>
+                {% endif %}
+                <span id="connectionStatus" class="status-badge status-disconnected">⚪ Bağlantı Bekleniyor</span>
+            </div>
+            <div>
+                <button class="btn btn-primary" onclick="startStream()">▶️ Yayını Başlat</button>
+                <button class="btn btn-danger" onclick="stopStream()">⏹️ Yayını Durdur</button>
+                <button class="btn btn-primary" onclick="reconnectStream()">🔄 Yeniden Bağlan</button>
+                {% if can_control %}
+                <button class="btn btn-primary" onclick="toggleMonitoring()">📊 Monitoring</button>
+                {% endif %}
+                <a href="{% url 'tiktok_live:dashboard' %}" class="btn btn-primary">← Geri Dön</a>
+            </div>
+        </div>
+
+        <div class="stats-panel">
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="label">İzleyici</div>
+                    <div class="value" id="viewerCount">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="label">Yorumlar</div>
+                    <div class="value" id="commentCount">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="label">Hediyeler</div>
+                    <div class="value" id="giftCount">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="label">Takipçiler</div>
+                    <div class="value" id="followCount">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <div class="interactions-panel">
+                <h2>Canlı Etkileşimler</h2>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" onclick="filterInteractions('all')">Tümü</button>
+                    <button class="filter-tab" onclick="filterInteractions('comment')">💬 Yorumlar</button>
+                    <button class="filter-tab" onclick="filterInteractions('gift')">🎁 Hediyeler</button>
+                    <button class="filter-tab" onclick="filterInteractions('follow')">👤 Takipler</button>
+                    <button class="filter-tab" onclick="filterInteractions('like')">❤️ Beğeniler</button>
+                    <button class="filter-tab" onclick="filterInteractions('join')">🚪 Katılımlar</button>
+                    <button class="filter-tab" onclick="filterInteractions('share')">🔗 Paylaşımlar</button>
+                </div>
+                <div id="interactionsList"></div>
+            </div>
+
+            <div class="sidebar">
+                {% if can_control %}
+                <div class="control-panel" style="background: #252525; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                    <h3>🏛️ Stream Control</h3>
+                    <div style="margin-top: 10px;">
+                        <label style="display: flex; align-items: center; margin-bottom: 10px; cursor: pointer;">
+                            <input type="checkbox" id="autoResponseToggle" onchange="toggleAutoResponse()" style="margin-right: 8px;">
+                            <span>🤖 Auto Responses</span>
+                        </label>
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" id="automationToggle" onchange="toggleStreamAutomation()" style="margin-right: 8px;">
+                            <span>⚙️ Automations</span>
+                        </label>
+                    </div>
+                </div>
+                {% endif %}
+                <h3>Hızlı İşlemler</h3>
+                <div class="quick-actions">
+                    <a href="{% url 'tiktok_live:automations' %}" class="btn btn-primary">⚙️ Otomasyonlar</a>
+                    <a href="{% url 'tiktok_live:auto_responses' %}" class="btn btn-primary">💬 Otomatik Cevaplar</a>
+                    {% if can_control %}
+                    <a href="{% url 'tiktok_live:my_streams' %}" class="btn btn-primary">📊 My Streams</a>
+                    {% endif %}
+                    <button class="btn btn-primary" onclick="clearInteractions()">🗑️ Listeyi Temizle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let ws = null;
+        let currentFilter = 'all';
+        let stats = { comments: 0, gifts: 0, follows: 0, likes: 0, viewers: 0, joins: 0, shares: 0 };
+
+        function connectWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            ws = new WebSocket(`${protocol}//${window.location.host}/ws/live/{{ username }}/`);
+
+            ws.onopen = () => {
+                console.log('✅ WebSocket bağlantısı kuruldu');
+                updateConnectionStatus('Bağlanıyor...', 'status-badge', 'orange');
+            };
+
+            ws.onmessage = (event) => {
+                console.log('📨 RAW WebSocket message received:', event.data);
+                try {
+                    const data = JSON.parse(event.data);
+                    console.log('📦 Parsed data:', data);
+                    handleInteraction(data);
+                } catch (e) {
+                    console.error('❌ Failed to parse WebSocket message:', e);
+                    console.error('Raw data was:', event.data);
+                }
+            };
+
+            ws.onerror = (error) => {
+                console.error('❌ WebSocket hatası:', error);
+                updateConnectionStatus('Bağlantı Hatası', 'status-badge status-disconnected');
+            };
+
+            ws.onclose = () => {
+                console.log('🔌 WebSocket bağlantısı kapandı');
+                updateConnectionStatus('Bağlantı Kesildi', 'status-badge status-disconnected');
+                // Auto-reconnect after 5 seconds
+                setTimeout(() => {
+                    if (!ws || ws.readyState === WebSocket.CLOSED) {
+                        console.log('🔄 Yeniden bağlanılıyor...');
+                        connectWebSocket();
+                    }
+                }, 5000);
+            };
+        }
+
+        function updateConnectionStatus(text, className) {
+            const statusEl = document.getElementById('connectionStatus');
+            statusEl.textContent = text;
+            statusEl.className = className;
+        }
+
+        function handleInteraction(data) {
+            console.log('📥 Gelen veri:', data);
+            console.log('📥 Veri tipi:', data.type);
+            console.log('📥 Kullanıcı adı:', data.username);
+            
+            if (data.type === 'connection') {
+                console.log('🔗 Bağlantı:', data.message);
+                if (data.status === 'tiktok_connected') {
+                    updateConnectionStatus('🟢 Canlı Yayında', 'status-badge status-connected');
+                    showNotification('✅ ' + data.message, 'success');
+                } else if (data.status === 'websocket_connected') {
+                    updateConnectionStatus('🟡 Bağlanıyor...', 'status-badge');
+                }
+                return;
+            }
+            
+            if (data.type === 'disconnection') {
+                updateConnectionStatus('🔴 Bağlantı Kesildi', 'status-badge status-disconnected');
+                showNotification('❌ Bağlantı kesildi', 'error');
+                return;
+            }
+            
+            if (data.type === 'error') {
+                console.error('❌ Hata:', data.message);
+                updateConnectionStatus('🔴 Hata', 'status-badge status-disconnected');
+                
+                let errorMsg = data.message;
+                if (data.details && Array.isArray(data.details)) {
+                    errorMsg += '\n\n' + data.details.join('\n');
+                }
+                alert(errorMsg);
+                return;
+            }
+            
+            if (data.type === 'viewer_update') {
+                console.log('👥 İzleyici sayısı güncellendi:', data.viewer_count);
+                stats.viewers = data.viewer_count;
+                document.getElementById('viewerCount').textContent = data.viewer_count;
+                return;
+            }
+
+            // Get the interactions list element
+            const list = document.getElementById('interactionsList');
+            if (!list) {
+                console.error('❌ interactionsList elementi bulunamadı!');
+                return;
+            }
+            
+            console.log('✅ Liste elementi bulundu, etkileşim ekleniyor...');
+            
+            const item = document.createElement('div');
+            item.className = `interaction-item ${data.type}`;
+
+            let content = `
+                <div class="interaction-header">
+                    <span class="username">@${data.username || 'Unknown'}</span>
+                    <span class="timestamp">${new Date().toLocaleTimeString('tr-TR')}</span>
+                </div>
+            `;
+
+            if (data.type === 'comment') {
+                console.log('💬 Yorum ekleniyor:', data.message);
+                content += `<div class="message">💬 ${escapeHtml(data.message || '')}</div>`;
+                stats.comments++;
+                document.getElementById('commentCount').textContent = stats.comments;
+                playSound('comment');
+            } else if (data.type === 'gift') {
+                console.log('🎁 Hediye ekleniyor:', data.gift_name);
+                const totalValue = (data.gift_value || 0) * (data.gift_count || 1);
+                content += `<div class="gift-info">🎁 ${data.gift_name} x${data.gift_count} (${totalValue} 💎)</div>`;
+                stats.gifts++;
+                document.getElementById('giftCount').textContent = stats.gifts;
+                playSound('gift');
+                showNotification(`🎁 ${data.username} hediye gönderdi!`, 'gift');
+            } else if (data.type === 'follow') {
+                console.log('👤 Takip ekleniyor');
+                content += `<div class="message">👤 Takip etti!</div>`;
+                stats.follows++;
+                document.getElementById('followCount').textContent = stats.follows;
+                playSound('follow');
+                showNotification(`👤 ${data.username} takip etti!`, 'follow');
+            } else if (data.type === 'like') {
+                console.log('❤️ Beğeni ekleniyor:', data.like_count);
+                content += `<div class="message">❤️ ${data.like_count} beğeni gönderdi</div>`;
+                stats.likes++;
+            } else if (data.type === 'join') {
+                console.log('🚪 Katılım ekleniyor');
+                content += `<div class="message">🚪 Yayına katıldı</div>`;
+                stats.joins++;
+            } else if (data.type === 'share') {
+                console.log('🔗 Paylaşım ekleniyor');
+                content += `<div class="message">🔗 Yayını paylaştı</div>`;
+                stats.shares++;
+                showNotification(`🔗 ${data.username} yayını paylaştı!`, 'share');
+            } else {
+                console.warn('⚠️ Bilinmeyen etkileşim tipi:', data.type);
+            }
+
+            item.innerHTML = content;
+            item.dataset.type = data.type;
+
+            if (currentFilter === 'all' || currentFilter === data.type) {
+                console.log('✅ Etkileşim listeye ekleniyor (filtre:', currentFilter, ')');
+                list.insertBefore(item, list.firstChild);
+                console.log('✅ Etkileşim başarıyla eklendi! Toplam öğe sayısı:', list.children.length);
+            } else {
+                console.log('⚠️ Etkileşim filtre nedeniyle gizlendi (filtre:', currentFilter, ', tip:', data.type, ')');
+            }
+
+            if (list.children.length > 100) {
+                list.removeChild(list.lastChild);
+            }
+        }
+
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        function playSound(type) {
+            // Implement sound notifications if needed
+            // const audio = new Audio(`/static/sounds/${type}.mp3`);
+            // audio.play().catch(e => console.log('Sound play failed:', e));
+        }
+
+        function showNotification(message, type) {
+            // Simple notification - can be enhanced with a library
+            console.log(`📢 ${type}: ${message}`);
+        }
+
+        // Test function to manually add an interaction
+        function testAddInteraction() {
+            console.log('🧪 Test etkileşimi ekleniyor...');
+            const testData = {
+                type: 'comment',
+                username: 'TestUser',
+                message: 'Bu bir test yorumudur! Eğer bunu görüyorsanız, görüntüleme çalışıyor demektir.'
+            };
+            handleInteraction(testData);
+        }
+        
+        // Expose test function globally
+        window.testAddInteraction = testAddInteraction;
+
+        function filterInteractions(type) {
+            currentFilter = type;
+            const items = document.querySelectorAll('.interaction-item');
+            const tabs = document.querySelectorAll('.filter-tab');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            items.forEach(item => {
+                if (type === 'all' || item.dataset.type === type) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function startStream() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ command: 'start_stream' }));
+            } else {
+                connectWebSocket();
+            }
+        }
+
+        function stopStream() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ command: 'stop_stream' }));
+            }
+        }
+
+        function reconnectStream() {
+            if (ws) {
+                ws.close();
+            }
+            setTimeout(() => connectWebSocket(), 1000);
+        }
+
+        function clearInteractions() {
+            if (confirm('Tüm etkileşimleri temizlemek istediğinize emin misiniz?')) {
+                document.getElementById('interactionsList').innerHTML = '';
+                stats = { comments: 0, gifts: 0, follows: 0, likes: 0, viewers: 0, joins: 0, shares: 0 };
+                document.getElementById('commentCount').textContent = '0';
+                document.getElementById('giftCount').textContent = '0';
+                document.getElementById('followCount').textContent = '0';
+            }
+        }
+
+        window.onload = () => {
+            console.log('🚀 Sayfa yüklendi, WebSocket bağlantısı başlatılıyor...');
+            
+            // Check if required elements exist
+            const interactionsList = document.getElementById('interactionsList');
+            const viewerCount = document.getElementById('viewerCount');
+            const commentCount = document.getElementById('commentCount');
+            const giftCount = document.getElementById('giftCount');
+            const followCount = document.getElementById('followCount');
+            
+            console.log('📋 Element kontrolleri:');
+            console.log('- interactionsList:', interactionsList ? '✅ Bulundu' : '❌ BULUNAMADI!');
+            console.log('- viewerCount:', viewerCount ? '✅ Bulundu' : '❌ BULUNAMADI!');
+            console.log('- commentCount:', commentCount ? '✅ Bulundu' : '❌ BULUNAMADI!');
+            console.log('- giftCount:', giftCount ? '✅ Bulundu' : '❌ BULUNAMADI!');
+            console.log('- followCount:', followCount ? '✅ Bulundu' : '❌ BULUNAMADI!');
+            
+            if (!interactionsList) {
+                console.error('❌ HATA: interactionsList elementi bulunamadı! Etkileşimler gösterilemeyecek.');
+                alert('⚠️ Sayfa yükleme hatası! Lütfen sayfayı yenileyin.');
+            }
+            
+            connectWebSocket();
+            {% if can_control %}
+            loadStreamSettings();
+            {% endif %}
+        };
+
+        window.onbeforeunload = () => {
+            if (ws) ws.close();
+        };
+
+        {% if can_control %}
+        // Stream control functions
+        function loadStreamSettings() {
+            fetch(`/tiktok/stream/{{ stream.id }}/stats/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.auto_response_enabled) {
+                        document.getElementById('autoResponseToggle').checked = true;
+                    }
+                    if (data.automation_enabled) {
+                        document.getElementById('automationToggle').checked = true;
+                    }
+                })
+                .catch(err => console.error('Failed to load settings:', err));
+        }
+
+        function toggleMonitoring() {
+            fetch(`/tiktok/stream/{{ stream.id }}/toggle-monitoring/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification(data.message, 'success');
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(err => console.error('Toggle monitoring failed:', err));
+        }
+
+        function toggleAutoResponse() {
+            fetch(`/tiktok/stream/{{ stream.id }}/toggle-auto-response/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('🤖 ' + data.message, 'success');
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(err => console.error('Toggle auto-response failed:', err));
+        }
+
+        function toggleStreamAutomation() {
+            fetch(`/tiktok/stream/{{ stream.id }}/toggle-automation/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('⚙️ ' + data.message, 'success');
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(err => console.error('Toggle automation failed:', err));
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        {% endif %}
+    </script>
+</body>
+</html>

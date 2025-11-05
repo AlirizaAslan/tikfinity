@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etkileşimler - TikFinity</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f0f; color: #fff; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 15px; margin-bottom: 30px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: #1a1a1a; padding: 20px; border-radius: 12px; text-align: center; }
+        .stat-card .label { color: #888; font-size: 0.9em; }
+        .stat-card .value { font-size: 2em; font-weight: bold; color: #667eea; margin-top: 10px; }
+        .filter-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .filter-tab { padding: 10px 20px; background: #1a1a1a; border: none; border-radius: 8px; color: #fff; cursor: pointer; text-decoration: none; }
+        .filter-tab.active { background: #667eea; }
+        .interaction-item { background: #1a1a1a; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #667eea; }
+        .interaction-item.comment { border-left-color: #3b82f6; }
+        .interaction-item.gift { border-left-color: #f59e0b; }
+        .interaction-item.follow { border-left-color: #10b981; }
+        .interaction-item.like { border-left-color: #ef4444; }
+        .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; transition: all 0.3s; text-decoration: none; display: inline-block; }
+        .btn-primary { background: #667eea; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Etkileşim Geçmişi</h1>
+            <p>Yayın: {{ stream.stream_id }}</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="label">Toplam Etkileşim</div>
+                <div class="value">{{ stats.total }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Yorumlar</div>
+                <div class="value">{{ stats.comments }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Hediyeler</div>
+                <div class="value">{{ stats.gifts }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Takipler</div>
+                <div class="value">{{ stats.follows }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Beğeniler</div>
+                <div class="value">{{ stats.likes }}</div>
+            </div>
+        </div>
+
+        <div class="filter-tabs">
+            <a href="?type=all" class="filter-tab {% if current_filter == 'all' %}active{% endif %}">Tümü</a>
+            <a href="?type=comment" class="filter-tab {% if current_filter == 'comment' %}active{% endif %}">💬 Yorumlar</a>
+            <a href="?type=gift" class="filter-tab {% if current_filter == 'gift' %}active{% endif %}">🎁 Hediyeler</a>
+            <a href="?type=follow" class="filter-tab {% if current_filter == 'follow' %}active{% endif %}">👤 Takipler</a>
+            <a href="?type=like" class="filter-tab {% if current_filter == 'like' %}active{% endif %}">❤️ Beğeniler</a>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <a href="{% url 'tiktok_live:dashboard' %}" class="btn btn-primary">← Geri Dön</a>
+        </div>
+
+        <div>
+            {% for interaction in interactions %}
+            <div class="interaction-item {{ interaction.interaction_type }}">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <strong>@{{ interaction.username }}</strong>
+                    <span style="color: #888;">{{ interaction.timestamp|date:"d.m.Y H:i" }}</span>
+                </div>
+                {% if interaction.interaction_type == 'comment' %}
+                    <div>{{ interaction.message }}</div>
+                {% elif interaction.interaction_type == 'gift' %}
+                    <div style="color: #f59e0b;">🎁 {{ interaction.gift_name }} ({{ interaction.gift_value }} 💎)</div>
+                {% elif interaction.interaction_type == 'follow' %}
+                    <div>👤 Takip etti</div>
+                {% elif interaction.interaction_type == 'like' %}
+                    <div>❤️ Beğeni gönderdi</div>
+                {% endif %}
+            </div>
+            {% empty %}
+            <p style="text-align: center; color: #888; padding: 40px;">Henüz etkileşim yok.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
