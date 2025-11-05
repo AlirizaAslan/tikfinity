@@ -10,360 +10,322 @@
         body { font-family: 'Segoe UI', sans-serif; background: #0f0f0f; color: #fff; }
         
         #sidebar { position: fixed; left: 0; top: 0; width: 250px; height: 100vh; background: #1a1a1a; border-right: 1px solid #333; overflow-y: auto; z-index: 100; }
-        .appnameheading { padding: 20px; font-size: 1.5em; font-weight: bold; }
+        .logo { padding: 20px; font-size: 1.5em; font-weight: bold; }
         .ttred { color: #fe2c55; }
-        .sidebarseperator { height: 1px; background: #333; margin: 10px 15px; }
-        .extendedMarginTop { margin-top: 20px; }
+        .separator { height: 1px; background: #333; margin: 10px 15px; }
         
-        .onlypro { padding: 0 15px; }
-        .onlypro select { width: 100%; padding: 8px; background: #252525; color: #fff; border: 1px solid #333; border-radius: 4px; }
-        
-        #siebarChannelInfo { padding: 10px 15px; }
-        #siebarChannelInfoTable { width: 100%; cursor: pointer; }
-        #siebarChannelInfoTable td { padding: 5px; }
+        .channel-info { padding: 10px 15px; }
+        .channel-info table { width: 100%; cursor: pointer; }
+        .channel-info td { padding: 5px; }
         .roundImage { width: 50px; height: 50px; border-radius: 50%; }
-        .liveRed { color: #fe2c55; font-weight: bold; font-size: 0.9em; }
+        .status-text { color: #888; font-size: 0.9em; }
+        .status-text.connected { color: #10b981; }
+        .status-text.live { color: #fe2c55; font-weight: bold; }
+        .status-text.offline { color: #888; }
         
-        .sidebarmenuitemlist { padding: 0; }
-        .menuitemseperator { padding: 10px 20px; color: #888; font-size: 0.9em; }
-        .menuitemmain { padding: 12px 20px; cursor: pointer; transition: all 0.3s; border-left: 3px solid transparent; }
-        .menuitemmain:hover { background: #252525; border-left-color: #fe2c55; }
-        .menuitemselected { background: #252525; border-left-color: #fe2c55; color: #fe2c55; }
+        .menu-item { padding: 12px 20px; cursor: pointer; transition: all 0.3s; border-left: 3px solid transparent; display: flex; align-items: center; gap: 10px; }
+        .menu-item:hover { background: #252525; border-left-color: #fe2c55; }
+        .menu-item.active { background: #252525; border-left-color: #fe2c55; color: #fe2c55; }
+        .menu-item i { width: 20px; }
         
-        .subMenuContainer { max-height: 0; overflow: hidden; transition: max-height 0.5s; background: #151515; }
-        .subMenuContainer.open { max-height: 2000px; }
-        .subMenuEntry { padding: 10px 20px 10px 40px; cursor: pointer; font-size: 0.9em; color: #aaa; transition: all 0.3s; }
-        .subMenuEntry:hover { background: #252525; color: #fe2c55; }
+        #submenuPanel { position: fixed; left: 250px; top: 0; width: 250px; height: 100vh; background: #1a1a1a; border-right: 1px solid #333; overflow-y: auto; z-index: 99; transform: translateX(-100%); transition: transform 0.3s; }
+        #submenuPanel.open { transform: translateX(0); }
+        .panel-title { padding: 20px; font-size: 1.2em; font-weight: bold; border-bottom: 1px solid #333; }
+        .submenu-item { padding: 15px 20px; cursor: pointer; transition: all 0.3s; border-left: 3px solid transparent; }
+        .submenu-item:hover { background: #252525; color: #fe2c55; border-left-color: #fe2c55; }
         
-        #sidebarFooter { padding: 20px; margin-top: 20px; }
-        #appVersion { font-size: 0.8em; color: #666; text-align: center; margin-bottom: 10px; }
-        #languageSelectContainer { text-align: center; }
-        #languageSelectContainer select { background: #252525; color: #fff; border: 1px solid #333; padding: 5px; border-radius: 4px; }
-        .legalFooter a { color: #888; text-decoration: none; }
-        .legalFooter a:hover { color: #fe2c55; }
+        .main-content { margin-left: 250px; padding: 30px; min-height: 100vh; transition: margin-left 0.3s; }
+        .main-content.shifted { margin-left: 500px; }
         
-        .main-content { margin-left: 250px; padding: 30px; min-height: 100vh; }
-        .greyBackgroundSection { background: #1a1a1a; padding: 30px; border-radius: 12px; margin-bottom: 20px; }
-        .blueheading { color: #667eea; margin-bottom: 10px; }
-        .noTopMarginHeader { margin-top: 0; }
-        
-        .dx-field { margin-bottom: 20px; }
-        .dx-field-label { display: block; margin-bottom: 8px; font-weight: 500; }
-        .dx-texteditor-input { width: 100%; max-width: 400px; padding: 12px; border: 1px solid #333; background: #252525; color: #fff; border-radius: 8px; }
-        .dx-button { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; background: #667eea; color: white; display: inline-block; margin: 5px; transition: all 0.3s; }
-        .dx-button:hover { background: #5568d3; }
-        .dx-checkbox { display: flex; align-items: center; gap: 10px; margin: 10px 0; }
-        table { width: 100%; border-collapse: collapse; }
+        .section { background: #1a1a1a; padding: 30px; border-radius: 12px; margin-bottom: 20px; }
+        .section h3 { color: #667eea; margin-bottom: 15px; }
+        .field { margin-bottom: 20px; }
+        .field label { display: block; margin-bottom: 8px; }
+        .field input { width: 100%; max-width: 500px; padding: 12px; background: #252525; border: 1px solid #333; color: #fff; border-radius: 8px; }
+        .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; background: #667eea; color: white; margin: 5px; }
+        .btn:hover { background: #5568d3; }
+        .btn-success { background: #10b981; }
+        .checkbox { display: flex; align-items: center; gap: 10px; margin: 10px 0; }
+        table { width: 100%; max-width: 600px; border-collapse: collapse; }
         table td { padding: 10px; border-bottom: 1px solid #333; }
     </style>
 </head>
 <body>
-    <div id="sidebar" class="notranslate" translate="no">
-        <div class="appnameheading"><span class="ttred">Tik</span>Finity<div class="appNameExtra"></div></div>
-        <div class="sidebarseperator"></div>
+    <div id="sidebar">
+        <div class="logo"><span class="ttred">Tik</span>Finity</div>
+        <div class="separator"></div>
         
-        <div class="onlypro">
-            <table style="width:95%;border-spacing:0">
-                <tr>
-                    <td style="padding:0;width:95%">
-                        <div id="profileSelector">
-                            <select>
-                                <option value="1">Stream Profile 1</option>
-                                <option value="2">Stream Profile 2</option>
-                                <option value="3">Stream Profile 3</option>
-                                <option value="4">Stream Profile 4</option>
-                                <option value="5">Stream Profile 5</option>
-                                <option value="6">Stream Profile 6</option>
-                                <option value="7">Stream Profile 7</option>
-                                <option value="8">Stream Profile 8</option>
-                                <option value="9">Stream Profile 9</option>
-                                <option value="10">Stream Profile 10</option>
-                            </select>
-                        </div>
-                    </td>
-                    <td style="padding:0;cursor:pointer" onclick="alert('Profile Settings')">
-                        <div style="font-size:.8em"><i class="fas fa-cog"></i></div>
-                    </td>
-                </tr>
-            </table>
-            <div class="sidebarseperator"></div>
-        </div>
-        
-        <div id="siebarChannelInfo">
-            <table id="siebarChannelInfoTable" style="cursor:pointer">
+        <div class="channel-info">
+            <table id="siebarChannelInfoTable" onclick="connectToTikTok()">
                 <tr>
                     <td><img src="https://via.placeholder.com/100" class="roundImage myChannelThumbnail" onerror="this.src='https://via.placeholder.com/100'"></td>
                     <td>
-                        <div id="siebarChannelInfoTableUsername">{{ tiktok_username|default:"Not Connected" }}</div>
-                        <div id="siebarChannelInfoTableStatus" class="liveRed">OFFLINE</div>
+                        <div id="siebarChannelInfoTableUsername">Not Connected</div>
+                        <div id="siebarChannelInfoTableStatus" class="status-text">Click to connect!</div>
                     </td>
                 </tr>
             </table>
-            <div class="sidebarseperator"></div>
+        </div>
+        <div class="separator"></div>
+        
+        <div class="menu-item" onclick="openSubmenu('Start', ['Dashboard', 'Quick Start', 'Status'])">
+            <i class="fas fa-play"></i> Start
         </div>
         
-        <div class="sidebarmenuitemlist" style="max-height: calc(-160px + 100vh);">
-            <div class="menuitemmain" data-pageid="start" onclick="toggleMenu(this)">Start</div>
-            <div class="subMenuContainer">
-                <div class="subMenuEntry">Dashboard</div>
-                <div class="subMenuEntry">Quick Start Guide</div>
-                <div class="subMenuEntry">Connection Status</div>
-            </div>
-            
-            <div class="menuitemmain menuitemselected" data-pageid="setup" onclick="toggleMenu(this)">Setup</div>
-            <div class="subMenuContainer">
-                <div class="subMenuEntry">TikTok Connection</div>
-                <div class="subMenuEntry">Points System</div>
-                <div class="subMenuEntry">Level Settings</div>
-                <div class="subMenuEntry">OBS Integration</div>
-                <div class="subMenuEntry">Advanced Settings</div>
-            </div>
-            
-            <div class="sidebarseperator extendedMarginTop"></div>
-            <div class="menuitemseperator"><div><i class="fas fa-desktop"></i></div></div>
-            
-            <div class="menuitemmain" onclick="toggleMenu(this)">Overlay Gallery</div>
-            <div class="subMenuContainer">
-                <div class="subMenuEntry">Coin Match PRO</div>
-                <div class="subMenuEntry">Wheel Of Actions PRO</div>
-                <div class="subMenuEntry">Gift Cannon PRO</div>
-                <div class="subMenuEntry">Like Fountain PRO</div>
-                <div class="subMenuEntry">Social Media Rotator</div>
-                <div class="subMenuEntry">Gift Firework</div>
-                <div class="subMenuEntry">Emojify</div>
-                <div class="subMenuEntry">Chat</div>
-                <div class="subMenuEntry">Gift Feed</div>
-                <div class="subMenuEntry">Points Animation</div>
-                <div class="subMenuEntry">User Info Screen</div>
-                <div class="subMenuEntry">Command Info Screen</div>
-                <div class="subMenuEntry">My Actions</div>
-                <div class="subMenuEntry">Interaction Slider</div>
-                <div class="subMenuEntry">Wheel of Fortune</div>
-                <div class="subMenuEntry">Top Gifters</div>
-                <div class="subMenuEntry">Top Liker</div>
-                <div class="subMenuEntry">Ranking List</div>
-                <div class="subMenuEntry">Points Drop</div>
-                <div class="subMenuEntry">Timer</div>
-                <div class="subMenuEntry">Song Requests</div>
-                <div class="subMenuEntry">Viewer Count</div>
-                <div class="subMenuEntry">Stream Buddies</div>
-                <div class="subMenuEntry">Coin Jar</div>
-                <div class="subMenuEntry">Tiny Diny</div>
-            </div>
-            
-            <div class="menuitemmain" onclick="toggleMenu(this)">Goal Overlays</div>
-            <div class="subMenuContainer">
-                <div class="subMenuEntry">Likes PRO</div>
-                <div class="subMenuEntry">Shares PRO</div>
-                <div class="subMenuEntry">Follows PRO</div>
-                <div class="subMenuEntry">Viewer Count PRO</div>
-                <div class="subMenuEntry">Coins Earned PRO</div>
-                <div class="subMenuEntry">Channel Points Earned PRO</div>
-                <div class="subMenuEntry">New Subscribers PRO</div>
-                <div class="subMenuEntry">Custom Goals</div>
-                <div class="subMenuEntry">Settings</div>
-                <div class="subMenuEntry">Custom Goal 1 PRO</div>
-                <div class="subMenuEntry">Custom Goal 2 PRO</div>
-                <div class="subMenuEntry">Custom Goal 3 PRO</div>
-            </div>
-            
-            <div class="menuitemmain" onclick="toggleMenu(this)">Gift Overlays <span style="font-size: 0.65em; color:#fe2c55;">NEW</span></div>
-            <div class="subMenuContainer">
-                <div class="subMenuEntry">Rose</div>
-                <div class="subMenuEntry">TikTok</div>
-                <div class="subMenuEntry">Finger Heart</div>
-                <div class="subMenuEntry">Doughnut</div>
-                <div class="subMenuEntry">Galaxy</div>
-                <div class="subMenuEntry">Hand Hearts</div>
-            </div>
-            
-            <div class="menuitemmain" onclick="toggleMenu(this)">Last X Overlays</div>
-            <div class="subMenuContainer">
-                <div class="subMenuEntry">Last Follower</div>
-                <div class="subMenuEntry">Last Gifter</div>
-                <div class="subMenuEntry">Last Subscriber</div>
-                <div class="subMenuEntry">Last Sharer</div>
-            </div>
-            <div class="menuitemmain">OBS Docks <span style="font-size: 0.65em; color:#fe2c55;">NEW</span></div>
-            
-            <div class="sidebarseperator extendedMarginTop"></div>
-            <div class="menuitemseperator"><div><i class="fas fa-bolt"></i></div></div>
-            
-            <div class="menuitemmain" onclick="toggleMenu(this)">Sound Alerts</div>
-            <div class="subMenuContainer">
-                <div class="subMenuEntry">Gift Sounds</div>
-                <div class="subMenuEntry">Follow Sounds</div>
-                <div class="subMenuEntry">Share Sounds</div>
-                <div class="subMenuEntry">Custom Sounds</div>
-            </div>
-            
-            <div class="menuitemmain" onclick="toggleMenu(this)">Actions & Events</div>
-            <div class="subMenuContainer">
-                <div class="subMenuEntry">Gift Actions</div>
-                <div class="subMenuEntry">Follow Actions</div>
-                <div class="subMenuEntry">Comment Actions</div>
-                <div class="subMenuEntry">Custom Events</div>
-            </div>
-            
-            <div class="sidebarseperator extendedMarginTop"></div>
-            <div class="menuitemseperator"><div><i class="far fa-comments"></i></div></div>
-            
-            <div class="menuitemmain">Chat Commands</div>
-            
-            <div class="menuitemmain" onclick="toggleMenu(this)">Chatbot</div>
-            <div class="subMenuContainer">
-                <div class="subMenuEntry">Settings</div>
-                <div class="subMenuEntry">Auto Responses</div>
-                <div class="subMenuEntry">Keyword Triggers</div>
-            </div>
-            
-            <div class="menuitemmain" onclick="toggleMenu(this)">TTS Chat</div>
-            <div class="subMenuContainer">
-                <div class="subMenuEntry">Settings</div>
-                <div class="subMenuEntry">Voice Selection</div>
-                <div class="subMenuEntry">Overlay</div>
-            </div>
-            
-            <div class="sidebarseperator extendedMarginTop"></div>
-            <div class="menuitemseperator"><div><i class="fas fa-list-ul"></i></div></div>
-            
-            <div class="menuitemmain">User & Points</div>
-            <div class="menuitemmain">Transactions</div>
-            
-            <div class="sidebarseperator extendedMarginTop"></div>
-            <div class="menuitemseperator"><div><i class="fas fa-headphones"></i></div></div>
-            
-            <div class="menuitemmain" onclick="toggleMenu(this)">Song Requests</div>
-            <div class="subMenuContainer">
-                <div class="subMenuEntry">Settings</div>
-                <div class="subMenuEntry">Queue</div>
-                <div class="subMenuEntry">Overlay</div>
-            </div>
-            
-            <div class="sidebarseperator extendedMarginTop"></div>
-            <div class="menuitemseperator"><div><i class="fas fa-gamepad"></i></div></div>
-            
-            <div class="menuitemmain" onclick="toggleMenu(this)">Likeathon <span style="font-size: 0.65em; color:#fe2c55;">NEW</span></div>
-            <div class="subMenuContainer">
-                <div class="subMenuEntry">Settings</div>
-                <div class="subMenuEntry">Overlay</div>
-            </div>
-            
-            <div class="menuitemmain" onclick="toggleMenu(this)">Timer</div>
-            <div class="subMenuContainer">
-                <div class="subMenuEntry">Subathon</div>
-                <div class="subMenuEntry">Countdown</div>
-                <div class="subMenuEntry">Stopwatch</div>
-            </div>
-            
-            <div class="menuitemmain" onclick="toggleMenu(this)">Wheel of Fortune</div>
-            <div class="subMenuContainer">
-                <div class="subMenuEntry">Settings</div>
-                <div class="subMenuEntry">Overlay</div>
-            </div>
-            
-            <div class="menuitemmain" onclick="toggleMenu(this)">Points Drop</div>
-            <div class="subMenuContainer">
-                <div class="subMenuEntry">Settings</div>
-                <div class="subMenuEntry">Overlay</div>
-            </div>
-            
-            <div class="sidebarseperator extendedMarginTop"></div>
-            <div class="menuitemseperator"><div><i class="fas fa-tools"></i></div></div>
-            
-            <div class="menuitemmain">Challenge</div>
-            <div class="menuitemmain">Halving</div>
-            
-            <div class="sidebarseperator extendedMarginTop"></div>
-            <div class="menuitemseperator"><div><i class="fas fa-database"></i></div></div>
-            
-            <div class="menuitemmain">Event API <span style="font-size: 0.65em; color:#fe2c55;">NEW</span></div>
-            
-            <div id="sidebarFooter">
-            <div class="sidebarseperator"></div>
-            <div id="appVersion">v1.70.1</div>
-            <small class="legalFooter" style="font-size:.9em; display: block; text-align: center; margin: 10px 0;">
-                <a href="/tiktok/terms/" target="_blank">ToS</a> • 
-                <a href="/tiktok/privacy/" target="_blank">Privacy Policy</a> • 
-                <a href="https://blog.tikfinity.com/" target="_blank">Blog</a>
-            </small>
-            <div class="sidebarseperator"></div>
-            <div id="languageSelectContainer" style="text-align: center; padding: 15px 0;">
-                <label for="languageSelect" style="display: block; margin-bottom: 8px;"><i class="fas fa-globe-europe"></i> Language</label>
-                <select name="languageSelect" id="languageSelect" style="width: 90%; max-width: 200px;">
-                    <option value="en">English</option>
-                    <option value="de">Deutsch</option>
-                    <option value="es">Spanish</option>
-                    <option value="ja">Japanese</option>
-                    <option value="id">Indonesian</option>
-                    <option value="th">Thai</option>
-                    <option value="vi">Vietnamese</option>
-                    <option value="tl">Tagalog</option>
-                    <option value="ms">Malay</option>
-                    <option value="ko">Korean</option>
-                    <option value="tr" selected>Turkish</option>
-                </select>
-            </div>
+        <div class="menu-item active" onclick="openSubmenu('Setup', ['TikTok Connection', 'Points System', 'Level Settings', 'OBS Integration', 'Advanced Settings'], true)">
+            <i class="fas fa-cog"></i> Setup
         </div>
+        
+        <div class="separator"></div>
+        <div style="padding: 10px 20px; color: #888; font-size: 0.9em;"><i class="fas fa-desktop"></i></div>
+        
+        <div class="menu-item" onclick="openSubmenu('Overlay Gallery', ['Coin Match PRO', 'Wheel Of Actions PRO', 'Gift Cannon PRO', 'Chat', 'Gift Feed', 'Points Animation'])">
+            <i class="fas fa-th"></i> Overlay Gallery
+        </div>
+        
+        <div class="menu-item" onclick="openSubmenu('Goal Overlays', ['Likes PRO', 'Shares PRO', 'Follows PRO', 'Viewer Count PRO', 'Custom Goals'])">
+            <i class="fas fa-bullseye"></i> Goal Overlays
+        </div>
+        
+        <div class="menu-item" onclick="openSubmenu('Gift Overlays', ['Rose', 'TikTok', 'Finger Heart', 'Doughnut', 'Galaxy'])">
+            <i class="fas fa-gift"></i> Gift Overlays
+        </div>
+        
+        <div class="menu-item" onclick="openSubmenu('Last X Overlays', ['Last Follower', 'Last Gifter', 'Last Subscriber', 'Last Sharer'])">
+            <i class="fas fa-history"></i> Last X Overlays
+        </div>
+        
+        <div class="menu-item">
+            <i class="fas fa-video"></i> OBS Docks
+        </div>
+        
+        <div class="separator"></div>
+        <div style="padding: 10px 20px; color: #888; font-size: 0.9em;"><i class="fas fa-bolt"></i></div>
+        
+        <div class="menu-item" onclick="openSubmenu('Sound Alerts', ['Gift Sounds', 'Follow Sounds', 'Share Sounds', 'Custom Sounds'])">
+            <i class="fas fa-volume-up"></i> Sound Alerts
+        </div>
+        
+        <div class="menu-item" onclick="openSubmenu('Actions & Events', ['Gift Actions', 'Follow Actions', 'Comment Actions', 'Custom Events'])">
+            <i class="fas fa-bolt"></i> Actions & Events
+        </div>
+        
+        <div class="separator"></div>
+        <div style="padding: 10px 20px; color: #888; font-size: 0.9em;"><i class="far fa-comments"></i></div>
+        
+        <div class="menu-item">
+            <i class="far fa-comments"></i> Chat Commands
+        </div>
+        
+        <div class="menu-item" onclick="openSubmenu('Chatbot', ['Settings', 'Auto Responses', 'Keyword Triggers'])">
+            <i class="fas fa-robot"></i> Chatbot
+        </div>
+        
+        <div class="menu-item" onclick="openSubmenu('TTS Chat', ['Settings', 'Voice Selection', 'Overlay'])">
+            <i class="fas fa-microphone"></i> TTS Chat
+        </div>
+        
+        <div class="separator"></div>
+        <div style="padding: 10px 20px; color: #888; font-size: 0.9em;"><i class="fas fa-list-ul"></i></div>
+        
+        <div class="menu-item">
+            <i class="fas fa-users"></i> User & Points
+        </div>
+        
+        <div class="menu-item">
+            <i class="fas fa-exchange-alt"></i> Transactions
+        </div>
+        
+        <div class="separator"></div>
+        <div style="padding: 10px 20px; color: #888; font-size: 0.9em;"><i class="fas fa-headphones"></i></div>
+        
+        <div class="menu-item" onclick="openSubmenu('Song Requests', ['Settings', 'Queue', 'Overlay'])">
+            <i class="fas fa-music"></i> Song Requests
+        </div>
+        
+        <div class="separator"></div>
+        <div style="padding: 10px 20px; color: #888; font-size: 0.9em;"><i class="fas fa-gamepad"></i></div>
+        
+        <div class="menu-item" onclick="openSubmenu('Likeathon', ['Settings', 'Overlay'])">
+            <i class="fas fa-heart"></i> Likeathon
+        </div>
+        
+        <div class="menu-item" onclick="openSubmenu('Timer', ['Subathon', 'Countdown', 'Stopwatch'])">
+            <i class="fas fa-clock"></i> Timer
+        </div>
+        
+        <div class="menu-item" onclick="openSubmenu('Wheel of Fortune', ['Settings', 'Overlay'])">
+            <i class="fas fa-dharmachakra"></i> Wheel of Fortune
+        </div>
+        
+        <div class="menu-item" onclick="openSubmenu('Points Drop', ['Settings', 'Overlay'])">
+            <i class="fas fa-coins"></i> Points Drop
+        </div>
+        
+        <div class="separator"></div>
+        <div style="padding: 10px 20px; color: #888; font-size: 0.9em;"><i class="fas fa-tools"></i></div>
+        
+        <div class="menu-item">
+            <i class="fas fa-trophy"></i> Challenge
+        </div>
+        
+        <div class="menu-item">
+            <i class="fas fa-divide"></i> Halving
+        </div>
+        
+        <div class="separator"></div>
+        <div style="padding: 10px 20px; color: #888; font-size: 0.9em;"><i class="fas fa-database"></i></div>
+        
+        <div class="menu-item">
+            <i class="fas fa-code"></i> Event API
+        </div>
+    </div>
+    
+    <div id="submenuPanel">
+        <div class="panel-title" id="submenuTitle">Menu</div>
+        <div id="submenuContent"></div>
     </div>
     
     <div class="main-content">
         <h1>Setup</h1>
         <p style="color: #888; margin-bottom: 30px;">Here you can define the basic settings.</p>
         
-        <div class="greyBackgroundSection">
-            <div class="dx-field">
-                <div class="dx-field-label">Your TikTok Name (<i class="ttred">Required!</i>)</div>
-                <input class="dx-texteditor-input" type="text" placeholder="@username" id="textboxChannelName">
+        <div class="section" id="tiktokName">
+            <div class="field">
+                <label>Your TikTok Name (<span class="ttred">Required!</span>)</label>
+                <input type="text" placeholder="@username" id="textboxChannelName">
                 <div style="margin-top: 15px;">
-                    <div class="dx-button" onclick="saveTikTokUsername()" style="background: #10b981;"><i class="fas fa-save"></i> Save</div>
-                    <div class="dx-button" id="connectBtn" style="display: none;"><i class="fas fa-broadcast-tower"></i> Connect</div>
+                    <button class="btn btn-success" onclick="connectToTikTok()"><i class="fas fa-broadcast-tower"></i> Connect</button>
                 </div>
             </div>
         </div>
         
-        <div class="greyBackgroundSection">
-            <h3 class="blueheading noTopMarginHeader">Points System</h3>
-            <div class="dx-field">
-                <div class="dx-field-label">Currency Name</div>
-                <input class="dx-texteditor-input" type="text" value="Points">
+        <div class="section" id="pointsSystemSettings">
+            <h3>Points System</h3>
+            <div class="field">
+                <label>Currency Name</label>
+                <input type="text" value="Points">
             </div>
-            <div class="dx-checkbox"><input type="checkbox" checked> Points per coin</div>
-            <div class="dx-checkbox"><input type="checkbox"> Points per share</div>
+            <div class="checkbox"><input type="checkbox" checked> Points per coin</div>
+            <div class="checkbox"><input type="checkbox"> Points per share</div>
         </div>
         
-        <div class="greyBackgroundSection">
-            <h3 class="blueheading noTopMarginHeader">Your Account</h3>
+        <div class="section" id="levelSettings">
+            <h3>Level Settings</h3>
+            <div class="field">
+                <label>Max Level</label>
+                <input type="number" value="100">
+            </div>
+        </div>
+        
+        <div class="section" id="obsConnection">
+            <h3>OBS Integration</h3>
+            <div class="field">
+                <label>OBS WebSocket URL</label>
+                <input type="text" placeholder="ws://localhost:4455">
+            </div>
+        </div>
+        
+        <div class="section" id="advancedSettings">
+            <h3>Advanced Settings</h3>
+            <div class="checkbox"><input type="checkbox" checked> Use localized gift names</div>
+            <div class="checkbox"><input type="checkbox" checked> Use display names</div>
+            <div class="field">
+                <label>TikTok Language</label>
+                <input type="text" placeholder="tr-TR" style="max-width: 200px;">
+            </div>
+        </div>
+        
+        <div class="section" id="accountSection">
+            <h3>Your Account</h3>
             <table>
                 <tr><td>User-ID</td><td>{{ user.id|default:"Not logged in" }}</td></tr>
                 <tr><td>E-Mail</td><td>{{ user.email|default:"N/A" }}</td></tr>
             </table>
             <br>
             {% if user.is_authenticated %}
-            <div class="dx-button" onclick="location.href='/tiktok/logout/'">Logout</div>
+            <button class="btn" onclick="location.href='/tiktok/logout/'">Logout</button>
             {% else %}
-            <div class="dx-button" onclick="location.href='{% url 'tiktok_live:tiktok_oauth_login' %}'"><i class="fab fa-tiktok"></i> Login with TikTok</div>
-            <div class="dx-button" onclick="location.href='{% url 'tiktok_live:google_oauth_login' %}'"><i class="fab fa-google"></i> Login with Google</div>
+            <button class="btn" onclick="location.href='{% url 'tiktok_live:tiktok_oauth_login' %}'"><i class="fab fa-tiktok"></i> Login with TikTok</button>
+            <button class="btn" onclick="location.href='{% url 'tiktok_live:google_oauth_login' %}'"><i class="fab fa-google"></i> Login with Google</button>
             {% endif %}
         </div>
     </div>
 
     <script>
-        function toggleMenu(el) {
-            const sub = el.nextElementSibling;
-            if (sub && sub.classList.contains('subMenuContainer')) {
-                sub.classList.toggle('open');
+        let currentPanel = null;
+        
+        function openSubmenu(title, items, hasScroll = false) {
+            const panel = document.getElementById('submenuPanel');
+            const titleEl = document.getElementById('submenuTitle');
+            const content = document.getElementById('submenuContent');
+            const mainContent = document.querySelector('.main-content');
+            
+            if (currentPanel === title && panel.classList.contains('open')) {
+                panel.classList.remove('open');
+                mainContent.classList.remove('shifted');
+                currentPanel = null;
+                return;
+            }
+            
+            titleEl.textContent = title;
+            content.innerHTML = '';
+            
+            const sections = ['tiktokName', 'pointsSystemSettings', 'levelSettings', 'obsConnection', 'advancedSettings'];
+            
+            items.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'submenu-item';
+                div.textContent = item;
+                if (hasScroll && idx < sections.length) {
+                    div.onclick = () => scrollToSection(sections[idx]);
+                }
+                content.appendChild(div);
+            });
+            
+            panel.classList.add('open');
+            mainContent.classList.add('shifted');
+            currentPanel = title;
+        }
+        
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
         
-        function saveTikTokUsername() {
+        function connectToTikTok() {
             const username = document.getElementById('textboxChannelName').value.trim().replace('@', '');
-            if (!username) { alert('Enter username'); return; }
+            if (!username) { 
+                alert('Please enter TikTok username first!');
+                return;
+            }
             localStorage.setItem('tiktok_username', username);
             document.getElementById('siebarChannelInfoTableUsername').textContent = username;
-            document.getElementById('siebarChannelInfoTableStatus').textContent = 'READY';
-            alert('✅ Saved: @' + username);
-            document.getElementById('connectBtn').style.display = 'inline-block';
+            document.getElementById('siebarChannelInfoTableStatus').textContent = 'OFFLINE';
+            document.getElementById('siebarChannelInfoTableStatus').className = 'status-text offline';
+            alert('✅ Connected to @' + username);
+            checkLiveStatus(username);
+        }
+        
+        function checkLiveStatus(username) {
+            fetch(`/tiktok/api/check-live/${username}/`)
+                .then(res => res.json())
+                .then(data => {
+                    const statusEl = document.getElementById('siebarChannelInfoTableStatus');
+                    if (data.is_live) {
+                        statusEl.textContent = 'LIVE';
+                        statusEl.className = 'status-text live';
+                    } else {
+                        statusEl.textContent = 'OFFLINE';
+                        statusEl.className = 'status-text offline';
+                    }
+                })
+                .catch(() => {
+                    document.getElementById('siebarChannelInfoTableStatus').textContent = 'OFFLINE';
+                    document.getElementById('siebarChannelInfoTableStatus').className = 'status-text offline';
+                });
         }
         
         window.onload = function() {
@@ -371,7 +333,8 @@
             if (saved) {
                 document.getElementById('textboxChannelName').value = saved;
                 document.getElementById('siebarChannelInfoTableUsername').textContent = saved;
-                document.getElementById('connectBtn').style.display = 'inline-block';
+                checkLiveStatus(saved);
+                setInterval(() => checkLiveStatus(saved), 30000);
             }
         };
     </script>

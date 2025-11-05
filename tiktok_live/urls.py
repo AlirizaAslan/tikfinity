@@ -56,4 +56,7 @@ urlpatterns = [
     
     # My Streams
     path('my-streams/', views.my_streams, name='my_streams'),
+    
+    # API - Live Status Check
+    path('api/check-live/<str:username>/', views.check_live_status, name='check_live_status'),
 ]

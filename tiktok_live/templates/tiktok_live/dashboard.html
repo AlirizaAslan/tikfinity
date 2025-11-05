@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f0f; color: #fff; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f0f; color: #fff; overflow-x: hidden; min-height: 100vh; }
         
         /* Sidebar */
         .sidebar { position: fixed; left: 0; top: 0; width: 250px; height: 100vh; background: #1a1a1a; border-right: 1px solid #333; overflow-y: auto; z-index: 100; padding-bottom: 100px; }
@@ -37,7 +37,7 @@
         .new-badge { font-size: 0.65em; color: #fe2c55; vertical-align: top; margin-left: 5px; }
         
         /* Main Content */
-        .main-content { margin-left: 250px; padding: 30px; min-height: 100vh; }
+        .main-content { margin-left: 250px; padding: 30px; min-height: 100vh; width: calc(100% - 250px); background: #0f0f0f; }
         .top-bar { background: #1a1a1a; padding: 20px; border-radius: 12px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
         .user-info { display: flex; align-items: center; gap: 15px; }
         .user-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; }
@@ -72,6 +72,19 @@
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; color: #888; }
         .form-group input { width: 100%; padding: 12px; border: 1px solid #333; background: #252525; color: #fff; border-radius: 8px; font-size: 1em; }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar { width: 200px; }
+            .main-content { margin-left: 200px; width: calc(100% - 200px); padding: 20px; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+        
+        @media (max-width: 576px) {
+            .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { margin-left: 0; width: 100%; }
+        }
     </style>
 </head>
 <body>

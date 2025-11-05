@@ -12,6 +12,8 @@ from .google_oauth import GoogleOAuth
 import json
 import random
 import secrets
+from TikTokLive import TikTokLiveClient
+from TikTokLive.client.errors import UserOfflineError, UserNotFoundError
 
 def terms_of_service(request):
     return render(request, 'tiktok_live/terms.html')
@@ -558,3 +560,36 @@ def verify_ownership(request, account_id):
         'success': True,
         'message': 'Account ownership verified!'
     })
+
+def check_live_status(request, username):
+    """Check if TikTok user is live using TikTokLive"""
+    try:
+        username = username.strip('@')
+        client = TikTokLiveClient(unique_id=username)
+        
+        try:
+            # Try to get room info - if successful, user is live
+            room_info = client.room_info
+            return JsonResponse({
+                'success': True,
+                'is_live': True,
+                'username': username
+            })
+        except (UserOfflineError, UserNotFoundError):
+            return JsonResponse({
+                'success': True,
+                'is_live': False,
+                'username': username
+            })
+        except Exception as e:
+            return JsonResponse({
+                'success': True,
+                'is_live': False,
+                'username': username,
+                'error': str(e)
+            })
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=400)
