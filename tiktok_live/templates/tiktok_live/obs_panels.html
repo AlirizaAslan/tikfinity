@@ -1,0 +1,60 @@
+{% extends 'tiktok_live/tikfinity_layout.html' %}
+{% block title %}OBS Docks - TikFinity{% endblock %}
+{% block content %}
+<h1>🎥 OBS Docks <span style="font-size: 0.65em; color:#fe2c55; vertical-align: top">NEW</span></h1>
+<p style="color: #888; margin-bottom: 30px;">Here you can find the OBS docks for integration in OBS Studio to display the activities of your viewers. You can select which events should be displayed for both docks using the gear wheel.</p>
+
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 50%; padding-right: 20px; vertical-align: top;">
+            <div class="section">
+                <h3>Dock 1</h3>
+                <div style="margin-top: 15px;">
+                    <input type="text" readonly style="width: 400px; margin-bottom: 10px;" placeholder="Activity feed URL will appear here">
+                    <div>
+                        <button class="btn btn-success" onclick="copyDockURL('1')">Copy URL</button>
+                    </div>
+                </div>
+                <div style="margin-top: 15px; border: 1px solid #4e4e4e; border-radius: 8px; height: 400px; background: #0f0f0f; overflow: hidden;">
+                    <iframe src="{{ request.build_absolute_uri }}/tiktok/widget/activity-feed?cid={{ user.id|default:'2449591' }}&did=1&preview=1" 
+                            style="width: 100%; height: 100%; border: none;" 
+                            allow="autoplay">
+                    </iframe>
+                </div>
+            </div>
+        </td>
+        <td style="width: 50%; vertical-align: top;">
+            <div class="section">
+                <h3>Dock 2</h3>
+                <div style="margin-top: 15px;">
+                    <input type="text" readonly style="width: 400px; margin-bottom: 10px;" placeholder="Activity feed URL will appear here">
+                    <div>
+                        <button class="btn btn-success" onclick="copyDockURL('2')">Copy URL</button>
+                    </div>
+                </div>
+                <div style="margin-top: 15px; border: 1px solid #4e4e4e; border-radius: 8px; height: 400px; background: #0f0f0f; overflow: hidden;">
+                    <iframe src="{{ request.build_absolute_uri }}/tiktok/widget/activity-feed?cid={{ user.id|default:'2449591' }}&did=2&preview=1" 
+                            style="width: 100%; height: 100%; border: none;" 
+                            allow="autoplay">
+                    </iframe>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function copyDockURL(dockId) {
+    const userId = {{ user.id|default:"2449591" }};
+    const url = `${window.location.origin}/tiktok/widget/activity-feed?cid=${userId}&did=${dockId}&preview=0`;
+    
+    navigator.clipboard.writeText(url).then(() => {
+        alert('✅ OBS Dock URL copied to clipboard!');
+    }).catch(() => {
+        prompt('Copy this URL:', url);
+    });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gift Counter Widget</title>
+    <style>
+        body { margin: 0; padding: 20px; background: #0f0f0f; color: #fff; font-family: Arial, sans-serif; }
+        .counter-container { background: #1a1a1a; padding: 20px; border-radius: 8px; text-align: center; }
+        .counter-title { font-size: 18px; margin-bottom: 10px; }
+        .counter-progress { background: #333; height: 20px; border-radius: 10px; overflow: hidden; margin: 10px 0; }
+        .counter-bar { background: #fe2c55; height: 100%; width: 60%; transition: width 0.3s; }
+        .counter-text { font-size: 14px; margin-top: 10px; }
+        .counter-gift { font-size: 24px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="counter-container">
+        <div class="counter-gift">🌹</div>
+        <div class="counter-title">Rose Counter {{ counter }}</div>
+        <div class="counter-progress">
+            <div class="counter-bar"></div>
+        </div>
+        <div class="counter-text">30 / 50 Roses</div>
+        {% if preview %}
+        <div style="margin-top: 10px; font-size: 12px; color: #888;">
+            Preview Mode - Counter {{ counter }} - CID: {{ cid }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

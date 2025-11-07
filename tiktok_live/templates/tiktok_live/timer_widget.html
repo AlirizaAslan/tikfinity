@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer Widget - TikFinity</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .timer-widget {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timer-widget::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            pointer-events: none;
+        }
+
+        .timer-display {
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            position: relative;
+            letter-spacing: 2px;
+        }
+
+        .timer-label {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timer-status {
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+
+        .status-indicator.paused {
+            background: #FF9800;
+        }
+
+        .status-indicator.stopped {
+            background: #F44336;
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .timer-expired {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            animation: flash 1s infinite;
+        }
+
+        @keyframes flash {
+            0%, 50% { opacity: 1; }
+            25%, 75% { opacity: 0.7; }
+        }
+
+        .preview-mode {
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+        }
+
+        .preview-label {
+            position: absolute;
+            top: -25px;
+            left: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer-widget {% if preview %}preview-mode{% endif %}" id="timerWidget">
+        {% if preview %}
+        <div class="preview-label">PREVIEW MODE</div>
+        {% endif %}
+        
+        <div class="timer-label">COUNTDOWN</div>
+        
+        <div class="timer-display" id="timerDisplay">
+            {% if countdown_timer %}
+                {{ countdown_timer.current_value|floatformat:0 }}:00
+            {% else %}
+                10:00
+            {% endif %}
+        </div>
+        
+        <div class="timer-status">
+            <div class="status-indicator" id="statusIndicator"></div>
+            <span id="statusText">READY</span>
+        </div>
+    </div>
+
+    <script>
+        let timerSeconds = {% if countdown_timer %}{{ countdown_timer.get_remaining_seconds }}{% else %}600{% endif %};
+        let isRunning = {% if countdown_timer %}{{ countdown_timer.is_running|yesno:"true,false" }}{% else %}false{% endif %};
+        let isPaused = {% if countdown_timer %}{{ countdown_timer.is_paused|yesno:"true,false" }}{% else %}false{% endif %};
+        let timerInterval;
+        let statusCheckInterval;
+        const userId = '{{ cid }}';
+        const isPreview = {{ preview|yesno:"true,false" }};
+
+        function updateDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            document.getElementById('timerDisplay').textContent = display;
+            
+            // Update status
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            const widget = document.getElementById('timerWidget');
+            
+            if (timerSeconds <= 0) {
+                widget.classList.add('timer-expired');
+                indicator.className = 'status-indicator stopped';
+                statusText.textContent = 'EXPIRED';
+            } else if (isRunning && !isPaused) {
+                widget.classList.remove('timer-expired');
+                indicator.className = 'status-indicator';
+                statusText.textContent = 'RUNNING';
+            } else if (isPaused) {
+                widget.classList.remove('timer-expired');
+                indicator.className = 'status-indicator paused';
+                statusText.textContent = 'PAUSED';
+            } else {
+                widget.classList.remove('timer-expired');
+                indicator.className = 'status-indicator stopped';
+                statusText.textContent = 'READY';
+            }
+        }
+
+        function startCountdown() {
+            if (timerInterval) clearInterval(timerInterval);
+            
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0 && isRunning && !isPaused) {
+                    timerSeconds--;
+                    updateDisplay();
+                } else if (timerSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    isRunning = false;
+                    updateDisplay();
+                }
+            }, 1000);
+        }
+
+        function checkTimerStatus() {
+            if (isPreview) return;
+            
+            fetch(`/tiktok/api/timer/status/?cid=${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const wasRunning = isRunning;
+                        isRunning = data.is_running;
+                        isPaused = data.is_paused;
+                        timerSeconds = Math.floor(data.remaining_seconds);
+                        
+                        // Start countdown if timer just started
+                        if (isRunning && !wasRunning) {
+                            startCountdown();
+                        } else if (!isRunning && wasRunning) {
+                            if (timerInterval) clearInterval(timerInterval);
+                        }
+                        
+                        updateDisplay();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking timer status:', error);
+                });
+        }
+
+        // Initialize
+        updateDisplay();
+
+        if (isPreview) {
+            // Preview mode - simulate timer
+            let previewSeconds = 600; // 10 minutes
+            setInterval(() => {
+                previewSeconds--;
+                if (previewSeconds < 0) previewSeconds = 600;
+                timerSeconds = previewSeconds;
+                isRunning = true;
+                isPaused = false;
+                updateDisplay();
+            }, 1000);
+        } else {
+            // Real mode - check status every 2 seconds
+            statusCheckInterval = setInterval(checkTimerStatus, 2000);
+            
+            // Start countdown if already running
+            if (isRunning && !isPaused) {
+                startCountdown();
+            }
+        }
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (timerInterval) clearInterval(timerInterval);
+            if (statusCheckInterval) clearInterval(statusCheckInterval);
+        });
+    </script>
+</body>
+</html>

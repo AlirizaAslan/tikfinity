@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Last {{ x_type|title }} Widget</title>
+    <style>
+        body { margin: 0; padding: 20px; background: #0f0f0f; color: #fff; font-family: Arial, sans-serif; }
+        .lastx-container { background: #1a1a1a; padding: 20px; border-radius: 8px; display: flex; align-items: center; }
+        .lastx-avatar { width: 60px; height: 60px; border-radius: 50%; background: #333; margin-right: 15px; }
+        .lastx-info { flex: 1; }
+        .lastx-title { font-size: 14px; color: #888; margin-bottom: 5px; }
+        .lastx-username { font-size: 18px; font-weight: bold; }
+        .lastx-action { font-size: 12px; color: #fe2c55; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <div class="lastx-container">
+        <div class="lastx-avatar"></div>
+        <div class="lastx-info">
+            <div class="lastx-title">LAST {{ x_type|upper }}</div>
+            <div class="lastx-username">@example_user</div>
+            <div class="lastx-action">
+                {% if x_type == 'follower' %}Just followed!
+                {% elif x_type == 'gifter' %}Sent a Rose 🌹
+                {% elif x_type == 'subscriber' %}Became a Super Fan!
+                {% elif x_type == 'share' %}Shared the stream!
+                {% elif x_type == 'like' %}Liked the stream ❤️
+                {% elif x_type == 'chatter' %}Said: "Hello everyone!"
+                {% else %}Took an action{% endif %}
+            </div>
+        </div>
+        {% if preview %}
+        <div style="font-size: 12px; color: #888; margin-left: 15px;">
+            Preview<br>CID: {{ cid }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

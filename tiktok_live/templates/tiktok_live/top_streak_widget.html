@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top Streak Widget</title>
+    <style>
+        body { margin: 0; padding: 20px; background: #0f0f0f; color: #fff; font-family: Arial, sans-serif; }
+        .streak-container { background: #1a1a1a; padding: 20px; border-radius: 8px; text-align: center; }
+        .streak-title { font-size: 18px; margin-bottom: 15px; color: #fe2c55; }
+        .streak-user { display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+        .streak-avatar { width: 50px; height: 50px; border-radius: 50%; background: #333; margin-right: 15px; }
+        .streak-info { text-align: left; }
+        .streak-username { font-size: 16px; font-weight: bold; }
+        .streak-count { font-size: 14px; color: #888; }
+        .streak-fire { font-size: 24px; margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <div class="streak-container">
+        <div class="streak-title">🔥 TOP STREAK</div>
+        <div class="streak-user">
+            <div class="streak-avatar"></div>
+            <div class="streak-info">
+                <div class="streak-username">@streaker456</div>
+                <div class="streak-count">15 combo streak</div>
+            </div>
+            <div class="streak-fire">🔥</div>
+        </div>
+        {% if preview %}
+        <div style="margin-top: 10px; font-size: 12px; color: #888;">
+            Preview Mode - CID: {{ cid }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

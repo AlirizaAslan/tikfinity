@@ -1,0 +1,283 @@
+{% extends 'tiktok_live/tikfinity_layout.html' %}
+{% load static %}
+
+{% block title %}Overlay Gallery - TikFinity{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .page {
+            display: flex;
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .main-overlay-content {
+            flex: 1;
+        }
+        .right-sidebar {
+            width: 300px;
+            flex-shrink: 0;
+        }
+        .desktopAppPromotion {
+            background: #2d0539;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .desktopAppPromotion a {
+            color: #fe2c55;
+            text-decoration: none;
+        }
+        .blueheading {
+            color: #4a9eff;
+            font-size: 2em;
+            margin: 20px 0;
+        }
+        .obsOverlayContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .obsOverlayOnPage, .greyBackgroundSection {
+            background: #2d0539;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .noTopMarginHeader {
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        .pro-badge {
+            font-size: 0.8em;
+            color: #fe2c55;
+            vertical-align: top;
+        }
+        .overlay-controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            align-items: center;
+        }
+        .overlay-url {
+            flex: 1;
+            padding: 10px;
+            background: #333;
+            border: 1px solid #555;
+            border-radius: 4px;
+            color: #fff;
+            font-family: monospace;
+        }
+        .btn {
+            padding: 10px 15px;
+            background: #4a9eff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background: #3a8eef;
+        }
+        .btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        .btn-test {
+            background: #28a745;
+        }
+        .btn-customize {
+            background: #6c757d;
+        }
+        .overlay-preview {
+            border: 1px solid #4e4e4e;
+            border-radius: 4px;
+            margin-top: 10px;
+            background: #000;
+        }
+        .overlay-iframe {
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+        }
+        .overlay-description {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+        .redNotification {
+            background: #dc3545;
+            color: white;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+        .setupUnconnected {
+            display: none;
+        }
+        .section select {
+            width: 100%;
+            padding: 8px;
+            background: #252525;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 4px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="page" data-pageid="obsoverlays">
+        <div class="main-overlay-content">
+            <div class="desktopAppPromotion">
+                <div class="promotion-content">
+                    Get the free <a href="/app/">TikFinity Desktop App</a> for Windows to enjoy additional features and stability improvements!
+                </div>
+            </div>
+
+            <h2 class="blueheading">Overlay Gallery</h2>
+            <div>Here you can find the general overlays for integration into <b>OBS (Browser Source)</b> or <b>LIVE Studio (Link)</b>.<br>
+            All functions are divided into individual widgets to achieve the best possible flexibility in alignment.</div>
+            <div>To include the overlays listed below in Live Studio, copy the URL and paste it into a new <b>Link Source</b>.</div><br>
+            <div><b>Note:</b> To change the color or font of the overlays, click the "Customize" button of the respective overlay.</div>
+            <br>
+
+            <div class="setupUnconnected">
+                <div class="redNotification" onclick="window.location.href='{% url "tiktok_live:setup" %}'">
+                    <div class="error">Please run the <a href="{% url 'tiktok_live:setup' %}">Setup</a> first to create a free TikFinity Account!</div>
+                </div>
+                <br>
+            </div>
+
+            <div class="obsOverlayContainer">
+                {% for overlay in overlays %}
+                <div class="obsOverlayOnPage greyBackgroundSection">
+                    <h3 class="blueheading noTopMarginHeader">
+                        {{ overlay.name }}
+                        {% if overlay.is_pro %}
+                        <span class="pro-badge">PRO</span>
+                        {% endif %}
+                    </h3>
+                    <div class="overlay-description">{{ overlay.description }}</div><br>
+
+                    <div class="overlay-controls">
+                        <input type="text" class="overlay-url" 
+                               value="{{ base_widget_url }}{{ overlay.id }}?cid={{ user_id }}&preview=1" 
+                               readonly>
+                        <button class="btn" onclick="copyToClipboard(this.previousElementSibling)">Copy URL</button>
+                        {% if overlay.test_enabled %}
+                        <button class="btn btn-test" onclick="testWidget(this)">Test</button>
+                        {% else %}
+                        <button class="btn btn-test" disabled>Test</button>
+                        {% endif %}
+                        <button class="btn btn-customize" onclick="customizeWidget(this)">Customize</button>
+                    </div>
+
+                    <div class="overlay-preview">
+                        <iframe class="overlay-iframe" 
+                                src="{{ base_widget_url }}{{ overlay.id }}?cid={{ user_id }}&preview=1"
+                                allow="autoplay"
+                                style="width: {{ overlay.width }}px; height: {{ overlay.height }}px;">
+                        </iframe>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="right-sidebar">
+            <div class="section" id="overlayCategories">
+                <h3>Overlay Categories</h3>
+                <div class="field">
+                    <button class="btn" onclick="scrollToOverlay('chat-overlay')">Chat Overlay</button>
+                </div>
+                <div class="field">
+                    <button class="btn" onclick="scrollToOverlay('gift-cannon')">Gift Cannon</button>
+                </div>
+                <div class="field">
+                    <button class="btn" onclick="scrollToOverlay('coin-match')">Coin Match</button>
+                </div>
+                <div class="field">
+                    <button class="btn" onclick="scrollToOverlay('viewer-count')">Viewer Count</button>
+                </div>
+            </div>
+            
+            <div class="section" id="overlaySettings">
+                <h3>Quick Settings</h3>
+                <div class="checkbox"><input type="checkbox" checked> Auto-refresh overlays</div>
+                <div class="checkbox"><input type="checkbox"> Show preview borders</div>
+                <div class="checkbox"><input type="checkbox" checked> Enable test mode</div>
+                <div class="field">
+                    <label>Default Theme</label>
+                    <select style="width: 100%; padding: 8px; background: #252525; border: 1px solid #333; color: #fff; border-radius: 4px;">
+                        <option>Dark</option>
+                        <option>Light</option>
+                        <option>Custom</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="section" id="overlayHelp">
+                <h3>Quick Help</h3>
+                <div style="font-size: 0.9em; line-height: 1.5; color: #aaa;">
+                    <p><strong>Copy URL:</strong> Copy the overlay URL to clipboard</p>
+                    <p><strong>Test:</strong> Open overlay in test mode</p>
+                    <p><strong>Customize:</strong> Open customization panel</p>
+                    <br>
+                    <p><strong>OBS Setup:</strong> Add as Browser Source</p>
+                    <p><strong>LIVE Studio:</strong> Add as Link Source</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        function copyToClipboard(element) {
+            element.select();
+            element.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(element.value).then(function() {
+                // Show success feedback
+                const btn = element.nextElementSibling;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.style.background = '#28a745';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '#4a9eff';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+                // Fallback for older browsers
+                document.execCommand('copy');
+            });
+        }
+
+        function testWidget(button) {
+            const urlInput = button.parentElement.querySelector('.overlay-url');
+            const testUrl = urlInput.value.replace('&preview=1', '&test=1');
+            window.open(testUrl, '_blank', 'width=900,height=600');
+        }
+        
+        function customizeWidget(button) {
+            const urlInput = button.parentElement.querySelector('.overlay-url');
+            const customizeUrl = urlInput.value.replace('&preview=1', '&customize=1');
+            window.open(customizeUrl, '_blank', 'width=800,height=700');
+        }
+        
+        function scrollToOverlay(overlayId) {
+            // Find overlay by ID or name and scroll to it
+            const overlays = document.querySelectorAll('.obsOverlayOnPage');
+            overlays.forEach(overlay => {
+                const title = overlay.querySelector('h3').textContent.toLowerCase();
+                if (title.includes(overlayId.replace('-', ' '))) {
+                    overlay.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        }
+    </script>
+{% endblock %}

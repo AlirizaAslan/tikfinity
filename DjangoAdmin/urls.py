@@ -36,6 +36,7 @@ urlpatterns = [
     path('', home_redirect, name='home'),
     path('admin/', admin.site.urls),
     path('tiktok/', include('tiktok_live.urls')),
+    
     #re_path(r'^.*/$', TemplateView.as_view(template_name='404.html'), name='404'),
     
     #path('', include('Calculator.urls')),

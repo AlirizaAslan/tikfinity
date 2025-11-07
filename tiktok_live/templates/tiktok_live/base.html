@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TikFinity{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/text-effects.css' %}">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #0f0f0f; 
+            color: #fff; 
+            min-height: 100vh; 
+        }
+        .navbar {
+            background: #1a1a1a;
+            padding: 15px 30px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+        }
+        .ttred { color: #fe2c55; }
+        .navbar-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        .nav-link:hover {
+            background: #333;
+            color: #4a9eff;
+        }
+        .nav-link.active {
+            background: #4a9eff;
+            color: #fff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: #4a9eff;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #3a8eef;
+        }
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'tiktok_live:dashboard' %}" class="navbar-brand">
+            <span class="ttred">Tik</span>Finity
+        </a>
+        <div class="navbar-nav">
+            <a href="{% url 'tiktok_live:dashboard' %}" class="nav-link">Dashboard</a>
+            <a href="{% url 'tiktok_live:overlay_gallery' %}" class="nav-link">Overlay Gallery</a>
+            <a href="{% url 'tiktok_live:automations' %}" class="nav-link">Automations</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'tiktok_live:logout' %}" class="nav-link">Logout</a>
+            {% else %}
+                <a href="{% url 'tiktok_live:login' %}" class="nav-link">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

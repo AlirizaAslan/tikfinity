@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TikFinity - Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f0f; color: #fff; overflow-x: hidden; min-height: 100vh; }
+        
+        /* Sidebar */
+        .sidebar { position: fixed; left: 0; top: 0; width: 250px; height: 100vh; background: #1a1a1a; border-right: 1px solid #333; overflow-y: auto; z-index: 100; padding-bottom: 100px; }
+        .sidebar::-webkit-scrollbar { width: 8px; }
+        .sidebar::-webkit-scrollbar-track { background: #0f0f0f; }
+        .sidebar::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        .sidebar::-webkit-scrollbar-thumb:hover { background: #444; }
+        .sidebar-header { padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .sidebar-header h2 { font-size: 1.5em; }
+        .ttred { color: #fe2c55; }
+        
+        .menu-item { padding: 15px 20px; cursor: pointer; transition: all 0.3s; border-left: 3px solid transparent; display: flex; align-items: center; gap: 12px; position: relative; }
+        .menu-item:hover { background: #252525; border-left-color: #667eea; }
+        .menu-item.active { background: #252525; border-left-color: #667eea; color: #667eea; }
+        .menu-item i { width: 20px; text-align: center; }
+        .menu-item.has-submenu::after { content: '\\f107'; font-family: 'Font Awesome 6 Free'; font-weight: 900; margin-left: auto; transition: transform 0.3s; }
+        .menu-item.has-submenu.open::after { transform: rotate(180deg); }
+        
+        .menu-separator { height: 1px; background: #333; margin: 15px 0; }
+        .menu-category { padding: 10px 20px; font-size: 0.75em; color: #888; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
+        
+        .submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s; background: #151515; }
+        .submenu.open { max-height: 500px; }
+        .submenu-item { padding: 12px 20px 12px 52px; cursor: pointer; transition: all 0.3s; font-size: 0.9em; }
+        .submenu-item:hover { background: #252525; color: #667eea; }
+        
+        .new-badge { font-size: 0.65em; color: #fe2c55; vertical-align: top; margin-left: 5px; }
+        
+        /* Main Content */
+        .main-content { margin-left: 250px; padding: 30px; min-height: 100vh; width: calc(100% - 250px); background: #0f0f0f; }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar { width: 200px; }
+            .main-content { margin-left: 200px; width: calc(100% - 200px); padding: 20px; }
+        }
+        
+        @media (max-width: 576px) {
+            .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { margin-left: 0; width: 100%; }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2><span class="ttred">Tik</span>Finity</h2>
+            <p style="font-size: 0.85em; opacity: 0.9;">Live Stream Manager</p>
+        </div>
+        
+        <div class="menu-category"><i class="fas fa-home"></i> ANA MENÜ</div>
+        <div class="menu-item {% if request.resolver_match.url_name == 'dashboard' or request.resolver_match.url_name == 'home' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:dashboard' %}'">
+            <i class="fas fa-th-large"></i> Başlangıç
+        </div>
+        <div class="menu-item {% if request.resolver_match.url_name == 'setup' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:setup' %}'">
+            <i class="fas fa-cog"></i> Kurulum
+        </div>
+        
+        <div class="menu-separator"></div>
+        <div class="menu-category"><i class="fas fa-desktop"></i> OVERLAY'LER</div>
+        
+        <div class="menu-item {% if request.resolver_match.url_name == 'overlay_gallery' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:overlay_gallery' %}'">
+            <i class="fas fa-layer-group"></i> Overlay Galerisi
+        </div>
+        <div class="menu-item has-submenu" onclick="toggleSubmenu(this, event)">
+            <i class="fas fa-bullseye"></i> Hedef Overlay'leri
+        </div>
+        <div class="submenu">
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:target_overlays_sub' 'like-target' %}'">Beğeni Hedefi</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:target_overlays_sub' 'share-target' %}'">Paylaşım Hedefi</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:target_overlays_sub' 'follow-target' %}'">Takip Hedefi</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:target_overlays_sub' 'viewer-target' %}'">İzleyici Sayısı Hedefi</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:target_overlays_sub' 'coin-target' %}'">Kazanılan Coin Hedefi</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:target_overlays_sub' 'custom-targets' %}'">Özel Hedefler</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:target_overlays_sub' 'settings' %}'">Ayarlar</div>
+        </div>
+        <div class="menu-item has-submenu" onclick="toggleSubmenu(this, event)">
+            <i class="fas fa-gift"></i> Hediye Overlay'leri <span class="new-badge">YENİ</span>
+        </div>
+        <div class="submenu">
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:gift_overlays_sub' 'gift-notification' %}'">Hediye Bildirim Overlay'i</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:gift_overlays_sub' 'gift-bar' %}'">Hediye Bar Overlay'i</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:gift_overlays_sub' 'gift-ranking' %}'">Hediye Sıralaması</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:gift_overlays_sub' 'settings' %}'">Ayarlar</div>
+        </div>
+        <div class="menu-item has-submenu" onclick="toggleSubmenu(this, event)">
+            <i class="fas fa-history"></i> Son X Overlay'leri
+        </div>
+        <div class="submenu">
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:recent_overlays_sub' 'recent-comments' %}'">Son Yorumlar</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:recent_overlays_sub' 'recent-gifts' %}'">Son Hediyeler</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:recent_overlays_sub' 'recent-followers' %}'">Son Takipçiler</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:recent_overlays_sub' 'recent-shares' %}'">Son Paylaşımlar</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:recent_overlays_sub' 'settings' %}'">Ayarlar</div>
+        </div>
+        <div class="menu-item {% if request.resolver_match.url_name == 'obs_panels' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:obs_panels' %}'">
+            <i class="fas fa-window-restore"></i> OBS Panelleri <span class="new-badge">YENİ</span>
+        </div>
+        
+        <div class="menu-separator"></div>
+        <div class="menu-category"><i class="fas fa-bolt"></i> OTOMASYON</div>
+        
+        <div class="menu-item {% if request.resolver_match.url_name == 'sound_alerts' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:sound_alerts' %}'">
+            <i class="fas fa-volume-up"></i> Ses Uyarıları
+        </div>
+        <div class="menu-item {% if request.resolver_match.url_name == 'automations' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:automations' %}'">
+            <i class="fas fa-robot"></i> Aksiyonlar & Etkinlikler
+        </div>
+        
+        <div class="menu-separator"></div>
+        <div class="menu-category"><i class="far fa-comments"></i> SOHBET</div>
+        
+        <div class="menu-item {% if request.resolver_match.url_name == 'chat_commands' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:chat_commands' %}'">
+            <i class="fas fa-terminal"></i> Sohbet Komutları
+        </div>
+        <div class="menu-item {% if request.resolver_match.url_name == 'auto_responses' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:auto_responses' %}'">
+            <i class="fas fa-comment-dots"></i> Sohbet Botu
+        </div>
+        <div class="menu-item {% if request.resolver_match.url_name == 'tts_chat' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:tts_chat' %}'">
+            <i class="fas fa-microphone"></i> TTS Sohbet
+        </div>
+        
+        <div class="menu-separator"></div>
+        <div class="menu-category"><i class="fas fa-list-ul"></i> KULLANICILAR</div>
+        
+        <div class="menu-item {% if request.resolver_match.url_name == 'users_points' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:users_points' %}'">
+            <i class="fas fa-users"></i> Kullanıcılar & Puanlar
+        </div>
+        <div class="menu-item {% if request.resolver_match.url_name == 'transactions' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:transactions' %}'">
+            <i class="fas fa-exchange-alt"></i> İşlemler
+        </div>
+        
+        <div class="menu-separator"></div>
+        <div class="menu-category"><i class="fas fa-headphones"></i> MÜZİK</div>
+        
+        <div class="menu-item {% if request.resolver_match.url_name == 'song_requests' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:song_requests' %}'">
+            <i class="fas fa-music"></i> Şarkı İstekleri
+        </div>
+        
+        <div class="menu-separator"></div>
+        <div class="menu-category"><i class="fas fa-gamepad"></i> OYUNLAR & ARAÇLAR</div>
+        
+        <div class="menu-item {% if request.resolver_match.url_name == 'likeathon' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:likeathon' %}'">
+            <i class="fas fa-heart-broken"></i> Likeathon <span class="new-badge">YENİ</span>
+        </div>
+        <div class="menu-item {% if request.resolver_match.url_name == 'timer' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:timer' %}'">
+            <i class="fas fa-clock"></i> Zamanlayıcı
+        </div>
+        <div class="menu-item {% if request.resolver_match.url_name == 'wheel_fortune' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:wheel_fortune' %}'">
+            <i class="fas fa-circle-notch"></i> Şans Çarkı
+        </div>
+        <div class="menu-item {% if request.resolver_match.url_name == 'points_drop' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:points_drop' %}'">
+            <i class="fas fa-coins"></i> Puan Düşür
+        </div>
+        
+        <div class="menu-separator"></div>
+        <div class="menu-category"><i class="fas fa-tools"></i> ARAÇLAR</div>
+        
+        <div class="menu-item {% if request.resolver_match.url_name == 'challenge' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:challenge' %}'">
+            <i class="fas fa-trophy"></i> Meydan Okuma
+        </div>
+        <div class="menu-item {% if request.resolver_match.url_name == 'split' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:split' %}'">
+            <i class="fas fa-divide"></i> Yarılama
+        </div>
+        
+        <div class="menu-separator"></div>
+        <div class="menu-category"><i class="fas fa-chart-line"></i> İSTATİSTİKLER</div>
+        
+        <div class="menu-item {% if request.resolver_match.url_name == 'my_streams' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:my_streams' %}'">
+            <i class="fas fa-chart-bar"></i> Yayın İstatistikleri
+        </div>
+        <div class="menu-item {% if request.resolver_match.url_name == 'viewer_analysis' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:viewer_analysis' %}'">
+            <i class="fas fa-users"></i> İzleyici Analizi
+        </div>
+        <div class="menu-item {% if request.resolver_match.url_name == 'event_api' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:event_api' %}'">
+            <i class="fas fa-database"></i> Etkinlik API <span class="new-badge">YENİ</span>
+        </div>
+        
+        <div class="menu-separator"></div>
+        <div class="menu-category"><i class="fas fa-cog"></i> AYARLAR</div>
+        
+        <div class="menu-item {% if request.resolver_match.url_name == 'profile_settings' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:profile_settings' %}'">
+            <i class="fas fa-user-cog"></i> Profil Ayarları
+        </div>
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:logout' %}'">
+            <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script>
+        // Toggle submenu
+        function toggleSubmenu(menuItem, event) {
+            event.stopPropagation();
+            
+            const submenu = menuItem.nextElementSibling;
+            
+            if (submenu && submenu.classList.contains('submenu')) {
+                submenu.classList.toggle('open');
+                menuItem.classList.toggle('open');
+                
+                const allMenuItems = document.querySelectorAll('.menu-item.has-submenu');
+                allMenuItems.forEach(item => {
+                    if (item !== menuItem) {
+                        item.classList.remove('open');
+                        const otherSubmenu = item.nextElementSibling;
+                        if (otherSubmenu && otherSubmenu.classList.contains('submenu')) {
+                            otherSubmenu.classList.remove('open');
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

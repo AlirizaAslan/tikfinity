@@ -1,0 +1,559 @@
+{% extends 'tiktok_live/base.html' %}
+{% load static %}
+
+{% block title %}Actions & Events{% endblock %}
+
+{% block extra_css %}
+<style>
+.actions-section {
+    background: #2a2a2a;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.action-card {
+    background: #333;
+    border-radius: 6px;
+    padding: 15px;
+    border: 1px solid #444;
+}
+
+.action-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.action-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-icon {
+    padding: 6px 8px;
+    font-size: 12px;
+}
+
+.event-simulator {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.overlay-screens table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.overlay-screens th,
+.overlay-screens td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #444;
+}
+
+.status-offline {
+    color: #ff7a7a;
+}
+
+.status-online {
+    color: #4caf50;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #2a2a2a;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px 12px;
+    background: #333;
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.action-options {
+    display: none;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="text-primary">Actions & Events</h2>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="actionsEnabled" {% if actions_enabled %}checked{% endif %}>
+                    <label class="form-check-label text-white" for="actionsEnabled">Enabled</label>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <p>Here you can define your custom actions and events (triggers). For example, you can show a video or animation on a certain gift.</p>
+                <p>For this you must first define the action and then the event. The <strong>My Actions Overlay</strong> for OBS/LIVE Studio is required.</p>
+            </div>
+
+            <!-- Actions Section -->
+            <div class="actions-section">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="text-primary mb-0">Actions</h3>
+                    <button class="btn btn-primary" onclick="openActionModal()">
+                        <i class="fas fa-plus"></i> Create new Action
+                    </button>
+                </div>
+                <p class="text-muted mt-2">What do you want to happen? Here you can create new actions and edit the existing ones.</p>
+
+                <div class="actions-grid">
+                    {% for action in actions %}
+                    <div class="action-card">
+                        <div class="action-header">
+                            <h5 class="mb-0">{{ action.name }}</h5>
+                            <div class="action-controls">
+                                <button class="btn btn-sm btn-outline-primary btn-icon" onclick="playAction({{ action.id }})" title="Play">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary btn-icon" onclick="editAction({{ action.id }})" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-info btn-icon" onclick="duplicateAction({{ action.id }})" title="Duplicate">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger btn-icon" onclick="deleteAction({{ action.id }})" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="action-details">
+                            <p><strong>Screen:</strong> {{ action.screen }}</p>
+                            <p><strong>Duration:</strong> {{ action.duration }}s</p>
+                            <p><strong>Points:</strong> {{ action.points_change }}</p>
+                            <div class="d-flex gap-2">
+                                {% if action.has_animation %}<span class="badge bg-success">Animation</span>{% endif %}
+                                {% if action.has_picture %}<span class="badge bg-info">Picture</span>{% endif %}
+                                {% if action.has_sound %}<span class="badge bg-warning">Sound</span>{% endif %}
+                                {% if action.has_video %}<span class="badge bg-danger">Video</span>{% endif %}
+                            </div>
+                            <p class="text-muted mt-2">{{ action.description }}</p>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-secondary text-center">
+                            <i class="fas fa-plus-circle fa-2x mb-2"></i>
+                            <p>No actions created yet. Click "Create new Action" to get started!</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Events Section -->
+            <div class="actions-section">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="text-primary mb-0">Events</h3>
+                    <button class="btn btn-primary" onclick="openEventModal()">
+                        <i class="fas fa-plus"></i> Create new Event
+                    </button>
+                </div>
+                <p class="text-muted mt-2">Here you can define what will trigger your actions.</p>
+
+                <div class="table-responsive mt-3">
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th>Active</th>
+                                <th>User</th>
+                                <th>Trigger</th>
+                                <th>Action(s)</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for event in events %}
+                            <tr>
+                                <td>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" {% if event.is_active %}checked{% endif %} 
+                                               onchange="toggleEvent({{ event.id }})">
+                                    </div>
+                                </td>
+                                <td>{{ event.get_user_type_display }}</td>
+                                <td>
+                                    <i class="fas fa-{{ event.trigger_type|default:'star' }} text-primary"></i>
+                                    {{ event.get_trigger_type_display }}
+                                    {% if event.min_coins > 1 %} ({{ event.min_coins }}+ Coins){% endif %}
+                                    {% if event.min_likes > 1 %} ({{ event.min_likes }}+ Likes){% endif %}
+                                </td>
+                                <td>
+                                    {% for action in event.actions.all %}
+                                        <span class="badge bg-secondary">{{ action.name }}</span>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-secondary" onclick="editEvent({{ event.id }})">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteEvent({{ event.id }})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center text-muted">No events created yet</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Overlay Screens Section -->
+            <div class="actions-section">
+                <h3 class="text-primary">Overlay Screen Settings</h3>
+                <p class="text-muted">To make your actions visible in OBS or Live Studio you need to include at least one overlay screen (widget).</p>
+
+                <div class="overlay-screens">
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th>Screen Name</th>
+                                <th>Screen URL (widget for OBS or Live Studio)</th>
+                                <th>Max. queue length</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for screen in overlay_screens %}
+                            <tr>
+                                <td>{{ screen.name }}</td>
+                                <td><a href="{{ screen.get_url }}" target="_blank">{{ screen.get_url }}</a></td>
+                                <td>
+                                    <input type="number" class="form-control" value="{{ screen.max_queue_length }}" 
+                                           onchange="updateQueueLength({{ screen.id }}, this.value)" min="0" max="1000">
+                                </td>
+                                <td class="{% if screen.is_online %}status-online{% else %}status-offline{% endif %}">
+                                    {% if screen.is_online %}Ready{% else %}Offline{% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Timer Section -->
+            <div class="actions-section">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="text-primary mb-0">Timer</h3>
+                    <button class="btn btn-primary" onclick="openTimerModal()">
+                        <i class="fas fa-plus"></i> Create new Timer
+                    </button>
+                </div>
+                <p class="text-muted mt-2">You can execute your actions in adjustable time intervals. The timer starts as soon as you are live.</p>
+
+                <div class="table-responsive mt-3">
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th>Active</th>
+                                <th>Interval (minutes)</th>
+                                <th>Action to execute</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for timer in timers %}
+                            <tr>
+                                <td>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" {% if timer.is_active %}checked{% endif %} 
+                                               onchange="toggleTimer({{ timer.id }})">
+                                    </div>
+                                </td>
+                                <td>{{ timer.interval_minutes }}</td>
+                                <td>{{ timer.action.name }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteTimer({{ timer.id }})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">No Timers defined</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Event Simulator Section -->
+            <div class="actions-section">
+                <h3 class="text-primary">Event Simulator</h3>
+                <p class="text-muted">Here you can simulate events.</p>
+
+                <div class="event-simulator">
+                    <button class="btn btn-outline-primary" onclick="simulateEvent('follow')">Simulate Follow</button>
+                    <button class="btn btn-outline-primary" onclick="simulateEvent('share')">Simulate Share</button>
+                    <button class="btn btn-outline-primary" onclick="simulateEvent('subscribe')">Simulate Subscribe / Super Fan</button>
+                    <button class="btn btn-outline-primary" onclick="simulateEvent('like')">Simulate 15 Likes</button>
+                </div>
+
+                <div class="d-flex gap-2 mt-3">
+                    <select class="form-control" id="giftSelect" style="flex: 1;">
+                        <option value="">Select gift...</option>
+                        <option value="rose">Rose</option>
+                        <option value="heart">Heart</option>
+                        <option value="diamond">Diamond</option>
+                    </select>
+                    <button class="btn btn-outline-primary" onclick="simulateGift()">Simulate Gift</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Action Modal -->
+<div id="actionModal" class="modal">
+    <div class="modal-content">
+        <h4>Create/Edit Action</h4>
+        <form id="actionForm">
+            <div class="form-group">
+                <label>Action Name</label>
+                <input type="text" class="form-control" id="actionName" required>
+            </div>
+
+            <div class="form-group">
+                <label>What should happen? (multiple options selectable)</label>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="showAnimation" onchange="toggleActionOption('animation')">
+                    <label for="showAnimation">Show Animation</label>
+                </div>
+                <div class="action-options" id="animationOptions">
+                    <input type="url" class="form-control" placeholder="Animation URL">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="showPicture" onchange="toggleActionOption('picture')">
+                    <label for="showPicture">Show Picture / GIF</label>
+                </div>
+                <div class="action-options" id="pictureOptions">
+                    <input type="file" class="form-control" accept="image/*">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="playAudio" onchange="toggleActionOption('audio')">
+                    <label for="playAudio">Play Audio</label>
+                </div>
+                <div class="action-options" id="audioOptions">
+                    <input type="file" class="form-control" accept="audio/*">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="showText" onchange="toggleActionOption('text')">
+                    <label for="showText">Show Alert (User + Text)</label>
+                </div>
+                <div class="action-options" id="textOptions">
+                    <input type="text" class="form-control" placeholder="Alert text">
+                    <input type="color" class="form-control mt-2" value="#ffffff">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Display duration (seconds)</label>
+                <input type="number" class="form-control" id="actionDuration" value="5" min="1" max="300">
+            </div>
+
+            <div class="form-group">
+                <label>Overlay Screen</label>
+                <select class="form-control" id="actionScreen">
+                    {% for screen in overlay_screens %}
+                    <option value="{{ screen.name }}">{{ screen.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary" onclick="closeActionModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Action</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Event Modal -->
+<div id="eventModal" class="modal">
+    <div class="modal-content">
+        <h4>Create/Edit Event</h4>
+        <form id="eventForm">
+            <div class="form-group">
+                <label>Who is able to trigger the event?</label>
+                <select class="form-control" id="eventUserType">
+                    <option value="any">Any</option>
+                    <option value="specific">Specific User</option>
+                    <option value="topgifter">Top Gifters</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>By what will the event be triggered?</label>
+                <select class="form-control" id="eventTrigger" onchange="showTriggerOptions()">
+                    <option value="follow">Follow</option>
+                    <option value="like">Tap 100+ Likes</option>
+                    <option value="gift">Gift 1+ Coins</option>
+                    <option value="subscribe">Subscribe / Super Fan</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="minCoinsGroup" style="display: none;">
+                <label>Define a minimum coins value</label>
+                <input type="number" class="form-control" id="minCoins" value="1" min="1">
+            </div>
+
+            <div class="form-group" id="minLikesGroup" style="display: none;">
+                <label>Define a minimum likes amount</label>
+                <input type="number" class="form-control" id="minLikes" value="100" min="1">
+            </div>
+
+            <div class="form-group">
+                <label>Trigger all of these actions</label>
+                <select class="form-control" id="eventActions" multiple>
+                    {% for action in actions %}
+                    <option value="{{ action.id }}">{{ action.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary" onclick="closeEventModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Event</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function openActionModal() {
+    document.getElementById('actionModal').style.display = 'block';
+}
+
+function closeActionModal() {
+    document.getElementById('actionModal').style.display = 'none';
+}
+
+function openEventModal() {
+    document.getElementById('eventModal').style.display = 'block';
+}
+
+function closeEventModal() {
+    document.getElementById('eventModal').style.display = 'none';
+}
+
+function toggleActionOption(type) {
+    const checkbox = document.getElementById('show' + type.charAt(0).toUpperCase() + type.slice(1));
+    const options = document.getElementById(type + 'Options');
+    options.style.display = checkbox.checked ? 'block' : 'none';
+}
+
+function showTriggerOptions() {
+    const trigger = document.getElementById('eventTrigger').value;
+    document.getElementById('minCoinsGroup').style.display = trigger === 'gift' ? 'block' : 'none';
+    document.getElementById('minLikesGroup').style.display = trigger === 'like' ? 'block' : 'none';
+}
+
+function simulateEvent(type) {
+    fetch(`/simulate/${type}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            'Content-Type': 'application/json'
+        }
+    }).then(response => {
+        if (response.ok) {
+            alert(`${type} event simulated successfully!`);
+        }
+    });
+}
+
+function simulateGift() {
+    const gift = document.getElementById('giftSelect').value;
+    if (!gift) {
+        alert('Please select a gift first');
+        return;
+    }
+    simulateEvent('gift');
+}
+
+// Close modals when clicking outside
+window.onclick = function(event) {
+    const actionModal = document.getElementById('actionModal');
+    const eventModal = document.getElementById('eventModal');
+    if (event.target === actionModal) {
+        actionModal.style.display = 'none';
+    }
+    if (event.target === eventModal) {
+        eventModal.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}

@@ -99,55 +99,55 @@
         <div class="menu-item active" onclick="location.href='{% url 'tiktok_live:dashboard' %}'">
             <i class="fas fa-th-large"></i> Başlangıç
         </div>
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:setup' %}'">
             <i class="fas fa-cog"></i> Kurulum
         </div>
         
         <div class="menu-separator"></div>
         <div class="menu-category"><i class="fas fa-desktop"></i> OVERLAY'LER</div>
         
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:overlay_gallery' %}'">
             <i class="fas fa-layer-group"></i> Overlay Galerisi
         </div>
         <div class="menu-item has-submenu" onclick="toggleSubmenu(this, event)">
             <i class="fas fa-bullseye"></i> Hedef Overlay'leri
         </div>
         <div class="submenu">
-            <div class="submenu-item">Beğeni Hedefi</div>
-            <div class="submenu-item">Paylaşım Hedefi</div>
-            <div class="submenu-item">Takip Hedefi</div>
-            <div class="submenu-item">İzleyici Sayısı Hedefi</div>
-            <div class="submenu-item">Kazanılan Coin Hedefi</div>
-            <div class="submenu-item">Özel Hedefler</div>
-            <div class="submenu-item">Ayarlar</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:target_overlays_sub' 'like-target' %}'">Beğeni Hedefi</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:target_overlays_sub' 'share-target' %}'">Paylaşım Hedefi</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:target_overlays_sub' 'follow-target' %}'">Takip Hedefi</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:target_overlays_sub' 'viewer-target' %}'">İzleyici Sayısı Hedefi</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:target_overlays_sub' 'coin-target' %}'">Kazanılan Coin Hedefi</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:target_overlays_sub' 'custom-targets' %}'">Özel Hedefler</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:target_overlays_sub' 'settings' %}'">Ayarlar</div>
         </div>
         <div class="menu-item has-submenu" onclick="toggleSubmenu(this, event)">
             <i class="fas fa-gift"></i> Hediye Overlay'leri <span class="new-badge">YENİ</span>
         </div>
         <div class="submenu">
-            <div class="submenu-item">Hediye Bildirim Overlay'i</div>
-            <div class="submenu-item">Hediye Bar Overlay'i</div>
-            <div class="submenu-item">Hediye Sıralaması</div>
-            <div class="submenu-item">Ayarlar</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:gift_overlays_sub' 'gift-notification' %}'">Hediye Bildirim Overlay'i</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:gift_overlays_sub' 'gift-bar' %}'">Hediye Bar Overlay'i</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:gift_overlays_sub' 'gift-ranking' %}'">Hediye Sıralaması</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:gift_overlays_sub' 'settings' %}'">Ayarlar</div>
         </div>
         <div class="menu-item has-submenu" onclick="toggleSubmenu(this, event)">
             <i class="fas fa-history"></i> Son X Overlay'leri
         </div>
         <div class="submenu">
-            <div class="submenu-item">Son Yorumlar</div>
-            <div class="submenu-item">Son Hediyeler</div>
-            <div class="submenu-item">Son Takipçiler</div>
-            <div class="submenu-item">Son Paylaşımlar</div>
-            <div class="submenu-item">Ayarlar</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:recent_overlays_sub' 'recent-comments' %}'">Son Yorumlar</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:recent_overlays_sub' 'recent-gifts' %}'">Son Hediyeler</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:recent_overlays_sub' 'recent-followers' %}'">Son Takipçiler</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:recent_overlays_sub' 'recent-shares' %}'">Son Paylaşımlar</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:recent_overlays_sub' 'settings' %}'">Ayarlar</div>
         </div>
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:obs_panels' %}'">
             <i class="fas fa-window-restore"></i> OBS Panelleri <span class="new-badge">YENİ</span>
         </div>
         
         <div class="menu-separator"></div>
         <div class="menu-category"><i class="fas fa-bolt"></i> OTOMASYON</div>
         
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:sound_alerts' %}'">
             <i class="fas fa-volume-up"></i> Ses Uyarıları
         </div>
         <div class="menu-item" onclick="location.href='{% url 'tiktok_live:automations' %}'">
@@ -157,56 +157,56 @@
         <div class="menu-separator"></div>
         <div class="menu-category"><i class="far fa-comments"></i> SOHBET</div>
         
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:chat_commands' %}'">
             <i class="fas fa-terminal"></i> Sohbet Komutları
         </div>
         <div class="menu-item" onclick="location.href='{% url 'tiktok_live:auto_responses' %}'">
             <i class="fas fa-comment-dots"></i> Sohbet Botu
         </div>
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:tts_chat' %}'">
             <i class="fas fa-microphone"></i> TTS Sohbet
         </div>
         
         <div class="menu-separator"></div>
         <div class="menu-category"><i class="fas fa-list-ul"></i> KULLANICILAR</div>
         
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:users_points' %}'">
             <i class="fas fa-users"></i> Kullanıcılar & Puanlar
         </div>
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:transactions' %}'">
             <i class="fas fa-exchange-alt"></i> İşlemler
         </div>
         
         <div class="menu-separator"></div>
         <div class="menu-category"><i class="fas fa-headphones"></i> MÜZİK</div>
         
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:song_requests' %}'">
             <i class="fas fa-music"></i> Şarkı İstekleri
         </div>
         
         <div class="menu-separator"></div>
         <div class="menu-category"><i class="fas fa-gamepad"></i> OYUNLAR & ARAÇLAR</div>
         
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:likeathon' %}'">
             <i class="fas fa-heart-broken"></i> Likeathon <span class="new-badge">YENİ</span>
         </div>
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:timer' %}'">
             <i class="fas fa-clock"></i> Zamanlayıcı
         </div>
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:wheel_fortune' %}'">
             <i class="fas fa-circle-notch"></i> Şans Çarkı
         </div>
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:points_drop' %}'">
             <i class="fas fa-coins"></i> Puan Düşür
         </div>
         
         <div class="menu-separator"></div>
         <div class="menu-category"><i class="fas fa-tools"></i> ARAÇLAR</div>
         
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:challenge' %}'">
             <i class="fas fa-trophy"></i> Meydan Okuma
         </div>
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:split' %}'">
             <i class="fas fa-divide"></i> Yarılama
         </div>
         
@@ -230,17 +230,17 @@
         <div class="menu-item" onclick="location.href='{% url 'tiktok_live:my_streams' %}'">
             <i class="fas fa-chart-bar"></i> Yayın İstatistikleri
         </div>
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:viewer_analysis' %}'">
             <i class="fas fa-users"></i> İzleyici Analizi
         </div>
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:event_api' %}'">
             <i class="fas fa-database"></i> Etkinlik API <span class="new-badge">YENİ</span>
         </div>
         
         <div class="menu-separator"></div>
         <div class="menu-category"><i class="fas fa-cog"></i> AYARLAR</div>
         
-        <div class="menu-item" onclick="location.href='#'">
+        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:profile_settings' %}'">
             <i class="fas fa-user-cog"></i> Profil Ayarları
         </div>
         <div class="menu-item" onclick="location.href='{% url 'tiktok_live:logout' %}'">
@@ -447,6 +447,13 @@
             } else {
                 alert(data.error || 'Bir hata oluştu');
             }
+        }
+        
+        function openOverlay(widgetId) {
+            const baseUrl = '{% url "tiktok_live:widget_view" "WIDGET_ID" %}'.replace('WIDGET_ID', widgetId);
+            const userId = '{{ user.id|default:"2449591" }}';
+            const overlayUrl = baseUrl + '?cid=' + userId + '&preview=1';
+            window.open(overlayUrl, '_blank', 'width=900,height=600');
         }
     </script>
 </body>

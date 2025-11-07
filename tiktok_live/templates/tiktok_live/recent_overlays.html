@@ -1,0 +1,112 @@
+{% extends 'tiktok_live/tikfinity_layout.html' %}
+{% block title %}Last X Overlays - TikFinity{% endblock %}
+{% block content %}
+<h1>🕰️ Last X Overlays</h1>
+<p style="color: #888; margin-bottom: 30px;">These overlays show <b><u>permanently</u></b> the user who last took an action such as Follow or Subscribe. To include the overlays in <b>OBS (Browser Source)</b> or <b>LIVE Studio (Link)</b>, simply copy the URLs. You can change the font and color or hide the profile pictures by clicking on the "Customize" button.</p>
+
+<div class="section">
+    <h3>Last Follower</h3>
+    <div style="margin-top: 15px;">
+        <input type="text" readonly style="width: 400px; margin-bottom: 10px;" placeholder="Widget URL will appear here">
+        <div>
+            <button class="btn btn-success" onclick="copyLastXURL('follower')">Copy URL</button>
+            <button class="btn" onclick="testLastX('follower')">Test</button>
+            <button class="btn">Customize</button>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h3>Last Gifter</h3>
+    <div style="margin-top: 15px;">
+        <input type="text" readonly style="width: 400px; margin-bottom: 10px;" placeholder="Widget URL will appear here">
+        <div>
+            <button class="btn btn-success" onclick="copyLastXURL('gifter')">Copy URL</button>
+            <button class="btn" onclick="testLastX('gifter')">Test</button>
+            <button class="btn">Customize</button>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h3>Last Subscribe / Super Fan</h3>
+    <div style="margin-top: 15px;">
+        <input type="text" readonly style="width: 400px; margin-bottom: 10px;" placeholder="Widget URL will appear here">
+        <div>
+            <button class="btn btn-success" onclick="copyLastXURL('subscriber')">Copy URL</button>
+            <button class="btn" onclick="testLastX('subscriber')">Test</button>
+            <button class="btn">Customize</button>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h3>Last Share</h3>
+    <div style="margin-top: 15px;">
+        <input type="text" readonly style="width: 400px; margin-bottom: 10px;" placeholder="Widget URL will appear here">
+        <div>
+            <button class="btn btn-success" onclick="copyLastXURL('share')">Copy URL</button>
+            <button class="btn" onclick="testLastX('share')">Test</button>
+            <button class="btn">Customize</button>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h3>Last Like</h3>
+    <div style="margin-top: 15px;">
+        <input type="text" readonly style="width: 400px; margin-bottom: 10px;" placeholder="Widget URL will appear here">
+        <div>
+            <button class="btn btn-success" onclick="copyLastXURL('like')">Copy URL</button>
+            <button class="btn" onclick="testLastX('like')">Test</button>
+            <button class="btn">Customize</button>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h3>Last Chatter</h3>
+    <div style="margin-top: 15px;">
+        <input type="text" readonly style="width: 400px; margin-bottom: 10px;" placeholder="Widget URL will appear here">
+        <div>
+            <button class="btn btn-success" onclick="copyLastXURL('chatter')">Copy URL</button>
+            <button class="btn" onclick="testLastX('chatter')">Test</button>
+            <button class="btn">Customize</button>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h3>Settings</h3>
+    <div class="field">
+        <label>Refresh Interval (seconds)</label>
+        <input type="number" value="2" min="0.5" max="5" step="0.5" style="max-width: 100px;">
+    </div>
+    <div class="field">
+        <label>Fade Duration (milliseconds)</label>
+        <input type="number" value="250" min="10" max="2000" step="100" style="max-width: 100px;">
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function copyLastXURL(type) {
+    const userId = {{ user.id|default:"2449591" }};
+    const url = `${window.location.origin}/tiktok/widget/lastx?cid=${userId}&x=${type}&preview=0`;
+    
+    navigator.clipboard.writeText(url).then(() => {
+        alert('✅ Last X overlay URL copied to clipboard!');
+    }).catch(() => {
+        prompt('Copy this URL:', url);
+    });
+}
+
+function testLastX(type) {
+    const userId = {{ user.id|default:"2449591" }};
+    const url = `${window.location.origin}/tiktok/widget/lastx?cid=${userId}&x=${type}&preview=1&test=1`;
+    
+    window.open(url, '_blank', 'width=800,height=400');
+}
+</script>
+{% endblock %}

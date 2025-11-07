@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activity Feed Dock {{ dock_id }}</title>
+    <style>
+        body { margin: 0; padding: 10px; background: #0f0f0f; color: #fff; font-family: Arial, sans-serif; font-size: 12px; }
+        .activity-container { background: #1a1a1a; border-radius: 8px; height: 100vh; overflow-y: auto; }
+        .activity-header { padding: 10px; background: #fe2c55; color: white; font-weight: bold; text-align: center; }
+        .activity-item { padding: 8px 10px; border-bottom: 1px solid #333; display: flex; align-items: center; }
+        .activity-avatar { width: 30px; height: 30px; border-radius: 50%; background: #333; margin-right: 10px; }
+        .activity-info { flex: 1; }
+        .activity-username { font-weight: bold; font-size: 11px; }
+        .activity-action { font-size: 10px; color: #888; }
+        .activity-time { font-size: 9px; color: #666; }
+        .activity-gift { color: #fe2c55; }
+        .activity-follow { color: #10b981; }
+        .activity-share { color: #667eea; }
+    </style>
+</head>
+<body>
+    <div class="activity-container">
+        <div class="activity-header">Activity Feed - Dock {{ dock_id }}</div>
+        
+        <div class="activity-item">
+            <div class="activity-avatar"></div>
+            <div class="activity-info">
+                <div class="activity-username">@tiktoker123</div>
+                <div class="activity-action activity-gift">Sent a Rose 🌹</div>
+                <div class="activity-time">2 seconds ago</div>
+            </div>
+        </div>
+        
+        <div class="activity-item">
+            <div class="activity-avatar"></div>
+            <div class="activity-info">
+                <div class="activity-username">@follower456</div>
+                <div class="activity-action activity-follow">Started following</div>
+                <div class="activity-time">15 seconds ago</div>
+            </div>
+        </div>
+        
+        <div class="activity-item">
+            <div class="activity-avatar"></div>
+            <div class="activity-info">
+                <div class="activity-username">@sharer789</div>
+                <div class="activity-action activity-share">Shared the stream</div>
+                <div class="activity-time">32 seconds ago</div>
+            </div>
+        </div>
+        
+        <div class="activity-item">
+            <div class="activity-avatar"></div>
+            <div class="activity-info">
+                <div class="activity-username">@chatter101</div>
+                <div class="activity-action">Said: "Amazing stream!"</div>
+                <div class="activity-time">45 seconds ago</div>
+            </div>
+        </div>
+        
+        <div class="activity-item">
+            <div class="activity-avatar"></div>
+            <div class="activity-info">
+                <div class="activity-username">@liker202</div>
+                <div class="activity-action">Liked the stream ❤️</div>
+                <div class="activity-time">1 minute ago</div>
+            </div>
+        </div>
+        
+        {% if preview %}
+        <div style="padding: 10px; text-align: center; color: #888; font-size: 10px;">
+            Preview Mode - Dock {{ dock_id }} - CID: {{ cid }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

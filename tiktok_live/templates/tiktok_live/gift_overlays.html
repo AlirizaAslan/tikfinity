@@ -1,0 +1,119 @@
+{% extends 'tiktok_live/tikfinity_layout.html' %}
+{% block title %}Gift Overlays - TikFinity{% endblock %}
+{% block content %}
+<h1>🎁 Gift Overlays <span style="font-size: 0.65em; color:#fe2c55; vertical-align: top">NEW</span></h1>
+<p style="color: #888; margin-bottom: 30px;">Put your top supporters in the spotlight and drive motivation with dynamic gift overlays!</p>
+
+<div class="section">
+    <div class="checkbox" style="float: right; margin-top: -5px;">
+        <input type="checkbox" checked> Reset on new stream
+    </div>
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 50%; padding-right: 20px;">
+                <h3>Top Gift <span style="background: #667eea; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">PRO</span></h3>
+                <p>The user who sent the biggest gift.</p>
+                <div style="margin-top: 15px;">
+                    <input type="text" readonly style="width: 300px; margin-bottom: 10px;" placeholder="Widget URL will appear here">
+                    <div>
+                        <button class="btn btn-success" onclick="copyGiftURL('topg')">Copy</button>
+                        <button class="btn" style="margin-left: 5px;">Customize</button>
+                        <button class="btn" style="margin-left: 5px;">Reset</button>
+                    </div>
+                </div>
+            </td>
+            <td style="width: 50%;">
+                <h3>Top Streak <span style="background: #667eea; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">PRO</span></h3>
+                <p>The user who has sent the longest gift combo streak.</p>
+                <div style="margin-top: 15px;">
+                    <input type="text" readonly style="width: 300px; margin-bottom: 10px;" placeholder="Widget URL will appear here">
+                    <div>
+                        <button class="btn btn-success" onclick="copyGiftURL('tops')">Copy</button>
+                        <button class="btn" style="margin-left: 5px;">Customize</button>
+                        <button class="btn" style="margin-left: 5px;">Reset</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h3>Gift Counter</h3>
+    <p>Here you can set up gift counters that counts the gifts sent by your viewers. You can set a goal or leave it at 0 to have a simple counter. Create up to 3 counters.</p>
+    
+    <div class="checkbox">
+        <input type="checkbox" checked> Reset Counter when starting a new stream
+    </div>
+    <div class="checkbox" style="margin-left: 40px;">
+        <input type="checkbox"> Reset all Counter when a goal has been reached (Poll Mode)
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <h4>Counter 1</h4>
+        <div class="field">
+            <label>Change Value:</label>
+            <input type="number" value="0" min="0" max="99999999" step="1" style="max-width: 150px;">
+            <button class="btn">Set</button>
+        </div>
+        
+        <table style="width: 100%; margin-top: 15px;">
+            <tr>
+                <td><label>Gift:</label></td>
+                <td><label>Goal:</label></td>
+                <td><label>Title:</label></td>
+                <td><label>When reached:</label></td>
+                <td><label>Action on reaching:</label></td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="Select gift" style="width: 200px;"></td>
+                <td><input type="number" value="50" min="0" max="99999999" step="1" style="width: 100px;"></td>
+                <td><input type="text" placeholder="(optional)" style="width: 150px;"></td>
+                <td><select style="width: 180px;"><option>Select...</option></select></td>
+                <td><button class="btn">Select</button></td>
+            </tr>
+        </table>
+        
+        <div style="margin-top: 15px;">
+            <input type="text" readonly style="width: 400px; margin-bottom: 10px;" placeholder="Widget URL will appear here">
+            <div>
+                <button class="btn btn-success" onclick="copyGiftURL('gcounter', '1')">Copy URL</button>
+                <button class="btn" onclick="testGift('gcounter', '1')">Test</button>
+                <button class="btn">Customize</button>
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 20px;">
+        <button class="btn" onclick="addGiftCounter()"><i class="fas fa-plus"></i> Add Gift Counter</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function copyGiftURL(widgetType, counter = null) {
+    const userId = {{ user.id|default:"2449591" }};
+    let url = `${window.location.origin}/tiktok/widget/${widgetType}?cid=${userId}&preview=0`;
+    if (counter) url += `&c=${counter}`;
+    
+    navigator.clipboard.writeText(url).then(() => {
+        alert('✅ Gift overlay URL copied to clipboard!');
+    }).catch(() => {
+        prompt('Copy this URL:', url);
+    });
+}
+
+function testGift(widgetType, counter = null) {
+    const userId = {{ user.id|default:"2449591" }};
+    let url = `${window.location.origin}/tiktok/widget/${widgetType}?cid=${userId}&preview=1&test=1`;
+    if (counter) url += `&c=${counter}`;
+    
+    window.open(url, '_blank', 'width=800,height=600');
+}
+
+function addGiftCounter() {
+    alert('Additional gift counters can be added here!');
+}
+</script>
+{% endblock %}

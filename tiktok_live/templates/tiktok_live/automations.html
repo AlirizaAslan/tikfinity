@@ -1,203 +1,190 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Otomasyonlar - TikFinity</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f0f; color: #fff; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 15px; margin-bottom: 30px; }
-        .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; transition: all 0.3s; text-decoration: none; display: inline-block; }
-        .btn-primary { background: #667eea; color: white; }
-        .btn-success { background: #10b981; color: white; }
-        .btn-danger { background: #ef4444; color: white; }
-        .automation-card { background: #1a1a1a; padding: 20px; border-radius: 12px; margin-bottom: 15px; border-left: 4px solid #667eea; }
-        .automation-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .automation-details { color: #888; }
-        .toggle-switch { position: relative; display: inline-block; width: 60px; height: 34px; }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
-        .slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
-        input:checked + .slider { background-color: #10b981; }
-        input:checked + .slider:before { transform: translateX(26px); }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; }
-        .modal-content { background: #1a1a1a; max-width: 600px; margin: 50px auto; padding: 30px; border-radius: 12px; max-height: 90vh; overflow-y: auto; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; color: #888; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #333; background: #252525; color: #fff; border-radius: 8px; font-size: 1em; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>⚙️ Otomasyonlar</h1>
-            <p>Canlı yayın etkileşimlerine otomatik tepkiler oluşturun</p>
-        </div>
+{% extends 'tiktok_live/tikfinity_layout.html' %}
+{% block title %}Actions & Events - TikFinity{% endblock %}
 
-        <div style="margin-bottom: 20px;">
-            <button class="btn btn-primary" onclick="openCreateModal()">+ Yeni Otomasyon</button>
-            <a href="{% url 'tiktok_live:dashboard' %}" class="btn btn-danger">← Geri Dön</a>
-        </div>
+{% block extra_css %}
+<style>
+    .automation-card { background: #1a1a1a; padding: 20px; border-radius: 12px; margin-bottom: 15px; border-left: 4px solid #667eea; }
+    .automation-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    .automation-details { color: #888; }
+    .toggle-switch { position: relative; display: inline-block; width: 60px; height: 34px; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+    .slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+    input:checked + .slider { background-color: #10b981; }
+    input:checked + .slider:before { transform: translateX(26px); }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; }
+    .modal-content { background: #1a1a1a; max-width: 600px; margin: 50px auto; padding: 30px; border-radius: 12px; max-height: 90vh; overflow-y: auto; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 8px; color: #888; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #333; background: #252525; color: #fff; border-radius: 8px; font-size: 1em; }
+</style>
+{% endblock %}
 
-        <div id="automationsList">
-            {% for trigger in triggers %}
-            <div class="automation-card">
-                <div class="automation-header">
-                    <div>
-                        <h3>{{ trigger.name }}</h3>
-                        <p class="automation-details">
-                            Tetikleyici: {{ trigger.get_trigger_type_display }} | 
-                            Aksiyon: {{ trigger.get_action_type_display }}
-                        </p>
-                    </div>
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <label class="toggle-switch">
-                            <input type="checkbox" {% if trigger.is_active %}checked{% endif %} 
-                                   onchange="toggleAutomation({{ trigger.id }})">
-                            <span class="slider"></span>
-                        </label>
-                        <button class="btn btn-danger" onclick="deleteAutomation({{ trigger.id }})">Sil</button>
-                    </div>
-                </div>
-                <div class="automation-details">
-                    Koşul: {{ trigger.condition_value }} adet {{ trigger.get_trigger_type_display }}
-                </div>
+{% block content %}
+<h1>Actions & Events</h1>
+<p style="color: #888; margin-bottom: 30px;">Create automatic reactions to live stream interactions</p>
+
+<div style="margin-bottom: 20px;">
+    <button class="btn" onclick="openCreateModal()">+ New Automation</button>
+</div>
+
+<div id="automationsList">
+    {% for trigger in triggers %}
+    <div class="automation-card">
+        <div class="automation-header">
+            <div>
+                <h3>{{ trigger.name }}</h3>
+                <p class="automation-details">
+                    Trigger: {{ trigger.get_trigger_type_display }} | 
+                    Action: {{ trigger.get_action_type_display }}
+                </p>
             </div>
-            {% empty %}
-            <p style="text-align: center; color: #888; padding: 40px;">Henüz otomasyon oluşturmadınız.</p>
-            {% endfor %}
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <label class="toggle-switch">
+                    <input type="checkbox" {% if trigger.is_active %}checked{% endif %} 
+                           onchange="toggleAutomation({{ trigger.id }})">
+                    <span class="slider"></span>
+                </label>
+                <button class="btn btn-danger" onclick="deleteAutomation({{ trigger.id }})">Delete</button>
+            </div>
+        </div>
+        <div class="automation-details">
+            Condition: {{ trigger.condition_value }} {{ trigger.get_trigger_type_display }}
         </div>
     </div>
+    {% empty %}
+    <p style="text-align: center; color: #888; padding: 40px;">No automations created yet.</p>
+    {% endfor %}
+</div>
 
-    <div id="createModal" class="modal">
-        <div class="modal-content">
-            <h2>Yeni Otomasyon Oluştur</h2>
-            <form id="automationForm">
-                <div class="form-group">
-                    <label>Hesap Seçin</label>
-                    <select id="accountId" required>
-                        {% for account in accounts %}
-                        <option value="{{ account.id }}">@{{ account.username }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Otomasyon Adı</label>
-                    <input type="text" id="name" placeholder="Örn: 100 Beğeni Animasyonu" required>
-                </div>
-                <div class="form-group">
-                    <label>Tetikleyici Tip</label>
-                    <select id="triggerType" required>
-                        <option value="comment">Yorum</option>
-                        <option value="like">Beğeni</option>
-                        <option value="follow">Takip</option>
-                        <option value="gift">Hediye</option>
-                        <option value="share">Paylaşım</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Koşul Değeri (Kaç adet?)</label>
-                    <input type="number" id="conditionValue" value="1" min="1" required>
-                </div>
-                <div class="form-group">
-                    <label>Aksiyon Tipi</label>
-                    <select id="actionType" required>
-                        <option value="message">Mesaj Gönder</option>
-                        <option value="animation">Animasyon Oynat</option>
-                        <option value="sound">Ses Çal</option>
-                        <option value="script">Script Çalıştır</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Aksiyon Mesajı / Parametresi</label>
-                    <textarea id="actionData" rows="3" placeholder='{"message": "Teşekkürler!"}'></textarea>
-                </div>
-                <div style="display: flex; gap: 10px;">
-                    <button type="submit" class="btn btn-success">Oluştur</button>
-                    <button type="button" class="btn btn-danger" onclick="closeCreateModal()">İptal</button>
-                </div>
-            </form>
-        </div>
+<div id="createModal" class="modal">
+    <div class="modal-content">
+        <h2>Create New Automation</h2>
+        <form id="automationForm">
+            <div class="form-group">
+                <label>Select Account</label>
+                <select id="accountId" required>
+                    {% for account in accounts %}
+                    <option value="{{ account.id }}">@{{ account.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Automation Name</label>
+                <input type="text" id="name" placeholder="e.g: 100 Like Animation" required>
+            </div>
+            <div class="form-group">
+                <label>Trigger Type</label>
+                <select id="triggerType" required>
+                    <option value="comment">Comment</option>
+                    <option value="like">Like</option>
+                    <option value="follow">Follow</option>
+                    <option value="gift">Gift</option>
+                    <option value="share">Share</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Condition Value (How many?)</label>
+                <input type="number" id="conditionValue" value="1" min="1" required>
+            </div>
+            <div class="form-group">
+                <label>Action Type</label>
+                <select id="actionType" required>
+                    <option value="message">Send Message</option>
+                    <option value="animation">Play Animation</option>
+                    <option value="sound">Play Sound</option>
+                    <option value="script">Run Script</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Action Message / Parameter</label>
+                <textarea id="actionData" rows="3" placeholder='{"message": "Thank you!"}'></textarea>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button type="submit" class="btn btn-success">Create</button>
+                <button type="button" class="btn btn-danger" onclick="closeCreateModal()">Cancel</button>
+            </div>
+        </form>
     </div>
+</div>
+{% endblock %}
 
-    <script>
-        function openCreateModal() {
-            document.getElementById('createModal').style.display = 'block';
+{% block extra_js %}
+<script>
+    function openCreateModal() {
+        document.getElementById('createModal').style.display = 'block';
+    }
+
+    function closeCreateModal() {
+        document.getElementById('createModal').style.display = 'none';
+    }
+
+    document.getElementById('automationForm').onsubmit = async (e) => {
+        e.preventDefault();
+
+        let actionData = {};
+        try {
+            actionData = JSON.parse(document.getElementById('actionData').value || '{}');
+        } catch (e) {
+            actionData = { text: document.getElementById('actionData').value };
         }
 
-        function closeCreateModal() {
-            document.getElementById('createModal').style.display = 'none';
-        }
-
-        document.getElementById('automationForm').onsubmit = async (e) => {
-            e.preventDefault();
-
-            let actionData = {};
-            try {
-                actionData = JSON.parse(document.getElementById('actionData').value || '{}');
-            } catch (e) {
-                actionData = { text: document.getElementById('actionData').value };
-            }
-
-            const data = {
-                account_id: document.getElementById('accountId').value,
-                name: document.getElementById('name').value,
-                trigger_type: document.getElementById('triggerType').value,
-                condition_value: parseInt(document.getElementById('conditionValue').value),
-                action_type: document.getElementById('actionType').value,
-                action_data: actionData
-            };
-
-            const response = await fetch('{% url "tiktok_live:create_automation" %}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify(data)
-            });
-
-            const result = await response.json();
-            if (result.success) {
-                location.reload();
-            } else {
-                alert('Bir hata oluştu');
-            }
+        const data = {
+            account_id: document.getElementById('accountId').value,
+            name: document.getElementById('name').value,
+            trigger_type: document.getElementById('triggerType').value,
+            condition_value: parseInt(document.getElementById('conditionValue').value),
+            action_type: document.getElementById('actionType').value,
+            action_data: actionData
         };
 
-        async function toggleAutomation(triggerId) {
-            const response = await fetch(`/tiktok/automations/${triggerId}/toggle/`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
-                }
-            });
+        const response = await fetch('{% url "tiktok_live:create_automation" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify(data)
+        });
 
-            const result = await response.json();
-            if (!result.success) {
-                alert('Bir hata oluştu');
-            }
+        const result = await response.json();
+        if (result.success) {
+            location.reload();
+        } else {
+            alert('An error occurred');
         }
+    };
 
-        async function deleteAutomation(triggerId) {
-            if (!confirm('Bu otomasyonu silmek istediğinizden emin misiniz?')) return;
-
-            const response = await fetch(`/tiktok/automations/${triggerId}/delete/`, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
-                }
-            });
-
-            const result = await response.json();
-            if (result.success) {
-                location.reload();
-            } else {
-                alert('Bir hata oluştu');
+    async function toggleAutomation(triggerId) {
+        const response = await fetch(`/tiktok/automations/${triggerId}/toggle/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
             }
+        });
+
+        const result = await response.json();
+        if (!result.success) {
+            alert('An error occurred');
         }
-    </script>
-</body>
-</html>
+    }
+
+    async function deleteAutomation(triggerId) {
+        if (!confirm('Are you sure you want to delete this automation?')) return;
+
+        const response = await fetch(`/tiktok/automations/${triggerId}/delete/`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            location.reload();
+        } else {
+            alert('An error occurred');
+        }
+    }
+</script>
+{% endblock %}

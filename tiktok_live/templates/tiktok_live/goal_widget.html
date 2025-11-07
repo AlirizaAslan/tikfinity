@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Goal Widget - {{ metric|title }}</title>
+    <style>
+        body { margin: 0; padding: 20px; background: #0f0f0f; color: #fff; font-family: Arial, sans-serif; }
+        .goal-container { background: #1a1a1a; padding: 20px; border-radius: 8px; text-align: center; }
+        .goal-title { font-size: 18px; margin-bottom: 10px; }
+        .goal-progress { background: #333; height: 20px; border-radius: 10px; overflow: hidden; margin: 10px 0; }
+        .goal-bar { background: #fe2c55; height: 100%; width: 65%; transition: width 0.3s; }
+        .goal-text { font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="goal-container">
+        <div class="goal-title">{{ metric|title }} Goal</div>
+        <div class="goal-progress">
+            <div class="goal-bar"></div>
+        </div>
+        <div class="goal-text">
+            {% if metric == 'likes' %}32,500 / 50,000 Likes
+            {% elif metric == 'shares' %}33 / 50 Shares
+            {% elif metric == 'follows' %}67 / 100 Follows
+            {% elif metric == 'viewer' %}78 / 100 Viewers
+            {% elif metric == 'coins' %}325 / 500 Coins
+            {% else %}25 / 50 Progress{% endif %}
+        </div>
+        {% if test %}
+        <div style="margin-top: 10px; font-size: 12px; color: #888;">
+            Test Mode - CID: {{ cid }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -8,7 +8,7 @@ import secrets
 import urllib.parse
 from django.conf import settings
 from django.contrib.auth.models import User
-from .models import TikTokAccount, UserProfile, StreamControl
+from .models import TikTokAccount
 
 class TikTokOAuth:
     """TikTok OAuth handler with PKCE support"""
@@ -115,40 +115,27 @@ class TikTokOAuth:
             }
         )
         
-        # Create or update user profile
-        profile, _ = UserProfile.objects.get_or_create(
-            user=user,
-            defaults={'tiktok_username': tiktok_username}
-        )
-        
-        if not profile.tiktok_username:
-            profile.tiktok_username = tiktok_username
-            profile.save()
+        # Store TikTok username in user's first_name field
+        if not user.first_name:
+            user.first_name = tiktok_username
+            user.save()
         
         # Create or update TikTok account
         account, _ = TikTokAccount.objects.get_or_create(
             user=user,
             username=tiktok_username,
             defaults={
-                'is_owner': True,
-                'can_control_stream': True,
-                'is_verified_owner': True,
-                'verification_method': 'oauth',
+                'is_verified': True,
                 'display_name': user_data.get('display_name', ''),
                 'profile_picture': user_data.get('avatar_url', '') or user_data.get('avatar_large_url', ''),
                 'bio': user_data.get('bio_description', '')
             }
         )
         
-        if not account.is_verified_owner:
-            account.is_owner = True
-            account.can_control_stream = True
-            account.is_verified_owner = True
-            account.verification_method = 'oauth'
+        if not account.is_verified:
+            account.is_verified = True
             account.save()
         
-        # Create stream control if doesn't exist
-        if not hasattr(account, 'stream_control'):
-            StreamControl.objects.create(account=account)
+        # Account created successfully
         
         return user, None

@@ -1,0 +1,140 @@
+{% extends 'tiktok_live/tikfinity_layout.html' %}
+{% block title %}Sound Alerts - TikFinity{% endblock %}
+{% block content %}
+<h1>🔊 Sound Alerts</h1>
+<p style="color: #888; margin-bottom: 30px;">This is the easiest way to play sounds when you receive gifts, follows or other things :)<br>
+If you use <b>OBS</b> or <b>Live Studio</b>, also try the Actions & Events feature for more advanced options.<br>
+If you map multiple sounds to the same trigger, a sound will be randomly picked. Use <a href="https://mp3cut.net/" target="_blank">mp3cut.net</a> to trim your sounds.<br>
+<b style="color: #d53838">New!</b> Now you can also map keyboard shortcuts to sounds to play them by pressing a key on your keyboard.</p>
+
+<div class="section" style="min-width: 1000px; min-height: 100px;">
+    <div style="margin-bottom: 20px;">
+        <button class="btn btn-success" onclick="createSoundAlert()"><i class="fas fa-plus"></i> Create Sound Alert</button>
+        <div class="checkbox" style="display: inline-block; margin-left: 20px;">
+            <input type="checkbox" checked id="soundsEnabled"> Sounds enabled
+        </div>
+    </div>
+    
+    <div style="background: #252525; border-radius: 8px; padding: 20px;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background: #333; color: #fff;">
+                    <th style="padding: 10px; text-align: center; width: 80px;">Actions</th>
+                    <th style="padding: 10px; text-align: center; width: 80px;">Enabled</th>
+                    <th style="padding: 10px; text-align: left; width: 300px;">Trigger</th>
+                    <th style="padding: 10px; text-align: left;">Sound</th>
+                    <th style="padding: 10px; text-align: left; width: 110px;">Key Shortcut</th>
+                    <th style="padding: 10px; text-align: left; width: 250px;">Volume</th>
+                </tr>
+            </thead>
+            <tbody id="soundAlertsTable">
+                <tr>
+                    <td colspan="6" style="padding: 40px; text-align: center; color: #888;">No Sound Alerts defined</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div style="margin-top: 20px; text-align: center;">
+            <input type="text" placeholder="Search..." style="width: 240px; padding: 8px; background: #333; border: 1px solid #555; color: #fff; border-radius: 4px;">
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h3>Settings</h3>
+    <div class="field">
+        <label>Play sounds simultaneously</label>
+        <div class="checkbox">
+            <input type="checkbox" checked> Enable
+        </div>
+    </div>
+    <div class="field">
+        <label>Play only first emote of message</label>
+        <div class="checkbox">
+            <input type="checkbox" checked> Enable
+        </div>
+    </div>
+    <div class="field">
+        <label>Max. Queue length</label>
+        <input type="number" value="100" min="1" max="5000" step="1" style="max-width: 100px;">
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function createSoundAlert() {
+    const trigger = prompt('Enter trigger (e.g., "gift:rose", "follow", "share"):');
+    if (!trigger) return;
+    
+    const soundFile = prompt('Enter sound file name or URL:');
+    if (!soundFile) return;
+    
+    const keyShortcut = prompt('Enter keyboard shortcut (optional):') || '';
+    const volume = prompt('Enter volume (0-100):') || '50';
+    
+    addSoundAlertToTable(trigger, soundFile, keyShortcut, volume);
+}
+
+function addSoundAlertToTable(trigger, sound, keyShortcut, volume) {
+    const table = document.getElementById('soundAlertsTable');
+    
+    // Remove "No alerts" message if it exists
+    if (table.children.length === 1 && table.children[0].children.length === 1) {
+        table.innerHTML = '';
+    }
+    
+    const row = document.createElement('tr');
+    row.style.borderBottom = '1px solid #333';
+    row.innerHTML = `
+        <td style="padding: 10px; text-align: center;">
+            <button class="btn" style="padding: 5px 10px; margin: 2px;" onclick="editSoundAlert(this)">Edit</button>
+            <button class="btn" style="padding: 5px 10px; margin: 2px; background: #d53838;" onclick="deleteSoundAlert(this)">Delete</button>
+        </td>
+        <td style="padding: 10px; text-align: center;">
+            <input type="checkbox" checked>
+        </td>
+        <td style="padding: 10px;">${trigger}</td>
+        <td style="padding: 10px;">${sound}</td>
+        <td style="padding: 10px;">${keyShortcut}</td>
+        <td style="padding: 10px;">
+            <input type="range" min="0" max="100" value="${volume}" style="width: 150px;"> ${volume}%
+        </td>
+    `;
+    
+    table.appendChild(row);
+}
+
+function editSoundAlert(button) {
+    const row = button.closest('tr');
+    const cells = row.children;
+    
+    const newTrigger = prompt('Edit trigger:', cells[2].textContent) || cells[2].textContent;
+    const newSound = prompt('Edit sound:', cells[3].textContent) || cells[3].textContent;
+    const newShortcut = prompt('Edit shortcut:', cells[4].textContent) || cells[4].textContent;
+    
+    cells[2].textContent = newTrigger;
+    cells[3].textContent = newSound;
+    cells[4].textContent = newShortcut;
+}
+
+function deleteSoundAlert(button) {
+    if (confirm('Delete this sound alert?')) {
+        const row = button.closest('tr');
+        row.remove();
+        
+        const table = document.getElementById('soundAlertsTable');
+        if (table.children.length === 0) {
+            table.innerHTML = '<tr><td colspan="6" style="padding: 40px; text-align: center; color: #888;">No Sound Alerts defined</td></tr>';
+        }
+    }
+}
+
+// Add some example sound alerts on page load
+window.onload = function() {
+    addSoundAlertToTable('gift:rose', 'rose_sound.mp3', 'Ctrl+R', '75');
+    addSoundAlertToTable('follow', 'follow_sound.wav', 'Ctrl+F', '80');
+    addSoundAlertToTable('share', 'share_sound.mp3', 'Ctrl+S', '70');
+};
+</script>
+{% endblock %}

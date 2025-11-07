@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ widget_name }} - TikFinity Widget</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: transparent;
+            color: #fff;
+            overflow: hidden;
+        }
+        .widget-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .demo-content {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #4a9eff;
+        }
+        .widget-title {
+            font-size: 1.5em;
+            color: #4a9eff;
+            margin-bottom: 10px;
+        }
+        .widget-status {
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+        .demo-data {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .chat-message {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 15px;
+            text-align: left;
+        }
+        .gift-item {
+            display: flex;
+            align-items: center;
+            background: rgba(254, 44, 85, 0.2);
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 8px;
+        }
+        .viewer-count {
+            font-size: 2em;
+            color: #fe2c55;
+            font-weight: bold;
+        }
+        .animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="widget-container">
+        {% if customize %}
+        <div class="demo-content">
+            <div class="widget-title">🎨 Customize {{ widget_name }}</div>
+            <div style="text-align: left; margin: 20px 0;">
+                <label>Font Size: <input type="range" min="12" max="24" value="16"></label><br><br>
+                <label>Text Color: <input type="color" value="#ffffff"></label><br><br>
+                <label>Background: <input type="color" value="#000000"></label><br><br>
+                <button class="btn" style="background: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 4px;">Save Settings</button>
+            </div>
+        </div>
+        
+        {% elif test %}
+        <div class="demo-content">
+            <div class="widget-title">🧪 Testing {{ widget_name }}</div>
+            <div class="widget-status">● Test Mode Active</div>
+            <div style="margin: 20px 0;">
+                <button onclick="simulateEvent()" class="btn" style="background: #fe2c55; color: white; padding: 10px 20px; border: none; border-radius: 4px; margin: 5px;">Simulate Gift</button>
+                <button onclick="simulateChat()" class="btn" style="background: #4a9eff; color: white; padding: 10px 20px; border: none; border-radius: 4px; margin: 5px;">Simulate Chat</button>
+            </div>
+        </div>
+        
+        {% elif widget_id == 'chat' %}
+        <div class="demo-content">
+            <div class="widget-title">💬 TikTok Chat</div>
+            <div class="widget-status">● Live Chat Active</div>
+            <div class="chat-message">
+                <strong>user123:</strong> Hello everyone! 👋
+            </div>
+            <div class="chat-message">
+                <strong>tiktoker456:</strong> Great stream! 🔥
+            </div>
+            <div class="chat-message">
+                <strong>viewer789:</strong> Love this content! ❤️
+            </div>
+        </div>
+        
+        {% elif widget_id == 'gifts' %}
+        <div class="demo-content">
+            <div class="widget-title">🎁 Gift Feed</div>
+            <div class="widget-status">● Tracking Gifts</div>
+            <div class="gift-item">
+                <span>🌹</span>
+                <span style="margin-left: 10px;"><strong>user123</strong> sent Rose</span>
+            </div>
+            <div class="gift-item">
+                <span>💎</span>
+                <span style="margin-left: 10px;"><strong>tiktoker456</strong> sent Diamond</span>
+            </div>
+            <div class="gift-item">
+                <span>🎪</span>
+                <span style="margin-left: 10px;"><strong>viewer789</strong> sent Carnival</span>
+            </div>
+        </div>
+        
+        {% elif widget_id == 'viewercount' %}
+        <div class="demo-content">
+            <div class="widget-title">👥 Live Viewers</div>
+            <div class="viewer-count animation">1,234</div>
+            <div style="color: #888; font-size: 0.9em;">TikTok Live Viewers</div>
+        </div>
+        
+        {% elif widget_id == 'coinmatch' %}
+        <div class="demo-content">
+            <div class="widget-title">🏆 Coin Match</div>
+            <div class="widget-status">● Auction Active</div>
+            <div class="demo-data">
+                <div style="margin: 10px 0;">
+                    <strong>1st Place:</strong> user123 - 150 coins
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>2nd Place:</strong> tiktoker456 - 120 coins
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>3rd Place:</strong> viewer789 - 95 coins
+                </div>
+            </div>
+        </div>
+        
+        {% else %}
+        <div class="demo-content">
+            <div class="widget-title">{{ widget_name }}</div>
+            <div class="widget-status">● Widget Active</div>
+            <div class="demo-data">
+                <p>Widget ID: {{ widget_id }}</p>
+                <p>Client ID: {{ cid }}</p>
+                {% if preview %}
+                <p>Preview Mode: ON</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        // Add some basic interactivity for demo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate live updates for chat
+            if ('{{ widget_id }}' === 'chat') {
+                const messages = [
+                    'Amazing stream! 🎉',
+                    'Keep it up! 💪',
+                    'Love from Turkey! 🇹🇷',
+                    'First time here! 👋',
+                    'This is so cool! ✨'
+                ];
+                
+                setInterval(() => {
+                    const chatContainer = document.querySelector('.demo-content');
+                    const newMessage = document.createElement('div');
+                    newMessage.className = 'chat-message';
+                    newMessage.innerHTML = `<strong>user${Math.floor(Math.random() * 1000)}:</strong> ${messages[Math.floor(Math.random() * messages.length)]}`;
+                    
+                    chatContainer.appendChild(newMessage);
+                    
+                    // Remove old messages to prevent overflow
+                    const allMessages = chatContainer.querySelectorAll('.chat-message');
+                    if (allMessages.length > 5) {
+                        allMessages[0].remove();
+                    }
+                }, 3000);
+            }
+            
+            // Simulate viewer count updates
+            if ('{{ widget_id }}' === 'viewercount') {
+                const viewerElement = document.querySelector('.viewer-count');
+                setInterval(() => {
+                    const baseCount = 1234;
+                    const variation = Math.floor(Math.random() * 100) - 50;
+                    viewerElement.textContent = (baseCount + variation).toLocaleString();
+                }, 2000);
+            }
+        });
+        
+        // Test simulation functions
+        window.simulateEvent = function() {
+            alert('Simulating overlay event for {{ widget_name }}!');
+        };
+        
+        window.simulateChat = function() {
+            alert('Simulating chat message for {{ widget_name }}!');
+        };
+    </script>
+</body>
+</html>

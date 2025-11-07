@@ -1,0 +1,36 @@
+/* Text Effects CSS for TikFinity */
+
+.blueheading {
+    background: linear-gradient(45deg, #4a9eff, #00d4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(74, 158, 255, 0.3);
+}
+
+.pro-badge {
+    background: linear-gradient(45deg, #fe2c55, #ff6b9d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.text-glow {
+    text-shadow: 0 0 10px currentColor;
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, #4a9eff, #fe2c55);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}

@@ -4,7 +4,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-from .models import TikTokAccount, LiveStream, Interaction, AutomationTrigger, AutoResponse, StreamControl, UserProfile
+from django.contrib.auth.decorators import login_required
+from .models import TikTokAccount, LiveStream, StreamInteraction, AutomationTrigger, AutoResponse, UserPoints, Widget, Action, Event, OverlayScreen, Timer, PointsTransaction, PointsSettings, CountdownTimer
 from django.db.models import Count, Q
 from django.utils import timezone
 from .tiktok_oauth import TikTokOAuth
@@ -297,7 +298,7 @@ def interactions(request, stream_id):
     stream = get_object_or_404(LiveStream, id=stream_id, account__user=request.user)
     
     interaction_type = request.GET.get('type', 'all')
-    interactions_qs = Interaction.objects.filter(stream=stream)
+    interactions_qs = StreamInteraction.objects.filter(stream=stream)
     
     if interaction_type != 'all':
         interactions_qs = interactions_qs.filter(interaction_type=interaction_type)
@@ -429,14 +430,14 @@ def get_stream_stats(request, stream_id):
     stats = {
         'viewer_count': stream.viewer_count,
         'peak_viewers': stream.peak_viewers,
-        'total_interactions': Interaction.objects.filter(stream=stream).count(),
+        'total_interactions': StreamInteraction.objects.filter(stream=stream).count(),
         'total_comments': stream.total_comments,
         'total_gifts': stream.total_gifts,
         'total_likes': stream.total_likes,
         'total_shares': stream.total_shares,
-        'follows': Interaction.objects.filter(stream=stream, interaction_type='follow').count(),
+        'follows': StreamInteraction.objects.filter(stream=stream, interaction_type='follow').count(),
         'total_gift_value': sum(
-            i.gift_value for i in Interaction.objects.filter(stream=stream, interaction_type='gift')
+            i.gift_value for i in StreamInteraction.objects.filter(stream=stream, interaction_type='gift')
         ),
         'is_monitored': stream.is_monitored,
         'auto_response_enabled': stream.auto_response_enabled,
@@ -658,3 +659,842 @@ def check_live_status(request, username):
             'username': username_clean,
             'error': str(e)
         })
+
+def overlay_gallery(request):
+    """Overlay Gallery - TikFinity style overlays for OBS/Live Studio"""
+    user_id = request.user.id if request.user.is_authenticated else 2449591
+    
+    overlays = [
+        {'id': 'coinmatch', 'name': 'Coin Match', 'description': 'Host live auctions where viewers bid with gifts to reach the top.', 'is_pro': True, 'width': 867, 'height': 555, 'test_enabled': False},
+        {'id': 'wheelofactions', 'name': 'Wheel Of Actions', 'description': 'Link custom wheels to events and trigger actions on segments.', 'is_pro': True, 'width': 867, 'height': 455, 'test_enabled': True},
+        {'id': 'cannon', 'name': 'Gift Cannon', 'description': 'Profile pictures fly through with gifts when viewers send gifts!', 'is_pro': True, 'width': 867, 'height': 305, 'test_enabled': True},
+        {'id': 'likefountain', 'name': 'Like Fountain', 'description': 'Hearts rise when viewers send likes.', 'is_pro': True, 'width': 867, 'height': 305, 'test_enabled': True},
+        {'id': 'socialmediarotator', 'name': 'Social Media Rotator', 'description': 'Highlight social channels with pop-up rotations.', 'is_pro': False, 'width': 867, 'height': 450, 'test_enabled': False},
+        {'id': 'firework', 'name': 'Gift Firework', 'description': 'Breathtaking firework triggered by gifts.', 'is_pro': False, 'width': 867, 'height': 405, 'test_enabled': True},
+        {'id': 'emojify', 'name': 'Emojify', 'description': 'Emojis slide across screen when sent in chat.', 'is_pro': False, 'width': 867, 'height': 305, 'test_enabled': True},
+        {'id': 'chat', 'name': 'Chat', 'description': 'Displays TikTok stream chat.', 'is_pro': False, 'width': 867, 'height': 305, 'test_enabled': True},
+        {'id': 'gifts', 'name': 'Gift Feed', 'description': 'Lists last received gifts.', 'is_pro': False, 'width': 867, 'height': 305, 'test_enabled': True},
+        {'id': 'wheel', 'name': 'Wheel of Fortune', 'description': 'Wheel animation for fortune commands.', 'is_pro': False, 'width': 867, 'height': 605, 'test_enabled': True},
+        {'id': 'topgifter', 'name': 'Top Gifters', 'description': 'Ranking of viewers who spent most coins.', 'is_pro': False, 'width': 867, 'height': 605, 'test_enabled': True},
+        {'id': 'viewercount', 'name': 'Viewer Count', 'description': 'Shows current TikTok viewer count.', 'is_pro': False, 'width': 867, 'height': 80, 'test_enabled': True},
+    ]
+    
+    return render(request, 'tiktok_live/overlay_gallery.html', {
+        'overlays': overlays,
+        'user_id': user_id,
+        'base_widget_url': request.build_absolute_uri('/tiktok/widget/'),
+    })
+
+def widget_view(request, widget_id):
+    """Serve individual overlay widgets"""
+    cid = request.GET.get('cid', '2449591')
+    preview = request.GET.get('preview', '0')
+    test = request.GET.get('test', '0')
+    customize = request.GET.get('customize', '0')
+    
+    widget_configs = {
+        'coinmatch': {'name': 'Coin Match'},
+        'chat': {'name': 'Chat'},
+        'gifts': {'name': 'Gift Feed'},
+        'viewercount': {'name': 'Viewer Count'},
+        'wheelofactions': {'name': 'Wheel Of Actions'},
+        'cannon': {'name': 'Gift Cannon'},
+        'likefountain': {'name': 'Like Fountain'},
+        'firework': {'name': 'Gift Firework'},
+        'emojify': {'name': 'Emojify'},
+    }
+    
+    widget_config = widget_configs.get(widget_id, {'name': 'Unknown Widget'})
+    
+    return render(request, 'tiktok_live/widget.html', {
+        'widget_id': widget_id,
+        'widget_name': widget_config['name'],
+        'cid': cid,
+        'preview': preview == '1',
+        'test': test == '1',
+        'customize': customize == '1',
+    })
+
+def sound_alerts(request):
+    return render(request, 'tiktok_live/sound_alerts.html')
+
+def chat_commands(request):
+    return render(request, 'tiktok_live/chat_commands.html')
+
+def tts_chat(request):
+    return render(request, 'tiktok_live/tts_chat.html')
+
+def users_points(request):
+    """Users & Points management page"""
+    if not request.user.is_authenticated:
+        return redirect('tiktok_live:login')
+    
+    # Get or create points settings
+    points_settings, created = PointsSettings.objects.get_or_create(
+        user=request.user,
+        defaults={
+            'max_users': 2500,
+            'points_per_gift': 10,
+            'points_per_follow': 50,
+            'points_per_like': 1,
+            'points_per_comment': 5,
+            'points_per_share': 25,
+            'level_up_threshold': 100,
+            'enable_points_system': True,
+        }
+    )
+    
+    # Get user points data
+    user_points = UserPoints.objects.filter(user=request.user).order_by('-points_total')
+    
+    # Handle AJAX requests for data grid
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        # Pagination and filtering
+        page = int(request.GET.get('page', 1))
+        page_size = int(request.GET.get('pageSize', 40))
+        sort_field = request.GET.get('sort', 'points_total')
+        sort_order = request.GET.get('order', 'desc')
+        
+        # Apply sorting
+        if sort_order == 'desc':
+            sort_field = f'-{sort_field}'
+        
+        user_points = user_points.order_by(sort_field)
+        
+        # Apply filters
+        username_filter = request.GET.get('username')
+        if username_filter:
+            user_points = user_points.filter(tiktok_username__icontains=username_filter)
+        
+        points_filter = request.GET.get('points')
+        if points_filter:
+            try:
+                points_filter = int(points_filter)
+                user_points = user_points.filter(points_total=points_filter)
+            except ValueError:
+                pass
+        
+        level_points_filter = request.GET.get('level_points')
+        if level_points_filter:
+            try:
+                level_points_filter = int(level_points_filter)
+                user_points = user_points.filter(points_level=level_points_filter)
+            except ValueError:
+                pass
+        
+        first_activity_filter = request.GET.get('first_activity')
+        if first_activity_filter:
+            try:
+                from datetime import datetime
+                date_obj = datetime.strptime(first_activity_filter, '%Y-%m-%d')
+                user_points = user_points.filter(first_activity__date=date_obj.date())
+            except ValueError:
+                pass
+        
+        last_activity_filter = request.GET.get('last_activity')
+        if last_activity_filter:
+            try:
+                from datetime import datetime
+                date_obj = datetime.strptime(last_activity_filter, '%Y-%m-%d')
+                user_points = user_points.filter(last_activity__date=date_obj.date())
+            except ValueError:
+                pass
+        
+        # Pagination
+        total_count = user_points.count()
+        start = (page - 1) * page_size
+        end = start + page_size
+        user_points_page = user_points[start:end]
+        
+        # Format data for DevExtreme DataGrid
+        data = []
+        for up in user_points_page:
+            data.append({
+                'id': up.id,
+                'username': up.tiktok_username,
+                'display_name': up.display_name or up.tiktok_username,
+                'profile_picture': up.profile_picture or '/img/nothumb.webp',
+                'level': up.level,
+                'points_total': f"{up.points_total:,}",
+                'points_level': f"{up.points_level:,}",
+                'first_activity': up.first_activity.strftime('%m/%d/%Y, %I:%M %p'),
+                'last_activity': up.last_activity.strftime('%m/%d/%Y, %I:%M %p'),
+            })
+        
+        return JsonResponse({
+            'data': data,
+            'totalCount': total_count,
+        })
+    
+    # Regular page request
+    total_users = user_points.count()
+    
+    context = {
+        'points_settings': points_settings,
+        'total_users': total_users,
+        'max_users': points_settings.max_users,
+    }
+    
+    return render(request, 'tiktok_live/users_points.html', context)
+
+def transactions(request):
+    return render(request, 'tiktok_live/transactions.html')
+
+def song_requests(request):
+    return render(request, 'tiktok_live/song_requests.html')
+
+def likeathon(request):
+    return render(request, 'tiktok_live/likeathon.html')
+
+def timer(request):
+    """Timer page with countdown functionality"""
+    if not request.user.is_authenticated:
+        return redirect('tiktok_live:login')
+    
+    # Get or create countdown timer for user
+    countdown_timer, created = CountdownTimer.objects.get_or_create(
+        user=request.user,
+        defaults={
+            'default_start_value': 10,
+            'current_value': 10,
+            'seconds_per_coin': 1.0,
+            'seconds_per_subscribe': 300.0,
+            'seconds_per_follow': 0.0,
+            'seconds_per_share': 0.0,
+            'seconds_per_like': 0.0,
+            'seconds_per_chat': 0.0,
+            'enable_multiplier': False,
+            'multiplier_value': 1.5,
+            'shortcut_step': 1,
+        }
+    )
+    
+    context = {
+        'countdown_timer': countdown_timer,
+        'widget_url': countdown_timer.get_widget_url(),
+        'user_id': request.user.id,
+    }
+    
+    return render(request, 'tiktok_live/timer.html', context)
+
+def wheel_fortune(request):
+    return render(request, 'tiktok_live/wheel_fortune.html')
+
+def points_drop(request):
+    return render(request, 'tiktok_live/points_drop.html')
+
+def challenge(request):
+    return render(request, 'tiktok_live/challenge.html')
+
+def split(request):
+    return render(request, 'tiktok_live/split.html')
+
+def viewer_analysis(request):
+    return render(request, 'tiktok_live/viewer_analysis.html')
+
+def event_api(request):
+    return render(request, 'tiktok_live/event_api.html')
+
+def profile_settings(request):
+    return render(request, 'tiktok_live/profile_settings.html')
+
+def target_overlays(request, subsection=None):
+    subsections = {
+        'like-target': 'Beğeni Hedefi',
+        'share-target': 'Paylaşım Hedefi', 
+        'follow-target': 'Takip Hedefi',
+        'viewer-target': 'İzleyici Sayısı Hedefi',
+        'coin-target': 'Kazanılan Coin Hedefi',
+        'custom-targets': 'Özel Hedefler',
+        'settings': 'Ayarlar'
+    }
+    return render(request, 'tiktok_live/target_overlays.html', {
+        'subsection': subsection,
+        'subsections': subsections,
+        'current_title': subsections.get(subsection, 'Hedef Overlay\'leri')
+    })
+
+def gift_overlays(request, subsection=None):
+    subsections = {
+        'gift-notification': 'Hediye Bildirim Overlay\'i',
+        'gift-bar': 'Hediye Bar Overlay\'i',
+        'gift-ranking': 'Hediye Sıralaması',
+        'settings': 'Ayarlar'
+    }
+    return render(request, 'tiktok_live/gift_overlays.html', {
+        'subsection': subsection,
+        'subsections': subsections,
+        'current_title': subsections.get(subsection, 'Hediye Overlay\'leri')
+    })
+
+def recent_overlays(request, subsection=None):
+    subsections = {
+        'recent-comments': 'Son Yorumlar',
+        'recent-gifts': 'Son Hediyeler',
+        'recent-followers': 'Son Takipçiler',
+        'recent-shares': 'Son Paylaşımlar',
+        'settings': 'Ayarlar'
+    }
+    return render(request, 'tiktok_live/recent_overlays.html', {
+        'subsection': subsection,
+        'subsections': subsections,
+        'current_title': subsections.get(subsection, 'Son X Overlay\'leri')
+    })
+
+def obs_panels(request):
+    return render(request, 'tiktok_live/obs_panels.html')
+
+def actions_events(request):
+    actions = Action.objects.filter(user=request.user)
+    events = Event.objects.filter(user=request.user)
+    overlay_screens = OverlayScreen.objects.filter(user=request.user)
+    timers = Timer.objects.filter(user=request.user)
+    
+    # Create default overlay screens if none exist
+    if not overlay_screens.exists():
+        for i in range(1, 9):
+            OverlayScreen.objects.create(
+                user=request.user,
+                name=f'Screen {i}',
+                screen_number=i
+            )
+        overlay_screens = OverlayScreen.objects.filter(user=request.user)
+    
+    context = {
+        'actions': actions,
+        'events': events,
+        'overlay_screens': overlay_screens,
+        'timers': timers,
+        'actions_enabled': True,
+    }
+    return render(request, 'tiktok_live/actions_events.html', context)
+
+def create_action(request):
+    if request.method == 'POST':
+        action = Action.objects.create(
+            user=request.user,
+            name=request.POST.get('name'),
+            screen=request.POST.get('screen', 'Screen 1'),
+            duration=int(request.POST.get('duration', 5)),
+            points_change=int(request.POST.get('points_change', 0)),
+            description=request.POST.get('description', ''),
+            has_animation=request.POST.get('has_animation') == 'on',
+            has_picture=request.POST.get('has_picture') == 'on',
+            has_sound=request.POST.get('has_sound') == 'on',
+            has_video=request.POST.get('has_video') == 'on',
+            text_content=request.POST.get('text_content', ''),
+            text_color=request.POST.get('text_color', '#FFFFFF'),
+        )
+        return JsonResponse({'success': True, 'action_id': action.id})
+    return JsonResponse({'success': False})
+
+def edit_action(request, action_id):
+    action = get_object_or_404(Action, id=action_id, user=request.user)
+    if request.method == 'POST':
+        action.name = request.POST.get('name')
+        action.screen = request.POST.get('screen', 'Screen 1')
+        action.duration = int(request.POST.get('duration', 5))
+        action.points_change = int(request.POST.get('points_change', 0))
+        action.description = request.POST.get('description', '')
+        action.has_animation = request.POST.get('has_animation') == 'on'
+        action.has_picture = request.POST.get('has_picture') == 'on'
+        action.has_sound = request.POST.get('has_sound') == 'on'
+        action.has_video = request.POST.get('has_video') == 'on'
+        action.text_content = request.POST.get('text_content', '')
+        action.text_color = request.POST.get('text_color', '#FFFFFF')
+        action.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False})
+
+def delete_action(request, action_id):
+    action = get_object_or_404(Action, id=action_id, user=request.user)
+    action.delete()
+    return JsonResponse({'success': True})
+
+def play_action(request, action_id):
+    action = get_object_or_404(Action, id=action_id, user=request.user)
+    return JsonResponse({'success': True, 'message': f'Playing action: {action.name}'})
+
+def create_event(request):
+    if request.method == 'POST':
+        event = Event.objects.create(
+            user=request.user,
+            trigger_type=request.POST.get('trigger_type'),
+            user_type=request.POST.get('user_type', 'any'),
+            specific_user=request.POST.get('specific_user', ''),
+            min_coins=int(request.POST.get('min_coins', 1)),
+            min_likes=int(request.POST.get('min_likes', 100)),
+            custom_command=request.POST.get('custom_command', ''),
+            specific_gift=request.POST.get('specific_gift', ''),
+        )
+        action_ids = request.POST.getlist('actions')
+        for action_id in action_ids:
+            try:
+                action = Action.objects.get(id=action_id, user=request.user)
+                event.actions.add(action)
+            except Action.DoesNotExist:
+                pass
+        return JsonResponse({'success': True, 'event_id': event.id})
+    return JsonResponse({'success': False})
+
+def edit_event(request, event_id):
+    event = get_object_or_404(Event, id=event_id, user=request.user)
+    if request.method == 'POST':
+        event.trigger_type = request.POST.get('trigger_type')
+        event.user_type = request.POST.get('user_type', 'any')
+        event.specific_user = request.POST.get('specific_user', '')
+        event.min_coins = int(request.POST.get('min_coins', 1))
+        event.min_likes = int(request.POST.get('min_likes', 100))
+        event.custom_command = request.POST.get('custom_command', '')
+        event.specific_gift = request.POST.get('specific_gift', '')
+        event.save()
+        
+        event.actions.clear()
+        action_ids = request.POST.getlist('actions')
+        for action_id in action_ids:
+            try:
+                action = Action.objects.get(id=action_id, user=request.user)
+                event.actions.add(action)
+            except Action.DoesNotExist:
+                pass
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False})
+
+def delete_event(request, event_id):
+    event = get_object_or_404(Event, id=event_id, user=request.user)
+    event.delete()
+    return JsonResponse({'success': True})
+
+def create_timer(request):
+    if request.method == 'POST':
+        try:
+            action = Action.objects.get(id=request.POST.get('action_id'), user=request.user)
+            timer = Timer.objects.create(
+                user=request.user,
+                interval_minutes=int(request.POST.get('interval_minutes')),
+                action=action
+            )
+            return JsonResponse({'success': True, 'timer_id': timer.id})
+        except Action.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Action not found'})
+    return JsonResponse({'success': False})
+
+def delete_timer(request, timer_id):
+    timer = get_object_or_404(Timer, id=timer_id, user=request.user)
+    timer.delete()
+    return JsonResponse({'success': True})
+
+def simulate_event(request, event_type):
+    if request.method == 'POST':
+        events = Event.objects.filter(user=request.user, trigger_type=event_type, is_active=True)
+        triggered_count = 0
+        
+        for event in events:
+            for action in event.actions.all():
+                triggered_count += 1
+        
+        return JsonResponse({
+            'success': True, 
+            'message': f'Simulated {event_type} event',
+            'triggered_actions': triggered_count
+        })
+    return JsonResponse({'success': False})
+
+@login_required
+def users_points_data(request):
+    """API endpoint for users points data grid"""
+    user_points = UserPoints.objects.filter(user=request.user)
+    
+    # Apply filters
+    username_filter = request.GET.get('username')
+    if username_filter:
+        user_points = user_points.filter(tiktok_username__icontains=username_filter)
+    
+    points_filter = request.GET.get('points')
+    if points_filter:
+        try:
+            points_filter = int(points_filter)
+            user_points = user_points.filter(points_total=points_filter)
+        except ValueError:
+            pass
+    
+    # Sorting
+    sort_field = request.GET.get('sort', 'points_total')
+    sort_order = request.GET.get('order', 'desc')
+    
+    if sort_order == 'desc':
+        sort_field = f'-{sort_field}'
+    
+    user_points = user_points.order_by(sort_field)
+    
+    # Format data
+    data = []
+    for up in user_points:
+        data.append({
+            'id': up.id,
+            'username': up.tiktok_username,
+            'display_name': up.display_name or up.tiktok_username,
+            'profile_picture': up.profile_picture or '/img/nothumb.webp',
+            'level': up.level,
+            'points_total': up.points_total,
+            'points_level': up.points_level,
+            'first_activity': up.first_activity.isoformat(),
+            'last_activity': up.last_activity.isoformat(),
+        })
+    
+    return JsonResponse({'data': data, 'totalCount': len(data)})
+
+@login_required
+@require_http_methods(["POST"])
+def update_points_settings(request):
+    """Update points system settings"""
+    try:
+        data = json.loads(request.body)
+        points_settings, created = PointsSettings.objects.get_or_create(user=request.user)
+        
+        if 'max_users' in data:
+            points_settings.max_users = int(data['max_users'])
+        if 'points_per_gift' in data:
+            points_settings.points_per_gift = int(data['points_per_gift'])
+        if 'points_per_follow' in data:
+            points_settings.points_per_follow = int(data['points_per_follow'])
+        if 'points_per_like' in data:
+            points_settings.points_per_like = int(data['points_per_like'])
+        if 'points_per_comment' in data:
+            points_settings.points_per_comment = int(data['points_per_comment'])
+        if 'points_per_share' in data:
+            points_settings.points_per_share = int(data['points_per_share'])
+        if 'level_up_threshold' in data:
+            points_settings.level_up_threshold = int(data['level_up_threshold'])
+        if 'enable_points_system' in data:
+            points_settings.enable_points_system = bool(data['enable_points_system'])
+        
+        points_settings.save()
+        
+        return JsonResponse({'success': True, 'message': 'Settings updated successfully'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+@login_required
+@require_http_methods(["POST"])
+def reset_points(request):
+    """Reset all user points"""
+    try:
+        data = json.loads(request.body)
+        reset_type = data.get('type', 'all')
+        
+        if reset_type == 'all':
+            UserPoints.objects.filter(user=request.user).delete()
+            PointsTransaction.objects.filter(user_points__user=request.user).delete()
+            message = 'All user points have been reset'
+        elif reset_type == 'points_only':
+            UserPoints.objects.filter(user=request.user).update(
+                points_total=0,
+                points_level=0,
+                level=1
+            )
+            message = 'All points have been reset to 0'
+        
+        return JsonResponse({'success': True, 'message': message})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+@login_required
+def user_audit(request, user_id):
+    """View user audit/transaction history"""
+    try:
+        user_points = get_object_or_404(UserPoints, id=user_id, user=request.user)
+        transactions = PointsTransaction.objects.filter(user_points=user_points).order_by('-created_at')[:50]
+        
+        transaction_data = []
+        for transaction in transactions:
+            transaction_data.append({
+                'type': transaction.get_transaction_type_display(),
+                'points_change': transaction.points_change,
+                'description': transaction.description,
+                'created_at': transaction.created_at.strftime('%m/%d/%Y, %I:%M %p'),
+            })
+        
+        return JsonResponse({
+            'success': True,
+            'user': {
+                'username': user_points.tiktok_username,
+                'display_name': user_points.display_name,
+                'level': user_points.level,
+                'points_total': user_points.points_total,
+                'points_level': user_points.points_level,
+            },
+            'transactions': transaction_data
+        })
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+def goal_widget(request):
+    cid = request.GET.get('cid', '2449591')
+    metric = request.GET.get('metric', 'likes')
+    preview = request.GET.get('preview', '0')
+    test = request.GET.get('test', '0')
+    
+    return render(request, 'tiktok_live/goal_widget.html', {
+        'cid': cid,
+        'metric': metric,
+        'preview': preview == '1',
+        'test': test == '1',
+    })
+
+def top_gift_widget(request):
+    cid = request.GET.get('cid', '2449591')
+    preview = request.GET.get('preview', '0')
+    return render(request, 'tiktok_live/top_gift_widget.html', {
+        'cid': cid,
+        'preview': preview == '1',
+    })
+
+def top_streak_widget(request):
+    cid = request.GET.get('cid', '2449591')
+    preview = request.GET.get('preview', '0')
+    return render(request, 'tiktok_live/top_streak_widget.html', {
+        'cid': cid,
+        'preview': preview == '1',
+    })
+
+def gift_counter_widget(request):
+    cid = request.GET.get('cid', '2449591')
+    counter = request.GET.get('c', '1')
+    preview = request.GET.get('preview', '0')
+    return render(request, 'tiktok_live/gift_counter_widget.html', {
+        'cid': cid,
+        'counter': counter,
+        'preview': preview == '1',
+    })
+
+def lastx_widget(request):
+    cid = request.GET.get('cid', '2449591')
+    x_type = request.GET.get('x', 'follower')
+    preview = request.GET.get('preview', '0')
+    return render(request, 'tiktok_live/lastx_widget.html', {
+        'cid': cid,
+        'x_type': x_type,
+        'preview': preview == '1',
+    })
+
+def activity_feed_widget(request):
+    cid = request.GET.get('cid', '2449591')
+    dock_id = request.GET.get('did', '1')
+    preview = request.GET.get('preview', '0')
+    return render(request, 'tiktok_live/activity_feed_widget.html', {
+        'cid': cid,
+        'dock_id': dock_id,
+        'preview': preview == '1',
+    })
+
+# Timer Control Views
+@login_required
+@require_http_methods(["POST"])
+def timer_start(request):
+    """Start the countdown timer"""
+    try:
+        countdown_timer = CountdownTimer.objects.get(user=request.user)
+        countdown_timer.start()
+        return JsonResponse({
+            'success': True,
+            'message': 'Timer started',
+            'is_running': countdown_timer.is_running,
+            'remaining_seconds': countdown_timer.get_remaining_seconds()
+        })
+    except CountdownTimer.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Timer not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+@login_required
+@require_http_methods(["POST"])
+def timer_pause(request):
+    """Pause the countdown timer"""
+    try:
+        countdown_timer = CountdownTimer.objects.get(user=request.user)
+        countdown_timer.pause()
+        return JsonResponse({
+            'success': True,
+            'message': 'Timer paused',
+            'is_running': countdown_timer.is_running,
+            'is_paused': countdown_timer.is_paused,
+            'remaining_seconds': countdown_timer.get_remaining_seconds()
+        })
+    except CountdownTimer.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Timer not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+@login_required
+@require_http_methods(["POST"])
+def timer_reset(request):
+    """Reset the countdown timer"""
+    try:
+        countdown_timer = CountdownTimer.objects.get(user=request.user)
+        countdown_timer.reset()
+        return JsonResponse({
+            'success': True,
+            'message': 'Timer reset',
+            'is_running': countdown_timer.is_running,
+            'remaining_seconds': countdown_timer.get_remaining_seconds()
+        })
+    except CountdownTimer.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Timer not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+@login_required
+@require_http_methods(["POST"])
+def timer_add_time(request):
+    """Add time to the countdown timer"""
+    try:
+        data = json.loads(request.body)
+        seconds = int(data.get('seconds', 10))
+        
+        countdown_timer = CountdownTimer.objects.get(user=request.user)
+        countdown_timer.add_time(seconds)
+        
+        return JsonResponse({
+            'success': True,
+            'message': f'Added {seconds} seconds',
+            'remaining_seconds': countdown_timer.get_remaining_seconds()
+        })
+    except CountdownTimer.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Timer not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+@login_required
+@require_http_methods(["POST"])
+def timer_subtract_time(request):
+    """Subtract time from the countdown timer"""
+    try:
+        data = json.loads(request.body)
+        seconds = int(data.get('seconds', 10))
+        
+        countdown_timer = CountdownTimer.objects.get(user=request.user)
+        countdown_timer.subtract_time(seconds)
+        
+        return JsonResponse({
+            'success': True,
+            'message': f'Subtracted {seconds} seconds',
+            'remaining_seconds': countdown_timer.get_remaining_seconds()
+        })
+    except CountdownTimer.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Timer not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+@login_required
+@require_http_methods(["POST"])
+def timer_update_settings(request):
+    """Update timer settings"""
+    try:
+        data = json.loads(request.body)
+        countdown_timer = CountdownTimer.objects.get(user=request.user)
+        
+        # Update timer settings
+        if 'default_start_value' in data:
+            countdown_timer.default_start_value = int(data['default_start_value'])
+        if 'seconds_per_coin' in data:
+            countdown_timer.seconds_per_coin = float(data['seconds_per_coin'])
+        if 'seconds_per_subscribe' in data:
+            countdown_timer.seconds_per_subscribe = float(data['seconds_per_subscribe'])
+        if 'seconds_per_follow' in data:
+            countdown_timer.seconds_per_follow = float(data['seconds_per_follow'])
+        if 'seconds_per_share' in data:
+            countdown_timer.seconds_per_share = float(data['seconds_per_share'])
+        if 'seconds_per_like' in data:
+            countdown_timer.seconds_per_like = float(data['seconds_per_like'])
+        if 'seconds_per_chat' in data:
+            countdown_timer.seconds_per_chat = float(data['seconds_per_chat'])
+        if 'enable_multiplier' in data:
+            countdown_timer.enable_multiplier = bool(data['enable_multiplier'])
+        if 'multiplier_value' in data:
+            countdown_timer.multiplier_value = float(data['multiplier_value'])
+        if 'shortcut_start_pause' in data:
+            countdown_timer.shortcut_start_pause = data['shortcut_start_pause']
+        if 'shortcut_increase' in data:
+            countdown_timer.shortcut_increase = data['shortcut_increase']
+        if 'shortcut_reduce' in data:
+            countdown_timer.shortcut_reduce = data['shortcut_reduce']
+        if 'shortcut_step' in data:
+            countdown_timer.shortcut_step = int(data['shortcut_step'])
+        
+        countdown_timer.save()
+        
+        return JsonResponse({
+            'success': True,
+            'message': 'Timer settings updated successfully'
+        })
+    except CountdownTimer.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Timer not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+@login_required
+@require_http_methods(["POST"])
+def timer_set_expire_action(request):
+    """Set timer expiry action"""
+    try:
+        data = json.loads(request.body)
+        countdown_timer = CountdownTimer.objects.get(user=request.user)
+        
+        countdown_timer.expire_action = data.get('action', 'none')
+        countdown_timer.expire_action_data = data.get('action_data', {})
+        countdown_timer.save()
+        
+        return JsonResponse({
+            'success': True,
+            'message': 'Expiry action updated successfully'
+        })
+    except CountdownTimer.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Timer not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+def timer_widget(request):
+    """Timer widget for overlay"""
+    cid = request.GET.get('cid', '2449591')
+    timer_id = request.GET.get('timer_id')
+    preview = request.GET.get('preview', '0')
+    
+    try:
+        if timer_id:
+            countdown_timer = CountdownTimer.objects.get(widget_id=timer_id)
+        else:
+            # Get timer by user ID
+            user = User.objects.get(id=cid)
+            countdown_timer = CountdownTimer.objects.get(user=user)
+    except (CountdownTimer.DoesNotExist, User.DoesNotExist):
+        countdown_timer = None
+    
+    return render(request, 'tiktok_live/timer_widget.html', {
+        'countdown_timer': countdown_timer,
+        'cid': cid,
+        'preview': preview == '1',
+    })
+
+def timer_status_api(request):
+    """API endpoint for timer status"""
+    try:
+        user_id = request.GET.get('cid')
+        if user_id:
+            user = User.objects.get(id=user_id)
+            countdown_timer = CountdownTimer.objects.get(user=user)
+        else:
+            return JsonResponse({'success': False, 'error': 'User ID required'})
+        
+        return JsonResponse({
+            'success': True,
+            'is_running': countdown_timer.is_running,
+            'is_paused': countdown_timer.is_paused,
+            'remaining_seconds': countdown_timer.get_remaining_seconds(),
+            'current_value': countdown_timer.current_value,
+            'default_start_value': countdown_timer.default_start_value,
+        })
+    except (CountdownTimer.DoesNotExist, User.DoesNotExist):
+        return JsonResponse({'success': False, 'error': 'Timer not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})

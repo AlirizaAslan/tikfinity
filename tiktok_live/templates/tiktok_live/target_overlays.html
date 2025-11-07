@@ -1,0 +1,145 @@
+{% extends 'tiktok_live/tikfinity_layout.html' %}
+{% block title %}Goal Overlays - TikFinity{% endblock %}
+{% block content %}
+<h1>🎯 Goal Overlays</h1>
+<p style="color: #888; margin-bottom: 30px;">What goals do you have in your broadcast? Define Like, Share or Follow goals in the form of progress indicators.</p>
+
+<div class="section" id="goal-likes">
+    <h3>Likes <span style="background: #667eea; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">PRO</span></h3>
+    <div class="field">
+        <label>Goal:</label>
+        <input type="number" value="50000" min="10" max="9999999999" step="1000">
+    </div>
+    <div class="field">
+        <label>Title:</label>
+        <input type="text" placeholder="Enter title">
+    </div>
+    <div style="margin-top: 20px;">
+        <button class="btn btn-success" onclick="copyGoalURL('likes')">Copy URL</button>
+        <button class="btn" onclick="testGoal('likes')">Test</button>
+        <button class="btn">Customize</button>
+    </div>
+</div>
+
+<div class="section" id="goal-shares">
+    <h3>Shares <span style="background: #667eea; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">PRO</span></h3>
+    <div class="field">
+        <label>Goal:</label>
+        <input type="number" value="50" min="5" max="9999999999" step="1">
+    </div>
+    <div class="field">
+        <label>Title:</label>
+        <input type="text" placeholder="Enter title">
+    </div>
+    <div style="margin-top: 20px;">
+        <button class="btn btn-success" onclick="copyGoalURL('shares')">Copy URL</button>
+        <button class="btn" onclick="testGoal('shares')">Test</button>
+        <button class="btn">Customize</button>
+    </div>
+</div>
+
+<div class="section" id="goal-follows">
+    <h3>Follows <span style="background: #667eea; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">PRO</span></h3>
+    <div class="field">
+        <label>Goal:</label>
+        <input type="number" value="100" min="10" max="9999999999" step="10">
+    </div>
+    <div class="field">
+        <label>Title:</label>
+        <input type="text" placeholder="Enter title">
+    </div>
+    <div style="margin-top: 20px;">
+        <button class="btn btn-success" onclick="copyGoalURL('follows')">Copy URL</button>
+        <button class="btn" onclick="testGoal('follows')">Test</button>
+        <button class="btn">Customize</button>
+    </div>
+</div>
+
+<div class="section" id="goal-viewer">
+    <h3>Viewer Count <span style="background: #667eea; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">PRO</span></h3>
+    <div class="field">
+        <label>Goal:</label>
+        <input type="number" value="100" min="10" max="9999999999" step="10">
+    </div>
+    <div class="field">
+        <label>Title:</label>
+        <input type="text" placeholder="Enter title">
+    </div>
+    <div style="margin-top: 20px;">
+        <button class="btn btn-success" onclick="copyGoalURL('viewer')">Copy URL</button>
+        <button class="btn" onclick="testGoal('viewer')">Test</button>
+        <button class="btn">Customize</button>
+    </div>
+</div>
+
+<div class="section" id="goal-coins">
+    <h3>Coins Earned <span style="background: #667eea; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">PRO</span></h3>
+    <div class="field">
+        <label>Goal:</label>
+        <input type="number" value="500" min="2" max="9999999999" step="1">
+    </div>
+    <div class="field">
+        <label>Title:</label>
+        <input type="text" placeholder="Enter title">
+    </div>
+    <div style="margin-top: 20px;">
+        <button class="btn btn-success" onclick="copyGoalURL('coins')">Copy URL</button>
+        <button class="btn" onclick="testGoal('coins')">Test</button>
+        <button class="btn">Customize</button>
+    </div>
+</div>
+
+<div class="section" id="goal-custom">
+    <h3>Custom Goals</h3>
+    <p>These broadcast goals can be controlled via Actions & Events. This means that special gifts or other stream events can increase, decrease or reset the goals as desired.</p>
+    
+    <div class="checkbox">
+        <input type="checkbox" checked> Reset Custom Goals when starting a new stream
+    </div>
+    <div class="checkbox">
+        <input type="checkbox"> Reset all Custom Goals when one goal has been reached (Poll Mode)
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <h4>Custom Goal 1 <span style="background: #667eea; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">PRO</span></h4>
+        <div class="field">
+            <label>Change Value:</label>
+            <input type="number" value="0" min="0" max="99999999" step="1" style="max-width: 150px;">
+            <button class="btn">Set</button>
+        </div>
+        <div class="field">
+            <label>Goal:</label>
+            <input type="number" value="50" min="2" max="9999999999" step="1">
+        </div>
+        <div class="field">
+            <label>Title:</label>
+            <input type="text" placeholder="Enter title">
+        </div>
+        <div style="margin-top: 15px;">
+            <button class="btn btn-success" onclick="copyGoalURL('custom1')">Copy URL</button>
+            <button class="btn" onclick="testGoal('custom1')">Test</button>
+            <button class="btn">Customize</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function copyGoalURL(goalType) {
+    const userId = {{ user.id|default:"2449591" }};
+    const url = `${window.location.origin}/tiktok/widget/goal?cid=${userId}&metric=${goalType}&preview=0`;
+    navigator.clipboard.writeText(url).then(() => {
+        alert('✅ Goal URL copied to clipboard!');
+    }).catch(() => {
+        prompt('Copy this URL:', url);
+    });
+}
+
+function testGoal(goalType) {
+    const userId = {{ user.id|default:"2449591" }};
+    const url = `${window.location.origin}/tiktok/widget/goal?cid=${userId}&metric=${goalType}&preview=1&test=1`;
+    window.open(url, '_blank', 'width=800,height=600');
+}
+</script>
+{% endblock %}

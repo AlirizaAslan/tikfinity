@@ -332,9 +332,8 @@ LOGGING = {
         },
         'file': {
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'tiktok_live.log'),
+            'filename': 'tiktok_live.log',
             'formatter': 'verbose',
-            'encoding': 'utf-8',  # Force UTF-8 encoding for file
         },
     },
     'loggers': {
@@ -344,7 +343,7 @@ LOGGING = {
             'propagate': False,
         },
         'TikTokLive': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': 'INFO',
             'propagate': False,
         },
