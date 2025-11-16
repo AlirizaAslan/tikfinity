@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TikTokAccount, LiveStream, StreamInteraction, AutomationTrigger, AutoResponse, UserPoints, Widget, Action, Event, OverlayScreen, Timer
+from .models import TikTokAccount, LiveStream, StreamInteraction, AutomationTrigger, AutoResponse, UserPoints, Widget, Action, Event, OverlayScreen, Timer, PointsHalving
 
 @admin.register(TikTokAccount)
 class TikTokAccountAdmin(admin.ModelAdmin):
@@ -60,3 +60,10 @@ class TimerAdmin(admin.ModelAdmin):
     list_display = ['action', 'interval_minutes', 'is_active', 'created_at']
     list_filter = ['is_active', 'created_at']
     readonly_fields = ['created_at']
+
+@admin.register(PointsHalving)
+class PointsHalvingAdmin(admin.ModelAdmin):
+    list_display = ['user', 'percentage', 'affected_users', 'executed_at']
+    list_filter = ['executed_at']
+    search_fields = ['user__username']
+    readonly_fields = ['executed_at']

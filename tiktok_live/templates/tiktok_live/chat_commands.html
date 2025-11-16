@@ -1,11 +1,22 @@
 {% extends 'tiktok_live/tikfinity_layout.html' %}
-{% block title %}Chat Commands - TikFinity{% endblock %}
-{% block content %}
-<h1>Chat Commands</h1>
+{% block title %}{{ current_title }} - TikFinity{% endblock %}
+{% block content %}\n<h1>💬 Chat Commands</h1>
 <p style="color: #888; margin-bottom: 30px;">Configure chat commands for your streams.</p>
 
+{% if subsection == 'commands' or not subsection %}
+<div class="section">
+    <h3>Commands</h3>
+    <p>Manage your chat commands here.</p>
+</div>
+{% elif subsection == 'settings' %}
+<div class="section">
+    <h3>Settings</h3>
+    <p>Configure chat command settings.</p>
+</div>
+{% else %}
 <div class="section">
     <h3>Coming Soon</h3>
     <p>This feature is under development.</p>
 </div>
+{% endif %}
 {% endblock %}

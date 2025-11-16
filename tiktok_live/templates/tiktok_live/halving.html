@@ -1,0 +1,221 @@
+{% extends 'tiktok_live/sidebar_layout.html' %}
+
+{% block title %}Halving - TikFinity{% endblock %}
+
+{% block content %}
+<div class="page pageenabled" data-pageid="halving">
+    <h2 class="blueheading" data-str="halving_head">Halving</h2>
+    <div data-str="halving_desc">
+        You can reduce the points of all users by a certain percentage. The levels of the users will remain unchanged!<br>
+        You can perform this operation, for example, once a month if you believe the amount of points users have is too high.<br>
+        See <b>Setup &gt; Reset Points</b> for other options.
+    </div>
+
+    <br>
+
+    <div class="setupUnconnected" style="display: none;">
+        <div class="redNotification" style="cursor: pointer;" onclick="navigation.pageChange('setup')"> 
+            <div class="error" data-str="start_setup_required">
+                Please run the <a onclick="navigation.pageChange('setup')">Setup</a> first to create a free TikFinity Account!
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <br>
+
+    <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth">
+        <div>
+            <div class="dxForm">
+                <div class="form">
+                    <div class="dx-fieldset">
+                        <div class="dx-field">
+                            <div class="dx-field-label" data-str="halving_percent">Percentage</div>
+                            <div class="dx-field-value">
+                                <input type="number" id="halvingPercent" class="dx-texteditor-input" 
+                                       value="50" min="1" max="100" step="1" 
+                                       style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dx-fieldset">
+                        <div class="dx-field">
+                            <div class="dx-field-label" data-str="halving_example_before">Points before (example)</div>
+                            <div class="dx-field-value dxFieldValueFix" id="halvingExampleBefore">300</div>
+                        </div>
+
+                        <div class="dx-field">
+                            <div class="dx-field-label" data-str="halving_example_after">Points after (example)</div>
+                            <div class="dx-field-value dxFieldValueFix" id="halvingExampleAfter">150</div>
+                        </div>
+
+                        <div class="dx-field">
+                            <div class="dx-field-label" data-str="halving_last_execute">Last execution</div>
+                            <div class="dx-field-value dxFieldValueFix" id="halvingLastExecution">
+                                {% if last_halving %}
+                                    {{ last_halving.executed_at|date:"m/d/Y, g:i A" }} ({{ last_halving.percentage }}% - {{ last_halving.affected_users }} users)
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dx-fieldset">
+                        <div class="dx-field">
+                            <div class="dx-field-label"></div>
+                            <div class="dx-field-value">
+                                <button id="buttonExecuteHalving" class="dx-button dx-button-normal dx-button-mode-contained" 
+                                        onclick="executeHalving()" style="padding: 10px 20px; cursor: pointer;">
+                                    <i class="dx-icon dx-icon-chevronright"></i>
+                                    <span class="dx-button-text">Reduce Points</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const percentInput = document.getElementById('halvingPercent');
+    const exampleBefore = document.getElementById('halvingExampleBefore');
+    const exampleAfter = document.getElementById('halvingExampleAfter');
+    
+    // Update example calculation
+    function updateExample() {
+        const percent = parseInt(percentInput.value) || 50;
+        const before = 300;
+        const after = Math.floor(before * (100 - percent) / 100);
+        
+        exampleBefore.textContent = before;
+        exampleAfter.textContent = after;
+    }
+    
+    percentInput.addEventListener('input', updateExample);
+    updateExample();
+});
+
+function executeHalving() {
+    const percentage = parseInt(document.getElementById('halvingPercent').value);
+    
+    if (!percentage || percentage < 1 || percentage > 100) {
+        alert('Please enter a valid percentage between 1 and 100');
+        return;
+    }
+    
+    if (!confirm(`Are you sure you want to reduce all user points by ${percentage}%? This action cannot be undone!`)) {
+        return;
+    }
+    
+    const button = document.getElementById('buttonExecuteHalving');
+    button.disabled = true;
+    button.querySelector('.dx-button-text').textContent = 'Processing...';
+    
+    fetch('{% url "tiktok_live:execute_halving" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            percentage: percentage
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            location.reload();
+        } else {
+            alert('Error: ' + (data.error || 'Unknown error'));
+            button.disabled = false;
+            button.querySelector('.dx-button-text').textContent = 'Reduce Points';
+        }
+    })
+    .catch(error => {
+        alert('Error: ' + error);
+        button.disabled = false;
+        button.querySelector('.dx-button-text').textContent = 'Reduce Points';
+    });
+}
+</script>
+
+<style>
+.blueheading {
+    color: #2196F3;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.greyBackgroundSection {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.dx-fieldset {
+    margin-bottom: 20px;
+}
+
+.dx-field {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.dx-field-label {
+    width: 200px;
+    font-weight: 500;
+}
+
+.dx-field-value {
+    flex: 1;
+}
+
+.dxFieldValueFix {
+    padding: 8px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.dx-button {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dx-button:hover:not(:disabled) {
+    background-color: #1976D2;
+}
+
+.dx-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.redNotification {
+    background-color: #ffebee;
+    border: 1px solid #ef5350;
+    padding: 15px;
+    border-radius: 4px;
+    color: #c62828;
+}
+
+.redNotification a {
+    color: #1976D2;
+    text-decoration: underline;
+    cursor: pointer;
+}
+</style>
+{% endblock %}

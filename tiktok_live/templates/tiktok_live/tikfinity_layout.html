@@ -145,16 +145,24 @@
         <div class="separator"></div>
         <div style="padding: 10px 20px; color: #888; font-size: 0.9em;"><i class="far fa-comments"></i></div>
         
-        <div class="menu-item {% if request.resolver_match.url_name == 'chat_commands' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:chat_commands' %}'">
+        <div class="menu-item {% if 'chat_commands' in request.resolver_match.url_name %}active{% endif %}" onclick="toggleSubmenu(this)">
             <i class="far fa-comments"></i> Chat Commands
+        </div>
+        <div class="submenu-container {% if 'chat_commands' in request.resolver_match.url_name %}open{% endif %}">
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:chat_commands_sub' 'commands' %}'">Commands</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:chat_commands_sub' 'settings' %}'">Settings</div>
         </div>
         
         <div class="menu-item {% if request.resolver_match.url_name == 'auto_responses' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:auto_responses' %}'">
             <i class="fas fa-robot"></i> Chatbot
         </div>
         
-        <div class="menu-item {% if request.resolver_match.url_name == 'tts_chat' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:tts_chat' %}'">
+        <div class="menu-item {% if 'tts_chat' in request.resolver_match.url_name %}active{% endif %}" onclick="toggleSubmenu(this)">
             <i class="fas fa-microphone"></i> TTS Chat
+        </div>
+        <div class="submenu-container {% if 'tts_chat' in request.resolver_match.url_name %}open{% endif %}">
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:tts_chat_sub' 'settings' %}'">Settings</div>
+            <div class="submenu-item" onclick="location.href='{% url 'tiktok_live:tts_chat_sub' 'voices' %}'">Voices</div>
         </div>
         
         <div class="separator"></div>
@@ -201,7 +209,7 @@
             <i class="fas fa-trophy"></i> Challenge
         </div>
         
-        <div class="menu-item {% if request.resolver_match.url_name == 'split' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:split' %}'">
+        <div class="menu-item {% if request.resolver_match.url_name == 'halving' %}active{% endif %}" onclick="location.href='{% url 'tiktok_live:halving' %}'">
             <i class="fas fa-divide"></i> Halving
         </div>
         

@@ -1,713 +1,365 @@
-{% extends 'tiktok_live/base.html' %}
-{% load static %}
+{% extends 'tiktok_live/tikfinity_layout.html' %}
 
 {% block title %}Timer - TikFinity{% endblock %}
 
-{% block extra_css %}
-<style>
-.page {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.desktopAppPromotion {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.desktopAppPromotion a {
-    color: #fff;
-    text-decoration: underline;
-}
-
-.blueheading {
-    color: #2196F3;
-    font-size: 24px;
-    font-weight: bold;
-    margin: 20px 0 10px 0;
-}
-
-.noTopMarginHeader {
-    margin-top: 0;
-}
-
-.greyBackgroundSection {
-    background: #f5f5f5;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.greyBackgroundSectionDynamicWidth {
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 20px;
-}
-
-.timerpageoverlays {
-    margin-bottom: 20px;
-}
-
-.timerpageoverlays > div {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.dx-textbox {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 8px 12px;
-    font-size: 14px;
-}
-
-.dx-button {
-    background: #2196F3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    cursor: pointer;
-    font-size: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.dx-button:hover {
-    background: #1976D2;
-}
-
-.dx-button:disabled, .dx-state-disabled {
-    background: #ccc;
-    cursor: not-allowed;
-}
-
-.dx-numberbox input {
-    width: 80px;
-    text-align: center;
-}
-
-.timer-controls {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.timer-controls button {
-    min-width: 150px;
-}
-
-.timer-manual-controls {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.timer-settings {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.dx-field {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.dx-field-label {
-    min-width: 200px;
-    font-weight: bold;
-}
-
-.dx-field-value {
-    flex: 1;
-}
-
-.dx-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-}
-
-.dx-checkbox input[type="checkbox"] {
-    margin: 0;
-}
-
-.timer-widget-preview {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background: white;
-    margin-top: 10px;
-}
-
-.timer-display {
-    font-size: 48px;
-    font-weight: bold;
-    text-align: center;
-    padding: 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-radius: 8px;
-    margin: 10px 0;
-}
-
-.expire-action-display {
-    padding: 10px;
-    background: #e3f2fd;
-    border-radius: 4px;
-    margin: 10px 0;
-}
-
-.shortcut-section h4 {
-    color: #333;
-    margin: 20px 0 10px 0;
-}
-
-.dx-selectbox {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 8px 12px;
-    background: white;
-    cursor: pointer;
-    min-width: 200px;
-}
-
-.redNotification {
-    background: #f44336;
-    color: white;
-    padding: 15px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-}
-
-.setupUnconnected {
-    display: none;
-}
-</style>
-{% endblock %}
-
 {% block content %}
-<div class="page pageenabled" data-pageid="timer">
-    <div class="desktopAppPromotion" style="display: block;">
-        <div class="promotion-content">
-            Get the free <a href="/app/">TikFinity Desktop App</a> for Windows to enjoy additional features and stability improvements!
-        </div>
-    </div>
-
-    <h2 class="blueheading">Timer</h2>
-    <div>
-        Here you can create a countdown that can be controlled by your viewers.<br>
-        Viewers can extend or shorten the countdown through interactions to decide how long you have to stream.<br>
-        Watch <a href="https://www.youtube.com/watch?v=363AX0F6VPY" target="_blank">this tutorial</a> to learn how to set up a subathon timer.<br>
-    </div>
-    <br>
-
-    <div class="setupUnconnected" style="display: none;">
-        <div class="redNotification" style="cursor: pointer;" onclick="window.location.href='{% url 'tiktok_live:setup' %}'">
-            <div class="error">Please run the <a href="{% url 'tiktok_live:setup' %}">Setup</a> first to create a free TikFinity Account!</div>
-        </div>
-        <br>
-    </div>
-
-    <!-- Timer Overlay Section -->
-    <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth">
-        <h3 class="blueheading noTopMarginHeader">Overlay</h3>
-
-        <div class="timerpageoverlays" data-widgetid="timer">
-            <div>
-                <input type="text" class="dx-textbox" readonly value="{{ widget_url }}" style="width: 501px;">
-                <button class="dx-button" onclick="copyToClipboard('{{ widget_url }}')">
-                    <span>Copy URL</span>
-                </button>
-                <button class="dx-button dx-state-disabled" disabled>
-                    <i class="fas fa-chevron-right"></i>
-                    <span>Test</span>
-                </button>
-                <button class="dx-button" onclick="customizeTimer()">
-                    <i class="fas fa-gear"></i>
-                    <span>Customize</span>
-                </button>
-            </div>
-            
-            <!-- Timer Preview -->
-            <div class="timer-widget-preview">
-                <div class="timer-display" id="timerDisplay">
-                    {{ countdown_timer.current_value|floatformat:0 }}:00
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Timer Controls Section -->
-    <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth" style="min-width: 869px;">
-        <h3 class="blueheading noTopMarginHeader">Control</h3>
-        
-        <div class="timer-controls">
-            <button id="buttonTimerStart" class="dx-button" onclick="startTimer()" {% if countdown_timer.is_running %}style="display:none;"{% endif %}>
-                <i class="fas fa-play"></i>
-                <span>Start</span>
-            </button>
-            
-            <button id="buttonTimerPause" class="dx-button" onclick="pauseTimer()" {% if not countdown_timer.is_running %}style="display:none;"{% endif %}>
-                <i class="fas fa-pause"></i>
-                <span>Pause</span>
-            </button>
-            
-            <button id="buttonTimerReset" class="dx-button" onclick="resetTimer()">
-                <i class="fas fa-undo"></i>
-                <span>Reset</span>
-            </button>
-            
-            <div class="timer-manual-controls">
-                <input type="number" id="numberboxTimerAddManual" class="dx-numberbox" value="10" min="1" max="14400" step="1">
-                <button id="buttonTimerIncreaseManual" class="dx-button" onclick="addTimeManual()">
-                    <i class="fas fa-plus"></i>
-                </button>
-                <button id="buttonTimerDecreaseManual" class="dx-button" onclick="subtractTimeManual()">
-                    <i class="fas fa-minus"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Settings and Keyboard Shortcuts -->
-    <div class="timer-settings">
-        <!-- Settings Section -->
-        <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth" style="height: 700px;">
-            <h3 class="blueheading noTopMarginHeader">Settings</h3>
-
-            <div class="dx-field">
-                <div class="dx-field-label">Default Start Value</div>
-                <div class="dx-field-value">
-                    <input type="number" id="numberboxTimerStartValue" class="dx-numberbox" 
-                           value="{{ countdown_timer.default_start_value }}" min="1" max="14400" step="1"
-                           onchange="updateTimerSettings()">
-                </div>
-            </div>
-            
-            <div class="dx-field">
-                <div class="dx-field-label">Action on expiry</div>
-                <div class="dx-field-value">
-                    <b class="timerExpireActionName">{{ countdown_timer.get_expire_action_display }}</b> 
-                    <a class="changeactionlabel" onclick="changeExpireAction()" href="#">Change</a>
-                </div>
-            </div>
-
-            <br>
-
-            <div>
-                Define by how many seconds the timer increases or decreases for each interaction type.<br>
-                Use positive values to increase the timer and negative values (e.g. -5) to decrease the timer.<br>
-                You can also use decimal numbers e.g. 0.05 if a full second is too much.
-            </div>
-
-            <div class="dx-field">
-                <div class="dx-field-label">Per Coin</div>
-                <div class="dx-field-value">
-                    <input type="number" id="numberboxAddPerCoin" class="dx-numberbox" 
-                           value="{{ countdown_timer.seconds_per_coin }}" min="-100000" max="100000" step="0.1"
-                           onchange="updateTimerSettings()">
-                </div>
-            </div>
-            
-            <div class="dx-field">
-                <div class="dx-field-label">Per Subscribe / Super Fan</div>
-                <div class="dx-field-value">
-                    <input type="number" id="numberboxAddPerSub" class="dx-numberbox" 
-                           value="{{ countdown_timer.seconds_per_subscribe }}" min="-100000" max="100000" step="1"
-                           onchange="updateTimerSettings()">
-                </div>
-            </div>
-            
-            <div class="dx-field">
-                <div class="dx-field-label">Per Follow</div>
-                <div class="dx-field-value">
-                    <input type="number" id="numberboxAddPerFollow" class="dx-numberbox" 
-                           value="{{ countdown_timer.seconds_per_follow }}" min="-100000" max="100000" step="1"
-                           onchange="updateTimerSettings()">
-                </div>
-            </div>
-            
-            <div class="dx-field">
-                <div class="dx-field-label">Per Share</div>
-                <div class="dx-field-value">
-                    <input type="number" id="numberboxAddPerShare" class="dx-numberbox" 
-                           value="{{ countdown_timer.seconds_per_share }}" min="-100000" max="100000" step="1"
-                           onchange="updateTimerSettings()">
-                </div>
-            </div>
-            
-            <div class="dx-field">
-                <div class="dx-field-label">Per Like</div>
-                <div class="dx-field-value">
-                    <input type="number" id="numberboxAddPerLike" class="dx-numberbox" 
-                           value="{{ countdown_timer.seconds_per_like }}" min="-100000" max="100000" step="1"
-                           onchange="updateTimerSettings()">
-                </div>
-            </div>
-            
-            <div class="dx-field">
-                <div class="dx-field-label">Per Chat Message</div>
-                <div class="dx-field-value">
-                    <input type="number" id="numberboxAddPerChat" class="dx-numberbox" 
-                           value="{{ countdown_timer.seconds_per_chat }}" min="-100000" max="100000" step="1"
-                           onchange="updateTimerSettings()">
-                </div>
-            </div>
-
-            <div class="dx-field">
-                <div class="dx-field-label">
-                    <label class="dx-checkbox">
-                        <input type="checkbox" id="timerMultiplierCheckbox" 
-                               {% if countdown_timer.enable_multiplier %}checked{% endif %}
-                               onchange="toggleMultiplier()">
-                        <span>Activate Multiplier</span>
-                    </label>
-                </div>
-                <div class="dx-field-value">
-                    <input type="number" id="numberboxTimerMultiplier" class="dx-numberbox" 
-                           value="{{ countdown_timer.multiplier_value }}" min="0.5" max="100" step="0.5"
-                           {% if not countdown_timer.enable_multiplier %}disabled{% endif %}
-                           onchange="updateTimerSettings()">
-                    <br><small>If activated, all configured values are multiplied by the multiplier.</small>
-                </div>
-            </div>
-        </div>
-
-        <!-- Keyboard Shortcuts Section -->
-        <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth" style="height: 700px;">
-            <h3 class="blueheading noTopMarginHeader">Keyboard Shortcuts</h3>
-            <br>
-
-            <div class="shortcut-section">
-                <h4>Start / Pause</h4>
-                <select id="timerShortcutStartPause" class="dx-selectbox" onchange="updateTimerSettings()">
-                    <option value="">Not Set</option>
-                    <option value="space" {% if countdown_timer.shortcut_start_pause == 'space' %}selected{% endif %}>Space</option>
-                    <option value="enter" {% if countdown_timer.shortcut_start_pause == 'enter' %}selected{% endif %}>Enter</option>
-                    <option value="f1" {% if countdown_timer.shortcut_start_pause == 'f1' %}selected{% endif %}>F1</option>
-                    <option value="f2" {% if countdown_timer.shortcut_start_pause == 'f2' %}selected{% endif %}>F2</option>
-                </select>
-                <br><br>
-
-                <h4>Increase</h4>
-                <select id="timerShortcutIncrease" class="dx-selectbox" onchange="updateTimerSettings()">
-                    <option value="">Not Set</option>
-                    <option value="plus" {% if countdown_timer.shortcut_increase == 'plus' %}selected{% endif %}>+ (Plus)</option>
-                    <option value="up" {% if countdown_timer.shortcut_increase == 'up' %}selected{% endif %}>↑ (Up Arrow)</option>
-                    <option value="f3" {% if countdown_timer.shortcut_increase == 'f3' %}selected{% endif %}>F3</option>
-                </select>
-                <br><br>
-
-                <h4>Reduce</h4>
-                <select id="timerShortcutReduce" class="dx-selectbox" onchange="updateTimerSettings()">
-                    <option value="">Not Set</option>
-                    <option value="minus" {% if countdown_timer.shortcut_reduce == 'minus' %}selected{% endif %}>- (Minus)</option>
-                    <option value="down" {% if countdown_timer.shortcut_reduce == 'down' %}selected{% endif %}>↓ (Down Arrow)</option>
-                    <option value="f4" {% if countdown_timer.shortcut_reduce == 'f4' %}selected{% endif %}>F4</option>
-                </select>
-                <br><br>
-
-                <h4>Increase / Reduce Step</h4>
-                <input type="number" id="timerShortcutStep" class="dx-numberbox" 
-                       value="{{ countdown_timer.shortcut_step }}" min="1" max="10000" step="1"
-                       onchange="updateTimerSettings()">
-                <br>
-            </div>
-        </div>
+<div class="desktopAppPromotion" style="display: block;">
+    <div class="promotion-content">
+        Get the free <a href="/app/">TikFinity Desktop App</a> for Windows to enjoy additional features and stability improvements!
     </div>
 </div>
 
+<h2 class="blueheading">Timer</h2>
+<div>
+    Here you can create a countdown that can be controlled by your viewers.<br>
+    Viewers can extend or shorten the countdown through interactions to decide how long you have to stream.<br>
+    Watch <a href="https://www.youtube.com/watch?v=363AX0F6VPY" target="_blank">this tutorial</a> to learn how to set up a subathon timer.<br>
+</div>
+<br>
+
+{% if not_authenticated %}
+<div class="redNotification">
+    <div class="error">Please <a href="{% url 'tiktok_live:login' %}">login</a> to use the Timer feature!</div>
+</div>
+<br>
+{% else %}
+
+<div class="greyBackgroundSection greyBackgroundSectionDynamicWidth">
+    <h3 class="blueheading noTopMarginHeader">Overlay</h3>
+    <div style="display: table-row;">
+        <div style="display: table-cell;">
+            <input type="text" readonly value="{{ widget_url }}" style="width: 501px; padding: 8px; border: 1px solid #4e4e4e; background: #2a2a2a; color: #fff;">
+        </div>
+        <div style="display: table-cell; padding-left: 5px;">
+            <button onclick="copyWidgetUrl()" style="width: 105px; margin-bottom: 2px; padding: 8px; background: #0095f6; color: white; border: none; cursor: pointer;">Copy URL</button>
+        </div>
+        <div style="display: table-cell; padding-left: 4px;">
+            <button disabled style="width: 100px; margin-bottom: 2px; padding: 8px; background: #555; color: #999; border: none;">Test</button>
+        </div>
+        <div style="display: table-cell; padding-left: 4px;">
+            <button style="width: 150px; margin-bottom: 2px; padding: 8px; background: #0095f6; color: white; border: none; cursor: pointer;">Customize</button>
+        </div>
+    </div>
+    <iframe src="{{ widget_url }}&preview=1" allow="autoplay" style="width: 867px; height: 120px; margin-top: 4px; border: 1px solid #4e4e4e;"></iframe>
+</div>
+
+<div class="greyBackgroundSection greyBackgroundSectionDynamicWidth" style="min-width: 869px;">
+    <h3 class="blueheading noTopMarginHeader">Control</h3>
+    <table>
+        <tr>
+            <td><button id="btnStart" onclick="timerStart()" style="width: 150px; padding: 10px; background: #0095f6; color: white; border: none; cursor: pointer; margin-right: 5px;"><i class="fas fa-play"></i> Start</button></td>
+            <td><button id="btnPause" onclick="timerPause()" disabled style="width: 150px; padding: 10px; background: #555; color: #999; border: none; margin-right: 5px;"><i class="fas fa-pause"></i> Pause</button></td>
+            <td><button id="btnReset" onclick="timerReset()" disabled style="width: 150px; padding: 10px; background: #555; color: #999; border: none; margin-right: 5px;"><i class="fas fa-undo"></i> Reset</button></td>
+            <td></td>
+            <td><input type="number" id="manualTime" value="10" min="1" max="14400" step="1" disabled style="width: 100px; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #4e4e4e;"></td>
+            <td><button id="btnAdd" onclick="timerAddManual()" disabled style="padding: 10px; background: #555; color: #999; border: none; margin: 0 2px;"><i class="fas fa-plus"></i></button></td>
+            <td><button id="btnSubtract" onclick="timerSubtractManual()" disabled style="padding: 10px; background: #555; color: #999; border: none; margin: 0 2px;"><i class="fas fa-minus"></i></button></td>
+        </tr>
+    </table>
+    <br>
+</div>
+
+<table>
+    <tr>
+        <td>
+            <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth" style="height: 700px;">
+                <h3 class="blueheading noTopMarginHeader">Settings</h3>
+                
+                <div class="dxForm">
+                    <div class="form">
+                        <div class="dx-fieldset">
+                            <div class="dx-field">
+                                <div class="dx-field-label">Default Start Value</div>
+                                <div class="dx-field-value">
+                                    <input type="number" id="defaultStartValue" value="{{ countdown_timer.default_start_value }}" min="1" max="14400" step="1" style="width: 200px; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #4e4e4e;">
+                                </div>
+                            </div>
+                            <div class="dx-field">
+                                <div class="dx-field-label">Action on expiry</div>
+                                <div class="dx-field-value dxFieldValueFix">
+                                    <b class="timerExpireActionName">{{ countdown_timer.get_expire_action_display }}</b> <a onclick="changeExpireAction()" style="cursor: pointer; color: #0095f6;">Change</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <br>
+                
+                <div>
+                    Define by how many seconds the timer increases or decreases for each interaction type.<br>
+                    Use positive values to increase the timer and negative values (e.g. -5) to decrease the timer.<br>
+                    You can also use decimal numbers e.g. 0.05 if a full second is too much.
+                </div>
+                
+                <div>
+                    <div class="dxForm">
+                        <div class="form">
+                            <div class="dx-fieldset">
+                                <div class="dx-field">
+                                    <div class="dx-field-label">Per Coin</div>
+                                    <div class="dx-field-value">
+                                        <input type="number" id="secondsPerCoin" value="{{ countdown_timer.seconds_per_coin }}" min="-100000" max="100000" step="1" style="width: 200px; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #4e4e4e;">
+                                    </div>
+                                </div>
+                                <div class="dx-field">
+                                    <div class="dx-field-label">Per Subscribe / Super Fan</div>
+                                    <div class="dx-field-value">
+                                        <input type="number" id="secondsPerSubscribe" value="{{ countdown_timer.seconds_per_subscribe }}" min="-100000" max="100000" step="1" style="width: 200px; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #4e4e4e;">
+                                    </div>
+                                </div>
+                                <div class="dx-field">
+                                    <div class="dx-field-label">Per Follow</div>
+                                    <div class="dx-field-value">
+                                        <input type="number" id="secondsPerFollow" value="{{ countdown_timer.seconds_per_follow }}" min="-100000" max="100000" step="1" style="width: 200px; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #4e4e4e;">
+                                    </div>
+                                </div>
+                                <div class="dx-field">
+                                    <div class="dx-field-label">Per Share</div>
+                                    <div class="dx-field-value">
+                                        <input type="number" id="secondsPerShare" value="{{ countdown_timer.seconds_per_share }}" min="-100000" max="100000" step="1" style="width: 200px; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #4e4e4e;">
+                                    </div>
+                                </div>
+                                <div class="dx-field">
+                                    <div class="dx-field-label">Per Like</div>
+                                    <div class="dx-field-value">
+                                        <input type="number" id="secondsPerLike" value="{{ countdown_timer.seconds_per_like }}" min="-100000" max="100000" step="1" style="width: 200px; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #4e4e4e;">
+                                    </div>
+                                </div>
+                                <div class="dx-field">
+                                    <div class="dx-field-label">Per Chat Message</div>
+                                    <div class="dx-field-value">
+                                        <input type="number" id="secondsPerChat" value="{{ countdown_timer.seconds_per_chat }}" min="-100000" max="100000" step="1" style="width: 200px; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #4e4e4e;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="dxForm">
+                        <div class="form">
+                            <div class="dx-fieldset">
+                                <div class="dx-field">
+                                    <div class="dx-field-label">
+                                        <input type="checkbox" id="enableMultiplier" {% if countdown_timer.enable_multiplier %}checked{% endif %} onchange="toggleMultiplier()"> Activate Multiplier
+                                    </div>
+                                    <div class="dx-field-value">
+                                        <input type="number" id="multiplierValue" value="{{ countdown_timer.multiplier_value }}" min="0.5" max="100" step="0.5" {% if not countdown_timer.enable_multiplier %}disabled{% endif %} style="width: 200px; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #4e4e4e;">
+                                        <br><small>If activated, all configured values are multiplied by the multiplier.</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <br>
+                <button onclick="saveSettings()" style="padding: 10px 20px; background: #0095f6; color: white; border: none; cursor: pointer;">Save Settings</button>
+            </div>
+        </td>
+        
+        <td>
+            <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth" style="height: 700px;">
+                <h3 class="blueheading noTopMarginHeader">Keyboard Shortcuts</h3>
+                <br>
+                
+                <h4>Start / Pause</h4>
+                <input type="text" id="shortcutStartPause" value="{{ countdown_timer.shortcut_start_pause }}" placeholder="Not Set" style="width: 250px; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #4e4e4e;">
+                <br><br>
+                
+                <h4>Increase</h4>
+                <input type="text" id="shortcutIncrease" value="{{ countdown_timer.shortcut_increase }}" placeholder="Not Set" style="width: 250px; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #4e4e4e;">
+                <br><br>
+                
+                <h4>Reduce</h4>
+                <input type="text" id="shortcutReduce" value="{{ countdown_timer.shortcut_reduce }}" placeholder="Not Set" style="width: 250px; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #4e4e4e;">
+                <br><br>
+                
+                <h4>Increase / Reduce Step</h4>
+                <input type="number" id="shortcutStep" value="{{ countdown_timer.shortcut_step }}" min="1" max="10000" step="1" style="width: 250px; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #4e4e4e;">
+                <br>
+            </div>
+        </td>
+    </tr>
+</table>
+
 <script>
-let timerInterval;
-let currentTimerSeconds = {{ countdown_timer.get_remaining_seconds }};
-let isTimerRunning = {{ countdown_timer.is_running|yesno:"true,false" }};
-
-function updateTimerDisplay() {
-    const minutes = Math.floor(currentTimerSeconds / 60);
-    const seconds = currentTimerSeconds % 60;
-    document.getElementById('timerDisplay').textContent = 
-        `${minutes}:${seconds.toString().padStart(2, '0')}`;
+function copyWidgetUrl() {
+    const url = "{{ widget_url }}";
+    navigator.clipboard.writeText(url).then(() => {
+        alert('Widget URL copied to clipboard!');
+    });
 }
 
-function startTimerCountdown() {
-    if (timerInterval) clearInterval(timerInterval);
+function timerStart() {
+    fetch("{% url 'tiktok_live:timer_start' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('btnStart').disabled = true;
+            document.getElementById('btnPause').disabled = false;
+            document.getElementById('btnReset').disabled = false;
+            document.getElementById('manualTime').disabled = false;
+            document.getElementById('btnAdd').disabled = false;
+            document.getElementById('btnSubtract').disabled = false;
+        }
+    });
+}
+
+function timerPause() {
+    fetch("{% url 'tiktok_live:timer_pause' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('btnStart').disabled = false;
+            document.getElementById('btnPause').disabled = true;
+        }
+    });
+}
+
+function timerReset() {
+    if (!confirm('Are you sure you want to reset the timer?')) return;
     
-    timerInterval = setInterval(() => {
-        if (currentTimerSeconds > 0) {
-            currentTimerSeconds--;
-            updateTimerDisplay();
-        } else {
-            clearInterval(timerInterval);
-            isTimerRunning = false;
-            document.getElementById('buttonTimerStart').style.display = 'inline-flex';
-            document.getElementById('buttonTimerPause').style.display = 'none';
-            // Timer expired - could trigger expiry action here
-        }
-    }, 1000);
-}
-
-function startTimer() {
-    fetch('{% url "tiktok_live:timer_start" %}', {
+    fetch("{% url 'tiktok_live:timer_reset' %}", {
         method: 'POST',
         headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
             'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
         }
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            isTimerRunning = true;
-            currentTimerSeconds = data.remaining_seconds;
-            document.getElementById('buttonTimerStart').style.display = 'none';
-            document.getElementById('buttonTimerPause').style.display = 'inline-flex';
-            startTimerCountdown();
-        } else {
-            alert('Error: ' + data.error);
+            document.getElementById('btnStart').disabled = false;
+            document.getElementById('btnPause').disabled = true;
+            document.getElementById('btnReset').disabled = true;
+            document.getElementById('manualTime').disabled = true;
+            document.getElementById('btnAdd').disabled = true;
+            document.getElementById('btnSubtract').disabled = true;
         }
     });
 }
 
-function pauseTimer() {
-    fetch('{% url "tiktok_live:timer_pause" %}', {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'Content-Type': 'application/json',
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            isTimerRunning = false;
-            currentTimerSeconds = data.remaining_seconds;
-            document.getElementById('buttonTimerStart').style.display = 'inline-flex';
-            document.getElementById('buttonTimerPause').style.display = 'none';
-            if (timerInterval) clearInterval(timerInterval);
-            updateTimerDisplay();
-        } else {
-            alert('Error: ' + data.error);
-        }
-    });
-}
-
-function resetTimer() {
-    fetch('{% url "tiktok_live:timer_reset" %}', {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'Content-Type': 'application/json',
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            isTimerRunning = false;
-            currentTimerSeconds = data.remaining_seconds;
-            document.getElementById('buttonTimerStart').style.display = 'inline-flex';
-            document.getElementById('buttonTimerPause').style.display = 'none';
-            if (timerInterval) clearInterval(timerInterval);
-            updateTimerDisplay();
-        } else {
-            alert('Error: ' + data.error);
-        }
-    });
-}
-
-function addTimeManual() {
-    const seconds = parseInt(document.getElementById('numberboxTimerAddManual').value) || 10;
+function timerAddManual() {
+    const seconds = parseInt(document.getElementById('manualTime').value) * 60;
     
-    fetch('{% url "tiktok_live:timer_add_time" %}', {
+    fetch("{% url 'tiktok_live:timer_add_time' %}", {
         method: 'POST',
         headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
             'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
         },
         body: JSON.stringify({ seconds: seconds })
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            currentTimerSeconds = data.remaining_seconds;
-            updateTimerDisplay();
-        } else {
-            alert('Error: ' + data.error);
+            alert(data.message);
         }
     });
 }
 
-function subtractTimeManual() {
-    const seconds = parseInt(document.getElementById('numberboxTimerAddManual').value) || 10;
+function timerSubtractManual() {
+    const seconds = parseInt(document.getElementById('manualTime').value) * 60;
     
-    fetch('{% url "tiktok_live:timer_subtract_time" %}', {
+    fetch("{% url 'tiktok_live:timer_subtract_time' %}", {
         method: 'POST',
         headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
             'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
         },
         body: JSON.stringify({ seconds: seconds })
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            currentTimerSeconds = data.remaining_seconds;
-            updateTimerDisplay();
-        } else {
-            alert('Error: ' + data.error);
-        }
-    });
-}
-
-function updateTimerSettings() {
-    const settings = {
-        default_start_value: parseInt(document.getElementById('numberboxTimerStartValue').value),
-        seconds_per_coin: parseFloat(document.getElementById('numberboxAddPerCoin').value),
-        seconds_per_subscribe: parseFloat(document.getElementById('numberboxAddPerSub').value),
-        seconds_per_follow: parseFloat(document.getElementById('numberboxAddPerFollow').value),
-        seconds_per_share: parseFloat(document.getElementById('numberboxAddPerShare').value),
-        seconds_per_like: parseFloat(document.getElementById('numberboxAddPerLike').value),
-        seconds_per_chat: parseFloat(document.getElementById('numberboxAddPerChat').value),
-        enable_multiplier: document.getElementById('timerMultiplierCheckbox').checked,
-        multiplier_value: parseFloat(document.getElementById('numberboxTimerMultiplier').value),
-        shortcut_start_pause: document.getElementById('timerShortcutStartPause').value,
-        shortcut_increase: document.getElementById('timerShortcutIncrease').value,
-        shortcut_reduce: document.getElementById('timerShortcutReduce').value,
-        shortcut_step: parseInt(document.getElementById('timerShortcutStep').value),
-    };
-    
-    fetch('{% url "tiktok_live:timer_update_settings" %}', {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(settings)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (!data.success) {
-            alert('Error updating settings: ' + data.error);
+            alert(data.message);
         }
     });
 }
 
 function toggleMultiplier() {
-    const checkbox = document.getElementById('timerMultiplierCheckbox');
-    const multiplierInput = document.getElementById('numberboxTimerMultiplier');
-    
-    multiplierInput.disabled = !checkbox.checked;
-    updateTimerSettings();
+    const enabled = document.getElementById('enableMultiplier').checked;
+    document.getElementById('multiplierValue').disabled = !enabled;
 }
 
-function changeExpireAction() {
-    // This would open a modal to select expiry action
-    const action = prompt('Select expiry action:\n1. Do Nothing\n2. End Stream\n3. Play Sound\n4. Show Message\n5. Trigger Action\n\nEnter number (1-5):');
+function saveSettings() {
+    const settings = {
+        default_start_value: parseInt(document.getElementById('defaultStartValue').value),
+        seconds_per_coin: parseFloat(document.getElementById('secondsPerCoin').value),
+        seconds_per_subscribe: parseFloat(document.getElementById('secondsPerSubscribe').value),
+        seconds_per_follow: parseFloat(document.getElementById('secondsPerFollow').value),
+        seconds_per_share: parseFloat(document.getElementById('secondsPerShare').value),
+        seconds_per_like: parseFloat(document.getElementById('secondsPerLike').value),
+        seconds_per_chat: parseFloat(document.getElementById('secondsPerChat').value),
+        enable_multiplier: document.getElementById('enableMultiplier').checked,
+        multiplier_value: parseFloat(document.getElementById('multiplierValue').value),
+        shortcut_start_pause: document.getElementById('shortcutStartPause').value,
+        shortcut_increase: document.getElementById('shortcutIncrease').value,
+        shortcut_reduce: document.getElementById('shortcutReduce').value,
+        shortcut_step: parseInt(document.getElementById('shortcutStep').value)
+    };
     
-    if (action) {
-        const actions = ['none', 'end_stream', 'play_sound', 'show_message', 'trigger_action'];
-        const actionNames = ['Do Nothing', 'End Stream', 'Play Sound', 'Show Message', 'Trigger Action'];
-        const selectedAction = actions[parseInt(action) - 1];
-        
-        if (selectedAction) {
-            fetch('{% url "tiktok_live:timer_set_expire_action" %}', {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ action: selectedAction })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.querySelector('.timerExpireActionName').textContent = actionNames[parseInt(action) - 1];
-                } else {
-                    alert('Error: ' + data.error);
-                }
-            });
+    fetch("{% url 'tiktok_live:timer_update_settings' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify(settings)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Settings saved successfully!');
+        } else {
+            alert('Error: ' + data.error);
         }
-    }
-}
-
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-        alert('URL copied to clipboard!');
     });
 }
 
-function customizeTimer() {
-    alert('Timer customization would open here (colors, fonts, etc.)');
-}
-
-// Initialize timer display
-updateTimerDisplay();
-
-// Start countdown if timer is running
-if (isTimerRunning) {
-    startTimerCountdown();
-}
-
-// Keyboard shortcuts
-document.addEventListener('keydown', function(e) {
-    const startPauseKey = document.getElementById('timerShortcutStartPause').value;
-    const increaseKey = document.getElementById('timerShortcutIncrease').value;
-    const reduceKey = document.getElementById('timerShortcutReduce').value;
-    const step = parseInt(document.getElementById('timerShortcutStep').value) || 1;
+function changeExpireAction() {
+    const action = prompt('Select action on expiry:\n1. Do Nothing\n2. End Stream\n3. Play Sound\n4. Show Message\n5. Trigger Action', '1');
     
-    if (e.code.toLowerCase() === startPauseKey || e.key.toLowerCase() === startPauseKey) {
-        e.preventDefault();
-        if (isTimerRunning) {
-            pauseTimer();
-        } else {
-            startTimer();
-        }
-    } else if (e.code.toLowerCase() === increaseKey || e.key.toLowerCase() === increaseKey) {
-        e.preventDefault();
-        fetch('{% url "tiktok_live:timer_add_time" %}', {
+    const actions = {
+        '1': 'none',
+        '2': 'end_stream',
+        '3': 'play_sound',
+        '4': 'show_message',
+        '5': 'trigger_action'
+    };
+    
+    if (action && actions[action]) {
+        fetch("{% url 'tiktok_live:timer_set_expire_action' %}", {
             method: 'POST',
             headers: {
-                'X-CSRFToken': '{{ csrf_token }}',
                 'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
             },
-            body: JSON.stringify({ seconds: step })
+            body: JSON.stringify({ action: actions[action] })
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                currentTimerSeconds = data.remaining_seconds;
-                updateTimerDisplay();
-            }
-        });
-    } else if (e.code.toLowerCase() === reduceKey || e.key.toLowerCase() === reduceKey) {
-        e.preventDefault();
-        fetch('{% url "tiktok_live:timer_subtract_time" %}', {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ seconds: step })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                currentTimerSeconds = data.remaining_seconds;
-                updateTimerDisplay();
+                location.reload();
             }
         });
     }
-});
+}
 </script>
+{% endif %}
 {% endblock %}

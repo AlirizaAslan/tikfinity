@@ -1,11 +1,201 @@
 {% extends 'tiktok_live/tikfinity_layout.html' %}
-{% block title %}TTS Chat - TikFinity{% endblock %}
+{% block title %}Text-to-Speech Chat - TikFinity{% endblock %}
 {% block content %}
-<h1>TTS Chat</h1>
-<p style="color: #888; margin-bottom: 30px;">Text-to-speech chat configuration.</p>
+<h1>Text-to-Speech Chat</h1>
+<p style="color: #888; margin-bottom: 30px;">Here you can read out the chat comments from your viewers automatically via Text-to-Speech (TTS).<br>
+The voice is played directly in the browser. No Overlay is required!<br>
+A TTS feature is also available via <a href="{% url 'tiktok_live:actions_events' %}">Actions & Events</a> which offers more flexibility. (e.g. Read out gifts)</p>
 
-<div class="section">
-    <h3>Coming Soon</h3>
-    <p>This feature is under development.</p>
+{% if not_authenticated %}
+<div class="redNotification">
+    <div class="error">Please <a href="{% url 'tiktok_live:login' %}">login</a> to use the TTS Chat feature!</div>
 </div>
+{% else %}
+
+<div class="section" id="generalSettings">
+    <h3>General Settings</h3>
+    <div class="checkbox"><input type="checkbox" id="isEnabled" {% if settings.is_enabled %}checked{% endif %} onchange="updateSettings()"> <b>Enabled</b></div>
+    <div class="field">
+        <label>Language</label>
+        <select id="language" onchange="updateSettings()" style="max-width: 200px;">
+            <option value="tr-TR" {% if settings.language == 'tr-TR' %}selected{% endif %}>Turkish</option>
+            <option value="en-US" {% if settings.language == 'en-US' %}selected{% endif %}>English (US)</option>
+            <option value="en-GB" {% if settings.language == 'en-GB' %}selected{% endif %}>English (UK)</option>
+        </select>
+    </div>
+    <div class="field">
+        <label>Voice</label>
+        <select id="voice" onchange="updateSettings()" style="max-width: 200px;">
+            <option value="default">Default Voice</option>
+            <option value="male1">Male Voice 1</option>
+            <option value="female1">Female Voice 1</option>
+        </select>
+    </div>
+    <div class="checkbox"><input type="checkbox" id="randomVoice" {% if settings.random_voice %}checked{% endif %} onchange="updateSettings()"> Random Voice</div>
+    <div class="field">
+        <label>Default Speed</label>
+        <input type="number" id="defaultSpeed" value="{{ settings.default_speed }}" min="0" max="100" step="5" onchange="updateSettings()" style="max-width: 120px;">
+    </div>
+    <div class="field">
+        <label>Default Pitch</label>
+        <input type="number" id="defaultPitch" value="{{ settings.default_pitch }}" min="0" max="100" step="5" onchange="updateSettings()" style="max-width: 120px;">
+    </div>
+    <div class="field">
+        <label>Volume</label>
+        <input type="range" id="volume" value="{{ settings.volume }}" min="1" max="100" onchange="updateSettings()" style="width: 130px;">
+    </div>
+</div>
+
+<div class="section" id="allowedUsers">
+    <h3>Allowed Users</h3>
+    <div class="checkbox"><input type="checkbox" id="allowAllUsers" {% if settings.allow_all_users %}checked{% endif %} onchange="updateSettings()"> All Users</div>
+    <div class="checkbox"><input type="checkbox" id="allowFollowers" {% if settings.allow_followers %}checked{% endif %} onchange="updateSettings()"> Followers</div>
+    <div class="checkbox"><input type="checkbox" id="allowSubscribers" {% if settings.allow_subscribers %}checked{% endif %} onchange="updateSettings()"> Super Fans / Subscribers</div>
+    <div class="checkbox"><input type="checkbox" id="allowModerators" {% if settings.allow_moderators %}checked{% endif %} onchange="updateSettings()"> Moderators</div>
+    <div class="checkbox"><input type="checkbox" id="allowTeamMembers" {% if settings.allow_team_members %}checked{% endif %} onchange="updateSettings()"> Team Members</div>
+    <div class="field" style="margin-left: 20px;">
+        <label>Min. Level</label>
+        <input type="number" id="teamMembersMinLevel" value="{{ settings.team_members_min_level }}" min="1" onchange="updateSettings()" style="max-width: 60px;">
+    </div>
+    <div class="checkbox"><input type="checkbox" id="allowTopGifters" {% if settings.allow_top_gifters %}checked{% endif %} onchange="updateSettings()"> Top Gifters</div>
+    <div class="field" style="margin-left: 20px;">
+        <label>Top</label>
+        <input type="number" id="topGiftersN" value="{{ settings.top_gifters_n }}" min="1" onchange="updateSettings()" style="max-width: 60px;">
+    </div>
+    <div class="checkbox"><input type="checkbox" id="allowSpecificUsers" {% if settings.allow_specific_users %}checked{% endif %} onchange="updateSettings()"> Allowed Users from list</div>
+</div>
+
+<div class="section" id="commentTypes">
+    <h3>Comment Types</h3>
+    <p>Read...</p>
+    <div class="checkbox"><input type="radio" name="commentType" value="any" {% if settings.comment_type == 'any' %}checked{% endif %} onchange="updateSettings()"> Any comment</div>
+    <div class="checkbox"><input type="radio" name="commentType" value="dot" {% if settings.comment_type == 'dot' %}checked{% endif %} onchange="updateSettings()"> Comments starting with dot (.)</div>
+    <div class="checkbox"><input type="radio" name="commentType" value="slash" {% if settings.comment_type == 'slash' %}checked{% endif %} onchange="updateSettings()"> Comments starting with slash (/)</div>
+    <div class="checkbox"><input type="radio" name="commentType" value="command" {% if settings.comment_type == 'command' %}checked{% endif %} onchange="updateSettings()"> Comments starting with Command:</div>
+    <div class="field" style="margin-left: 20px;">
+        <input type="text" id="specialCommand" value="{{ settings.special_command }}" placeholder="!command" onchange="updateSettings()" style="max-width: 100px;">
+    </div>
+</div>
+
+<div class="section" id="chargePoints">
+    <h3>Charge Points</h3>
+    <div class="checkbox"><input type="radio" name="chargePoints" value="false" {% if not settings.charge_points %}checked{% endif %} onchange="updateSettings()"> No, its free</div>
+    <div class="checkbox"><input type="radio" name="chargePoints" value="true" {% if settings.charge_points %}checked{% endif %} onchange="updateSettings()"> Yes, withdraw the following amount:</div>
+    <div class="field">
+        <label>Cost per Message</label>
+        <input type="number" id="costPerMessage" value="{{ settings.cost_per_message }}" min="0.01" max="99999999" step="1" onchange="updateSettings()" style="max-width: 110px;">
+    </div>
+    <small>(If the user doesn't have enough points, the comment will NOT be read)</small>
+</div>
+
+<div class="section" id="spamProtection">
+    <h3>Spam Protection</h3>
+    <div class="field">
+        <label>User Cooldown (seconds)</label>
+        <input type="number" id="userCooldown" value="{{ settings.user_cooldown }}" min="0" max="99999" step="10" onchange="updateSettings()" style="max-width: 120px;">
+    </div>
+    <div class="field">
+        <label>Max Queue Length</label>
+        <input type="number" id="maxQueueLength" value="{{ settings.max_queue_length }}" min="1" max="50" step="1" onchange="updateSettings()" style="max-width: 120px;">
+    </div>
+    <div class="field">
+        <label>Max Comment Length</label>
+        <input type="number" id="maxCommentLength" value="{{ settings.max_comment_length }}" min="5" max="500" step="10" onchange="updateSettings()" style="max-width: 120px;">
+    </div>
+    <div class="checkbox"><input type="checkbox" id="filterLetterSpam" {% if settings.filter_letter_spam %}checked{% endif %} onchange="updateSettings()"> Filter Letter Spam</div>
+    <div class="checkbox"><input type="checkbox" id="filterMentions" {% if settings.filter_mentions %}checked{% endif %} onchange="updateSettings()"> Filter @mentions</div>
+    <div class="checkbox"><input type="checkbox" id="filterCommands" {% if settings.filter_commands %}checked{% endif %} onchange="updateSettings()"> Filter !commands</div>
+</div>
+
+<div class="section" id="advanced">
+    <h3>Advanced</h3>
+    <div class="field">
+        <label>Message Template</label>
+        <input type="text" id="messageTemplate" value="{{ settings.message_template }}" maxlength="100" onchange="updateSettings()" style="max-width: 260px;">
+    </div>
+    <small><b>Placeholder Params:</b> {nickname} {username} {comment}<br><b>Example:</b> {nickname} says {comment}</small>
+</div>
+
+<div class="section" id="voiceTester">
+    <h3>Voice Tester</h3>
+    <div class="field">
+        <input type="text" id="testText" placeholder="Enter test message" style="max-width: 300px;">
+        <button class="btn btn-success" onclick="testTTS()">Play</button>
+    </div>
+    <h4>TTS Logs</h4>
+    <pre style="max-width: 400px;">{% if logs %}{% for log in logs %}{{ log.created_at|date:"H:i:s" }} - {{ log.tiktok_username }}: {{ log.message }}
+{% endfor %}{% else %}No Entries{% endif %}</pre>
+</div>
+
+
+
+<script>
+function updateSettings() {
+    const settings = {
+        is_enabled: document.getElementById('isEnabled').checked,
+        language: document.getElementById('language').value,
+        voice: document.getElementById('voice').value,
+        random_voice: document.getElementById('randomVoice').checked,
+        default_speed: parseInt(document.getElementById('defaultSpeed').value),
+        default_pitch: parseInt(document.getElementById('defaultPitch').value),
+        volume: parseInt(document.getElementById('volume').value),
+        allow_all_users: document.getElementById('allowAllUsers').checked,
+        allow_followers: document.getElementById('allowFollowers').checked,
+        allow_subscribers: document.getElementById('allowSubscribers').checked,
+        allow_moderators: document.getElementById('allowModerators').checked,
+        allow_team_members: document.getElementById('allowTeamMembers').checked,
+        team_members_min_level: parseInt(document.getElementById('teamMembersMinLevel').value),
+        allow_top_gifters: document.getElementById('allowTopGifters').checked,
+        top_gifters_n: parseInt(document.getElementById('topGiftersN').value),
+        allow_specific_users: document.getElementById('allowSpecificUsers').checked,
+        comment_type: document.querySelector('input[name="commentType"]:checked').value,
+        special_command: document.getElementById('specialCommand').value,
+        charge_points: document.querySelector('input[name="chargePoints"]:checked').value === 'true',
+        cost_per_message: parseInt(document.getElementById('costPerMessage').value),
+        user_cooldown: parseInt(document.getElementById('userCooldown').value),
+        max_queue_length: parseInt(document.getElementById('maxQueueLength').value),
+        max_comment_length: parseInt(document.getElementById('maxCommentLength').value),
+        filter_letter_spam: document.getElementById('filterLetterSpam').checked,
+        filter_mentions: document.getElementById('filterMentions').checked,
+        filter_commands: document.getElementById('filterCommands').checked,
+        message_template: document.getElementById('messageTemplate').value
+    };
+    
+    fetch("{% url 'tiktok_live:tts_update_settings' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify(settings)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Settings updated');
+        }
+    });
+}
+
+function testTTS() {
+    const text = document.getElementById('testText').value || 'Test message';
+    
+    fetch("{% url 'tiktok_live:tts_test' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({ text: text })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('TTS test completed! Check logs.');
+            location.reload();
+        }
+    });
+}
+</script>
+{% endif %}
 {% endblock %}

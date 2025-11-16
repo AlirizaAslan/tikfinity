@@ -75,7 +75,9 @@ urlpatterns = [
     # Additional sections
     path('sound-alerts/', views.sound_alerts, name='sound_alerts'),
     path('chat-commands/', views.chat_commands, name='chat_commands'),
+    path('chat-commands/<str:subsection>/', views.chat_commands, name='chat_commands_sub'),
     path('tts-chat/', views.tts_chat, name='tts_chat'),
+    path('tts-chat/<str:subsection>/', views.tts_chat, name='tts_chat_sub'),
     path('users-points/', views.users_points, name='users_points'),
     path('users-points/data/', views.users_points_data, name='users_points_data'),
     path('users-points/settings/', views.update_points_settings, name='update_points_settings'),
@@ -127,4 +129,18 @@ urlpatterns = [
     path('timer/set-expire-action/', views.timer_set_expire_action, name='timer_set_expire_action'),
     path('timer/widget/', views.timer_widget, name='timer_widget'),
     path('api/timer/status/', views.timer_status_api, name='timer_status_api'),
+    
+    # Halving
+    path('halving/', views.halving, name='halving'),
+    path('halving/execute/', views.execute_halving, name='execute_halving'),
+    
+    # Chatbot
+    path('chatbot/', views.chatbot, name='chatbot'),
+    path('chatbot/send-test/', views.chatbot_send_test, name='chatbot_send_test'),
+    path('chatbot/update-settings/', views.chatbot_update_settings, name='chatbot_update_settings'),
+    path('chatbot/update-message/', views.chatbot_update_message, name='chatbot_update_message'),
+    
+    # TTS
+    path('tts/update-settings/', views.tts_update_settings, name='tts_update_settings'),
+    path('tts/test/', views.tts_test, name='tts_test'),
 ]

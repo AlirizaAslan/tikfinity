@@ -1,0 +1,231 @@
+{% extends 'tiktok_live/tikfinity_layout.html' %}
+
+{% block title %}Chatbot - TikFinity{% endblock %}
+
+{% block content %}
+<div class="desktopAppPromotion" style="display: block;">
+    <div class="promotion-content">
+        Get the free <a href="/app/">TikFinity Desktop App</a> for Windows to enjoy additional features and stability improvements!
+    </div>
+</div>
+
+<h2 class="blueheading">Chatbot</h2>
+
+{% if not_authenticated %}
+<div class="redNotification">
+    <div class="error">Please <a href="{% url 'tiktok_live:login' %}">login</a> to use the Chatbot feature!</div>
+</div>
+<br>
+{% else %}
+
+<div class="notification redNotification" style="width: 900px; background-color: #570d1c;">
+    The Chatbot Feature is currently only available if you use the <a href="/app">TikFinity Desktop App</a> or if you disable the Server-side TikTok Connection and install the Browser Extension instead.
+</div>
+<div class="notification redNotification" style="width: 900px; background-color: #570d1c;">
+    As an alternative to the Chatbot you can use the User Info Overlay and the Command Info Overlay to show the command results in your stream.
+</div>
+<br>
+
+<div class="notification redNotification" style="width: 650px; background-color: #570d1c;">
+    Please keep in mind that your account is used to send chatbot messages. Make sure that all messages comply with the TikTok rules, because you are responsible for them! If you have problems with the chatbot, take a look at our <a href="/chatbot-troubleshooting" target="_blank">Troubleshooting Guide</a>.
+</div>
+<br>
+
+<input type="checkbox" id="enableChatbot" {% if settings.is_enabled %}checked{% endif %} onchange="toggleChatbot()"> Activate Chatbot
+<br><br>
+
+<div class="greyBackgroundSection" style="width: 1000px;">
+    <h3 class="blueheading noTopMarginHeader">Message Log</h3>
+    <div id="chatbotMessageLogArea" style="font-size: 0.9em;">
+        {% if logs %}
+            {% for log in logs %}
+                <div>{{ log.sent_at|date:"m/d/Y, g:i A" }} - {{ log.message }}</div>
+            {% endfor %}
+        {% else %}
+            <i>No Messages Sent</i>
+        {% endif %}
+    </div>
+    <br>
+    <button onclick="sendTestMessage()" {% if not settings.is_enabled %}disabled{% endif %} style="padding: 10px 20px; background: {% if settings.is_enabled %}#0095f6{% else %}#555{% endif %}; color: {% if settings.is_enabled %}white{% else %}#999{% endif %}; border: none; cursor: {% if settings.is_enabled %}pointer{% else %}not-allowed{% endif %};">Send Test Message</button>
+</div>
+
+<br><br>
+
+<div class="greyBackgroundSection" style="width: 1000px;">
+    <h3 class="blueheading noTopMarginHeader">Spam Protection</h3>
+    <div>To prevent TikTok from filtering the messages, you should limit the number of messages sent by the chatbot.</div><br>
+    <div class="dxForm">
+        <div class="form">
+            <div class="dx-fieldset">
+                <div class="dx-field">
+                    <div class="dx-field-label">Maximum number of messages</div>
+                    <div class="dx-field-value">
+                        <input type="number" id="maxMessages" value="{{ settings.max_messages_per_15_seconds }}" min="1" max="5" step="1" onchange="updateSettings()" style="width: 100px; padding: 8px; background: #2a2a2a; color: #fff; border: 1px solid #4e4e4e;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br><br>
+
+<div class="greyBackgroundSection" style="width: 1000px;">
+    <h3 class="blueheading noTopMarginHeader">Streamer.bot Messages</h3>
+    <div>
+        You can send custom chat messages to your TikTok chat via <a href="https://streamer.bot/" target="_blank">Streamer.bot</a>. This allows you to use triggers from other<br>
+        platforms such as Twitch. You also have a wide range of other options. Read the <a href="/streamerbot-integration" target="_blank">Integration Guide</a> for more information.
+    </div><br>
+    <input type="checkbox" id="enableStreamerbot" {% if settings.enable_streamerbot %}checked{% endif %} onchange="updateSettings()"> Allow Streamer.bot to push messages to TikFinity
+    <br><br>
+    <button onclick="alert('Streamer.bot configuration coming soon!')" style="padding: 10px 20px; background: #0095f6; color: white; border: none; cursor: pointer;">Configure Streamer.bot</button>
+</div>
+
+<br><br>
+
+<h3 class="blueheading">Snippet Configuration</h3>
+<div>Here you can define the sentence snippets your chatbot will reply with. To do this, click on the message text and customize it.<br>Note the placeholder variables marked with %. With the checkbox you can activate and deactivate individual messages.</div><br>
+
+<table style="width: 100%; border-collapse: collapse; background: #2a2a2a;">
+    <thead>
+        <tr style="background: #1a1a1a;">
+            <th style="padding: 10px; text-align: center; width: 60px;">Active</th>
+            <th style="padding: 10px; text-align: left; width: 200px;">Command</th>
+            <th style="padding: 10px; text-align: left; width: 350px;">Scenario</th>
+            <th style="padding: 10px; text-align: left;">Message text</th>
+            <th style="padding: 10px; text-align: center; width: 80px;">Reset</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for msg in messages %}
+        <tr style="border-bottom: 1px solid #3a3a3a;">
+            <td style="padding: 10px; text-align: center;">
+                <input type="checkbox" {% if msg.is_active %}checked{% endif %} onchange="updateMessage('{{ msg.command }}', this.checked)">
+            </td>
+            <td style="padding: 10px;">{{ msg.get_command_display }}</td>
+            <td style="padding: 10px;">{{ msg.scenario|default:"&nbsp;" }}</td>
+            <td style="padding: 10px;">
+                <input type="text" value="{{ msg.message_text }}" onchange="updateMessageText('{{ msg.command }}', this.value)" style="width: 100%; padding: 5px; background: #1a1a1a; color: #fff; border: 1px solid #4e4e4e;">
+            </td>
+            <td style="padding: 10px; text-align: center;">
+                <a href="#" onclick="resetMessage('{{ msg.command }}'); return false;" style="color: #0095f6;">Reset</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+function toggleChatbot() {
+    const enabled = document.getElementById('enableChatbot').checked;
+    fetch("{% url 'tiktok_live:chatbot_update_settings' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({ is_enabled: enabled })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        }
+    });
+}
+
+function updateSettings() {
+    const maxMessages = parseInt(document.getElementById('maxMessages').value);
+    const enableStreamerbot = document.getElementById('enableStreamerbot').checked;
+    
+    fetch("{% url 'tiktok_live:chatbot_update_settings' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            max_messages_per_15_seconds: maxMessages,
+            enable_streamerbot: enableStreamerbot
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Settings updated');
+        }
+    });
+}
+
+function sendTestMessage() {
+    fetch("{% url 'tiktok_live:chatbot_send_test' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        }
+    });
+}
+
+function updateMessage(command, isActive) {
+    const row = event.target.closest('tr');
+    const messageText = row.querySelector('input[type="text"]').value;
+    
+    fetch("{% url 'tiktok_live:chatbot_update_message' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            command: command,
+            message_text: messageText,
+            is_active: isActive
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Message updated');
+        }
+    });
+}
+
+function updateMessageText(command, messageText) {
+    const row = event.target.closest('tr');
+    const isActive = row.querySelector('input[type="checkbox"]').checked;
+    
+    fetch("{% url 'tiktok_live:chatbot_update_message' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            command: command,
+            message_text: messageText,
+            is_active: isActive
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Message text updated');
+        }
+    });
+}
+
+function resetMessage(command) {
+    if (confirm('Reset this message to default?')) {
+        location.reload();
+    }
+}
+</script>
+{% endif %}
+{% endblock %}

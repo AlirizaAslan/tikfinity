@@ -397,3 +397,146 @@ class CountdownTimer(models.Model):
     
     def __str__(self):
         return f"Countdown Timer - {self.user.username}"
+
+class PointsHalving(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    percentage = models.IntegerField(default=50)
+    executed_at = models.DateTimeField(auto_now_add=True)
+    affected_users = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return f"Halving {self.percentage}% - {self.executed_at.strftime('%Y-%m-%d %H:%M')}"
+
+class TTSSettings(models.Model):
+    COMMENT_TYPE_CHOICES = [
+        ('any', 'Any comment'),
+        ('dot', 'Comments starting with dot (.)'),
+        ('slash', 'Comments starting with slash (/)'),
+        ('command', 'Comments starting with Command'),
+    ]
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_enabled = models.BooleanField(default=False)
+    language = models.CharField(max_length=10, default='tr-TR')
+    voice = models.CharField(max_length=50, default='default')
+    random_voice = models.BooleanField(default=False)
+    default_speed = models.IntegerField(default=50)
+    default_pitch = models.IntegerField(default=50)
+    volume = models.IntegerField(default=100)
+    
+    allow_all_users = models.BooleanField(default=True)
+    allow_followers = models.BooleanField(default=True)
+    allow_subscribers = models.BooleanField(default=True)
+    allow_moderators = models.BooleanField(default=True)
+    allow_team_members = models.BooleanField(default=True)
+    team_members_min_level = models.IntegerField(default=1)
+    allow_top_gifters = models.BooleanField(default=True)
+    top_gifters_n = models.IntegerField(default=3)
+    allow_specific_users = models.BooleanField(default=True)
+    
+    comment_type = models.CharField(max_length=20, choices=COMMENT_TYPE_CHOICES, default='any')
+    special_command = models.CharField(max_length=20, blank=True)
+    
+    charge_points = models.BooleanField(default=False)
+    cost_per_message = models.IntegerField(default=5)
+    
+    user_cooldown = models.IntegerField(default=0)
+    max_queue_length = models.IntegerField(default=5)
+    max_comment_length = models.IntegerField(default=300)
+    filter_letter_spam = models.BooleanField(default=True)
+    filter_mentions = models.BooleanField(default=False)
+    filter_commands = models.BooleanField(default=False)
+    
+    message_template = models.CharField(max_length=100, default='{comment}')
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"TTS Settings - {self.user.username}"
+
+class TTSSpecialUser(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tiktok_username = models.CharField(max_length=100)
+    is_allowed = models.BooleanField(default=True)
+    voice = models.CharField(max_length=50, default='default')
+    speed = models.IntegerField(default=50)
+    pitch = models.IntegerField(default=50)
+    
+    class Meta:
+        unique_together = ['user', 'tiktok_username']
+    
+    def __str__(self):
+        return f"{self.tiktok_username} - {self.user.username}"
+
+class TTSLog(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tiktok_username = models.CharField(max_length=100)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.tiktok_username}: {self.message[:50]}"
+
+class ChatbotSettings(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_enabled = models.BooleanField(default=False)
+    max_messages_per_15_seconds = models.IntegerField(default=2)
+    enable_streamerbot = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"Chatbot Settings - {self.user.username}"
+
+class ChatbotMessage(models.Model):
+    COMMAND_CHOICES = [
+        ('help', 'Help'),
+        ('show_global_commands', 'Show global commands'),
+        ('show_subscriber_commands', 'Show subscriber commands'),
+        ('show_user_commands', 'Show user personal commands'),
+        ('points_info_top100', 'Points Information (Top 100)'),
+        ('points_info_other', 'Points Information (Not in top 100)'),
+        ('points_transfer_success', 'Points Transfer - Success'),
+        ('points_transfer_syntax', 'Points Transfer - Incorrect syntax'),
+        ('points_transfer_insufficient', 'Points Transfer - Not enough credits'),
+        ('points_transfer_notfound', 'Points Transfer - Receiver not found'),
+        ('wheel_insufficient', 'Wheel of Fortune - Not enough credits'),
+        ('wheel_no_win', 'Wheel of Fortune - No win'),
+        ('wheel_cooldown', 'Wheel of Fortune - Waiting time'),
+        ('wheel_win', 'Wheel of Fortune - Win'),
+        ('level_up', 'Level Up'),
+        ('action_queue_full', 'My Actions - Queue full'),
+        ('action_insufficient', 'My Actions - Not enough credits'),
+        ('action_level_low', 'My Actions - Level too low'),
+        ('tts_insufficient', 'TTS Speak - Not enough credits'),
+        ('song_insufficient', 'Song Request - Not enough credits'),
+        ('song_not_found', 'Song Request - Not found'),
+        ('song_queue_full', 'Song Request - Queue full'),
+        ('song_user_limit', 'Song Request - User limit'),
+        ('song_duplicate', 'Song Request - Already in queue'),
+        ('song_explicit', 'Song Request - Explicit content'),
+        ('song_added', 'Song Request - Added'),
+        ('song_revoked', 'Song Request - Revoked'),
+        ('song_skip_denied', 'Song Request - Skip not allowed'),
+    ]
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    command = models.CharField(max_length=50, choices=COMMAND_CHOICES)
+    scenario = models.CharField(max_length=200, blank=True)
+    message_text = models.TextField()
+    is_active = models.BooleanField(default=True)
+    
+    class Meta:
+        unique_together = ['user', 'command']
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.command}"
+
+class ChatbotLog(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    sent_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.sent_at.strftime('%Y-%m-%d %H:%M:%S')}"

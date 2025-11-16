@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
-from .models import TikTokAccount, LiveStream, StreamInteraction, AutomationTrigger, AutoResponse, UserPoints, Widget, Action, Event, OverlayScreen, Timer, PointsTransaction, PointsSettings, CountdownTimer
+from .models import TikTokAccount, LiveStream, StreamInteraction, AutomationTrigger, AutoResponse, UserPoints, Widget, Action, Event, OverlayScreen, Timer, PointsTransaction, PointsSettings, CountdownTimer, PointsHalving, ChatbotSettings, ChatbotMessage, ChatbotLog, TTSSettings, TTSSpecialUser, TTSLog
 from django.db.models import Count, Q
 from django.utils import timezone
 from .tiktok_oauth import TikTokOAuth
@@ -718,16 +718,34 @@ def widget_view(request, widget_id):
 def sound_alerts(request):
     return render(request, 'tiktok_live/sound_alerts.html')
 
-def chat_commands(request):
-    return render(request, 'tiktok_live/chat_commands.html')
+def chat_commands(request, subsection=None):
+    subsections = {
+        'commands': 'Commands',
+        'settings': 'Settings'
+    }
+    return render(request, 'tiktok_live/chat_commands.html', {
+        'subsection': subsection,
+        'subsections': subsections,
+        'current_title': subsections.get(subsection, 'Chat Commands')
+    })
 
-def tts_chat(request):
-    return render(request, 'tiktok_live/tts_chat.html')
+def tts_chat(request, subsection=None):
+    if not request.user.is_authenticated:
+        return render(request, 'tiktok_live/tts_chat.html', {'not_authenticated': True, 'settings': None, 'special_users': [], 'logs': []})
+    settings, created = TTSSettings.objects.get_or_create(user=request.user)
+    special_users = TTSSpecialUser.objects.filter(user=request.user)
+    logs = TTSLog.objects.filter(user=request.user).order_by('-created_at')[:10]
+    return render(request, 'tiktok_live/tts_chat.html', {'settings': settings, 'special_users': special_users, 'logs': logs})
 
 def users_points(request):
     """Users & Points management page"""
     if not request.user.is_authenticated:
-        return redirect('tiktok_live:login')
+        return render(request, 'tiktok_live/users_points.html', {
+            'points_settings': None,
+            'total_users': 0,
+            'max_users': 2500,
+            'not_authenticated': True
+        })
     
     # Get or create points settings
     points_settings, created = PointsSettings.objects.get_or_create(
@@ -849,7 +867,12 @@ def likeathon(request):
 def timer(request):
     """Timer page with countdown functionality"""
     if not request.user.is_authenticated:
-        return redirect('tiktok_live:login')
+        return render(request, 'tiktok_live/timer.html', {
+            'countdown_timer': None,
+            'widget_url': '',
+            'user_id': None,
+            'not_authenticated': True
+        })
     
     # Get or create countdown timer for user
     countdown_timer, created = CountdownTimer.objects.get_or_create(
@@ -1502,5 +1525,156 @@ def timer_status_api(request):
         })
     except (CountdownTimer.DoesNotExist, User.DoesNotExist):
         return JsonResponse({'success': False, 'error': 'Timer not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+@login_required
+def halving(request):
+    """Halving page - reduce user points by percentage"""
+    last_halving = PointsHalving.objects.filter(user=request.user).order_by('-executed_at').first()
+    
+    context = {
+        'last_halving': last_halving,
+    }
+    return render(request, 'tiktok_live/halving.html', context)
+
+@login_required
+@require_http_methods(["POST"])
+def execute_halving(request):
+    """Execute points halving"""
+    try:
+        data = json.loads(request.body)
+        percentage = int(data.get('percentage', 50))
+        
+        if percentage < 1 or percentage > 100:
+            return JsonResponse({'success': False, 'error': 'Percentage must be between 1 and 100'})
+        
+        # Get all user points
+        user_points = UserPoints.objects.filter(user=request.user)
+        affected_count = user_points.count()
+        
+        # Calculate reduction factor
+        reduction_factor = (100 - percentage) / 100
+        
+        # Update all user points
+        for up in user_points:
+            up.points_total = int(up.points_total * reduction_factor)
+            up.points_level = int(up.points_level * reduction_factor)
+            up.save()
+        
+        # Record halving
+        PointsHalving.objects.create(
+            user=request.user,
+            percentage=percentage,
+            affected_users=affected_count
+        )
+        
+        return JsonResponse({
+            'success': True,
+            'message': f'Successfully reduced points by {percentage}% for {affected_count} users',
+            'affected_users': affected_count
+        })
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+def chatbot(request):
+    if not request.user.is_authenticated:
+        return render(request, 'tiktok_live/chatbot.html', {'not_authenticated': True, 'settings': None, 'messages': [], 'logs': []})
+    settings, created = ChatbotSettings.objects.get_or_create(user=request.user)
+    default_messages = [
+        ('help', '', '@%username% the commands are as following: To see your %currencyname%: %cmdpoints% | %currencyname% to send to a friend: %cmdsend% [Amount] [Username] | Spin the Wheel of Fortune: %cmdspin% | Show other commands: %cmdcustomglobal%, %cmdcustomsub%, %cmdcustompersonal%'),
+        ('show_global_commands', '', '@%username% Commands: %globalcommands%'),
+        ('show_subscriber_commands', '', '@%username% Subscriber Commands: %subcommands%'),
+        ('show_user_commands', '', '@%username% Your personal Commands: %usercommands%'),
+        ('points_info_top100', 'User in the top 100', '@%username% you have got %points% %currencyname% (Level: %level%) and you are on place %rank%!'),
+        ('points_info_other', 'User not in the top 100', '@%username% you have %points% %currencyname% (Level: %level%).'),
+        ('points_transfer_success', 'Send successful', '@%username% %amount% %currencyname% has successfully been given to @%destination%!'),
+        ('points_transfer_syntax', 'Incorrect syntax', '@%username% please write down the amount and the receiver behind the instruction.'),
+        ('points_transfer_insufficient', 'Send failed (not enough credits)', '@%username% you don\'t have enough %currencyname%!'),
+        ('points_transfer_notfound', 'Send failed (receiver not found)', '@%username% we couldn\'t find that user!'),
+        ('wheel_insufficient', 'Not enough credits', '@%username% you don\'t have enough %currencyname%! You are missing %requiredpoints% %currencyname%!'),
+        ('wheel_no_win', 'No win (0)', '@%username% unlucky this time :('),
+        ('wheel_cooldown', 'Waiting time necessary', '@%username% %minutes% minutes until the next chance for a win!'),
+        ('wheel_win', 'Win', '@%username% you have been given %amount% %currencyname%!'),
+        ('level_up', 'Level Up', '@%username% you have just reached Level: %level%!'),
+        ('action_queue_full', 'Queue is full', '@%username% please wait a little bit!'),
+        ('action_insufficient', 'Not enough credits', '@%username% you don\'t have enough %currencyname%! You need %actionamount% %currencyname% to execute this action!'),
+        ('action_level_low', 'Level too low', '@%username% only users with a level of %requiredlevel% or higher can use this chat command!'),
+        ('tts_insufficient', 'Not enough credits', '@%username% you don\'t have enough %currencyname%! You need %actionamount% %currencyname% to use Text-to-Speech!'),
+        ('song_insufficient', 'Not enough credits', '@%username% you don\'t have enough %currencyname%! You need %cost% %currencyname% for this action!'),
+        ('song_not_found', 'Song not found', '@%username% Song not found.'),
+        ('song_queue_full', 'Queue size limit reached', '@%username% The playlist is full. Please try again later.'),
+        ('song_user_limit', 'Queue size limit reached for user', '@%username% You already have songs in the playlist. Please wait a bit!'),
+        ('song_duplicate', 'Song already in queue', '@%username% This song is already in the playback queue.'),
+        ('song_explicit', 'Song not allowed', '@%username% the requested song contains explicit content which is not allowed here.'),
+        ('song_added', 'Song added to queue', '@%username% the track "%track%" has been added! Use !revoke if it is the wrong song.'),
+        ('song_revoked', 'Song revoke success', '@%username% your last song request has been revoked!'),
+        ('song_skip_denied', 'Skip not allowed', '@%username% unable to execute the !skip command for the current song. Not allowed by broadcaster.'),
+    ]
+    for command, scenario, default_text in default_messages:
+        ChatbotMessage.objects.get_or_create(user=request.user, command=command, defaults={'scenario': scenario, 'message_text': default_text})
+    messages = ChatbotMessage.objects.filter(user=request.user).order_by('id')
+    logs = ChatbotLog.objects.filter(user=request.user).order_by('-sent_at')[:10]
+    return render(request, 'tiktok_live/chatbot.html', {'settings': settings, 'messages': messages, 'logs': logs})
+
+@login_required
+@require_http_methods(["POST"])
+def chatbot_send_test(request):
+    test_message = "This is a test message from TikFinity Chatbot!"
+    ChatbotLog.objects.create(user=request.user, message=test_message)
+    return JsonResponse({'success': True, 'message': 'Test message sent', 'log': test_message})
+
+@login_required
+@require_http_methods(["POST"])
+def chatbot_update_settings(request):
+    try:
+        data = json.loads(request.body)
+        settings, created = ChatbotSettings.objects.get_or_create(user=request.user)
+        if 'is_enabled' in data:
+            settings.is_enabled = bool(data['is_enabled'])
+        if 'max_messages_per_15_seconds' in data:
+            settings.max_messages_per_15_seconds = int(data['max_messages_per_15_seconds'])
+        if 'enable_streamerbot' in data:
+            settings.enable_streamerbot = bool(data['enable_streamerbot'])
+        settings.save()
+        return JsonResponse({'success': True})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+@login_required
+@require_http_methods(["POST"])
+def chatbot_update_message(request):
+    try:
+        data = json.loads(request.body)
+        message = ChatbotMessage.objects.get(user=request.user, command=data.get('command'))
+        message.message_text = data.get('message_text')
+        message.is_active = data.get('is_active', True)
+        message.save()
+        return JsonResponse({'success': True})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+@login_required
+@require_http_methods(["POST"])
+def tts_update_settings(request):
+    try:
+        data = json.loads(request.body)
+        settings, created = TTSSettings.objects.get_or_create(user=request.user)
+        for key, value in data.items():
+            if hasattr(settings, key):
+                setattr(settings, key, value)
+        settings.save()
+        return JsonResponse({'success': True})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+@login_required
+@require_http_methods(["POST"])
+def tts_test(request):
+    try:
+        data = json.loads(request.body)
+        text = data.get('text', 'Test message')
+        TTSLog.objects.create(user=request.user, tiktok_username='Test', message=text)
+        return JsonResponse({'success': True, 'message': 'TTS test completed'})
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
