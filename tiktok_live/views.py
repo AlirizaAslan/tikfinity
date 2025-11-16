@@ -945,20 +945,26 @@ def obs_panels(request):
     return render(request, 'tiktok_live/obs_panels.html')
 
 def actions_events(request):
-    actions = Action.objects.filter(user=request.user)
-    events = Event.objects.filter(user=request.user)
-    overlay_screens = OverlayScreen.objects.filter(user=request.user)
-    timers = Timer.objects.filter(user=request.user)
-    
-    # Create default overlay screens if none exist
-    if not overlay_screens.exists():
-        for i in range(1, 9):
-            OverlayScreen.objects.create(
-                user=request.user,
-                name=f'Screen {i}',
-                screen_number=i
-            )
+    if request.user.is_authenticated:
+        actions = Action.objects.filter(user=request.user)
+        events = Event.objects.filter(user=request.user)
         overlay_screens = OverlayScreen.objects.filter(user=request.user)
+        timers = Timer.objects.filter(user=request.user)
+        
+        # Create default overlay screens if none exist
+        if not overlay_screens.exists():
+            for i in range(1, 9):
+                OverlayScreen.objects.create(
+                    user=request.user,
+                    name=f'Screen {i}',
+                    screen_number=i
+                )
+            overlay_screens = OverlayScreen.objects.filter(user=request.user)
+    else:
+        actions = []
+        events = []
+        overlay_screens = []
+        timers = []
     
     context = {
         'actions': actions,

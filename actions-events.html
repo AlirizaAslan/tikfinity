@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actions & Events - TikFinity</title>
+    <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/21.2.7/css/dx.common.css">
+    <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/21.2.7/css/dx.dark.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page pageenabled" data-pageid="actionsandevents">
+        <h2 class="blueheading">Actions &amp; Events</h2>
+        
+        <div>Here you can define your custom actions and events (triggers). For example, you can show a video or animation on a certain gift.</div>
+        
+        <br>
+        
+        <!-- Actions Section -->
+        <div class="greyBackgroundSection">
+            <h3 class="blueheading noTopMarginHeader">Actions</h3>
+            <div>What do you want to happen? Here you can create new actions and edit the existing ones.</div>
+            <br>
+            
+            <div id="actionsEnabledCheckbox"></div>
+            <div id="onPageActionContainer"></div>
+        </div>
+        
+        <!-- Events Section -->
+        <div class="greyBackgroundSection">
+            <h3 class="blueheading noTopMarginHeader">Events</h3>
+            <div>Here you can define what will trigger your actions.</div>
+            <br><br>
+            <div id="onPageEventContainer"></div>
+        </div>
+        
+        <!-- Overlay Screen Settings -->
+        <div class="greyBackgroundSection">
+            <h3 class="blueheading noTopMarginHeader">Overlay Screen Settings</h3>
+            <div>To make your actions visible in OBS or Live Studio you need to include at least one overlay screen (widget).</div>
+            <br>
+            <div id="onPageScreenContainer"></div>
+        </div>
+        
+        <!-- Timer Section -->
+        <div class="greyBackgroundSection">
+            <h3 class="blueheading noTopMarginHeader">Timer</h3>
+            <div>You can execute your actions in adjustable time intervals.</div>
+            <br>
+            <div id="onPageTimerContainer"></div>
+        </div>
+        
+        <!-- Event Simulator -->
+        <div class="greyBackgroundSection">
+            <h3 class="blueheading noTopMarginHeader">Event Simulator</h3>
+            <div>Here you can simulate events.</div>
+            <br>
+            <div id="simulatorButtons"></div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn3.devexpress.com/jslib/21.2.7/js/dx.all.js"></script>
+    <script src="actions-events.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+body {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.page {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.blueheading {
+    color: #31b5d5;
+    margin-bottom: 15px;
+}
+
+.noTopMarginHeader {
+    margin-top: 0;
+}
+
+.greyBackgroundSection {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.greyBackgroundSectionDynamicWidth {
+    width: auto;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.redNotification {
+    background-color: #661525;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.error {
+    color: #ff7a7a;
+}
+
+.dx-datagrid {
+    background-color: #2a2a2a;
+}
+
+.dx-datagrid-headers {
+    background-color: #333333;
+}
+
+.dx-button {
+    margin: 5px;
+}
+
+.actionGrid, .eventGrid {
+    margin-top: 50px;
+}
+
+#actionsEnabledCheckbox {
+    margin-bottom: 15px;
+}
+
+.dxForm {
+    margin: 15px 0;
+}
+
+.dx-field {
+    margin-bottom: 15px;
+}
+
+.dx-field-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.dx-field-value {
+    margin-top: 5px;
+}
+
+.hiddenByOptionCheckbox {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.largeLabel {
+    font-size: 14px;
+}
+
+.action-form-fiel-extended-margin-top {
+    margin-top: 25px;
+}
+
+small {
+    color: #999;
+    font-size: 12px;
+}
+
+a {
+    color: #31b5d5;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    padding: 5px;
+}
