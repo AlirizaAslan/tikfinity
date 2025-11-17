@@ -1,0 +1,171 @@
+{% extends 'tiktok_live/base.html' %}
+
+{% block title %}OBS Docks - TikFinity{% endblock %}
+
+{% block extra_css %}
+<style>
+    .obs-docks-container { background: #1a1a1a; padding: 30px; border-radius: 12px; }
+    .obs-docks-header { color: #667eea; font-size: 1.8em; margin-bottom: 10px; }
+    .new-badge { font-size: 0.65em; color: #fe2c55; vertical-align: top; margin-left: 10px; }
+    .obs-docks-desc { color: #aaa; margin-bottom: 30px; line-height: 1.6; }
+    
+    .desktop-app-promo { background: linear-gradient(135deg, #667eea, #764ba2); padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
+    .desktop-app-promo a { color: #fff; text-decoration: underline; font-weight: bold; }
+    .desktop-app-promo a:hover { color: #f0f0f0; }
+    
+    .setup-warning { background: #dc2626; padding: 15px; border-radius: 8px; margin-bottom: 20px; cursor: pointer; display: none; }
+    .setup-warning:hover { background: #b91c1c; }
+    
+    .docks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    
+    .dock-container { background: #252525; padding: 25px; border-radius: 12px; border: 1px solid #333; }
+    .dock-title { color: #667eea; font-size: 1.3em; margin-bottom: 20px; }
+    
+    .dock-controls { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; }
+    .url-input { flex: 1; padding: 12px; background: #1a1a1a; border: 1px solid #333; color: #fff; border-radius: 6px; font-family: monospace; font-size: 0.9em; }
+    .url-input:focus { border-color: #667eea; outline: none; }
+    
+    .btn-copy { background: #667eea; padding: 12px 20px; border: none; border-radius: 6px; color: white; cursor: pointer; font-weight: 500; }
+    .btn-copy:hover { background: #5568d3; }
+    .btn-copy.copied { background: #10b981; }
+    
+    .btn-settings { background: #6b7280; padding: 8px 12px; border: none; border-radius: 6px; color: white; cursor: pointer; margin-left: 10px; }
+    .btn-settings:hover { background: #4b5563; }
+    
+    .dock-preview { width: 100%; height: 400px; border: 1px solid #4e4e4e; border-radius: 8px; background: #0f0f0f; }
+    .dock-preview iframe { width: 100%; height: 100%; border: none; border-radius: 8px; }
+    
+    .dock-info { background: #1a1a1a; padding: 15px; border-radius: 8px; margin-top: 15px; }
+    .dock-info h4 { color: #667eea; margin-bottom: 10px; }
+    .dock-info ul { list-style: none; padding: 0; }
+    .dock-info li { color: #aaa; margin-bottom: 5px; padding-left: 20px; position: relative; }
+    .dock-info li::before { content: '•'; color: #667eea; position: absolute; left: 0; }
+    
+    @media (max-width: 1200px) {
+        .docks-grid { grid-template-columns: 1fr; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="obs-docks-container">
+    <!-- Desktop App Promotion -->
+    <div class="desktop-app-promo">
+        Get the free <a href="/app/" target="_blank">TikFinity Desktop App</a> for Windows to enjoy additional features and stability improvements!
+    </div>
+
+    <h2 class="obs-docks-header">
+        OBS Docks
+        <span class="new-badge">NEW</span>
+    </h2>
+    
+    <div class="obs-docks-desc">
+        Here you can find the OBS docks for integration in OBS Studio to display the activities of your viewers.<br>
+        You can select which events should be displayed for both docks using the gear wheel.
+    </div>
+
+    <!-- Setup Warning -->
+    <div class="setup-warning" id="setupWarning">
+        <div>Please run the <a href="{% url 'tiktok_live:setup' %}" style="color: #fff; text-decoration: underline;">Setup</a> first to create a free TikFinity Account!</div>
+    </div>
+
+    <!-- Docks Grid -->
+    <div class="docks-grid">
+        <!-- Dock 1 -->
+        <div class="dock-container">
+            <h3 class="dock-title">Dock 1</h3>
+            
+            <div class="dock-controls">
+                <input type="text" class="url-input" id="dock1Url" readonly 
+                       value="https://tikfinity.zerody.one/widget/activity-feed?cid=2449591&did=1&preview=1">
+                <button class="btn-copy" onclick="copyUrl('dock1Url', this)">
+                    <i class="fas fa-copy"></i> Copy URL
+                </button>
+                <button class="btn-settings" onclick="alert('Settings for Dock 1')">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+            
+            <div class="dock-preview">
+                <iframe src="https://tikfinity.zerody.one/widget/activity-feed?cid=2449591&did=1&preview=1" allow="autoplay"></iframe>
+            </div>
+            
+            <div class="dock-info">
+                <h4>Dock 1 Features:</h4>
+                <ul>
+                    <li>Real-time activity feed</li>
+                    <li>Customizable event types</li>
+                    <li>Smooth animations</li>
+                    <li>Auto-refresh capability</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Dock 2 -->
+        <div class="dock-container">
+            <h3 class="dock-title">Dock 2</h3>
+            
+            <div class="dock-controls">
+                <input type="text" class="url-input" id="dock2Url" readonly 
+                       value="https://tikfinity.zerody.one/widget/activity-feed?cid=2449591&did=2&preview=1">
+                <button class="btn-copy" onclick="copyUrl('dock2Url', this)">
+                    <i class="fas fa-copy"></i> Copy URL
+                </button>
+                <button class="btn-settings" onclick="alert('Settings for Dock 2')">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+            
+            <div class="dock-preview">
+                <iframe src="https://tikfinity.zerody.one/widget/activity-feed?cid=2449591&did=2&preview=1" allow="autoplay"></iframe>
+            </div>
+            
+            <div class="dock-info">
+                <h4>Dock 2 Features:</h4>
+                <ul>
+                    <li>Independent configuration</li>
+                    <li>Different event filtering</li>
+                    <li>Responsive design</li>
+                    <li>OBS Studio compatible</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyUrl(inputId, button) {
+    const input = document.getElementById(inputId);
+    input.select();
+    input.setSelectionRange(0, 99999);
+    
+    navigator.clipboard.writeText(input.value).then(() => {
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+            button.innerHTML = originalText;
+            button.classList.remove('copied');
+        }, 2000);
+    }).catch(() => {
+        document.execCommand('copy');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+            button.innerHTML = originalText;
+            button.classList.remove('copied');
+        }, 2000);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const isConnected = Math.random() > 0.3;
+    if (!isConnected) {
+        document.getElementById('setupWarning').style.display = 'block';
+    }
+});
+</script>
+{% endblock %}

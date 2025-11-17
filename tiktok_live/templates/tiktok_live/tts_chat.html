@@ -21,6 +21,9 @@ A TTS feature is also available via <a href="{% url 'tiktok_live:actions_events'
             <option value="tr-TR" {% if settings.language == 'tr-TR' %}selected{% endif %}>Turkish</option>
             <option value="en-US" {% if settings.language == 'en-US' %}selected{% endif %}>English (US)</option>
             <option value="en-GB" {% if settings.language == 'en-GB' %}selected{% endif %}>English (UK)</option>
+            <option value="de-DE" {% if settings.language == 'de-DE' %}selected{% endif %}>German</option>
+            <option value="fr-FR" {% if settings.language == 'fr-FR' %}selected{% endif %}>French</option>
+            <option value="es-ES" {% if settings.language == 'es-ES' %}selected{% endif %}>Spanish</option>
         </select>
     </div>
     <div class="field">
@@ -116,6 +119,16 @@ A TTS feature is also available via <a href="{% url 'tiktok_live:actions_events'
     <small><b>Placeholder Params:</b> {nickname} {username} {comment}<br><b>Example:</b> {nickname} says {comment}</small>
 </div>
 
+<div class="section" id="connectionStatus">
+    <h3>TikTok Live Connection</h3>
+    <div id="tts-status" class="status info">Checking connection...</div>
+    <div class="field">
+        <input type="text" id="connectUsername" placeholder="@username" style="max-width: 200px;">
+        <button class="btn btn-primary" onclick="connectToLive()">Connect</button>
+        <button class="btn btn-secondary" onclick="disconnectFromLive()">Disconnect</button>
+    </div>
+</div>
+
 <div class="section" id="voiceTester">
     <h3>Voice Tester</h3>
     <div class="field">
@@ -190,12 +203,182 @@ function testTTS() {
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
-            alert('TTS test completed! Check logs.');
-            location.reload();
+        if (data.success && data.audio_url) {
+            playTTSAudio(data.audio_url);
+            // Don't reload page to maintain connection
+            console.log('TTS test completed successfully');
+        } else {
+            alert('TTS test failed: ' + (data.error || 'Unknown error'));
         }
     });
 }
+
+function playTTSAudio(audioUrl) {
+    console.log('Playing TTS audio:', audioUrl);
+    const audio = new Audio(audioUrl);
+    audio.volume = document.getElementById('volume').value / 100;
+    
+    // Add event listeners for debugging
+    audio.onloadstart = () => console.log('Audio loading started');
+    audio.oncanplay = () => console.log('Audio can play');
+    audio.onplay = () => console.log('Audio started playing');
+    audio.onended = () => console.log('Audio finished playing');
+    audio.onerror = (e) => console.error('Audio error:', e);
+    
+    audio.play().then(() => {
+        console.log('Audio playback started successfully');
+    }).catch(e => {
+        console.error('Audio playback failed:', e);
+        alert('Audio playback failed. Please click anywhere on the page first to enable audio.');
+    });
+}
+
+function connectToLive() {
+    const username = document.getElementById('connectUsername').value.trim();
+    if (!username) {
+        alert('Please enter a username');
+        return;
+    }
+    
+    const cleanUsername = username.replace('@', '');
+    
+    fetch("{% url 'tiktok_live:tts_connect' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({ username: cleanUsername })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('tts-status').textContent = 'Connected to @' + data.username;
+            document.getElementById('tts-status').className = 'status success';
+            localStorage.setItem('tiktok_username', cleanUsername);
+            
+            updatePersistentStatus(cleanUsername, true);
+            connectTTSWebSocket(cleanUsername);
+        } else {
+            document.getElementById('tts-status').textContent = 'Connection failed: ' + data.error;
+            document.getElementById('tts-status').className = 'status error';
+        }
+    })
+    .catch(e => {
+        console.error('Connection error:', e);
+        document.getElementById('tts-status').textContent = 'Connection error';
+        document.getElementById('tts-status').className = 'status error';
+    });
+}
+
+function updatePersistentStatus(username, connected) {
+    let statusDiv = document.getElementById('persistent-live-status');
+    if (!statusDiv) {
+        statusDiv = document.createElement('div');
+        statusDiv.id = 'persistent-live-status';
+        statusDiv.style.cssText = 'position: fixed; top: 10px; left: 10px; background: #28a745; color: white; padding: 8px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; z-index: 9999; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.3);';
+        document.body.appendChild(statusDiv);
+    }
+    
+    statusDiv.innerHTML = '<img src="https://www.tiktok.com/@' + username + '/avatar" alt="@' + username + '" style="width: 20px; height: 20px; border-radius: 50%; object-fit: cover;" onerror="this.style.display=\'none\';"><span>🔴 LIVE @' + username + '</span>';
+    statusDiv.style.background = connected ? '#28a745' : '#dc3545';
+}
+
+function disconnectFromLive() {
+    const username = localStorage.getItem('tiktok_username') || '';
+    
+    fetch("{% url 'tiktok_live:tts_disconnect' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({ username: username })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('tts-status').textContent = 'Disconnected';
+        document.getElementById('tts-status').className = 'status error';
+        localStorage.removeItem('tiktok_username');
+        
+        // Remove persistent status
+        const statusDiv = document.getElementById('persistent-live-status');
+        if (statusDiv) statusDiv.remove();
+    });
+}
+
+// Listen for connection status changes
+window.addEventListener('ttsConnectionChanged', function(event) {
+    const statusEl = document.getElementById('tts-status');
+    if (statusEl) {
+        if (event.detail.connected) {
+            statusEl.textContent = 'Connected to @' + event.detail.username;
+            statusEl.className = 'status success';
+        } else {
+            statusEl.textContent = 'Disconnected';
+            statusEl.className = 'status error';
+        }
+    }
+});
+
+// WebSocket for real-time TTS
+let ttsSocket = null;
+
+function connectTTSWebSocket(username) {
+    if (ttsSocket) ttsSocket.close();
+    
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${protocol}//${window.location.host}/ws/live/${username}/`;
+    
+    ttsSocket = new WebSocket(wsUrl);
+    
+    ttsSocket.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        if (data.type === 'tts' && data.audio_url) {
+            playTTSAudio(data.audio_url);
+        } else if (data.type === 'connection' && data.status === 'connected') {
+            document.getElementById('tts-status').textContent = 'Connected to @' + data.username;
+            document.getElementById('tts-status').className = 'status success';
+        }
+    };
+}
+
+// Check connection status on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const storedUsername = localStorage.getItem('tiktok_username');
+    if (storedUsername) {
+        document.getElementById('connectUsername').value = '@' + storedUsername;
+        connectTTSWebSocket(storedUsername);
+        updatePersistentStatus(storedUsername, true);
+    }
+    
+    document.getElementById('tts-status').textContent = storedUsername ? 'Checking connection...' : 'Not connected';
+    document.getElementById('tts-status').className = storedUsername ? 'status info' : 'status error';
+});
 </script>
+
+<style>
+.status {
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    font-weight: bold;
+}
+.status.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.status.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+.status.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+</style>
 {% endif %}
 {% endblock %}

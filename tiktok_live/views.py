@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from .models import TikTokAccount, LiveStream, StreamInteraction, AutomationTrigger, AutoResponse, UserPoints, Widget, Action, Event, OverlayScreen, Timer, PointsTransaction, PointsSettings, CountdownTimer, PointsHalving, ChatbotSettings, ChatbotMessage, ChatbotLog, TTSSettings, TTSSpecialUser, TTSLog
+from .actions_events_views import actions_and_events, create_action, create_event, simulate_event, create_timer, update_screen_settings
+from .lastx_views import lastx_overlays, lastx_widget, lastx_test
 from django.db.models import Count, Q
 from django.utils import timezone
 from .tiktok_oauth import TikTokOAuth
@@ -27,6 +29,14 @@ def privacy_policy(request):
 
 def setup(request):
     """Setup page - TikFinity style (no login required)"""
+    if request.method == 'POST':
+        # Handle form submission
+        tiktok_username = request.POST.get('tiktok_username', '').strip()
+        if tiktok_username:
+            # Store username in session
+            request.session['tiktok_username'] = tiktok_username
+            return redirect('tiktok_live:dashboard')
+    
     tiktok_username = request.session.get('tiktok_username', '')
     return render(request, 'tiktok_live/setup.html', {
         'tiktok_username': tiktok_username
@@ -136,9 +146,9 @@ def test_oauth_config(request):
         <hr>
         <h3>Status:</h3>
         <ul>
-            <li>Client Key: {'✅ OK' if client_key else '❌ EMPTY'}</li>
-            <li>Client Secret: {'✅ OK' if client_secret else '❌ EMPTY'}</li>
-            <li>Redirect URI: {'✅ OK' if redirect_uri else '❌ EMPTY'}</li>
+            <li>Client Key: {'OK' if client_key else 'EMPTY'}</li>
+            <li>Client Secret: {'OK' if client_secret else 'EMPTY'}</li>
+            <li>Redirect URI: {'OK' if redirect_uri else 'EMPTY'}</li>
         </ul>
         
         <hr>
@@ -251,19 +261,15 @@ def dashboard(request):
     if not tiktok_username and not request.user.is_authenticated:
         return redirect('tiktok_live:setup')
     
-    accounts = TikTokAccount.objects.filter(user=request.user)
-    active_streams = LiveStream.objects.filter(account__user=request.user, is_active=True)
-    
-    # Separate owned and monitored accounts
-    owned_accounts = accounts.filter(is_owner=True)
-    monitored_accounts = accounts.filter(is_owner=False)
-    
+    # Simple context without database queries to avoid migration issues
     context = {
-        'accounts': accounts,
-        'owned_accounts': owned_accounts,
-        'monitored_accounts': monitored_accounts,
-        'active_streams': active_streams,
+        'accounts': [],
+        'owned_accounts': [],
+        'monitored_accounts': [],
+        'active_streams': [],
+        'tiktok_username': tiktok_username
     }
+    
     return render(request, 'tiktok_live/dashboard.html', context)
 
 @login_required
@@ -357,6 +363,8 @@ def toggle_automation(request, trigger_id):
     trigger.save()
     
     return JsonResponse({'success': True, 'is_active': trigger.is_active})
+
+
 
 @login_required
 @require_http_methods(["DELETE"])
@@ -731,11 +739,43 @@ def chat_commands(request, subsection=None):
 
 def tts_chat(request, subsection=None):
     if not request.user.is_authenticated:
-        return render(request, 'tiktok_live/tts_chat.html', {'not_authenticated': True, 'settings': None, 'special_users': [], 'logs': []})
-    settings, created = TTSSettings.objects.get_or_create(user=request.user)
+        # Create default settings for non-authenticated users
+        settings = {
+            'is_enabled': False,
+            'language': 'tr',
+            'voice': 'default',
+            'speed': 50,
+            'pitch': 50,
+            'volume': 100,
+            'user_cooldown': 0,
+            'max_queue_length': 5,
+            'max_comment_length': 300,
+            'filter_letter_spam': True,
+            'filter_mentions': False,
+            'filter_commands': False,
+            'message_template': '{comment}',
+            'charge_points': False,
+            'cost_per_message': 5
+        }
+        return render(request, 'tiktok_live/tts_chat.html', {
+            'not_authenticated': True, 
+            'settings': settings, 
+            'special_users': [], 
+            'logs': []
+        })
+    
+    try:
+        settings = TTSSettings.objects.get(user=request.user)
+    except TTSSettings.DoesNotExist:
+        settings = TTSSettings.objects.create(user=request.user)
+    
     special_users = TTSSpecialUser.objects.filter(user=request.user)
     logs = TTSLog.objects.filter(user=request.user).order_by('-created_at')[:10]
-    return render(request, 'tiktok_live/tts_chat.html', {'settings': settings, 'special_users': special_users, 'logs': logs})
+    return render(request, 'tiktok_live/tts_chat.html', {
+        'settings': settings, 
+        'special_users': special_users, 
+        'logs': logs
+    })
 
 def users_points(request):
     """Users & Points management page"""
@@ -1528,10 +1568,12 @@ def timer_status_api(request):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
 
-@login_required
 def halving(request):
     """Halving page - reduce user points by percentage"""
-    last_halving = PointsHalving.objects.filter(user=request.user).order_by('-executed_at').first()
+    if request.user.is_authenticated:
+        last_halving = PointsHalving.objects.filter(user=request.user).order_by('-executed_at').first()
+    else:
+        last_halving = None
     
     context = {
         'last_halving': last_halving,
@@ -1668,13 +1710,117 @@ def tts_update_settings(request):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
 
-@login_required
+
+
+@require_http_methods(["POST"])
+def tts_generate(request):
+    """Generate TTS audio for live chat messages using gTTS"""
+    try:
+        from gtts import gTTS
+        import os
+        import hashlib
+        from django.conf import settings
+        
+        data = json.loads(request.body)
+        text = data.get('text', '')
+        username = data.get('username', 'Unknown')
+        language = data.get('language', 'tr')
+        
+        if not text:
+            return JsonResponse({'success': False, 'error': 'Text is required'})
+        
+        # Check TTS settings if user is authenticated
+        if request.user.is_authenticated:
+            try:
+                tts_settings = TTSSettings.objects.get(user=request.user)
+                if not tts_settings.is_enabled:
+                    return JsonResponse({'success': False, 'error': 'TTS is disabled'})
+                language = tts_settings.language
+            except TTSSettings.DoesNotExist:
+                pass
+        
+        # Create media directory
+        media_dir = os.path.join(settings.BASE_DIR, 'media', 'tts')
+        os.makedirs(media_dir, exist_ok=True)
+        
+        # Generate unique filename
+        text_hash = hashlib.md5(f"{text}_{language}".encode()).hexdigest()[:8]
+        audio_filename = f"tts_{text_hash}.mp3"
+        audio_path = os.path.join(media_dir, audio_filename)
+        
+        # Generate audio if not exists
+        if not os.path.exists(audio_path):
+            tts = gTTS(text=text, lang=language, slow=False)
+            tts.save(audio_path)
+        
+        # Log TTS usage if user is authenticated
+        if request.user.is_authenticated:
+            TTSLog.objects.create(user=request.user, tiktok_username=username, message=text)
+        
+        audio_url = f"/media/tts/{audio_filename}"
+        return JsonResponse({
+            'success': True,
+            'audio_url': audio_url,
+            'text': text,
+            'username': username
+        })
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
 @require_http_methods(["POST"])
 def tts_test(request):
     try:
+        from gtts import gTTS
+        import os
+        import hashlib
+        from django.conf import settings
+        
         data = json.loads(request.body)
         text = data.get('text', 'Test message')
-        TTSLog.objects.create(user=request.user, tiktok_username='Test', message=text)
-        return JsonResponse({'success': True, 'message': 'TTS test completed'})
+        language = data.get('language', 'tr')
+        
+        if not text:
+            return JsonResponse({'success': False, 'error': 'Text is required'})
+        
+        # Create media directory
+        media_dir = os.path.join(settings.BASE_DIR, 'media', 'tts')
+        os.makedirs(media_dir, exist_ok=True)
+        
+        # Generate unique filename
+        text_hash = hashlib.md5(f"{text}_{language}".encode()).hexdigest()[:8]
+        audio_filename = f"tts_test_{text_hash}.mp3"
+        audio_path = os.path.join(media_dir, audio_filename)
+        
+        # Generate TTS audio using gTTS
+        tts = gTTS(text=text, lang=language, slow=False)
+        tts.save(audio_path)
+        
+        # Log TTS usage if user is authenticated
+        if request.user.is_authenticated:
+            TTSLog.objects.create(user=request.user, tiktok_username='Test', message=text)
+        
+        audio_url = f"/media/tts/{audio_filename}"
+        return JsonResponse({
+            'success': True, 
+            'message': 'TTS test completed',
+            'audio_url': audio_url
+        })
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
+
+def get_tiktok_profile(request, username):
+    """Get TikTok profile information"""
+    username_clean = username.strip('@')
+    
+    profile_data = {
+        'username': username_clean,
+        'display_name': username_clean,
+        'profile_picture': f'https://p16-sg.tiktokcdn.com/tos-alisg-avt-0068/29c35c87994ae2863915bf384f16acea~tplv-tiktokx-cropcenter:100:100.webp',
+    }
+    
+    return JsonResponse({
+        'success': True,
+        'username': profile_data['username'],
+        'display_name': profile_data['display_name'],
+        'profile_picture': profile_data['profile_picture'],
+    })

@@ -1,0 +1,245 @@
+{% extends 'tiktok_live/base.html' %}
+
+{% block page_title %}Points Drop{% endblock %}
+
+{% block extra_css %}
+<style>
+    .blueheading { color: #667eea; margin-bottom: 15px; }
+    .noTopMarginHeader { margin-top: 0; }
+    .greyBackgroundSection { background: #1a1a1a; padding: 30px; border-radius: 12px; margin-bottom: 20px; }
+    .greyBackgroundSectionDynamicWidth { max-width: 600px; }
+    .redNotification { background: #dc2626; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    .redNotification .error a { color: #fff; text-decoration: underline; }
+    .dx-field { margin-bottom: 20px; display: flex; align-items: center; }
+    .dx-field-label { min-width: 200px; color: #ccc; font-weight: 500; }
+    .dx-field-value { flex: 1; }
+    .dxFieldValueFix { color: #fff; font-weight: 500; }
+    .dx-fieldset { margin-bottom: 30px; }
+    input[type="number"] { background: #252525; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 8px; width: 120px; }
+    .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; background: #667eea; color: white; }
+    .btn:hover { background: #5568d3; }
+    .btn-success { background: #10b981; }
+    .btn-success:hover { background: #059669; }
+    .checkbox { display: flex; align-items: center; gap: 10px; margin: 10px 0; }
+    .checkbox input[type="checkbox"] { width: 18px; height: 18px; }
+    .cmdcoindrop { color: #fe2c55; font-weight: bold; }
+    .changecommandlabel { color: #667eea; text-decoration: none; margin-left: 10px; }
+    .changecommandlabel:hover { text-decoration: underline; }
+    .countdown { color: #10b981; font-weight: bold; margin-left: 10px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page pageenabled" data-pageid="coindrop">
+    <h2 class="blueheading">Points Drop</h2>
+    <div>Here you can show your viewers a few coins, which can then be collected with a chat command.<br>
+    To use this, the <a href="{% url 'tiktok_live:overlay_gallery' %}" style="color: #667eea;">Points Drop Overlay</a> for OBS/LIVE Studio is required.</div>
+
+    <br>
+
+    <div class="redNotification" style="display: none;">
+        <div class="error">Please run the <a href="{% url 'tiktok_live:setup' %}">Setup</a> first to create a free TikFinity Account!</div>
+    </div>
+
+    <br>
+
+    <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth">
+        <div class="dxForm">
+            <div class="form">
+                <div class="dx-fieldset">
+                    <div class="dx-field">
+                        <div class="dx-field-label">Chat command to collect</div>
+                        <div class="dx-field-value dxFieldValueFix">
+                            <b class="cmdcoindrop">!get</b> 
+                            <a class="changecommandlabel" href="{% url 'tiktok_live:chat_commands' %}">Change</a>
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Value of the coin</div>
+                        <div class="dx-field-value">
+                            <input type="number" id="textboxCoinValue" value="1" min="0.01" max="100000" step="0.1">
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Amount of coins</div>
+                        <div class="dx-field-value">
+                            <input type="number" id="textboxCoinAmount" value="5" min="1" max="100" step="1">
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Timeout (seconds)</div>
+                        <div class="dx-field-value">
+                            <input type="number" id="textboxCoinTimeout" value="20" min="5" max="480" step="1">
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Only one coin for user</div>
+                        <div class="dx-field-value">
+                            <div class="checkbox">
+                                <input type="checkbox" id="checkboxCoinDropSingleCollect">
+                            </div>
+                            <br><br>
+                            <button id="buttonCoinRun" class="btn btn-success" style="width: 120px;">Go!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth">
+        <h3 class="blueheading noTopMarginHeader">Automation</h3>
+        <div>You can drop coins automatically every X minutes.</div>
+
+        <div class="dxForm">
+            <div class="form">
+                <div class="dx-fieldset">
+                    <div class="dx-field">
+                        <div class="dx-field-label">Automation active</div>
+                        <div class="dx-field-value">
+                            <div class="checkbox">
+                                <input type="checkbox" id="checkboxCoinDropAutomatic">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Interval (minutes)</div>
+                        <div class="dx-field-value">
+                            <input type="number" id="checkboxCoinDropInterval" value="5" min="1" max="120" step="1">
+                            <div id="coinDropCountdown" class="countdown" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const coinValueInput = document.getElementById('textboxCoinValue');
+    const coinAmountInput = document.getElementById('textboxCoinAmount');
+    const coinTimeoutInput = document.getElementById('textboxCoinTimeout');
+    const singleCollectCheckbox = document.getElementById('checkboxCoinDropSingleCollect');
+    const runButton = document.getElementById('buttonCoinRun');
+    const automationCheckbox = document.getElementById('checkboxCoinDropAutomatic');
+    const intervalInput = document.getElementById('checkboxCoinDropInterval');
+    const countdownDisplay = document.getElementById('coinDropCountdown');
+    
+    let automationInterval = null;
+    let countdownTimer = null;
+    let nextDropTime = null;
+
+    // Manual coin drop
+    runButton.addEventListener('click', function() {
+        const coinValue = parseFloat(coinValueInput.value) || 1;
+        const coinAmount = parseInt(coinAmountInput.value) || 5;
+        const timeout = parseInt(coinTimeoutInput.value) || 20;
+        const singleCollect = singleCollectCheckbox.checked;
+        
+        this.disabled = true;
+        this.textContent = 'Dropping...';
+        
+        // Simulate coin drop
+        setTimeout(() => {
+            this.disabled = false;
+            this.textContent = 'Go!';
+            alert(`Dropped ${coinAmount} coins worth ${coinValue} points each! Timeout: ${timeout}s`);
+        }, 1000);
+    });
+
+    // Automation toggle
+    automationCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            startAutomation();
+        } else {
+            stopAutomation();
+        }
+    });
+
+    // Interval change
+    intervalInput.addEventListener('change', function() {
+        if (automationCheckbox.checked) {
+            stopAutomation();
+            startAutomation();
+        }
+    });
+
+    function startAutomation() {
+        const intervalMinutes = parseInt(intervalInput.value) || 5;
+        const intervalMs = intervalMinutes * 60 * 1000;
+        
+        nextDropTime = new Date(Date.now() + intervalMs);
+        
+        automationInterval = setInterval(() => {
+            // Auto drop coins
+            const coinValue = parseFloat(coinValueInput.value) || 1;
+            const coinAmount = parseInt(coinAmountInput.value) || 5;
+            console.log(`Auto-dropped ${coinAmount} coins worth ${coinValue} points each!`);
+            
+            // Schedule next drop
+            nextDropTime = new Date(Date.now() + intervalMs);
+        }, intervalMs);
+        
+        // Start countdown
+        updateCountdown();
+        countdownTimer = setInterval(updateCountdown, 1000);
+        countdownDisplay.style.display = 'inline';
+    }
+
+    function stopAutomation() {
+        if (automationInterval) {
+            clearInterval(automationInterval);
+            automationInterval = null;
+        }
+        if (countdownTimer) {
+            clearInterval(countdownTimer);
+            countdownTimer = null;
+        }
+        countdownDisplay.style.display = 'none';
+        nextDropTime = null;
+    }
+
+    function updateCountdown() {
+        if (!nextDropTime) return;
+        
+        const now = new Date();
+        const diff = Math.max(0, Math.floor((nextDropTime - now) / 1000));
+        
+        if (diff === 0) {
+            countdownDisplay.textContent = 'Dropping now...';
+            return;
+        }
+        
+        const minutes = Math.floor(diff / 60);
+        const seconds = diff % 60;
+        countdownDisplay.textContent = `Next drop in: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    // Input validation
+    coinValueInput.addEventListener('input', function() {
+        const value = parseFloat(this.value);
+        if (value < 0.01) this.value = 0.01;
+        if (value > 100000) this.value = 100000;
+    });
+
+    coinAmountInput.addEventListener('input', function() {
+        const value = parseInt(this.value);
+        if (value < 1) this.value = 1;
+        if (value > 100) this.value = 100;
+    });
+
+    coinTimeoutInput.addEventListener('input', function() {
+        const value = parseInt(this.value);
+        if (value < 5) this.value = 5;
+        if (value > 480) this.value = 480;
+    });
+
+    intervalInput.addEventListener('input', function() {
+        const value = parseInt(this.value);
+        if (value < 1) this.value = 1;
+        if (value > 120) this.value = 120;
+    });
+</script>
+{% endblock %}

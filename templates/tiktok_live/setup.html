@@ -1,0 +1,487 @@
+{% extends 'tiktok_live/base.html' %}
+
+{% block page_title %}Setup{% endblock %}
+
+{% block extra_css %}
+<style>
+
+    .page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .desktopAppPromotion {
+        background-color: #2d4a87;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .desktopAppPromotion a {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+
+    .blueheading {
+        color: #4a90e2;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .greyBackgroundSection {
+        background-color: #2d2d2d;
+        padding: 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        border: 1px solid #444;
+    }
+
+    .noTopMarginHeader {
+        margin-top: 0;
+    }
+
+    .localeSpecific {
+        margin-bottom: 1rem;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .ttred {
+        color: #e74c3c;
+    }
+
+    .dx-button {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        margin: 8px 0;
+        display: inline-block;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        width: 350px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dx-button:hover {
+        background-color: #357abd;
+    }
+
+    .dx-button-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .dx-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .dx-textbox {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .dx-texteditor-input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #555;
+        border-radius: 4px;
+        background-color: #3d3d3d;
+        color: #ffffff;
+        font-size: 14px;
+    }
+
+    .dx-texteditor-input:focus {
+        outline: none;
+        border-color: #4a90e2;
+    }
+
+    .dx-placeholder {
+        color: #888;
+        position: absolute;
+        pointer-events: none;
+        padding: 12px;
+    }
+
+    .dx-texteditor-container {
+        position: relative;
+    }
+
+    .dx-field {
+        margin-bottom: 1.5rem;
+    }
+
+    .dx-field-label {
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+    }
+
+    .dx-checkbox {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        cursor: pointer;
+    }
+
+    .dx-checkbox-icon {
+        width: 18px;
+        height: 18px;
+        border: 2px solid #555;
+        border-radius: 3px;
+        margin-right: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #3d3d3d;
+    }
+
+    .dx-checkbox-checked .dx-checkbox-icon {
+        background-color: #4a90e2;
+        border-color: #4a90e2;
+    }
+
+    .dx-checkbox-checked .dx-checkbox-icon::after {
+        content: '✓';
+        color: white;
+        font-size: 12px;
+    }
+
+    .dx-numberbox input {
+        text-align: right;
+    }
+
+    .error {
+        color: #e74c3c;
+        margin-top: 1rem;
+        padding: 1rem;
+        background-color: rgba(231, 76, 60, 0.1);
+        border-radius: 4px;
+        border-left: 4px solid #e74c3c;
+    }
+
+    .notification {
+        color: #27ae60;
+        margin-top: 1rem;
+        padding: 1rem;
+        background-color: rgba(39, 174, 96, 0.1);
+        border-radius: 4px;
+        border-left: 4px solid #27ae60;
+    }
+
+    small {
+        color: #888;
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+
+    .setupUnconnected {
+        display: block;
+    }
+
+    .setupConnected {
+        display: none;
+    }
+
+    .setHalfOpacitityOnUnregistered {
+        opacity: 1;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #555;
+        border-radius: 4px;
+        background-color: #3d3d3d;
+        color: #ffffff;
+        font-size: 14px;
+    }
+
+    .form-group input:focus {
+        outline: none;
+        border-color: #4a90e2;
+    }
+
+    .btn-primary {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-top: 1rem;
+        transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color: #357abd;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="setup-page">
+    <div class="desktopAppPromotion" style="display: block;">
+        <div class="promotion-content">
+            Get the free <a href="/app/">TikFinity Desktop App</a> for Windows to enjoy additional features and stability improvements!
+        </div>
+    </div>
+
+    <h2 class="blueheading" data-str="setup_head">Setup</h2>
+
+    <div class="setupUnconnected loginSection">
+        <div class="greyBackgroundSection">
+            <h3 class="blueheading noTopMarginHeader">Login</h3>
+
+            <div class="localeSpecific localeSpecific_en">
+                Please sign in or create a free account to continue. (<i class="ttred">Required!</i>)
+                <br><br>
+            </div>
+
+            <br>
+
+            <div style="margin-left: 15px; width: fit-content; text-align: center;">
+                <a href="{% url 'tiktok_live:login' %}" class="dx-button" aria-label="Login or Signup with E-Mail">
+                    <div class="dx-button-content">
+                        <span class="dx-icon" style="background: #4a90e2; border-radius: 3px; width: 20px; height: 20px; display: inline-block;">📧</span>
+                        <span class="dx-button-text">Login or Signup with E-Mail</span>
+                    </div>
+                </a><br><br>
+                
+                <a href="{% url 'tiktok_live:google_oauth_login' %}" class="dx-button" aria-label="Login or Signup with Google">
+                    <div class="dx-button-content">
+                        <span class="dx-icon" style="background: #db4437; border-radius: 3px; width: 20px; height: 20px; display: inline-block; color: white; text-align: center; line-height: 20px; font-size: 12px;">G</span>
+                        <span class="dx-button-text">Login or Signup with Google</span>
+                    </div>
+                </a><br><br>
+
+                <small style="opacity: 0.8; font-size: 0.7em; line-height: 17px; display: block;">
+                    By signing in you are agreeing to our<br>
+                    <a href="{% url 'tiktok_live:terms' %}" target="_blank">Terms of Service</a> and <a href="{% url 'tiktok_live:privacy' %}" target="_blank">Privacy Policy</a>.
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <div class="setHalfOpacitityOnUnregistered">
+        <div class="setupConnected">
+            <div class="notification hidden" id="notificationConnectionCreated">Done! Your TikTok account has been successfully connected!</div>
+            <div>Here you can define the basic settings.</div>
+
+            <br><br>
+            <div class="greyBackgroundSection">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="tiktok_username">Your TikTok Name (<i class="ttred">Required!</i>)</label>
+                        <input type="text" id="tiktok_username" name="tiktok_username" 
+                               placeholder="TikTok @username" value="{{ tiktok_username }}" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Connect to TikTok LIVE</button>
+                </form>
+            </div>
+        </div>
+
+        <br><br>
+        <div class="greyBackgroundSection" id="pointsSystemSettings">
+            <h3 class="blueheading noTopMarginHeader">Points System</h3>
+
+            <div class="dx-field">
+                <div class="dx-field-label">Name of your currency</div>
+                <div class="dx-field-value">
+                    <div class="dx-textbox">
+                        <div class="dx-texteditor-container">
+                            <input class="dx-texteditor-input" type="text" placeholder="Points">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dx-field">
+                <div class="dx-field-label">
+                    <div class="dx-checkbox dx-checkbox-checked">
+                        <span class="dx-checkbox-icon"></span>
+                        <span class="dx-checkbox-text">Points per coin</span>
+                    </div>
+                </div>
+                <div class="dx-field-value">
+                    <div class="dx-textbox">
+                        <div class="dx-texteditor-container">
+                            <input class="dx-texteditor-input" type="number" value="1" min="0" max="50" step="0.01">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dx-field">
+                <div class="dx-field-label">
+                    <div class="dx-checkbox">
+                        <span class="dx-checkbox-icon"></span>
+                        <span class="dx-checkbox-text">Points per share</span>
+                    </div>
+                </div>
+                <div class="dx-field-value">
+                    <div class="dx-textbox">
+                        <div class="dx-texteditor-container">
+                            <input class="dx-texteditor-input" type="number" value="3" min="0" max="100000" step="1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dx-field">
+                <div class="dx-field-label">
+                    <div class="dx-checkbox">
+                        <span class="dx-checkbox-icon"></span>
+                        <span class="dx-checkbox-text">Points per chat minute</span>
+                    </div>
+                </div>
+                <div class="dx-field-value">
+                    <div class="dx-textbox">
+                        <div class="dx-texteditor-container">
+                            <input class="dx-texteditor-input" type="number" value="0.5" min="0" max="50000" step="0.01">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <div class="greyBackgroundSection">
+            <h3 class="blueheading noTopMarginHeader">Subscriber Bonus</h3>
+            <div>If you have subscribers, you can set a points multiplier for them.<br>Then your subscribers will get more points for their activities.</div><br>
+
+            <div class="dx-field">
+                <div class="dx-field-label">Subscriber Bonus Ratio</div>
+                <div class="dx-field-value">
+                    <div class="dx-textbox">
+                        <div class="dx-texteditor-container">
+                            <input class="dx-texteditor-input" type="number" value="0" min="0" max="100" step="1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <div class="greyBackgroundSection">
+            <h3 class="blueheading noTopMarginHeader">Level Settings</h3>
+            <div>Viewers can increase their level by collecting points. In Level Points you set how many points are required to reach the next level. Furthermore, there is a level multiplier, which increases the number of points required with each level. As a result, the number of points required to reach the next level increases exponentially.</div><br>
+            
+            <div class="dx-field">
+                <div class="dx-field-label">Level Points</div>
+                <div class="dx-field-value">
+                    <div class="dx-textbox">
+                        <div class="dx-texteditor-container">
+                            <input class="dx-texteditor-input" type="number" value="50" min="1" max="10000" step="1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dx-field">
+                <div class="dx-field-label">Level Multiplier</div>
+                <div class="dx-field-value">
+                    <div class="dx-textbox">
+                        <div class="dx-texteditor-container">
+                            <input class="dx-texteditor-input" type="number" value="1.03" min="1" max="1.1" step="0.01">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <div class="greyBackgroundSection">
+            <h3 class="blueheading noTopMarginHeader">OBS Connection</h3>
+            <div>You can control OBS via TikFinity to switch scenes and sources automatically on certain events.<br>To do this use the options "Switch Scene" or "Activate Source" in your <a href="{% url 'tiktok_live:actions_events' %}">Actions</a>.<br>This requires OBS 28 or newer!<br><br>In OBS click "Tools" &gt; "WebSocket Server Settings" and enable the Websocket Server.<br>Then click on "Show Connect Info" and enter the connection details here.<br>Please note that the IP is always 127.0.0.1 if OBS is running on the same system as TikFinity.</div><br>
+
+            <div class="dx-field">
+                <div class="dx-field-label">IP</div>
+                <div class="dx-field-value">
+                    <div class="dx-textbox">
+                        <div class="dx-texteditor-container">
+                            <input class="dx-texteditor-input" type="text" placeholder="127.0.0.1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dx-field">
+                <div class="dx-field-label">Port</div>
+                <div class="dx-field-value">
+                    <div class="dx-textbox">
+                        <div class="dx-texteditor-container">
+                            <input class="dx-texteditor-input" type="number" value="4455" placeholder="4455">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dx-field">
+                <div class="dx-field-label">Password</div>
+                <div class="dx-field-value">
+                    <div class="dx-textbox">
+                        <div class="dx-texteditor-container">
+                            <input class="dx-texteditor-input" type="password" placeholder="(optional)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn-primary">Test Connection</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Toggle checkbox functionality
+    document.querySelectorAll('.dx-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('click', function() {
+            this.classList.toggle('dx-checkbox-checked');
+        });
+    });
+
+    // Show/hide sections based on login status
+    function toggleSetupSections() {
+        const isLoggedIn = {{ user.is_authenticated|yesno:"true,false" }};
+        const unconnected = document.querySelector('.setupUnconnected');
+        const connected = document.querySelector('.setupConnected');
+        
+        if (isLoggedIn) {
+            unconnected.style.display = 'none';
+            connected.style.display = 'block';
+        } else {
+            unconnected.style.display = 'block';
+            connected.style.display = 'none';
+        }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', toggleSetupSections);
+</script>
+{% endblock %}

@@ -1,0 +1,174 @@
+{% extends 'tiktok_live/tikfinity_layout.html' %}
+{% block title %}Last X Overlays - TikFinity{% endblock %}
+{% block content %}
+
+<div class="desktopAppPromotion" style="display: block;">
+    <div class="promotion-content">Get the free <a href="/app/">TikFinity Desktop App</a> for Windows to enjoy additional features and stability improvements!</div>
+</div>
+
+<h2 class="blueheading">Last X Overlays</h2>
+<div>
+    These overlays show <b><u>permanently</u></b> the user who last took an action such as Follow or Subscribe.<br>
+    To include the overlays in <b>OBS (Browser Source)</b> or <b>LIVE Studio (Link)</b>, simply copy the URLs.<br>
+    You can change the font and color or hide the profile pictures by clicking on the "Customize" button.
+</div>
+
+<br>
+
+<div id="lastXOverlayList">
+    <div class="greyBackgroundSection greyBackgroundSectionOverlayFix">
+        <h3 class="blueheading noTopMarginHeader">Last Follower</h3>
+        <div id="widgetLastXfollower" data-widgetid="lastx" data-lastx="follower">
+            <div style="display: table-row;">
+                <div style="display: table-cell;">
+                    <input type="text" id="urlFollower" readonly style="width: 501px;" value="/tiktok/widget/lastx/?type=follower&user={{ user.id }}">
+                </div>
+                <div style="display: table-cell; padding-left: 5px;">
+                    <button onclick="copyURL('urlFollower')" style="width: 105px;">Copy URL</button>
+                </div>
+                <div style="display: table-cell; padding-left: 4px;">
+                    <button onclick="testWidget('follower')" style="width: 100px;">Test</button>
+                </div>
+                <div style="display: table-cell; padding-left: 4px;">
+                    <button onclick="customizeWidget('follower')" style="width: 150px;">Customize</button>
+                </div>
+            </div>
+            <iframe src="/tiktok/widget/lastx/?type=follower&user={{ user.id }}&preview=1" style="width: 867px; height: 120px; margin-top: 4px; border: 1px solid #4e4e4e;"></iframe>
+        </div>
+    </div>
+
+    <div class="greyBackgroundSection greyBackgroundSectionOverlayFix">
+        <h3 class="blueheading noTopMarginHeader">Last Gifter</h3>
+        <div id="widgetLastXgifter" data-widgetid="lastx" data-lastx="gifter">
+            <div style="display: table-row;">
+                <div style="display: table-cell;">
+                    <input type="text" id="urlGifter" readonly style="width: 501px;" value="/tiktok/widget/lastx/?type=gifter&user={{ user.id }}">
+                </div>
+                <div style="display: table-cell; padding-left: 5px;">
+                    <button onclick="copyURL('urlGifter')" style="width: 105px;">Copy URL</button>
+                </div>
+                <div style="display: table-cell; padding-left: 4px;">
+                    <button onclick="testWidget('gifter')" style="width: 100px;">Test</button>
+                </div>
+                <div style="display: table-cell; padding-left: 4px;">
+                    <button onclick="customizeWidget('gifter')" style="width: 150px;">Customize</button>
+                </div>
+            </div>
+            <iframe src="/tiktok/widget/lastx/?type=gifter&user={{ user.id }}&preview=1" style="width: 867px; height: 120px; margin-top: 4px; border: 1px solid #4e4e4e;"></iframe>
+        </div>
+    </div>
+
+    <div class="greyBackgroundSection greyBackgroundSectionOverlayFix">
+        <h3 class="blueheading noTopMarginHeader">Last Subscribe / Super Fan</h3>
+        <div id="widgetLastXsubscriber" data-widgetid="lastx" data-lastx="subscriber">
+            <div style="display: table-row;">
+                <div style="display: table-cell;">
+                    <input type="text" id="urlSubscriber" readonly style="width: 501px;" value="/tiktok/widget/lastx/?type=subscriber&user={{ user.id }}">
+                </div>
+                <div style="display: table-cell; padding-left: 5px;">
+                    <button onclick="copyURL('urlSubscriber')" style="width: 105px;">Copy URL</button>
+                </div>
+                <div style="display: table-cell; padding-left: 4px;">
+                    <button onclick="testWidget('subscriber')" style="width: 100px;">Test</button>
+                </div>
+                <div style="display: table-cell; padding-left: 4px;">
+                    <button onclick="customizeWidget('subscriber')" style="width: 150px;">Customize</button>
+                </div>
+            </div>
+            <iframe src="/tiktok/widget/lastx/?type=subscriber&user={{ user.id }}&preview=1" style="width: 867px; height: 120px; margin-top: 4px; border: 1px solid #4e4e4e;"></iframe>
+        </div>
+    </div>
+
+    <div class="greyBackgroundSection greyBackgroundSectionOverlayFix">
+        <h3 class="blueheading noTopMarginHeader">Last Share</h3>
+        <div id="widgetLastXshare" data-widgetid="lastx" data-lastx="share">
+            <div style="display: table-row;">
+                <div style="display: table-cell;">
+                    <input type="text" id="urlShare" readonly style="width: 501px;" value="/tiktok/widget/lastx/?type=share&user={{ user.id }}">
+                </div>
+                <div style="display: table-cell; padding-left: 5px;">
+                    <button onclick="copyURL('urlShare')" style="width: 105px;">Copy URL</button>
+                </div>
+                <div style="display: table-cell; padding-left: 4px;">
+                    <button onclick="testWidget('share')" style="width: 100px;">Test</button>
+                </div>
+                <div style="display: table-cell; padding-left: 4px;">
+                    <button onclick="customizeWidget('share')" style="width: 150px;">Customize</button>
+                </div>
+            </div>
+            <iframe src="/tiktok/widget/lastx/?type=share&user={{ user.id }}&preview=1" style="width: 867px; height: 120px; margin-top: 4px; border: 1px solid #4e4e4e;"></iframe>
+        </div>
+    </div>
+
+    <div class="greyBackgroundSection greyBackgroundSectionOverlayFix">
+        <h3 class="blueheading noTopMarginHeader">Last Like</h3>
+        <div id="widgetLastXlike" data-widgetid="lastx" data-lastx="like">
+            <div style="display: table-row;">
+                <div style="display: table-cell;">
+                    <input type="text" id="urlLike" readonly style="width: 501px;" value="/tiktok/widget/lastx/?type=like&user={{ user.id }}">
+                </div>
+                <div style="display: table-cell; padding-left: 5px;">
+                    <button onclick="copyURL('urlLike')" style="width: 105px;">Copy URL</button>
+                </div>
+                <div style="display: table-cell; padding-left: 4px;">
+                    <button onclick="testWidget('like')" style="width: 100px;">Test</button>
+                </div>
+                <div style="display: table-cell; padding-left: 4px;">
+                    <button onclick="customizeWidget('like')" style="width: 150px;">Customize</button>
+                </div>
+            </div>
+            <iframe src="/tiktok/widget/lastx/?type=like&user={{ user.id }}&preview=1" style="width: 867px; height: 120px; margin-top: 4px; border: 1px solid #4e4e4e;"></iframe>
+        </div>
+    </div>
+
+    <div class="greyBackgroundSection greyBackgroundSectionOverlayFix">
+        <h3 class="blueheading noTopMarginHeader">Last Chatter</h3>
+        <div id="widgetLastXchatter" data-widgetid="lastx" data-lastx="chatter">
+            <div style="display: table-row;">
+                <div style="display: table-cell;">
+                    <input type="text" id="urlChatter" readonly style="width: 501px;" value="/tiktok/widget/lastx/?type=chatter&user={{ user.id }}">
+                </div>
+                <div style="display: table-cell; padding-left: 5px;">
+                    <button onclick="copyURL('urlChatter')" style="width: 105px;">Copy URL</button>
+                </div>
+                <div style="display: table-cell; padding-left: 4px;">
+                    <button onclick="testWidget('chatter')" style="width: 100px;">Test</button>
+                </div>
+                <div style="display: table-cell; padding-left: 4px;">
+                    <button onclick="customizeWidget('chatter')" style="width: 150px;">Customize</button>
+                </div>
+            </div>
+            <iframe src="/tiktok/widget/lastx/?type=chatter&user={{ user.id }}&preview=1" style="width: 867px; height: 120px; margin-top: 4px; border: 1px solid #4e4e4e;"></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyURL(inputId) {
+    const input = document.getElementById(inputId);
+    input.select();
+    document.execCommand('copy');
+    alert('URL copied to clipboard!');
+}
+
+function testWidget(type) {
+    const url = `/tiktok/widget/lastx/?type=${type}&user={{ user.id }}&test=1`;
+    window.open(url, '_blank', 'width=800,height=600');
+    
+    // Trigger test data
+    fetch(`/tiktok/widget/lastx/test/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({ type: type, user_id: {{ user.id }} })
+    });
+}
+
+function customizeWidget(type) {
+    alert('Customize feature coming soon!');
+}
+</script>
+
+{% endblock %}

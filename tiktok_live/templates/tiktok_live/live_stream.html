@@ -227,6 +227,12 @@
                 document.getElementById('viewerCount').textContent = data.viewer_count;
                 return;
             }
+            
+            if (data.type === 'tts') {
+                console.log('🔊 TTS audio received:', data.audio_url);
+                playTTSAudio(data.audio_url);
+                return;
+            }
 
             // Get the interactions list element
             const list = document.getElementById('interactionsList');
@@ -316,6 +322,24 @@
             // Implement sound notifications if needed
             // const audio = new Audio(`/static/sounds/${type}.mp3`);
             // audio.play().catch(e => console.log('Sound play failed:', e));
+        }
+        
+        function playTTSAudio(audioUrl) {
+            console.log('🔊 Playing TTS audio:', audioUrl);
+            const audio = new Audio(audioUrl);
+            audio.volume = 0.8;
+            
+            audio.onloadstart = () => console.log('🔊 TTS audio loading...');
+            audio.oncanplay = () => console.log('🔊 TTS audio ready to play');
+            audio.onplay = () => console.log('🔊 TTS audio started playing');
+            audio.onended = () => console.log('🔊 TTS audio finished');
+            audio.onerror = (e) => console.error('🔊 TTS audio error:', e);
+            
+            audio.play().then(() => {
+                console.log('🔊 TTS audio playback started successfully');
+            }).catch(e => {
+                console.error('🔊 TTS audio playback failed:', e);
+            });
         }
 
         function showNotification(message, type) {

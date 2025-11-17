@@ -1,6 +1,45 @@
-{% extends 'tiktok_live/sidebar_layout.html' %}
+{% extends 'tiktok_live/base.html' %}
 
 {% block title %}Halving - TikFinity{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/23.1.5/css/dx.light.css">
+<style>
+    .page { background: #1a1a1a; border-radius: 12px; padding: 30px; }
+    .blueheading { color: #4a9eff; font-size: 1.8em; margin-bottom: 20px; }
+    
+    .setupUnconnected { display: none; }
+    .redNotification { background: #dc3545; padding: 15px; border-radius: 8px; margin-bottom: 20px; cursor: pointer; }
+    .error { color: white; }
+    .error a { color: #fff; text-decoration: underline; }
+    
+    .greyBackgroundSection { background: #252525; border-radius: 12px; padding: 30px; margin-top: 20px; }
+    .greyBackgroundSectionDynamicWidth { max-width: 600px; }
+    
+    .dxForm .form { width: 100%; }
+    .dx-fieldset { margin-bottom: 25px; }
+    .dx-field { margin-bottom: 20px; display: flex; flex-direction: column; }
+    .dx-field-label { color: #ccc; margin-bottom: 8px; font-weight: 500; }
+    .dx-field-value { width: 100%; }
+    .dxFieldValueFix { color: #4a9eff; font-weight: bold; font-size: 1.1em; }
+    
+    /* DevExtreme overrides for dark theme */
+    .dx-texteditor { background: #333 !important; border: 1px solid #555 !important; border-radius: 6px !important; }
+    .dx-texteditor-input { background: transparent !important; color: #fff !important; padding: 12px !important; }
+    .dx-numberbox-spin-button { background: #444 !important; border-color: #555 !important; }
+    .dx-numberbox-spin-button:hover { background: #555 !important; }
+    .dx-icon { color: #ccc !important; }
+    
+    .dx-button { background: #4a9eff !important; border: none !important; border-radius: 8px !important; padding: 12px 24px !important; color: white !important; font-weight: 500 !important; transition: all 0.3s !important; }
+    .dx-button:hover { background: #3a8eef !important; transform: translateY(-2px) !important; }
+    .dx-button-content { display: flex !important; align-items: center !important; gap: 8px !important; }
+    
+    .notification { padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    .notification.success { background: #10b981; color: white; }
+    .notification.error { background: #dc3545; color: white; }
+    .notification.info { background: #4a9eff; color: white; }
+</style>
+{% endblock %}
 
 {% block content %}
 <div class="page pageenabled" data-pageid="halving">
@@ -14,10 +53,8 @@
     <br>
 
     <div class="setupUnconnected" style="display: none;">
-        <div class="redNotification" style="cursor: pointer;" onclick="navigation.pageChange('setup')"> 
-            <div class="error" data-str="start_setup_required">
-                Please run the <a onclick="navigation.pageChange('setup')">Setup</a> first to create a free TikFinity Account!
-            </div>
+        <div class="redNotification" style="cursor: pointer;" onclick="location.href='{% url 'tiktok_live:setup' %}'">
+            <div class="error" data-str="start_setup_required">Please run the <a onclick="location.href='{% url 'tiktok_live:setup' %}'">Setup</a> first to create a free TikFinity Account!</div>
         </div>
         <br>
     </div>
@@ -32,9 +69,7 @@
                         <div class="dx-field">
                             <div class="dx-field-label" data-str="halving_percent">Percentage</div>
                             <div class="dx-field-value">
-                                <input type="number" id="halvingPercent" class="dx-texteditor-input" 
-                                       value="50" min="1" max="100" step="1" 
-                                       style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                                <div id="textboxHalvingPercent"></div>
                             </div>
                         </div>
                     </div>
@@ -54,7 +89,7 @@
                             <div class="dx-field-label" data-str="halving_last_execute">Last execution</div>
                             <div class="dx-field-value dxFieldValueFix" id="halvingLastExecution">
                                 {% if last_halving %}
-                                    {{ last_halving.executed_at|date:"m/d/Y, g:i A" }} ({{ last_halving.percentage }}% - {{ last_halving.affected_users }} users)
+                                    {{ last_halving.executed_at|date:"d/m/Y H:i" }} ({{ last_halving.percentage }}% - {{ last_halving.affected_users }} users)
                                 {% else %}
                                     -
                                 {% endif %}
@@ -66,11 +101,7 @@
                         <div class="dx-field">
                             <div class="dx-field-label"></div>
                             <div class="dx-field-value">
-                                <button id="buttonExecuteHalving" class="dx-button dx-button-normal dx-button-mode-contained" 
-                                        onclick="executeHalving()" style="padding: 10px 20px; cursor: pointer;">
-                                    <i class="dx-icon dx-icon-chevronright"></i>
-                                    <span class="dx-button-text">Reduce Points</span>
-                                </button>
+                                <div id="buttonExecuteHalving"></div>
                             </div>
                         </div>
                     </div>
@@ -80,142 +111,128 @@
     </div>
 </div>
 
+<!-- Notification Container -->
+<div id="notificationContainer" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn3.devexpress.com/jslib/23.1.5/js/dx.all.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const percentInput = document.getElementById('halvingPercent');
-    const exampleBefore = document.getElementById('halvingExampleBefore');
-    const exampleAfter = document.getElementById('halvingExampleAfter');
-    
-    // Update example calculation
-    function updateExample() {
-        const percent = parseInt(percentInput.value) || 50;
-        const before = 300;
-        const after = Math.floor(before * (100 - percent) / 100);
-        
-        exampleBefore.textContent = before;
-        exampleAfter.textContent = after;
-    }
-    
-    percentInput.addEventListener('input', updateExample);
-    updateExample();
-});
+    let percentageWidget;
+    let executeButton;
 
-function executeHalving() {
-    const percentage = parseInt(document.getElementById('halvingPercent').value);
-    
-    if (!percentage || percentage < 1 || percentage > 100) {
-        alert('Please enter a valid percentage between 1 and 100');
-        return;
-    }
-    
-    if (!confirm(`Are you sure you want to reduce all user points by ${percentage}%? This action cannot be undone!`)) {
-        return;
-    }
-    
-    const button = document.getElementById('buttonExecuteHalving');
-    button.disabled = true;
-    button.querySelector('.dx-button-text').textContent = 'Processing...';
-    
-    fetch('{% url "tiktok_live:execute_halving" %}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': '{{ csrf_token }}'
-        },
-        body: JSON.stringify({
-            percentage: percentage
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert(data.message);
-            location.reload();
-        } else {
-            alert('Error: ' + (data.error || 'Unknown error'));
-            button.disabled = false;
-            button.querySelector('.dx-button-text').textContent = 'Reduce Points';
-        }
-    })
-    .catch(error => {
-        alert('Error: ' + error);
-        button.disabled = false;
-        button.querySelector('.dx-button-text').textContent = 'Reduce Points';
+    $(document).ready(function() {
+        // Initialize percentage input
+        percentageWidget = $("#textboxHalvingPercent").dxNumberBox({
+            value: 50,
+            min: 1,
+            max: 100,
+            step: 1,
+            showSpinButtons: true,
+            onValueChanged: function(e) {
+                updateExample(e.value);
+            }
+        }).dxNumberBox("instance");
+
+        // Initialize execute button
+        executeButton = $("#buttonExecuteHalving").dxButton({
+            text: "Reduce Points",
+            icon: "chevronright",
+            type: "default",
+            onClick: function() {
+                executeHalving();
+            }
+        }).dxButton("instance");
+
+        // Update initial example
+        updateExample(50);
+
+        // Check authentication status
+        checkAuthStatus();
     });
-}
+
+    function updateExample(percentage) {
+        const exampleBefore = 300;
+        const exampleAfter = Math.floor(exampleBefore * (100 - percentage) / 100);
+        
+        document.getElementById('halvingExampleBefore').textContent = exampleBefore;
+        document.getElementById('halvingExampleAfter').textContent = exampleAfter;
+    }
+
+    function checkAuthStatus() {
+        {% if not user.is_authenticated %}
+            document.querySelector('.setupUnconnected').style.display = 'block';
+            executeButton.option('disabled', true);
+        {% endif %}
+    }
+
+    async function executeHalving() {
+        const percentage = percentageWidget.option('value');
+        
+        if (!percentage || percentage < 1 || percentage > 100) {
+            showNotification('Please enter a valid percentage between 1 and 100', 'error');
+            return;
+        }
+
+        // Confirm action
+        if (!confirm(`Are you sure you want to reduce all user points by ${percentage}%? This action cannot be undone.`)) {
+            return;
+        }
+
+        executeButton.option('disabled', true);
+        executeButton.option('text', 'Processing...');
+
+        try {
+            const response = await fetch('{% url "tiktok_live:execute_halving" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ percentage: percentage })
+            });
+
+            const data = await response.json();
+            
+            if (data.success) {
+                showNotification(data.message, 'success');
+                // Update last execution display
+                const now = new Date();
+                const dateStr = now.toLocaleDateString('tr-TR') + ' ' + now.toLocaleTimeString('tr-TR', {hour: '2-digit', minute: '2-digit'});
+                document.getElementById('halvingLastExecution').textContent = 
+                    `${dateStr} (${percentage}% - ${data.affected_users} users)`;
+            } else {
+                showNotification(data.error || 'An error occurred', 'error');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Network error occurred', 'error');
+        } finally {
+            executeButton.option('disabled', false);
+            executeButton.option('text', 'Reduce Points');
+        }
+    }
+
+    function showNotification(message, type = 'info') {
+        const container = document.getElementById('notificationContainer');
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span>${message}</span>
+                <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: white; font-size: 18px; cursor: pointer; margin-left: 10px;">&times;</button>
+            </div>
+        `;
+        
+        container.appendChild(notification);
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.remove();
+            }
+        }, 5000);
+    }
 </script>
-
-<style>
-.blueheading {
-    color: #2196F3;
-    font-size: 24px;
-    margin-bottom: 15px;
-}
-
-.greyBackgroundSection {
-    background-color: #f5f5f5;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 20px;
-}
-
-.dx-fieldset {
-    margin-bottom: 20px;
-}
-
-.dx-field {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.dx-field-label {
-    width: 200px;
-    font-weight: 500;
-}
-
-.dx-field-value {
-    flex: 1;
-}
-
-.dxFieldValueFix {
-    padding: 8px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.dx-button {
-    background-color: #2196F3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.dx-button:hover:not(:disabled) {
-    background-color: #1976D2;
-}
-
-.dx-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.redNotification {
-    background-color: #ffebee;
-    border: 1px solid #ef5350;
-    padding: 15px;
-    border-radius: 4px;
-    color: #c62828;
-}
-
-.redNotification a {
-    color: #1976D2;
-    text-decoration: underline;
-    cursor: pointer;
-}
-</style>
 {% endblock %}

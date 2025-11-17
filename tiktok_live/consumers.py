@@ -1,6 +1,7 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from .live_connector import TikTokLiveConnector
+from .connection_manager import connection_manager
 import logging
 
 logger = logging.getLogger(__name__)
@@ -23,9 +24,9 @@ class LiveStreamConsumer(AsyncWebsocketConsumer):
 
         await self.accept()
         
-        logger.info(f"✅ WebSocket connected: @{self.username}")
-        logger.info(f"📡 Room group: {self.room_group_name}")
-        logger.info(f"📱 Channel name: {self.channel_name}")
+        logger.info(f"WebSocket connected: @{self.username}")
+        logger.info(f"Room group: {self.room_group_name}")
+        logger.info(f"Channel name: {self.channel_name}")
         
         await self.send(text_data=json.dumps({
             'type': 'connection',
@@ -34,14 +35,10 @@ class LiveStreamConsumer(AsyncWebsocketConsumer):
         }))
 
         try:
-            self.connector = TikTokLiveConnector(self.username)
+            # Use global connection manager
+            self.connector = await connection_manager.get_or_create_connection(self.username, self)
             
-            # CRITICAL: Pass the consumer instance to connector for direct messaging
-            self.connector.consumer = self
-            
-            await self.connector.start()
-            
-            logger.info(f"✅ TikTok connection successful: @{self.username}")
+            logger.info(f"TikTok connection successful: @{self.username}")
             await self.send(text_data=json.dumps({
                 'type': 'connection',
                 'status': 'tiktok_connected',
@@ -50,7 +47,7 @@ class LiveStreamConsumer(AsyncWebsocketConsumer):
             }))
             
         except Exception as e:
-            logger.error(f"❌ Connection error: {e}")
+            logger.error(f"Connection error: {e}")
             error_message = str(e)
             
             await self.send(text_data=json.dumps({
@@ -68,9 +65,11 @@ class LiveStreamConsumer(AsyncWebsocketConsumer):
     async def disconnect(self, close_code):
         logger.info(f"WebSocket disconnecting: @{self.username}")
         
-        if self.connector:
-            await self.connector.stop()
-            self.connector = None
+        # Remove this consumer from global manager
+        if self.username:
+            await connection_manager.remove_subscriber(self.username, self)
+        
+        self.connector = None
 
         await self.channel_layer.group_discard(
             self.room_group_name,
@@ -105,9 +104,9 @@ class LiveStreamConsumer(AsyncWebsocketConsumer):
             json_data = json.dumps(data)
             logger.info(f"Sending JSON to WebSocket: {json_data}")
             await self.send(text_data=json_data)
-            logger.info(f"✅ Successfully sent {data.get('type')} event to WebSocket client")
+            logger.info(f"Successfully sent {data.get('type')} event to WebSocket client")
         except Exception as e:
-            logger.error(f"❌ Failed to send event to WebSocket client: {e}")
+            logger.error(f"Failed to send event to WebSocket client: {e}")
             logger.exception(e)
 
     async def start_stream(self):
@@ -144,3 +143,17 @@ class LiveStreamConsumer(AsyncWebsocketConsumer):
             self.connector = None
         
         await self.start_stream()
+    
+    async def send_json(self, data):
+        """Send JSON data to WebSocket client"""
+        try:
+            await self.send(text_data=json.dumps(data))
+        except Exception as e:
+            logger.error(f"Failed to send JSON to WebSocket: {e}")
+    
+    async def send_tts_event(self, data):
+        """Send TTS event to WebSocket client"""
+        try:
+            await self.send(text_data=json.dumps(data))
+        except Exception as e:
+            logger.error(f"Failed to send TTS event to WebSocket: {e}")

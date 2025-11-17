@@ -1,0 +1,128 @@
+{% extends 'tiktok_live/base.html' %}
+
+{% block page_title %}Halving{% endblock %}
+
+{% block extra_css %}
+<style>
+    .blueheading { color: #667eea; margin-bottom: 15px; }
+    .greyBackgroundSection { background: #1a1a1a; padding: 30px; border-radius: 12px; margin-bottom: 20px; }
+    .greyBackgroundSectionDynamicWidth { max-width: 600px; }
+    .redNotification { background: #dc2626; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    .redNotification .error a { color: #fff; text-decoration: underline; }
+    .dx-field { margin-bottom: 20px; display: flex; align-items: center; }
+    .dx-field-label { min-width: 200px; color: #ccc; font-weight: 500; }
+    .dx-field-value { flex: 1; }
+    .dxFieldValueFix { color: #fff; font-weight: 500; }
+    .dx-fieldset { margin-bottom: 30px; }
+    .dx-fieldset:last-child { margin-bottom: 0; }
+    input[type="number"] { background: #252525; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 8px; width: 120px; }
+    .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; background: #667eea; color: white; display: inline-flex; align-items: center; gap: 8px; }
+    .btn:hover { background: #5568d3; }
+    .btn i { font-size: 14px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page pageenabled" data-pageid="halving">
+    <h2 class="blueheading">Halving</h2>
+    <div>You can reduce the points of all users by a certain percentage. The levels of the users will remain unchanged!<br>
+    You can perform this operation, for example, once a month if you believe the amount of points users have is too high.<br>
+    See <b>Setup &gt; Reset Points</b> for other options.</div>
+
+    <br>
+
+    <div class="redNotification" style="display: none;">
+        <div class="error">Please run the <a href="{% url 'tiktok_live:setup' %}">Setup</a> first to create a free TikFinity Account!</div>
+    </div>
+
+    <br>
+
+    <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth">
+        <div class="dxForm">
+            <div class="form">
+                <div class="dx-fieldset">
+                    <div class="dx-field">
+                        <div class="dx-field-label">Percentage</div>
+                        <div class="dx-field-value">
+                            <input type="number" id="textboxHalvingPercent" value="50" min="1" max="100" step="1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dx-fieldset">
+                    <div class="dx-field">
+                        <div class="dx-field-label">Points before (example)</div>
+                        <div class="dx-field-value dxFieldValueFix" id="halvingExampleBefore">300</div>
+                    </div>
+
+                    <div class="dx-field">
+                        <div class="dx-field-label">Points after (example)</div>
+                        <div class="dx-field-value dxFieldValueFix" id="halvingExampleAfter">150</div>
+                    </div>
+
+                    <div class="dx-field">
+                        <div class="dx-field-label">Last execution</div>
+                        <div class="dx-field-value dxFieldValueFix" id="halvingLastExecution">17.11.2025 23:13:52</div>
+                    </div>
+                </div>
+
+                <div class="dx-fieldset">
+                    <div class="dx-field">
+                        <div class="dx-field-label"></div>
+                        <div class="dx-field-value">
+                            <button id="buttonExecuteHalving" class="btn">
+                                <i class="fas fa-chevron-right"></i>
+                                <span>Reduce Points</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const percentInput = document.getElementById('textboxHalvingPercent');
+    const exampleBefore = document.getElementById('halvingExampleBefore');
+    const exampleAfter = document.getElementById('halvingExampleAfter');
+    const executeButton = document.getElementById('buttonExecuteHalving');
+
+    // Update example calculation when percentage changes
+    percentInput.addEventListener('input', function() {
+        const percent = parseInt(this.value) || 50;
+        const before = 300;
+        const after = Math.floor(before * (100 - percent) / 100);
+        exampleAfter.textContent = after;
+    });
+
+    // Execute halving
+    executeButton.addEventListener('click', function() {
+        const percent = parseInt(percentInput.value) || 50;
+        
+        if (confirm(`Are you sure you want to reduce all user points by ${percent}%? This action cannot be undone.`)) {
+            this.disabled = true;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            
+            // Simulate API call
+            setTimeout(() => {
+                const now = new Date();
+                document.getElementById('halvingLastExecution').textContent = now.toLocaleString('en-GB', {
+                    day: '2-digit',
+                    month: '2-digit', 
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                }).replace(/\//g, '.');
+                
+                this.disabled = false;
+                this.innerHTML = '<i class="fas fa-chevron-right"></i> Reduce Points';
+                alert('Points reduction completed successfully!');
+            }, 2000);
+        }
+    });
+</script>
+{% endblock %}

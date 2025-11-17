@@ -1,0 +1,421 @@
+{% extends 'tiktok_live/base.html' %}
+
+{% block page_title %}Timer{% endblock %}
+
+{% block extra_css %}
+<style>
+    .blueheading { color: #667eea; margin-bottom: 15px; }
+    .noTopMarginHeader { margin-top: 0; }
+    .greyBackgroundSection { background: #1a1a1a; padding: 30px; border-radius: 12px; margin-bottom: 20px; }
+    .greyBackgroundSectionDynamicWidth { max-width: 600px; }
+    .promotion-content { background: #1a1a1a; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333; }
+    .promotion-content a { color: #667eea; text-decoration: none; }
+    .redNotification { background: #dc2626; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    .redNotification .error a { color: #fff; text-decoration: underline; }
+    .dx-field { margin-bottom: 20px; display: flex; align-items: center; }
+    .dx-field-label { min-width: 200px; color: #ccc; font-weight: 500; }
+    .dx-field-value { flex: 1; }
+    .dxFieldValueFix { color: #fff; font-weight: 500; }
+    .dx-fieldset { margin-bottom: 30px; }
+    input[type="number"], input[type="text"], select { background: #252525; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 8px; width: 120px; }
+    input[type="text"] { width: 200px; }
+    select { width: 200px; }
+    .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; background: #667eea; color: white; display: inline-flex; align-items: center; gap: 8px; margin: 5px; }
+    .btn:hover { background: #5568d3; }
+    .btn:disabled { background: #555; cursor: not-allowed; }
+    .btn-success { background: #10b981; }
+    .btn-success:hover { background: #059669; }
+    .btn-danger { background: #dc2626; }
+    .btn-danger:hover { background: #b91c1c; }
+    .checkbox { display: flex; align-items: center; gap: 10px; margin: 10px 0; }
+    .checkbox input[type="checkbox"] { width: 18px; height: 18px; }
+    .timerExpireActionName { color: #10b981; font-weight: bold; }
+    .changeactionlabel { color: #667eea; text-decoration: none; margin-left: 10px; }
+    .changeactionlabel:hover { text-decoration: underline; }
+    .control-table { width: 100%; }
+    .control-table td { padding: 5px; }
+    .timer-iframe { width: 867px; height: 120px; border: 1px solid #4e4e4e; border-radius: 8px; }
+    .settings-container { display: flex; gap: 20px; }
+    .settings-left, .settings-right { flex: 1; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page pageenabled" data-pageid="timer">
+    <div class="promotion-content">
+        Get the free <a href="/app/">TikFinity Desktop App</a> for Windows to enjoy additional features and stability improvements!
+    </div>
+
+    <h2 class="blueheading">Timer</h2>
+    <div>
+        Here you can create a countdown that can be controlled by your viewers.<br>
+        Viewers can extend or shorten the countdown through interactions to decide how long you have to stream.<br>
+        Watch <a href="https://www.youtube.com/watch?v=363AX0F6VPY" target="_blank" style="color: #667eea;">this tutorial</a> to learn how to set up a subathon timer.<br>
+    </div>
+    <br>
+
+    <div class="redNotification" style="display: none;">
+        <div class="error">Please run the <a href="{% url 'tiktok_live:setup' %}">Setup</a> first to create a free TikFinity Account!</div>
+    </div>
+
+    <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth">
+        <h3 class="blueheading noTopMarginHeader">Overlay</h3>
+        <div class="timerpageoverlays" data-widgetid="timer">
+            <div style="display: flex; gap: 5px; align-items: center; margin-bottom: 10px;">
+                <input type="text" readonly style="width: 501px;" placeholder="Widget URL will appear here">
+                <button class="btn">Copy URL</button>
+                <button class="btn" disabled><i class="fas fa-chevron-right"></i> Test</button>
+                <button class="btn"><i class="fas fa-cog"></i> Customize</button>
+            </div>
+            <iframe src="https://tikfinity.zerody.one/widget/timer?cid=2449591&preview=1" class="timer-iframe"></iframe>
+        </div>
+    </div>
+
+    <div class="greyBackgroundSection" style="min-width: 869px;">
+        <h3 class="blueheading noTopMarginHeader">Control</h3>
+        <table class="control-table">
+            <tr>
+                <td>
+                    <button id="buttonTimerStart" class="btn btn-success" style="width: 150px;">
+                        <i class="fas fa-play"></i> Start
+                    </button>
+                </td>
+                <td>
+                    <button id="buttonTimerPause" class="btn" style="width: 150px;" disabled>
+                        <i class="fas fa-pause"></i> Pause
+                    </button>
+                </td>
+                <td>
+                    <button id="buttonTimerReset" class="btn btn-danger" style="width: 150px;" disabled>
+                        <i class="fas fa-undo"></i> Reset
+                    </button>
+                </td>
+                <td></td>
+                <td>
+                    <input type="number" id="numberboxTimerAddManual" value="10" min="1" max="14400" step="1" disabled>
+                </td>
+                <td>
+                    <button id="buttonTimerIncreaseManual" class="btn" disabled>
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </td>
+                <td>
+                    <button id="buttonTimerDecreaseManual" class="btn" disabled>
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <br>
+    </div>
+
+    <div class="settings-container">
+        <div class="settings-left">
+            <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth" style="height: 700px;">
+                <h3 class="blueheading noTopMarginHeader">Settings</h3>
+                
+                <div class="dxForm">
+                    <div class="form">
+                        <div class="dx-fieldset">
+                            <div class="dx-field">
+                                <div class="dx-field-label">Default Start Value</div>
+                                <div class="dx-field-value">
+                                    <input type="number" id="numberboxTimerStartValue" value="10" min="1" max="14400" step="1">
+                                </div>
+                            </div>
+                            <div class="dx-field">
+                                <div class="dx-field-label">Action on expiry</div>
+                                <div class="dx-field-value dxFieldValueFix">
+                                    <b class="timerExpireActionName" id="expireActionName">-</b> 
+                                    <a class="changeactionlabel" href="#" onclick="changeExpireAction()">Change</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <div>
+                    Define by how many seconds the timer increases or decreases for each interaction type.<br>
+                    Use positive values to increase the timer and negative values (e.g. -5) to decrease the timer.<br>
+                    You can also use decimal numbers e.g. 0.05 if a full second is too much.
+                </div>
+
+                <div class="dxForm">
+                    <div class="form">
+                        <div class="dx-fieldset">
+                            <div class="dx-field">
+                                <div class="dx-field-label">Per Coin</div>
+                                <div class="dx-field-value">
+                                    <input type="number" id="numberboxAddPerCoin" value="1" min="-100000" max="100000" step="1">
+                                </div>
+                            </div>
+                            <div class="dx-field">
+                                <div class="dx-field-label">Per Subscribe / Super Fan</div>
+                                <div class="dx-field-value">
+                                    <input type="number" id="numberboxAddPerSub" value="300" min="-100000" max="100000" step="1">
+                                </div>
+                            </div>
+                            <div class="dx-field">
+                                <div class="dx-field-label">Per Follow</div>
+                                <div class="dx-field-value">
+                                    <input type="number" id="numberboxAddPerFollow" value="0" min="-100000" max="100000" step="1">
+                                </div>
+                            </div>
+                            <div class="dx-field">
+                                <div class="dx-field-label">Per Share</div>
+                                <div class="dx-field-value">
+                                    <input type="number" id="numberboxAddPerShare" value="0" min="-100000" max="100000" step="1">
+                                </div>
+                            </div>
+                            <div class="dx-field">
+                                <div class="dx-field-label">Per Like</div>
+                                <div class="dx-field-value">
+                                    <input type="number" id="numberboxAddPerLike" value="0" min="-100000" max="100000" step="1">
+                                </div>
+                            </div>
+                            <div class="dx-field">
+                                <div class="dx-field-label">Per Chat Message</div>
+                                <div class="dx-field-value">
+                                    <input type="number" id="numberboxAddPerChat" value="0" min="-100000" max="100000" step="1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dxForm">
+                    <div class="form">
+                        <div class="dx-fieldset">
+                            <div class="dx-field">
+                                <div class="dx-field-label">
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="timerMultiplierCheckbox">
+                                        <label for="timerMultiplierCheckbox">Activate Multiplier</label>
+                                    </div>
+                                </div>
+                                <div class="dx-field-value">
+                                    <input type="number" id="numberboxTimerMultiplier" value="1.5" min="0.5" max="100" step="0.5" disabled>
+                                    <br><small>If activated, all configured values are multiplied by the multiplier.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-right">
+            <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth" style="height: 700px;">
+                <h3 class="blueheading noTopMarginHeader">Keyboard Shortcuts</h3>
+                <br>
+
+                <h4>Start / Pause</h4>
+                <select id="timerShortcutStartPause">
+                    <option value="">Not Set</option>
+                    <option value="space">Space</option>
+                    <option value="f1">F1</option>
+                    <option value="f2">F2</option>
+                </select>
+                <br><br>
+
+                <h4>Increase</h4>
+                <select id="timerShortcutIncrease">
+                    <option value="">Not Set</option>
+                    <option value="plus">+</option>
+                    <option value="up">Arrow Up</option>
+                    <option value="f3">F3</option>
+                </select>
+                <br><br>
+
+                <h4>Reduce</h4>
+                <select id="timerShortcutReduce">
+                    <option value="">Not Set</option>
+                    <option value="minus">-</option>
+                    <option value="down">Arrow Down</option>
+                    <option value="f4">F4</option>
+                </select>
+                <br><br>
+
+                <h4>Increase / Reduce Step</h4>
+                <input type="number" id="timerShortcutStep" value="1" min="1" max="10000" step="1">
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    let timerRunning = false;
+    let timerPaused = false;
+    let currentTime = 0;
+    let timerInterval = null;
+
+    const startButton = document.getElementById('buttonTimerStart');
+    const pauseButton = document.getElementById('buttonTimerPause');
+    const resetButton = document.getElementById('buttonTimerReset');
+    const increaseButton = document.getElementById('buttonTimerIncreaseManual');
+    const decreaseButton = document.getElementById('buttonTimerDecreaseManual');
+    const manualInput = document.getElementById('numberboxTimerAddManual');
+    const multiplierCheckbox = document.getElementById('timerMultiplierCheckbox');
+    const multiplierInput = document.getElementById('numberboxTimerMultiplier');
+
+    // Timer controls
+    startButton.addEventListener('click', function() {
+        if (!timerRunning) {
+            startTimer();
+        } else if (timerPaused) {
+            resumeTimer();
+        }
+    });
+
+    pauseButton.addEventListener('click', function() {
+        pauseTimer();
+    });
+
+    resetButton.addEventListener('click', function() {
+        resetTimer();
+    });
+
+    increaseButton.addEventListener('click', function() {
+        const value = parseInt(manualInput.value) || 10;
+        adjustTimer(value);
+    });
+
+    decreaseButton.addEventListener('click', function() {
+        const value = parseInt(manualInput.value) || 10;
+        adjustTimer(-value);
+    });
+
+    function startTimer() {
+        timerRunning = true;
+        timerPaused = false;
+        currentTime = parseInt(document.getElementById('numberboxTimerStartValue').value) * 60 || 600; // Convert to seconds
+        
+        startButton.innerHTML = '<i class="fas fa-play"></i> Resume';
+        startButton.disabled = true;
+        pauseButton.disabled = false;
+        resetButton.disabled = false;
+        manualInput.disabled = false;
+        increaseButton.disabled = false;
+        decreaseButton.disabled = false;
+        
+        timerInterval = setInterval(updateTimer, 1000);
+        updateDisplay();
+    }
+
+    function pauseTimer() {
+        timerPaused = true;
+        clearInterval(timerInterval);
+        
+        startButton.disabled = false;
+        pauseButton.disabled = true;
+    }
+
+    function resumeTimer() {
+        timerPaused = false;
+        timerInterval = setInterval(updateTimer, 1000);
+        
+        startButton.disabled = true;
+        pauseButton.disabled = false;
+    }
+
+    function resetTimer() {
+        timerRunning = false;
+        timerPaused = false;
+        currentTime = 0;
+        clearInterval(timerInterval);
+        
+        startButton.innerHTML = '<i class="fas fa-play"></i> Start';
+        startButton.disabled = false;
+        pauseButton.disabled = true;
+        resetButton.disabled = true;
+        manualInput.disabled = true;
+        increaseButton.disabled = true;
+        decreaseButton.disabled = true;
+        
+        updateDisplay();
+    }
+
+    function updateTimer() {
+        currentTime--;
+        if (currentTime <= 0) {
+            currentTime = 0;
+            clearInterval(timerInterval);
+            onTimerExpired();
+        }
+        updateDisplay();
+    }
+
+    function adjustTimer(seconds) {
+        currentTime = Math.max(0, currentTime + seconds);
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        const hours = Math.floor(currentTime / 3600);
+        const minutes = Math.floor((currentTime % 3600) / 60);
+        const seconds = currentTime % 60;
+        
+        const display = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        console.log('Timer:', display);
+    }
+
+    function onTimerExpired() {
+        alert('Timer expired!');
+        resetTimer();
+    }
+
+    // Change expire action
+    function changeExpireAction() {
+        const actions = ['Stop Stream', 'Play Sound', 'Show Message', 'Custom Action'];
+        const current = document.getElementById('expireActionName').textContent;
+        const currentIndex = actions.indexOf(current);
+        const nextIndex = (currentIndex + 1) % actions.length;
+        document.getElementById('expireActionName').textContent = actions[nextIndex];
+    }
+
+    // Multiplier toggle
+    multiplierCheckbox.addEventListener('change', function() {
+        multiplierInput.disabled = !this.checked;
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        const startPauseKey = document.getElementById('timerShortcutStartPause').value;
+        const increaseKey = document.getElementById('timerShortcutIncrease').value;
+        const reduceKey = document.getElementById('timerShortcutReduce').value;
+        const step = parseInt(document.getElementById('timerShortcutStep').value) || 1;
+        
+        if (e.code === 'Space' && startPauseKey === 'space') {
+            e.preventDefault();
+            if (!timerRunning) {
+                startTimer();
+            } else if (timerPaused) {
+                resumeTimer();
+            } else {
+                pauseTimer();
+            }
+        } else if (e.code === 'Equal' && increaseKey === 'plus' && timerRunning) {
+            e.preventDefault();
+            adjustTimer(step);
+        } else if (e.code === 'Minus' && reduceKey === 'minus' && timerRunning) {
+            e.preventDefault();
+            adjustTimer(-step);
+        }
+    });
+
+    // Copy URL functionality
+    document.querySelector('.btn').addEventListener('click', function() {
+        if (this.textContent === 'Copy URL') {
+            navigator.clipboard.writeText('https://tikfinity.zerody.one/widget/timer?cid=2449591');
+            this.textContent = 'Copied!';
+            setTimeout(() => {
+                this.textContent = 'Copy URL';
+            }, 2000);
+        }
+    });
+</script>
+{% endblock %}

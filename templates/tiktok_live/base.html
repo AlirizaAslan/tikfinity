@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TikFinity{% endblock %}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #0f0f0f;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        #sidebar {
+            width: 280px;
+            background-color: #1a1a1a;
+            border-right: 1px solid #333;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .appnameheading {
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .ttred {
+            color: #fe2c55;
+        }
+
+        .sidebarseperator {
+            height: 1px;
+            background: #333;
+            margin: 10px 15px;
+        }
+
+        .extendedMarginTop {
+            margin-top: 20px;
+        }
+
+        .onlypro {
+            padding: 10px 15px;
+        }
+
+        .menuitemmain {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            color: #ccc;
+        }
+
+        .menuitemmain:hover {
+            background-color: #2a2a2a;
+            color: #fff;
+            border-left-color: #fe2c55;
+        }
+
+        .menuitemselected {
+            background-color: #2a2a2a;
+            color: #fe2c55;
+            border-left-color: #fe2c55;
+        }
+
+        .menuitemseperator {
+            padding: 10px 20px;
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .roundImage {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            min-height: 100vh;
+            background-color: #0f0f0f;
+        }
+
+        .content-header {
+            background-color: #1a1a1a;
+            border-bottom: 1px solid #333;
+            padding: 20px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .content-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .content-body {
+            padding: 30px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                z-index: 1001;
+                background: #4a90e2;
+                color: white;
+                border: none;
+                padding: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+        }
+
+        /* Custom scrollbar */
+        #sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #sidebar::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        #sidebar::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+
+        #sidebar::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Status indicators */
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-online {
+            background-color: #27ae60;
+        }
+
+        .status-offline {
+            background-color: #e74c3c;
+        }
+
+        .status-idle {
+            background-color: #f39c12;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+    
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div id="sidebar" class="notranslate" translate="no">
+            <div class="appnameheading"><span class="ttred">Tik</span>Finity<div class="appNameExtra"></div></div>
+            <div class="sidebarseperator"></div>
+            
+            <!-- Stream Profile Selector -->
+            <div class="onlypro">
+                <table style="width:95%;border-spacing:0">
+                    <tr>
+                        <td style="padding:0;width:95%">
+                            <div id="profileSelector">
+                                <select style="width:100%;background:#252525;border:1px solid #333;color:#fff;padding:8px;border-radius:4px;">
+                                    <option value="1">Stream Profile 1</option>
+                                    <option value="2">Stream Profile 2</option>
+                                    <option value="3">Stream Profile 3</option>
+                                    <option value="4">Stream Profile 4</option>
+                                    <option value="5">Stream Profile 5</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td style="padding:0;cursor:pointer" onclick="openProfileSettings()">
+                            <div style="font-size:.8em;padding:8px;"><i class="fas fa-cog"></i></div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="sidebarseperator"></div>
+            </div>
+            
+            <!-- Channel Info -->
+            <div id="siebarChannelInfo">
+                <table id="siebarChannelInfoTable" onclick="connectToTikTok()" style="cursor:pointer;width:100%;">
+                    <tr>
+                        <td style="padding:10px;width:60px;">
+                            <img id="channelThumbnail" src="https://via.placeholder.com/50x50/333/fff?text=?" 
+                                 class="roundImage myChannelThumbnail" 
+                                 onerror="this.src='https://via.placeholder.com/50x50/333/fff?text=?'" 
+                                 style="width:50px;height:50px;border-radius:50%;object-fit:cover;">
+                        </td>
+                        <td style="padding:10px;">
+                            <div id="siebarChannelInfoTableUsername" style="color:#fff;font-weight:500;">{{ tiktok_username|default:"Not Connected" }}</div>
+                            <div id="siebarChannelInfoTableStatus" style="color:#888;font-size:12px;">Click to connect!</div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="sidebarseperator"></div>
+            </div>
+            
+            <!-- Menu Items -->
+            <div class="sidebarmenuitemlist" style="max-height: calc(-160px + 100vh);">
+                <div class="menuitemmain" data-pageid="start" onclick="location.href='{% url 'tiktok_live:dashboard' %}'">Start</div>
+                <div class="menuitemmain menuitemselected" data-pageid="setup" onclick="location.href='{% url 'tiktok_live:setup' %}'">Setup</div>
+                
+                <div class="sidebarseperator extendedMarginTop"></div>
+                <div class="menuitemseperator"><div><i class="fas fa-desktop"></i></div></div>
+                
+                <div class="menuitemmain" data-pageid="obsoverlays" onclick="location.href='{% url 'tiktok_live:overlay_gallery' %}'">Overlay Gallery</div>
+                <div class="menuitemmain" data-pageid="goals" onclick="location.href='{% url 'tiktok_live:target_overlays' %}'">Goal Overlays</div>
+                <div class="menuitemmain" data-pageid="giftoverlays" onclick="location.href='{% url 'tiktok_live:gift_overlays' %}'">Gift Overlays <span style="font-size: 0.65em; color:#fe2c55; vertical-align: top">NEW</span></div>
+                <div class="menuitemmain" data-pageid="lastx" onclick="location.href='{% url 'tiktok_live:recent_overlays' %}'">Last X Overlays</div>
+                <div class="menuitemmain" data-pageid="obsdocks" onclick="location.href='{% url 'tiktok_live:obs_panels' %}'">OBS Docks <span style="font-size: 0.65em; color:#fe2c55; vertical-align: top">NEW</span></div>
+                
+                <div class="sidebarseperator extendedMarginTop"></div>
+                <div class="menuitemseperator"><div><i class="fas fa-bolt"></i></div></div>
+                
+                <div class="menuitemmain" data-pageid="sounds" onclick="location.href='{% url 'tiktok_live:sound_alerts' %}'">Sound Alerts</div>
+                <div class="menuitemmain" data-pageid="actionsandevents" onclick="location.href='{% url 'tiktok_live:actions_events' %}'">Actions & Events</div>
+                
+                <div class="sidebarseperator extendedMarginTop"></div>
+                <div class="menuitemseperator"><div><i class="far fa-comments"></i></div></div>
+                
+                <div class="menuitemmain" data-pageid="chatcommands" onclick="location.href='{% url 'tiktok_live:chat_commands' %}'">Chat Commands</div>
+                <div class="menuitemmain" data-pageid="chatbot" onclick="location.href='{% url 'tiktok_live:chatbot' %}'">Chatbot</div>
+                <div class="menuitemmain" data-pageid="tts" onclick="location.href='{% url 'tiktok_live:tts_chat' %}'">TTS Chat</div>
+                
+                <div class="sidebarseperator extendedMarginTop"></div>
+                <div class="menuitemseperator"><div><i class="fas fa-list-ul"></i></div></div>
+                
+                <div class="menuitemmain" data-pageid="user" onclick="location.href='{% url 'tiktok_live:users_points' %}'">User & Points</div>
+                <div class="menuitemmain" data-pageid="transactions" onclick="location.href='{% url 'tiktok_live:transactions' %}'">Transactions</div>
+                
+                <div class="sidebarseperator extendedMarginTop"></div>
+                <div class="menuitemseperator"><div><i class="fas fa-headphones"></i></div></div>
+                
+                <div class="menuitemmain" data-pageid="songrequests" onclick="location.href='{% url 'tiktok_live:song_requests' %}'">Song Requests</div>
+                
+                <div class="sidebarseperator extendedMarginTop"></div>
+                <div class="menuitemseperator"><div><i class="fas fa-gamepad"></i></div></div>
+                
+                <div class="menuitemmain" data-pageid="likeathon" onclick="location.href='{% url 'tiktok_live:likeathon' %}'">Likeathon <span style="font-size: 0.65em; color:#fe2c55; vertical-align: top">NEW</span></div>
+                <div class="menuitemmain" data-pageid="timer" onclick="location.href='{% url 'tiktok_live:timer' %}'">Timer</div>
+                <div class="menuitemmain" data-pageid="wheel" onclick="location.href='{% url 'tiktok_live:wheel_fortune' %}'">Wheel of Fortune</div>
+                <div class="menuitemmain" data-pageid="coindrop" onclick="location.href='{% url 'tiktok_live:points_drop' %}'">Points Drop</div>
+                
+                <div class="sidebarseperator extendedMarginTop"></div>
+                <div class="menuitemseperator"><div><i class="fas fa-tools"></i></div></div>
+                
+                <div class="menuitemmain" data-pageid="challenge" onclick="location.href='{% url 'tiktok_live:challenge' %}'">Challenge</div>
+                <div class="menuitemmain" data-pageid="halving" onclick="location.href='{% url 'tiktok_live:halving' %}'">Halving</div>
+                
+                <div class="sidebarseperator extendedMarginTop"></div>
+                <div class="menuitemseperator"><div><i class="fas fa-database"></i></div></div>
+                
+                <div class="menuitemmain" data-pageid="dapi">Event API <span style="font-size: 0.65em; color:#fe2c55; vertical-align: top">NEW</span></div>
+            </div>
+            
+            <!-- Footer -->
+            <div id="sidebarFooter">
+                <div class="sidebarseperator"></div>
+                <div id="appVersion" style="padding:10px 20px;color:#888;font-size:0.8em;">v1.70.1</div>
+                <div id="languageSelectContainer" style="padding:0 20px 20px;">
+                    <label for="languageSelect" style="color:#888;"><i class="fas fa-globe-europe"></i></label>
+                    <select name="languageSelect" id="languageSelect" style="background:#252525;border:1px solid #333;color:#fff;padding:4px;border-radius:4px;margin-left:8px;">
+                        <option value="en">English</option>
+                        <option value="de">Deutsch</option>
+                        <option value="es">Spanish</option>
+                        <option value="tr" selected>Turkish</option>
+                    </select>
+                </div>
+                <small class="legalFooter" style="font-size:.8em;padding:0 20px;color:#666;">
+                    <a href="/legal/tos" target="_blank" style="color:#666;">ToS</a> • 
+                    <a href="/legal/privacy" target="_blank" style="color:#666;">Privacy</a> • 
+                    <a href="https://blog.tikfinity.com/" target="_blank" style="color:#666;">Blog</a>
+                </small>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-header">
+                <h1 class="content-title">{% block page_title %}TikFinity{% endblock %}</h1>
+            </div>
+            
+            <div class="content-body">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Set active nav item based on current URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                if (item.getAttribute('href') === currentPath) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(event.target) && 
+                !menuBtn.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // TikTok Live Connection
+        async function connectToTikTok() {
+            const username = '{{ tiktok_username|default:"" }}';
+            if (!username) {
+                window.location.href = '{% url "tiktok_live:setup" %}';
+                return;
+            }
+
+            const statusEl = document.getElementById('siebarChannelInfoTableStatus');
+            const thumbnailEl = document.getElementById('channelThumbnail');
+            
+            statusEl.textContent = 'Connecting...';
+            statusEl.style.color = '#f39c12';
+            
+            try {
+                const response = await fetch(`/tiktok/check-live/${username}/`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    if (data.is_live) {
+                        statusEl.textContent = 'LIVE';
+                        statusEl.style.color = '#fe2c55';
+                        statusEl.style.fontWeight = 'bold';
+                        
+                        // Try to get profile picture
+                        const profileResponse = await fetch(`/tiktok/profile/${username}/`);
+                        if (profileResponse.ok) {
+                            const profileData = await profileResponse.json();
+                            if (profileData.profile_picture) {
+                                thumbnailEl.src = profileData.profile_picture;
+                            }
+                        }
+                    } else {
+                        statusEl.textContent = 'Offline';
+                        statusEl.style.color = '#888';
+                        statusEl.style.fontWeight = 'normal';
+                    }
+                } else {
+                    statusEl.textContent = 'Connection Failed';
+                    statusEl.style.color = '#e74c3c';
+                }
+            } catch (error) {
+                console.error('Connection error:', error);
+                statusEl.textContent = 'Connection Error';
+                statusEl.style.color = '#e74c3c';
+            }
+        }
+
+        // Auto-connect on page load if username exists
+        document.addEventListener('DOMContentLoaded', function() {
+            const username = '{{ tiktok_username|default:"" }}';
+            if (username) {
+                setTimeout(connectToTikTok, 1000);
+            }
+        });
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,443 @@
+{% extends 'tiktok_live/base.html' %}
+
+{% block page_title %}Text-to-Speech Chat{% endblock %}
+
+{% block extra_css %}
+<style>
+    .blueheading { color: #4a90e2; font-size: 18px; margin-bottom: 15px; }
+    .greyBackgroundSection { background: #252525; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 5px; color: #ccc; }
+    .form-control { width: 100%; padding: 8px 12px; background: #333; border: 1px solid #555; color: #fff; border-radius: 4px; }
+    .form-control:focus { border-color: #4a90e2; outline: none; }
+    .checkbox-group { display: flex; align-items: center; gap: 8px; margin: 10px 0; }
+    .checkbox-group input[type="checkbox"] { margin: 0; }
+    .btn-primary { background: #4a90e2; border: none; }
+    .btn-success { background: #10b981; border: none; }
+    .btn-danger { background: #e74c3c; border: none; }
+    .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .voice-tester { background: #1a1a1a; padding: 20px; border-radius: 8px; }
+    .logs-container { background: #1a1a1a; padding: 15px; border-radius: 8px; max-height: 200px; overflow-y: auto; }
+    .log-entry { padding: 5px 0; border-bottom: 1px solid #333; font-size: 12px; color: #aaa; }
+    .log-entry:last-child { border-bottom: none; }
+    .range-input { width: 100%; }
+    .radio-group { display: flex; flex-direction: column; gap: 8px; }
+    .radio-group label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .special-users-table { width: 100%; border-collapse: collapse; }
+    .special-users-table th, .special-users-table td { padding: 8px; border: 1px solid #333; text-align: left; }
+    .special-users-table th { background: #333; }
+    .no-data { text-align: center; color: #888; padding: 20px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page">
+    <h2 class="blueheading">Text-to-Speech Chat</h2>
+    
+    <p style="margin-bottom: 20px; color: #ccc;">
+        Here you can read out the chat comments from your viewers automatically via Text-to-Speech (TTS).<br>
+        The voice is played directly in the browser. No Overlay is required!<br>
+        A TTS feature is also available via <a href="{% url 'tiktok_live:actions_events' %}" style="color: #4a90e2;">Actions & Events</a> which offers more flexibility.
+    </p>
+
+    {% if not_authenticated %}
+    <div style="background: #661525; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #e74c3c;">
+        <strong>Please run the <a href="{% url 'tiktok_live:setup' %}" style="color: #4a90e2;">Setup</a> first to create a free TikFinity Account!</strong>
+    </div>
+    {% endif %}
+
+    <div class="settings-grid">
+        <!-- General Settings -->
+        <div class="greyBackgroundSection">
+            <h4 class="blueheading">General Settings</h4>
+            
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="ttsEnabled" {% if settings.is_enabled %}checked{% endif %}>
+                    <label for="ttsEnabled"><strong>Enabled</strong></label>
+                    {% if not settings.is_enabled %}
+                    <span style="color: #4a90e2; margin-left: 10px;">👈 <strong>Start here</strong></span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Language</label>
+                <select id="ttsLanguage" class="form-control" style="width: 200px;">
+                    <option value="tr" {% if settings.language == 'tr' %}selected{% endif %}>Turkish</option>
+                    <option value="en" {% if settings.language == 'en' %}selected{% endif %}>English</option>
+                    <option value="de" {% if settings.language == 'de' %}selected{% endif %}>German</option>
+                    <option value="es" {% if settings.language == 'es' %}selected{% endif %}>Spanish</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Voice <small style="color: #fe2c55;">NEW!</small></label>
+                <select id="ttsVoice" class="form-control" style="width: 200px;">
+                    <option value="default">Default Voice</option>
+                    <option value="male">Male Voice</option>
+                    <option value="female">Female Voice</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="randomVoice">
+                    <label for="randomVoice">Random Voice</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Default Speed</label>
+                <input type="range" id="ttsSpeed" class="range-input" min="0" max="100" value="{{ settings.speed }}" style="width: 120px;">
+                <span id="speedValue">{{ settings.speed }}</span>
+            </div>
+
+            <div class="form-group">
+                <label>Default Pitch</label>
+                <input type="range" id="ttsPitch" class="range-input" min="0" max="100" value="{{ settings.pitch }}" style="width: 120px;">
+                <span id="pitchValue">{{ settings.pitch }}</span>
+            </div>
+
+            <div class="form-group">
+                <label>Volume</label>
+                <input type="range" id="ttsVolume" class="range-input" min="1" max="100" value="{{ settings.volume }}" style="width: 130px;">
+                <span id="volumeValue">{{ settings.volume }}</span>
+            </div>
+        </div>
+
+        <!-- Allowed Users -->
+        <div class="greyBackgroundSection">
+            <h4 class="blueheading">Allowed Users</h4>
+            <div class="checkbox-group">
+                <input type="checkbox" id="allowAllUsers" checked>
+                <label for="allowAllUsers">All Users</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="allowFollowers" checked>
+                <label for="allowFollowers">Followers</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="allowSubscribers" checked>
+                <label for="allowSubscribers">Super Fans / Subscribers</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="allowModerators" checked>
+                <label for="allowModerators">Moderators</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="allowTeamMembers" checked>
+                <label for="allowTeamMembers">Team Members</label>
+            </div>
+            <div style="font-size: 0.8em; margin-left: 20px; color: #4a90e2; cursor: pointer;">
+                <i class="fas fa-cog"></i> Min. Level: <span>1</span>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="allowTopGifters" checked>
+                <label for="allowTopGifters">Top Gifters</label>
+            </div>
+            <div style="font-size: 0.8em; margin-left: 20px; color: #4a90e2; cursor: pointer;">
+                <i class="fas fa-cog"></i> Top: <span>3</span>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="allowSpecificUsers" checked>
+                <label for="allowSpecificUsers">Allowed Users from list</label>
+            </div>
+        </div>
+
+        <!-- Comment Types -->
+        <div class="greyBackgroundSection">
+            <h4 class="blueheading">Comment Types</h4>
+            <p>Read...</p>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="commentType" value="any" checked>
+                    Any comment
+                </label>
+                <label>
+                    <input type="radio" name="commentType" value="dot">
+                    Comments starting with dot (.)
+                </label>
+                <label>
+                    <input type="radio" name="commentType" value="slash">
+                    Comments starting with slash (/)
+                </label>
+                <label>
+                    <input type="radio" name="commentType" value="command">
+                    Comments starting with Command:
+                </label>
+            </div>
+            <div class="form-group" style="margin-top: 10px;">
+                <label>Command</label>
+                <input type="text" id="customCommand" class="form-control" placeholder="!command" style="width: 100px;">
+            </div>
+        </div>
+
+        <!-- Charge Points -->
+        <div class="greyBackgroundSection">
+            <h4 class="blueheading">Charge Points</h4>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="chargePoints" value="free" checked>
+                    No, its free
+                </label>
+                <label>
+                    <input type="radio" name="chargePoints" value="charge">
+                    Yes, withdraw the following amount:
+                </label>
+            </div>
+            <div class="form-group" style="margin-top: 10px;">
+                <label>Cost per Message</label>
+                <input type="number" id="costPerMessage" class="form-control" value="{{ settings.cost_per_message }}" min="1" style="width: 110px;">
+            </div>
+            <small style="color: #aaa;">(If the user doesn't have enough points, the comment will NOT be read)</small>
+        </div>
+    </div>
+
+    <!-- Special Users Section -->
+    <div class="greyBackgroundSection">
+        <h4 class="blueheading">Special Users</h4>
+        <p style="margin-bottom: 15px;">
+            Here you can allow and disallow users to use TTS and assign their own voices!<br>
+            If you disable the "Allowed" option, the user is entirely blocked from TTS.<br>
+            Click on + to add a new user.
+        </p>
+        
+        <div style="margin-bottom: 15px;">
+            <button class="btn btn-primary" onclick="addSpecialUser()">
+                <i class="fas fa-plus"></i> Add User
+            </button>
+        </div>
+
+        <table class="special-users-table">
+            <thead>
+                <tr>
+                    <th style="width: 70px;">Actions</th>
+                    <th>Username (@handle)</th>
+                    <th style="width: 70px;">Allowed</th>
+                    <th>Voice</th>
+                    <th>Speed</th>
+                    <th>Pitch</th>
+                </tr>
+            </thead>
+            <tbody id="specialUsersTable">
+                {% if special_users %}
+                    {% for user in special_users %}
+                    <tr>
+                        <td>
+                            <button class="btn btn-danger btn-sm" onclick="removeSpecialUser({{ user.id }})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                        <td>{{ user.username }}</td>
+                        <td>
+                            <input type="checkbox" {% if user.is_allowed %}checked{% endif %}>
+                        </td>
+                        <td>{{ user.voice }}</td>
+                        <td>{{ user.speed }}</td>
+                        <td>{{ user.pitch }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="no-data">No Special Users defined</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Voice Tester and Logs -->
+    <div class="settings-grid">
+        <div class="voice-tester">
+            <h4 class="blueheading">Voice Tester</h4>
+            <div class="form-group">
+                <input type="text" id="testText" class="form-control" placeholder="Enter test message..." maxlength="50" style="width: 300px;">
+            </div>
+            <button class="btn btn-success" onclick="testTTS()">
+                <i class="fas fa-play"></i> Play
+            </button>
+            
+            <h4 class="blueheading" style="margin-top: 30px;">TTS Logs</h4>
+            <div class="logs-container">
+                {% if logs %}
+                    {% for log in logs %}
+                    <div class="log-entry">
+                        <strong>{{ log.tiktok_username }}:</strong> {{ log.message }}
+                        <span style="float: right;">{{ log.created_at|date:"H:i" }}</span>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-data">No Entries</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Spam Protection -->
+        <div class="greyBackgroundSection">
+            <h4 class="blueheading">Spam Protection</h4>
+            <div class="form-group">
+                <label>User Cooldown (seconds)</label>
+                <input type="number" id="userCooldown" class="form-control" value="{{ settings.user_cooldown }}" min="0" style="width: 120px;">
+            </div>
+            <div class="form-group">
+                <label>Max Queue Length</label>
+                <input type="number" id="maxQueueLength" class="form-control" value="{{ settings.max_queue_length }}" min="1" max="50" style="width: 120px;">
+            </div>
+            <div class="form-group">
+                <label>Max Comment Length</label>
+                <input type="number" id="maxCommentLength" class="form-control" value="{{ settings.max_comment_length }}" min="5" max="500" style="width: 120px;">
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="filterLetterSpam" {% if settings.filter_letter_spam %}checked{% endif %}>
+                <label for="filterLetterSpam">Filter Letter Spam</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="filterMentions" {% if settings.filter_mentions %}checked{% endif %}>
+                <label for="filterMentions">Filter @mentions</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="filterCommands" {% if settings.filter_commands %}checked{% endif %}>
+                <label for="filterCommands">Filter !commands</label>
+            </div>
+        </div>
+
+        <!-- Advanced -->
+        <div class="greyBackgroundSection">
+            <h4 class="blueheading">Advanced</h4>
+            <div class="form-group">
+                <label>Message Template</label>
+                <input type="text" id="messageTemplate" class="form-control" value="{{ settings.message_template }}" placeholder="{comment}" maxlength="100" style="width: 260px;">
+            </div>
+            <div style="font-size: 0.8em; color: #aaa;">
+                <strong>Placeholder Params:</strong> {nickname} {username} {comment}<br>
+                <strong>Example:</strong> {nickname} says {comment}
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px;">
+        <button class="btn btn-success" onclick="saveSettings()">
+            <i class="fas fa-save"></i> Save Settings
+        </button>
+        <button class="btn btn-primary" onclick="testTTS()">
+            <i class="fas fa-volume-up"></i> Test TTS
+        </button>
+    </div>
+</div>
+
+<script>
+// Update range input displays
+document.getElementById('ttsSpeed').addEventListener('input', function() {
+    document.getElementById('speedValue').textContent = this.value;
+});
+
+document.getElementById('ttsPitch').addEventListener('input', function() {
+    document.getElementById('pitchValue').textContent = this.value;
+});
+
+document.getElementById('ttsVolume').addEventListener('input', function() {
+    document.getElementById('volumeValue').textContent = this.value;
+});
+
+// Test TTS function
+async function testTTS() {
+    const text = document.getElementById('testText').value || 'This is a test message';
+    const language = document.getElementById('ttsLanguage').value;
+    
+    try {
+        const response = await fetch('{% url "tiktok_live:tts_test" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                text: text,
+                language: language
+            })
+        });
+        
+        const data = await response.json();
+        if (data.success && data.audio_url) {
+            const audio = new Audio(data.audio_url);
+            const volume = document.getElementById('ttsVolume').value / 100;
+            audio.volume = volume;
+            audio.play();
+        } else {
+            alert('TTS test failed: ' + (data.error || 'Unknown error'));
+        }
+    } catch (error) {
+        console.error('TTS test error:', error);
+        alert('TTS test failed: ' + error.message);
+    }
+}
+
+// Save settings function
+async function saveSettings() {
+    const settings = {
+        is_enabled: document.getElementById('ttsEnabled').checked,
+        language: document.getElementById('ttsLanguage').value,
+        voice: document.getElementById('ttsVoice').value,
+        speed: parseInt(document.getElementById('ttsSpeed').value),
+        pitch: parseInt(document.getElementById('ttsPitch').value),
+        volume: parseInt(document.getElementById('ttsVolume').value),
+        user_cooldown: parseInt(document.getElementById('userCooldown').value),
+        max_queue_length: parseInt(document.getElementById('maxQueueLength').value),
+        max_comment_length: parseInt(document.getElementById('maxCommentLength').value),
+        filter_letter_spam: document.getElementById('filterLetterSpam').checked,
+        filter_mentions: document.getElementById('filterMentions').checked,
+        filter_commands: document.getElementById('filterCommands').checked,
+        message_template: document.getElementById('messageTemplate').value,
+        cost_per_message: parseInt(document.getElementById('costPerMessage').value)
+    };
+    
+    try {
+        const response = await fetch('{% url "tiktok_live:tts_update_settings" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify(settings)
+        });
+        
+        const data = await response.json();
+        if (data.success) {
+            alert('Settings saved successfully!');
+        } else {
+            alert('Failed to save settings: ' + (data.error || 'Unknown error'));
+        }
+    } catch (error) {
+        console.error('Save settings error:', error);
+        alert('Failed to save settings: ' + error.message);
+    }
+}
+
+// Add special user function
+function addSpecialUser() {
+    const username = prompt('Enter TikTok username (without @):');
+    if (username) {
+        // Add user to table (simplified for demo)
+        const table = document.getElementById('specialUsersTable');
+        const row = table.insertRow();
+        row.innerHTML = `
+            <td><button class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()"><i class="fas fa-trash"></i></button></td>
+            <td>${username}</td>
+            <td><input type="checkbox" checked></td>
+            <td>Default</td>
+            <td>50</td>
+            <td>50</td>
+        `;
+    }
+}
+
+// Remove special user function
+function removeSpecialUser(userId) {
+    if (confirm('Are you sure you want to remove this user?')) {
+        // Remove user logic here
+        location.reload();
+    }
+}
+</script>
+{% endblock %}

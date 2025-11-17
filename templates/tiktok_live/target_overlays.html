@@ -1,0 +1,43 @@
+{% extends 'tiktok_live/base.html' %}
+
+{% block title %}Goal Overlays - TikFinity{% endblock %}
+
+{% block content %}
+<div style="background: #1a1a1a; padding: 30px; border-radius: 12px;">
+    <h1 style="color: #667eea; margin-bottom: 10px;">🎯 Goal Overlays</h1>
+    <p style="color: #888; margin-bottom: 30px;">What goals do you have in your broadcast? Define Like, Share or Follow goals in the form of progress indicators.</p>
+
+    <div style="background: #252525; padding: 25px; border-radius: 8px; margin-bottom: 20px;">
+        <h3 style="color: #667eea; margin-bottom: 15px;">Likes <span style="background: #667eea; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">PRO</span></h3>
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; color: #ccc;">Goal:</label>
+            <input type="number" value="50000" min="10" max="9999999999" step="1000" style="width: 100%; max-width: 300px; padding: 12px; background: #1a1a1a; border: 1px solid #333; color: #fff; border-radius: 6px;">
+        </div>
+        <button style="padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer;">Save Settings</button>
+    </div>
+
+    <div style="background: #252525; padding: 25px; border-radius: 8px; margin-bottom: 20px;">
+        <h3 style="color: #667eea; margin-bottom: 15px;">Shares <span style="background: #667eea; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">PRO</span></h3>
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; color: #ccc;">Goal:</label>
+            <input type="number" value="1000" min="10" max="9999999999" step="100" style="width: 100%; max-width: 300px; padding: 12px; background: #1a1a1a; border: 1px solid #333; color: #fff; border-radius: 6px;">
+        </div>
+        <button style="padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer;">Save Settings</button>
+    </div>
+
+    <div style="background: #252525; padding: 25px; border-radius: 8px; margin-bottom: 20px;">
+        <h3 style="color: #667eea; margin-bottom: 15px;">Follows <span style="background: #667eea; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">PRO</span></h3>
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; color: #ccc;">Goal:</label>
+            <input type="number" value="500" min="10" max="9999999999" step="50" style="width: 100%; max-width: 300px; padding: 12px; background: #1a1a1a; border: 1px solid #333; color: #fff; border-radius: 6px;">
+        </div>
+        <button style="padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer;">Save Settings</button>
+    </div>
+
+    <div style="background: #252525; padding: 25px; border-radius: 8px;">
+        <h3 style="color: #667eea; margin-bottom: 15px;">Custom Goals</h3>
+        <p style="color: #aaa; margin-bottom: 20px;">Create your own custom goal overlays with personalized targets.</p>
+        <button style="padding: 12px 24px; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer;">Create Custom Goal</button>
+    </div>
+</div>
+{% endblock %}

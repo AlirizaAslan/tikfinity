@@ -1,0 +1,363 @@
+{% extends 'tiktok_live/base.html' %}
+
+{% block page_title %}Spotify Song Requests{% endblock %}
+
+{% block extra_css %}
+<style>
+    .blueheading { color: #667eea; margin-bottom: 15px; }
+    .noTopMarginHeader { margin-top: 0; }
+    .greyBackgroundSection { background: #1a1a1a; padding: 30px; border-radius: 12px; margin-bottom: 20px; }
+    .greyBackgroundSectionDynamicWidth { max-width: 600px; }
+    .redNotification { background: #dc2626; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    .redNotification .error a { color: #fff; text-decoration: underline; }
+    .dx-field { margin-bottom: 20px; display: flex; align-items: center; }
+    .dx-field-label { min-width: 200px; color: #ccc; font-weight: 500; }
+    .dx-field-value { flex: 1; }
+    .dxFieldValueFix { color: #fff; font-weight: 500; }
+    .dx-fieldset { margin-bottom: 30px; }
+    input[type="number"], input[type="text"] { background: #252525; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 8px; width: 120px; }
+    input[type="text"] { width: 300px; }
+    .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; background: #667eea; color: white; display: inline-flex; align-items: center; gap: 8px; }
+    .btn:hover { background: #5568d3; }
+    .btn-spotify { background: #1db954; }
+    .btn-spotify:hover { background: #1ed760; }
+    .checkbox { display: flex; align-items: center; gap: 10px; margin: 10px 0; }
+    .checkbox input[type="checkbox"] { width: 18px; height: 18px; }
+    .yngreen { color: #1db954; font-weight: bold; }
+    .spotifyCurrentPlaybackState { color: #e44f4f; font-weight: bold; }
+    .spotifyCurrentPlaybackState.connected { color: #1db954; }
+    .spotifyLoginInfo { color: #888; margin-bottom: 20px; }
+    .spotifyLoginInfo a { color: #667eea; text-decoration: none; }
+    .spotifyLoginInfo a:hover { text-decoration: underline; }
+    .spotifyUnconnected { position: absolute; left: 1000px; top: 100px; }
+    .history-table { width: 100%; max-width: 1000px; background: #252525; border-radius: 8px; overflow: hidden; }
+    .history-table th, .history-table td { padding: 12px; border-bottom: 1px solid #333; text-align: left; }
+    .history-table th { background: #1a1a1a; color: #ccc; font-weight: 500; }
+    .search-container { margin-bottom: 15px; }
+    .search-input { width: 160px; }
+    .test-container { display: flex; gap: 10px; align-items: center; }
+    .test-input { flex: 1; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page pageenabled" data-pageid="songrequests">
+    <h2 class="blueheading">Spotify Song Requests</h2>
+    
+    <div class="redNotification" style="display: none;">
+        <div class="error">Please run the <a href="{% url 'tiktok_live:setup' %}">Setup</a> first to create a free TikFinity Account!</div>
+    </div>
+    <br>
+
+    <div>
+        With this feature your viewers can request and skip songs on Spotify!<br>
+        Simply play your favorite playlist and your viewers can interact with it.<br>
+        The requested songs will be added to your Spotify playback queue!<br><br>
+        Setup the <a href="{% url 'tiktok_live:overlay_gallery' %}" style="color: #667eea;">Song Requests Overlay</a> to display your current playlist!<br>
+        Setup the <a href="{% url 'tiktok_live:overlay_gallery' %}" style="color: #667eea;">Command Info Overlay</a> to display the command results!<br><br>
+        
+        <h3 class="blueheading">Commands</h3>
+        <b class="yngreen">!play [Song - Artist]</b> - Add song to queue<br>
+        <b class="yngreen">!revoke</b> - Revoke requested song from queue<br>
+        <b class="yngreen">!skip</b> - Skip current track
+    </div>
+
+    <br><br>
+
+    <div class="spotifyUnconnected">
+        <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth">
+            <h3 class="blueheading noTopMarginHeader">Spotify Account Connection</h3>
+            <div>First, you need to connect your Spotify account.</div>
+            <br>
+            <button id="buttonConnectSpotify" class="btn btn-spotify" style="height: 40px;">
+                <i class="fab fa-spotify"></i>
+                <span>Sign in with Spotify</span>
+            </button>
+            <br>
+        </div>
+    </div>
+
+    <div class="spotifyLoginInfo" style="display: none;">
+        <span>Spotify connected with </span>
+        <b class="spotifyAccountUsername">Username</b><span>,</span>
+        <a href="#" onclick="disconnectSpotify()">Logout</a>
+    </div>
+
+    <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth">
+        <h3 class="blueheading noTopMarginHeader">Settings</h3>
+
+        <div class="dxForm">
+            <div class="form">
+                <div class="dx-fieldset">
+                    <div class="dx-field">
+                        <div class="dx-field-label">State</div>
+                        <div class="dx-field-value dxFieldValueFix">
+                            <b class="spotifyCurrentPlaybackState">Disconnected</b>
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label"><span class="yngreen">!play</span> enabled</div>
+                        <div class="dx-field-value">
+                            <div class="checkbox">
+                                <input type="checkbox" id="spotifyPlayEnabledCheckbox" checked>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label"><span class="yngreen">!play</span> cost</div>
+                        <div class="dx-field-value">
+                            <input type="number" id="spotifyPlayCostNumberbox" value="0" min="0" max="1000000" step="10">
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label"><span class="yngreen">!skip</span> enabled</div>
+                        <div class="dx-field-value">
+                            <div class="checkbox">
+                                <input type="checkbox" id="spotifySkipEnabledCheckbox" checked>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label"><span class="yngreen">!skip</span> cost</div>
+                        <div class="dx-field-value">
+                            <input type="number" id="spotifySkipCostNumberbox" value="0" min="0" max="1000000" step="10">
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Allow <span class="yngreen">!skip</span> requested tracks</div>
+                        <div class="dx-field-value">
+                            <div class="checkbox">
+                                <input type="checkbox" id="spotifySkipRequestsEnabledCheckbox">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Allow explicit content</div>
+                        <div class="dx-field-value">
+                            <div class="checkbox">
+                                <input type="checkbox" id="spotifyExplicitContentEnabledCheckbox" checked>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Max queue length (overall)</div>
+                        <div class="dx-field-value">
+                            <input type="number" id="spotifyQueueLength" value="2" min="1" max="10" step="1">
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Max queue length (single user)</div>
+                        <div class="dx-field-value">
+                            <input type="number" id="spotifyQueueUserLength" value="2" min="1" max="10" step="1">
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Display overlay permanently</div>
+                        <div class="dx-field-value">
+                            <div class="checkbox">
+                                <input type="checkbox" id="spotifyQueuePermaEnabledCheckbox" checked>
+                            </div>
+                            <div id="spotifyQueuePermaEnabledCheckboxHint" style="display: none; color: #888; margin-left: 10px;">
+                                (use <span class="yngreen">!music</span> to show)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Commands available for</div>
+                        <div class="dx-field-value">
+                            <div class="checkbox">
+                                <input type="checkbox" id="spotifyCommandsEnabledAllUsers" checked>
+                                <label for="spotifyCommandsEnabledAllUsers">All Users</label>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" id="spotifyCommandsEnabledSubscribers" checked>
+                                <label for="spotifyCommandsEnabledSubscribers">Super Fans / Subscribers</label>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" id="spotifyCommandsEnabledMods" checked>
+                                <label for="spotifyCommandsEnabledMods">Mods</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth">
+        <h3 class="blueheading noTopMarginHeader">History</h3>
+
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search..." id="historySearch">
+        </div>
+
+        <table class="history-table" id="songRequestHistoryGrid">
+            <thead>
+                <tr>
+                    <th style="width: 200px;">Date</th>
+                    <th style="width: 250px;">User</th>
+                    <th>Track</th>
+                    <th style="width: 150px;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4" style="text-align: center; color: #888;">No data</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth">
+        <h3 class="blueheading noTopMarginHeader">Testing Area</h3>
+
+        <div class="test-container">
+            <input type="text" class="test-input" id="songRequestsTestInput" placeholder="Enter Songname...">
+            <button class="btn" id="songRequestsTestButton">
+                <i class="fas fa-chevron-right"></i>
+                <span>Test</span>
+            </button>
+        </div>
+    </div>
+
+    <br><br>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    let spotifyConnected = false;
+    let spotifyUsername = '';
+
+    // Spotify connection
+    document.getElementById('buttonConnectSpotify').addEventListener('click', function() {
+        // Simulate Spotify OAuth flow
+        this.disabled = true;
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+        
+        setTimeout(() => {
+            spotifyConnected = true;
+            spotifyUsername = 'user123';
+            updateSpotifyStatus();
+            this.disabled = false;
+            this.innerHTML = '<i class="fab fa-spotify"></i> Sign in with Spotify';
+        }, 2000);
+    });
+
+    function disconnectSpotify() {
+        if (confirm('Are you sure you want to disconnect from Spotify?')) {
+            spotifyConnected = false;
+            spotifyUsername = '';
+            updateSpotifyStatus();
+        }
+    }
+
+    function updateSpotifyStatus() {
+        const loginInfo = document.querySelector('.spotifyLoginInfo');
+        const connectSection = document.querySelector('.spotifyUnconnected');
+        const statusElement = document.querySelector('.spotifyCurrentPlaybackState');
+        const usernameElement = document.querySelector('.spotifyAccountUsername');
+        
+        if (spotifyConnected) {
+            loginInfo.style.display = 'block';
+            connectSection.style.display = 'none';
+            statusElement.textContent = 'Connected';
+            statusElement.className = 'spotifyCurrentPlaybackState connected';
+            usernameElement.textContent = spotifyUsername;
+        } else {
+            loginInfo.style.display = 'none';
+            connectSection.style.display = 'block';
+            statusElement.textContent = 'Disconnected';
+            statusElement.className = 'spotifyCurrentPlaybackState';
+        }
+    }
+
+    // Permanent overlay toggle
+    document.getElementById('spotifyQueuePermaEnabledCheckbox').addEventListener('change', function() {
+        const hint = document.getElementById('spotifyQueuePermaEnabledCheckboxHint');
+        hint.style.display = this.checked ? 'none' : 'block';
+    });
+
+    // Test functionality
+    document.getElementById('songRequestsTestButton').addEventListener('click', function() {
+        const input = document.getElementById('songRequestsTestInput');
+        const songName = input.value.trim();
+        
+        if (!songName) {
+            alert('Please enter a song name');
+            return;
+        }
+        
+        if (!spotifyConnected) {
+            alert('Please connect to Spotify first');
+            return;
+        }
+        
+        this.disabled = true;
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Testing...';
+        
+        // Simulate song request
+        setTimeout(() => {
+            addToHistory(new Date(), 'TestUser', songName, 'Added to Queue');
+            input.value = '';
+            this.disabled = false;
+            this.innerHTML = '<i class="fas fa-chevron-right"></i> Test';
+            alert(`Song "${songName}" added to queue successfully!`);
+        }, 1500);
+    });
+
+    // History search
+    document.getElementById('historySearch').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#songRequestHistoryGrid tbody tr');
+        
+        rows.forEach(row => {
+            if (row.cells.length === 1) return; // Skip "No data" row
+            
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(searchTerm) ? '' : 'none';
+        });
+    });
+
+    function addToHistory(date, user, track, status) {
+        const tbody = document.querySelector('#songRequestHistoryGrid tbody');
+        
+        // Remove "No data" row if it exists
+        const noDataRow = tbody.querySelector('tr td[colspan="4"]');
+        if (noDataRow) {
+            noDataRow.parentElement.remove();
+        }
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${date.toLocaleString()}</td>
+            <td>${user}</td>
+            <td>${track}</td>
+            <td style="color: #1db954;">${status}</td>
+        `;
+        
+        tbody.insertBefore(row, tbody.firstChild);
+        
+        // Keep only last 50 entries
+        const rows = tbody.querySelectorAll('tr');
+        if (rows.length > 50) {
+            rows[rows.length - 1].remove();
+        }
+    }
+
+    // Input validation
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.addEventListener('input', function() {
+            const min = parseInt(this.min);
+            const max = parseInt(this.max);
+            const value = parseInt(this.value);
+            
+            if (value < min) this.value = min;
+            if (value > max) this.value = max;
+        });
+    });
+
+    // Initialize
+    updateSpotifyStatus();
+</script>
+{% endblock %}

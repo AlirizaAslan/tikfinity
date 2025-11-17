@@ -1,38 +1,106 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Last {{ x_type|title }} Widget</title>
+    <meta charset="utf-8">
+    <title>Last {{ type|title }} Widget</title>
     <style>
-        body { margin: 0; padding: 20px; background: #0f0f0f; color: #fff; font-family: Arial, sans-serif; }
-        .lastx-container { background: #1a1a1a; padding: 20px; border-radius: 8px; display: flex; align-items: center; }
-        .lastx-avatar { width: 60px; height: 60px; border-radius: 50%; background: #333; margin-right: 15px; }
-        .lastx-info { flex: 1; }
-        .lastx-title { font-size: 14px; color: #888; margin-bottom: 5px; }
-        .lastx-username { font-size: 18px; font-weight: bold; }
-        .lastx-action { font-size: 12px; color: #fe2c55; margin-top: 5px; }
+        body {
+            margin: 0;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            background: {% if preview %}white{% else %}transparent{% endif %};
+            color: #333;
+        }
+        .widget-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: {% if preview %}#f0f0f0{% else %}rgba(0,0,0,0.7){% endif %};
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
+        }
+        .user-info {
+            flex: 1;
+        }
+        .username {
+            font-size: 18px;
+            font-weight: bold;
+            color: {% if preview %}#333{% else %}#fff{% endif %};
+        }
+        .action-text {
+            font-size: 14px;
+            color: {% if preview %}#666{% else %}#ccc{% endif %};
+        }
+        .timestamp {
+            font-size: 12px;
+            color: {% if preview %}#999{% else %}#aaa{% endif %};
+        }
     </style>
 </head>
 <body>
-    <div class="lastx-container">
-        <div class="lastx-avatar"></div>
-        <div class="lastx-info">
-            <div class="lastx-title">LAST {{ x_type|upper }}</div>
-            <div class="lastx-username">@example_user</div>
-            <div class="lastx-action">
-                {% if x_type == 'follower' %}Just followed!
-                {% elif x_type == 'gifter' %}Sent a Rose 🌹
-                {% elif x_type == 'subscriber' %}Became a Super Fan!
-                {% elif x_type == 'share' %}Shared the stream!
-                {% elif x_type == 'like' %}Liked the stream ❤️
-                {% elif x_type == 'chatter' %}Said: "Hello everyone!"
-                {% else %}Took an action{% endif %}
-            </div>
+    <div class="widget-container" id="lastWidget">
+        {% if last_user %}
+        <img src="https://www.tiktok.com/@{{ last_user.username }}/avatar" alt="Profile" class="profile-pic" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMjUiIGZpbGw9IiNjY2MiLz4KPGNpcmNsZSBjeD0iMjUiIGN5PSIyMCIgcj0iOCIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTEwIDQwYzAtOCA2LTggMTUtOCAxNSAwIDE1IDAgMTUgOCIgZmlsbD0id2hpdGUiLz4KPC9zdmc+'">
+        <div class="user-info">
+            <div class="username">@{{ last_user.username }}</div>
+            <div class="action-text">Last {{ type }}</div>
+            <div class="timestamp">{{ last_user.timestamp|timesince }} ago</div>
         </div>
-        {% if preview %}
-        <div style="font-size: 12px; color: #888; margin-left: 15px;">
-            Preview<br>CID: {{ cid }}
+        {% else %}
+        <div class="user-info">
+            <div class="username">No {{ type }} yet</div>
+            <div class="action-text">Waiting for first {{ type }}...</div>
         </div>
         {% endif %}
     </div>
+
+    <script>
+        // Auto-refresh every 2 seconds
+        setInterval(() => {
+            if (!document.hidden) {
+                location.reload();
+            }
+        }, 2000);
+
+        // WebSocket connection for real-time updates
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const wsUrl = `${protocol}//${window.location.host}/ws/lastx/{{ user_id }}/`;
+        
+        try {
+            const socket = new WebSocket(wsUrl);
+            
+            socket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                if (data.type === 'lastx_update' && data.widget_type === '{{ type }}') {
+                    updateWidget({
+                        username: data.username,
+                        timestamp: data.timestamp
+                    });
+                }
+            };
+        } catch (e) {
+            console.log('WebSocket not available, using polling');
+        }
+
+        function updateWidget(user) {
+            const widget = document.getElementById('lastWidget');
+            widget.innerHTML = `
+                <img src="https://www.tiktok.com/@${user.username}/avatar" alt="Profile" class="profile-pic" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMjUiIGZpbGw9IiNjY2MiLz4KPGNpcmNsZSBjeD0iMjUiIGN5PSIyMCIgcj0iOCIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTEwIDQwYzAtOCA2LTggMTUtOCAxNSAwIDE1IDAgMTUgOCIgZmlsbD0id2hpdGUiLz4KPC9zdmc+'">
+                <div class="user-info">
+                    <div class="username">@${user.username}</div>
+                    <div class="action-text">Last {{ type }}</div>
+                    <div class="timestamp">Just now</div>
+                </div>
+            `;
+        }
+    </script>
 </body>
 </html>

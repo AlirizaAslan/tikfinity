@@ -80,12 +80,12 @@ class AutomationTrigger(models.Model):
         ('change_scene', 'Change OBS Scene'),
     ]
     
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200)
     trigger_type = models.CharField(max_length=30, choices=TRIGGER_TYPES)
-    trigger_value = models.CharField(max_length=500)  # keyword, gift name, milestone number
+    trigger_value = models.CharField(max_length=500, default='')  # keyword, gift name, milestone number
     action_type = models.CharField(max_length=30, choices=ACTION_TYPES)
-    action_value = models.TextField()  # reply message, sound file, alert text, scene name
+    action_value = models.TextField(default='')  # reply message, sound file, alert text, scene name
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     

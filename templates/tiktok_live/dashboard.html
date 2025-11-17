@@ -1,0 +1,52 @@
+{% extends 'tiktok_live/base.html' %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    
+    {% if tiktok_username %}
+        <div style="background-color: #2d2d2d; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+            <h2>Welcome back!</h2>
+            <p>Connected TikTok Account: <strong>@{{ tiktok_username }}</strong></p>
+        </div>
+    {% endif %}
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <div style="background-color: #2d2d2d; padding: 1.5rem; border-radius: 8px;">
+            <h3>Quick Actions</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 0.5rem;">
+                    <a href="{% url 'tiktok_live:setup' %}" style="color: #4a90e2; text-decoration: none;">⚙️ Setup & Configuration</a>
+                </li>
+                <li style="margin-bottom: 0.5rem;">
+                    <a href="{% url 'tiktok_live:actions_events' %}" style="color: #4a90e2; text-decoration: none;">🎬 Actions & Events</a>
+                </li>
+                <li style="margin-bottom: 0.5rem;">
+                    <a href="{% url 'tiktok_live:overlay_gallery' %}" style="color: #4a90e2; text-decoration: none;">🎨 Overlay Gallery</a>
+                </li>
+            </ul>
+        </div>
+        
+        <div style="background-color: #2d2d2d; padding: 1.5rem; border-radius: 8px;">
+            <h3>Stream Status</h3>
+            {% if active_streams %}
+                <p style="color: #27ae60;">🔴 {{ active_streams.count }} active stream(s)</p>
+            {% else %}
+                <p style="color: #888;">⚫ No active streams</p>
+            {% endif %}
+        </div>
+        
+        <div style="background-color: #2d2d2d; padding: 1.5rem; border-radius: 8px;">
+            <h3>Account Info</h3>
+            {% if user.is_authenticated %}
+                <p>Logged in as: <strong>{{ user.username }}</strong></p>
+                <p>Accounts: {{ accounts.count }}</p>
+            {% else %}
+                <p>Not logged in</p>
+                <a href="{% url 'tiktok_live:login' %}" style="color: #4a90e2;">Login</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

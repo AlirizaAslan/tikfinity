@@ -96,10 +96,10 @@
         </div>
         
         <div class="menu-category"><i class="fas fa-home"></i> ANA MENÜ</div>
-        <div class="menu-item active" onclick="location.href='{% url 'tiktok_live:dashboard' %}'">
+        <div class="menu-item active" onclick="window.location.href='{% url 'tiktok_live:dashboard' %}'">
             <i class="fas fa-th-large"></i> Başlangıç
         </div>
-        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:setup' %}'">
+        <div class="menu-item" onclick="window.location.href='{% url 'tiktok_live:setup' %}'">
             <i class="fas fa-cog"></i> Kurulum
         </div>
         
@@ -206,7 +206,7 @@
         <div class="menu-item" onclick="location.href='{% url 'tiktok_live:challenge' %}'">
             <i class="fas fa-trophy"></i> Meydan Okuma
         </div>
-        <div class="menu-item" onclick="location.href='{% url 'tiktok_live:halving' %}'">
+        <div class="menu-item" onclick="window.location.href='/tiktok/halving/'">
             <i class="fas fa-divide"></i> Yarılama
         </div>
         
@@ -455,6 +455,19 @@
             const overlayUrl = baseUrl + '?cid=' + userId + '&preview=1';
             window.open(overlayUrl, '_blank', 'width=900,height=600');
         }
+        
+        // Handle clicks on menu items with data-pageid
+        document.addEventListener('click', function(e) {
+            const element = e.target.closest('[data-pageid]');
+            if (element) {
+                const pageId = element.getAttribute('data-pageid');
+                if (pageId === 'halving') {
+                    window.location.href = '{% url "tiktok_live:halving" %}';
+                }
+            }
+        });
+        
+
     </script>
 </body>
 </html>

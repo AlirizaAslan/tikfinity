@@ -1,0 +1,326 @@
+{% extends 'tiktok_live/base.html' %}
+
+{% block page_title %}The Wheel of Fortune{% endblock %}
+
+{% block extra_css %}
+<style>
+    .blueheading { color: #667eea; margin-bottom: 15px; }
+    .noTopMarginHeader { margin-top: 0; }
+    .greyBackgroundSection { background: #1a1a1a; padding: 30px; border-radius: 12px; margin-bottom: 20px; }
+    .greyBackgroundSectionDynamicWidth { max-width: 600px; }
+    .redNotification { background: #dc2626; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    .redNotification .error a { color: #fff; text-decoration: underline; }
+    .dx-field { margin-bottom: 20px; display: flex; align-items: center; }
+    .dx-field-label { min-width: 200px; color: #ccc; font-weight: 500; }
+    .dx-field-value { flex: 1; }
+    .dxFieldValueFix { color: #fff; font-weight: 500; }
+    .dx-fieldset { margin-bottom: 30px; }
+    input[type="number"] { background: #252525; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 8px; width: 120px; }
+    .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; background: #667eea; color: white; display: inline-flex; align-items: center; gap: 8px; }
+    .btn:hover { background: #5568d3; }
+    .checkbox { display: flex; align-items: center; gap: 10px; margin: 10px 0; }
+    .checkbox input[type="checkbox"] { width: 18px; height: 18px; }
+    .cmdspin { color: #fe2c55; font-weight: bold; }
+    .changecommandlabel, .changeactionlabel { color: #667eea; text-decoration: none; margin-left: 10px; }
+    .changecommandlabel:hover, .changeactionlabel:hover { text-decoration: underline; }
+    .wheelMainWinActionName { color: #10b981; font-weight: bold; }
+    .help-link { color: #667eea; text-decoration: none; }
+    .help-link:hover { text-decoration: underline; }
+    .custom-fields-table { width: 100%; background: #252525; border-radius: 8px; overflow: hidden; margin-top: 15px; }
+    .custom-fields-table th, .custom-fields-table td { padding: 12px; border-bottom: 1px solid #333; text-align: left; }
+    .custom-fields-table th { background: #1a1a1a; color: #ccc; font-weight: 500; }
+    .field-count { color: #888; margin-top: 10px; }
+    .color-picker { width: 40px; height: 30px; border: none; border-radius: 4px; cursor: pointer; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page pageenabled" data-pageid="wheel">
+    <h2 class="blueheading">The Wheel of Fortune</h2>
+    <div>Here you can set how much the execution of the Wheel of Fortune command costs for your viewers,<br>
+    how many times the command can be executed by a user, and what profits can be made in the process.<br>
+    For this purpose is the <a href="{% url 'tiktok_live:overlay_gallery' %}" style="color: #667eea;">Wheel of Fortune Overlay</a> for OBS/LIVE Studio required.</div>
+    <br>
+
+    <div class="redNotification" style="display: none;">
+        <div class="error">Please run the <a href="{% url 'tiktok_live:setup' %}">Setup</a> first to create a free TikFinity Account!</div>
+    </div>
+
+    <br>
+    <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth">
+        <div class="dxForm">
+            <div class="form">
+                <div class="dx-fieldset">
+                    <div class="dx-field">
+                        <div class="dx-field-label">Command to trigger wheel</div>
+                        <div class="dx-field-value dxFieldValueFix">
+                            <b class="cmdspin">!spin</b> 
+                            <a class="changecommandlabel" href="{% url 'tiktok_live:chat_commands' %}">Change</a>
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Action for main win</div>
+                        <div class="dx-field-value dxFieldValueFix">
+                            <b class="wheelMainWinActionName" id="mainWinActionName">-</b> 
+                            <a class="changeactionlabel" href="#" onclick="changeMainWinAction()">Change</a>
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Cost per spin</div>
+                        <div class="dx-field-value">
+                            <input type="number" id="textboxSpinCost" value="5" min="0" max="100000" step="1">
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Maximum normal win</div>
+                        <div class="dx-field-value">
+                            <input type="number" id="textboxSpinMaxWin" value="10" min="1" max="100000" step="1">
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Main win</div>
+                        <div class="dx-field-value">
+                            <input type="number" id="textboxSpinMainPrice" value="30" min="1" max="1000000" step="1">
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label">Waiting time (minutes)</div>
+                        <div class="dx-field-value">
+                            <input type="number" id="textboxSpinDelay" value="10" min="0" max="120" step="1">
+                        </div>
+                    </div>
+                    <div class="dx-field">
+                        <div class="dx-field-label"></div>
+                        <div class="dx-field-value">
+                            <a class="help-link" href="#" onclick="toggleHelp()">
+                                <i class="far fa-question-circle"></i> What does this setting mean?
+                            </a>
+                            <div id="helpContent" style="display: none; margin-top: 15px; padding: 15px; background: #252525; border-radius: 8px;">
+                                <h4>The Wheel of Fortune</h4>
+                                <p>The Wheel of Fortune can be triggered by writing the command <b class="cmdspin">!spin</b>. The viewer receives a profit in the form of points after the animation ends.</p>
+                                <br>
+                                <p><b>Cost per spin:</b> How many points will be deducted when the command is executed. Enter 0 for free spins.</p>
+                                <p><b>Maximum normal win:</b> The wheel has 24 fields. 2 are rivets (no win) and 21 fields correspond to winning between 1 and this value.</p>
+                                <p><b>Main win:</b> One field contains the main prize. The chance of winning is 1/24.</p>
+                                <p><b>Waiting time:</b> How long a user must wait until the next execution. Enter 0 for no waiting time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth">
+        <h3 class="blueheading noTopMarginHeader">Advanced Settings</h3>
+        <br>
+        
+        <div class="checkbox">
+            <input type="checkbox" id="wheelUseCustomSegments">
+            <label for="wheelUseCustomSegments">Use custom fields</label>
+        </div>
+
+        <br><br><br>
+        <div>
+            <button id="wheelButtonAddSegment" class="btn">
+                <i class="fas fa-plus"></i>
+                <span>New Field</span>
+            </button>
+            <div id="wheelCustomSegmentCount" class="field-count">0 of 24 Fields</div>
+            
+            <div id="customFieldsContainer" style="display: none;">
+                <table class="custom-fields-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px;"></th>
+                            <th>Field color</th>
+                            <th>Points +/-</th>
+                            <th>Custom Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customFieldsList">
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #888;">No fields defined yet</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <br><br><br>
+        <table>
+            <tr>
+                <td>
+                    <div class="checkbox">
+                        <input type="checkbox" id="wheelAllowChatGamble">
+                        <label for="wheelAllowChatGamble">Allow chat gamble</label>
+                    </div>
+                </td>
+                <td style="padding-left: 20px;">
+                    <a class="help-link" href="#" onclick="toggleGambleHelp()">
+                        <i class="far fa-question-circle"></i> how does this work?
+                    </a>
+                    <div id="gambleHelpContent" style="display: none; margin-top: 15px; padding: 15px; background: #252525; border-radius: 8px;">
+                        <h4>How "chat gamble" works</h4>
+                        <p>Enable this option to allow your chat to gamble as many credits as they'd like to. This will increase the value of your rewards by the same ratio. The minimum to spend will still be the "Cost per spin" value. "Cost per spin" must <b>not</b> be set to 0!</p>
+                        <br>
+                        <p><b>Example:</b></p>
+                        <p><span class="cmdspin">!spin</span> 30</p>
+                        <p><span class="cmdspin">!spin</span> 5166</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="dxForm">
+            <div class="form">
+                <div class="dx-fieldset">
+                    <div class="dx-field">
+                        <div class="dx-field-label">Maximum gamble amount</div>
+                        <div class="dx-field-value">
+                            <input type="number" id="textboxMaxGambleAmount" value="200" min="20" max="1000000" step="100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    let customFields = [];
+    let fieldCounter = 0;
+
+    // Toggle help content
+    function toggleHelp() {
+        const helpContent = document.getElementById('helpContent');
+        helpContent.style.display = helpContent.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function toggleGambleHelp() {
+        const helpContent = document.getElementById('gambleHelpContent');
+        helpContent.style.display = helpContent.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Change main win action
+    function changeMainWinAction() {
+        const actions = ['Give Points', 'Play Sound', 'Show Message', 'Custom Action'];
+        const current = document.getElementById('mainWinActionName').textContent;
+        const currentIndex = actions.indexOf(current);
+        const nextIndex = (currentIndex + 1) % actions.length;
+        document.getElementById('mainWinActionName').textContent = actions[nextIndex];
+    }
+
+    // Custom segments toggle
+    document.getElementById('wheelUseCustomSegments').addEventListener('change', function() {
+        const container = document.getElementById('customFieldsContainer');
+        container.style.display = this.checked ? 'block' : 'none';
+        updateFieldCount();
+    });
+
+    // Add new field
+    document.getElementById('wheelButtonAddSegment').addEventListener('click', function() {
+        if (customFields.length >= 24) {
+            alert('Maximum 24 fields allowed');
+            return;
+        }
+        
+        addCustomField();
+    });
+
+    function addCustomField() {
+        fieldCounter++;
+        const field = {
+            id: fieldCounter,
+            color: '#' + Math.floor(Math.random()*16777215).toString(16),
+            points: Math.floor(Math.random() * 20) + 1,
+            description: `Field ${fieldCounter}`,
+            action: 'None'
+        };
+        
+        customFields.push(field);
+        renderCustomFields();
+        updateFieldCount();
+    }
+
+    function removeCustomField(id) {
+        customFields = customFields.filter(field => field.id !== id);
+        renderCustomFields();
+        updateFieldCount();
+    }
+
+    function renderCustomFields() {
+        const tbody = document.getElementById('customFieldsList');
+        
+        if (customFields.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #888;">No fields defined yet</td></tr>';
+            return;
+        }
+        
+        tbody.innerHTML = customFields.map(field => `
+            <tr>
+                <td>
+                    <button class="btn" style="padding: 4px 8px; background: #dc2626;" onclick="removeCustomField(${field.id})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+                <td>
+                    <input type="color" class="color-picker" value="${field.color}" onchange="updateFieldColor(${field.id}, this.value)">
+                </td>
+                <td>
+                    <input type="number" value="${field.points}" min="-1000" max="1000" style="width: 80px;" onchange="updateFieldPoints(${field.id}, this.value)">
+                </td>
+                <td>
+                    <input type="text" value="${field.description}" style="width: 150px;" onchange="updateFieldDescription(${field.id}, this.value)">
+                </td>
+                <td>
+                    <select style="background: #252525; border: 1px solid #333; color: #fff; padding: 4px;" onchange="updateFieldAction(${field.id}, this.value)">
+                        <option value="None" ${field.action === 'None' ? 'selected' : ''}>None</option>
+                        <option value="Sound" ${field.action === 'Sound' ? 'selected' : ''}>Play Sound</option>
+                        <option value="Message" ${field.action === 'Message' ? 'selected' : ''}>Show Message</option>
+                    </select>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function updateFieldColor(id, color) {
+        const field = customFields.find(f => f.id === id);
+        if (field) field.color = color;
+    }
+
+    function updateFieldPoints(id, points) {
+        const field = customFields.find(f => f.id === id);
+        if (field) field.points = parseInt(points);
+    }
+
+    function updateFieldDescription(id, description) {
+        const field = customFields.find(f => f.id === id);
+        if (field) field.description = description;
+    }
+
+    function updateFieldAction(id, action) {
+        const field = customFields.find(f => f.id === id);
+        if (field) field.action = action;
+    }
+
+    function updateFieldCount() {
+        document.getElementById('wheelCustomSegmentCount').textContent = `${customFields.length} of 24 Fields`;
+    }
+
+    // Input validation
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.addEventListener('input', function() {
+            const min = parseInt(this.min);
+            const max = parseInt(this.max);
+            const value = parseInt(this.value);
+            
+            if (value < min) this.value = min;
+            if (value > max) this.value = max;
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'tiktok_live/base.html' %}
+
+{% block page_title %}Login to TikFinity{% endblock %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 0 auto;">
+    
+    {% if error %}
+        <div style="color: #e74c3c; padding: 1rem; background-color: rgba(231, 76, 60, 0.1); border-radius: 4px; margin-bottom: 1rem;">
+            {{ error }}
+        </div>
+    {% endif %}
+    
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom: 1rem;">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required 
+                   style="width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #555; border-radius: 4px; background-color: #3d3d3d; color: #ffffff;">
+        </div>
+        
+        <div style="margin-bottom: 1rem;">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required 
+                   style="width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #555; border-radius: 4px; background-color: #3d3d3d; color: #ffffff;">
+        </div>
+        
+        <button type="submit" style="background-color: #4a90e2; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 4px; cursor: pointer; width: 100%;">
+            Login
+        </button>
+    </form>
+    
+    <div style="text-align: center; margin-top: 1rem;">
+        <a href="{% url 'tiktok_live:setup' %}" style="color: #4a90e2;">Back to Setup</a>
+    </div>
+</div>
+{% endblock %}

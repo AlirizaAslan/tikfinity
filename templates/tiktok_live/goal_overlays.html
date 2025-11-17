@@ -1,0 +1,498 @@
+{% extends 'tiktok_live/base.html' %}
+
+{% block page_title %}Goal Overlays{% endblock %}
+
+{% block extra_css %}
+<style>
+    .blueheading { color: #667eea; margin-bottom: 15px; }
+    .proBadge { background: #fe2c55; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; margin-left: 8px; }
+    .goalSection { background: #1a1a1a; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+    .goalSectionPro { border-left: 3px solid #fe2c55; }
+    .goalSettings table { width: 100%; margin-bottom: 20px; border-collapse: collapse; }
+    .goalSettings td { padding: 8px; vertical-align: top; }
+    .goalSettings input, .goalSettings select { background: #252525; border: 1px solid #333; color: #fff; padding: 8px; border-radius: 4px; }
+    .goalprogressoverlay { margin-top: 15px; }
+    .compactPathBox { background: #252525; border: 1px solid #333; color: #fff; padding: 8px; border-radius: 4px; }
+    .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; background: #667eea; color: white; margin: 2px; }
+    .btn:hover { background: #5568d3; }
+    .manualSet { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+    .promotion-content { background: #1a1a1a; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333; }
+    .promotion-content a { color: #667eea; text-decoration: none; }
+    .redNotification { background: #dc2626; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    .redNotification .error a { color: #fff; text-decoration: underline; }
+    .checkbox { display: flex; align-items: center; gap: 10px; margin: 10px 0; }
+    .preview-container { display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 10px; border-radius: 6px; border: 1px solid #4e4e4e; background: #0f0f0f; }
+    .preview-controls { display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .style-indicator { text-align: center; font-size: 12px; font-weight: 700; margin-top: 1rem; color: #888; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page pageenabled" data-pageid="goals">
+    <div class="promotion-content">
+        Get the free <a href="/app/">TikFinity Desktop App</a> for Windows to enjoy additional features and stability improvements!
+    </div>
+
+    <h2 class="blueheading">Goal Overlays</h2>
+    <div>What goals do you have in your broadcast? Define Like, Share or Follow goals in the form of progress indicators.<br>
+    To include the goals in <b>OBS (Browser Source)</b> or <b>LIVE Studio (Link)</b>, simply copy the URLs. You can change the colors<br>
+    by clicking on the "Customize" button. Watch <a href="https://youtu.be/v0COFo-gFQ4?t=567" target="_blank" style="color: #667eea;">this video</a> to learn how the Broadcast Goals work.</div>
+
+    <br>
+    <div class="redNotification" style="display: none;">
+        <div class="error">Please run the <a href="{% url 'tiktok_live:setup' %}">Setup</a> first to create a free TikFinity Account!</div>
+    </div>
+
+    <div class="widgetsContainer">
+        <!-- Likes Goal -->
+        <div class="goalSection goalSectionPro" id="goal-likes">
+            <h3 class="blueheading">Likes<span class="proBadge">PRO</span></h3>
+            <div class="goalMetricContainer" data-metric="likes">
+                <div class="goalSettings">
+                    <table>
+                        <tr>
+                            <td><div>Goal:</div></td>
+                            <td><div>Title:</div></td>
+                            <td><div>When reached:</div></td>
+                            <td><div>Action on reaching:</div></td>
+                        </tr>
+                        <tr>
+                            <td><input type="number" id="goal_likes_value" value="50000" min="10" max="9999999999" step="1000" style="width: 89px;"></td>
+                            <td><input type="text" id="goal_likes_title" style="width: 96px;"></td>
+                            <td>
+                                <select id="goal_likes_increaseSelect" style="width: 185px;">
+                                    <option value="0">Select...</option>
+                                </select>
+                            </td>
+                            <td><a class="goalActionName" style="color: #667eea; cursor: pointer;">Select</a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="goalprogressoverlay" data-widgetid="goal" data-goalmetric="likes">
+                    <div style="margin-bottom: 6px; display: flex; gap: 5px; align-items: center;">
+                        <input type="text" readonly style="width: 501px;" class="compactPathBox" placeholder="Widget URL will appear here">
+                        <button class="btn"><i class="fas fa-link"></i> Copy URL</button>
+                        <button class="btn"><i class="fas fa-chevron-right"></i> Test</button>
+                        <button class="btn"><i class="fas fa-cog"></i> Customize</button>
+                    </div>
+                    <div class="preview-container">
+                        <div class="preview-controls">
+                            <button class="btn" style="width: 37px;"><i class="fas fa-chevron-left"></i></button>
+                            <iframe src="https://tikfinity.zerody.one/widget/goal?cid=2449591&metric=likes&preview=1" style="width: 692px; height: 130px; border: 0; border-radius: 4px;"></iframe>
+                            <button class="btn" style="width: 37px;"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="style-indicator">Style: 7/7</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shares Goal -->
+        <div class="goalSection" id="goal-shares">
+            <h3 class="blueheading">Shares<span class="proBadge">PRO</span></h3>
+            <div class="goalMetricContainer" data-metric="shares">
+                <div class="goalSettings">
+                    <table>
+                        <tr>
+                            <td><div>Goal:</div></td>
+                            <td><div>Title:</div></td>
+                            <td><div>When reached:</div></td>
+                            <td><div>Action on reaching:</div></td>
+                        </tr>
+                        <tr>
+                            <td><input type="number" id="goal_shares_value" value="50" min="5" max="9999999999" step="1" style="width: 89px;"></td>
+                            <td><input type="text" id="goal_shares_title" style="width: 96px;"></td>
+                            <td>
+                                <select id="goal_shares_increaseSelect" style="width: 185px;">
+                                    <option value="0">Select...</option>
+                                </select>
+                            </td>
+                            <td><a class="goalActionName" style="color: #667eea; cursor: pointer;">Select</a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="goalprogressoverlay" data-widgetid="goal" data-goalmetric="shares">
+                    <div style="margin-bottom: 6px; display: flex; gap: 5px; align-items: center;">
+                        <input type="text" readonly style="width: 501px;" class="compactPathBox" placeholder="Widget URL will appear here">
+                        <button class="btn"><i class="fas fa-link"></i> Copy URL</button>
+                        <button class="btn"><i class="fas fa-chevron-right"></i> Test</button>
+                        <button class="btn"><i class="fas fa-cog"></i> Customize</button>
+                    </div>
+                    <div class="preview-container">
+                        <div class="preview-controls">
+                            <button class="btn" style="width: 37px;"><i class="fas fa-chevron-left"></i></button>
+                            <iframe src="https://tikfinity.zerody.one/widget/goal?cid=2449591&metric=shares&preview=1" style="width: 692px; height: 130px; border: 0; border-radius: 4px;"></iframe>
+                            <button class="btn" style="width: 37px;"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="style-indicator">Style: 1/7</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Follows Goal -->
+        <div class="goalSection" id="goal-follows">
+            <h3 class="blueheading">Follows<span class="proBadge">PRO</span></h3>
+            <div class="goalMetricContainer" data-metric="follows">
+                <div class="goalSettings">
+                    <table>
+                        <tr>
+                            <td><div>Goal:</div></td>
+                            <td><div>Title:</div></td>
+                            <td><div>When reached:</div></td>
+                            <td><div>Action on reaching:</div></td>
+                        </tr>
+                        <tr>
+                            <td><input type="number" id="goal_follows_value" value="100" min="10" max="9999999999" step="10" style="width: 89px;"></td>
+                            <td><input type="text" id="goal_follows_title" style="width: 96px;"></td>
+                            <td>
+                                <select id="goal_follows_increaseSelect" style="width: 185px;">
+                                    <option value="0">Select...</option>
+                                </select>
+                            </td>
+                            <td><a class="goalActionName" style="color: #667eea; cursor: pointer;">Select</a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="goalprogressoverlay" data-widgetid="goal" data-goalmetric="follows">
+                    <div style="margin-bottom: 6px; display: flex; gap: 5px; align-items: center;">
+                        <input type="text" readonly style="width: 501px;" class="compactPathBox" placeholder="Widget URL will appear here">
+                        <button class="btn"><i class="fas fa-link"></i> Copy URL</button>
+                        <button class="btn"><i class="fas fa-chevron-right"></i> Test</button>
+                        <button class="btn"><i class="fas fa-cog"></i> Customize</button>
+                    </div>
+                    <div class="preview-container">
+                        <div class="preview-controls">
+                            <button class="btn" style="width: 37px;"><i class="fas fa-chevron-left"></i></button>
+                            <iframe src="https://tikfinity.zerody.one/widget/goal?cid=2449591&metric=follows&preview=1" style="width: 692px; height: 130px; border: 0; border-radius: 4px;"></iframe>
+                            <button class="btn" style="width: 37px;"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="style-indicator">Style: 1/7</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Viewer Count Goal -->
+        <div class="goalSection" id="goal-viewer">
+            <h3 class="blueheading">Viewer Count<span class="proBadge">PRO</span></h3>
+            <div class="goalMetricContainer" data-metric="viewer">
+                <div class="goalSettings">
+                    <table>
+                        <tr>
+                            <td><div>Goal:</div></td>
+                            <td><div>Title:</div></td>
+                            <td><div>When reached:</div></td>
+                            <td><div>Action on reaching:</div></td>
+                        </tr>
+                        <tr>
+                            <td><input type="number" id="goal_viewer_value" value="100" min="10" max="9999999999" step="10" style="width: 89px;"></td>
+                            <td><input type="text" id="goal_viewer_title" style="width: 96px;"></td>
+                            <td>
+                                <select id="goal_viewer_increaseSelect" style="width: 185px;">
+                                    <option value="0">Select...</option>
+                                </select>
+                            </td>
+                            <td><a class="goalActionName" style="color: #667eea; cursor: pointer;">Select</a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="goalprogressoverlay" data-widgetid="goal" data-goalmetric="viewer">
+                    <div style="margin-bottom: 6px; display: flex; gap: 5px; align-items: center;">
+                        <input type="text" readonly style="width: 501px;" class="compactPathBox" placeholder="Widget URL will appear here">
+                        <button class="btn"><i class="fas fa-link"></i> Copy URL</button>
+                        <button class="btn"><i class="fas fa-chevron-right"></i> Test</button>
+                        <button class="btn"><i class="fas fa-cog"></i> Customize</button>
+                    </div>
+                    <div class="preview-container">
+                        <div class="preview-controls">
+                            <button class="btn" style="width: 37px;"><i class="fas fa-chevron-left"></i></button>
+                            <iframe src="https://tikfinity.zerody.one/widget/goal?cid=2449591&metric=viewer&preview=1" style="width: 692px; height: 130px; border: 0; border-radius: 4px;"></iframe>
+                            <button class="btn" style="width: 37px;"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="style-indicator">Style: 1/7</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coins Earned Goal -->
+        <div class="goalSection" id="goal-coins">
+            <h3 class="blueheading">Coins Earned<span class="proBadge">PRO</span></h3>
+            <div class="goalMetricContainer" data-metric="coins">
+                <div class="goalSettings">
+                    <table>
+                        <tr>
+                            <td><div>Goal:</div></td>
+                            <td><div>Title:</div></td>
+                            <td><div>When reached:</div></td>
+                            <td><div>Action on reaching:</div></td>
+                        </tr>
+                        <tr>
+                            <td><input type="number" id="goal_coins_value" value="500" min="2" max="9999999999" step="1" style="width: 89px;"></td>
+                            <td><input type="text" id="goal_coins_title" style="width: 96px;"></td>
+                            <td>
+                                <select id="goal_coins_increaseSelect" style="width: 185px;">
+                                    <option value="0">Select...</option>
+                                </select>
+                            </td>
+                            <td><a class="goalActionName" style="color: #667eea; cursor: pointer;">Select</a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="goalprogressoverlay" data-widgetid="goal" data-goalmetric="coins">
+                    <div style="margin-bottom: 6px; display: flex; gap: 5px; align-items: center;">
+                        <input type="text" readonly style="width: 501px;" class="compactPathBox" placeholder="Widget URL will appear here">
+                        <button class="btn"><i class="fas fa-link"></i> Copy URL</button>
+                        <button class="btn"><i class="fas fa-chevron-right"></i> Test</button>
+                        <button class="btn"><i class="fas fa-cog"></i> Customize</button>
+                    </div>
+                    <div class="preview-container">
+                        <div class="preview-controls">
+                            <button class="btn" style="width: 37px;"><i class="fas fa-chevron-left"></i></button>
+                            <iframe src="https://tikfinity.zerody.one/widget/goal?cid=2449591&metric=coins&preview=1" style="width: 692px; height: 130px; border: 0; border-radius: 4px;"></iframe>
+                            <button class="btn" style="width: 37px;"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="style-indicator">Style: 1/7</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Goals Section -->
+        <div class="goalSection">
+            <h3 class="blueheading">Custom Goals</h3>
+            <div>These broadcast goals can be controlled via <a href="{% url 'tiktok_live:actions_events' %}" style="color: #667eea;">Actions & Events</a>.<br>
+            This means that special gifts or other stream events can increase, decrease or reset the goals as desired.<br>
+            Simply create an action and select "Control Custom Goal". Finally, link an event that should trigger the action.</div>
+            <br>
+            
+            <!-- Settings -->
+            <div class="goalSection" style="margin-bottom: 20px;">
+                <h3 class="blueheading">Settings</h3>
+                <div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="resetCustomGoalsOnNewBcCheckbox" checked>
+                        <label for="resetCustomGoalsOnNewBcCheckbox">Reset Custom Goals when starting a new stream</label>
+                    </div>
+                    <div class="checkbox" style="margin-left: 40px;">
+                        <input type="checkbox" id="resetAllGoalsWhenGoalHitCheckbox">
+                        <label for="resetAllGoalsWhenGoalHitCheckbox">Reset all Custom Goals when one goal has been reached (Poll Mode)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom Goal 1 -->
+            <div class="goalSection" id="goal-custom1">
+                <h3 class="blueheading">Custom Goal 1<span class="proBadge">PRO</span></h3>
+                <div class="goalMetricContainer" data-metric="custom1">
+                    <div class="manualSet">
+                        <span>Change Value:</span>
+                        <input type="number" class="manualSetNumberBox" value="0" min="0" max="99999999" step="1" style="width: 110px;">
+                        <button class="btn">Set</button>
+                    </div>
+                    <div class="goalSettings">
+                        <table>
+                            <tr>
+                                <td><div>Goal:</div></td>
+                                <td><div>Title:</div></td>
+                                <td><div>When reached:</div></td>
+                                <td><div>Action on reaching:</div></td>
+                            </tr>
+                            <tr>
+                                <td><input type="number" id="goal_custom1_value" value="50" min="2" max="9999999999" step="1" style="width: 89px;"></td>
+                                <td><input type="text" id="goal_custom1_title" style="width: 96px;"></td>
+                                <td>
+                                    <select id="goal_custom1_increaseSelect" style="width: 185px;">
+                                        <option value="0">Select...</option>
+                                    </select>
+                                </td>
+                                <td><a class="goalActionName" style="color: #667eea; cursor: pointer;">Select</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="goalprogressoverlay" data-widgetid="goal" data-goalmetric="custom1">
+                        <div style="margin-bottom: 6px; display: flex; gap: 5px; align-items: center;">
+                            <input type="text" readonly style="width: 501px;" class="compactPathBox" placeholder="Widget URL will appear here">
+                            <button class="btn"><i class="fas fa-link"></i> Copy URL</button>
+                            <button class="btn"><i class="fas fa-chevron-right"></i> Test</button>
+                            <button class="btn"><i class="fas fa-cog"></i> Customize</button>
+                        </div>
+                        <div class="preview-container">
+                            <div class="preview-controls">
+                                <button class="btn" style="width: 37px;"><i class="fas fa-chevron-left"></i></button>
+                                <iframe src="https://tikfinity.zerody.one/widget/goal?cid=2449591&metric=custom1&preview=1" style="width: 692px; height: 130px; border: 0; border-radius: 4px;"></iframe>
+                                <button class="btn" style="width: 37px;"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="style-indicator">Style: 1/7</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom Goal 2 -->
+            <div class="goalSection" id="goal-custom2">
+                <h3 class="blueheading">Custom Goal 2<span class="proBadge">PRO</span></h3>
+                <div class="goalMetricContainer" data-metric="custom2">
+                    <div class="manualSet">
+                        <span>Change Value:</span>
+                        <input type="number" class="manualSetNumberBox" value="0" min="0" max="99999999" step="1" style="width: 110px;">
+                        <button class="btn">Set</button>
+                    </div>
+                    <div class="goalSettings">
+                        <table>
+                            <tr>
+                                <td><div>Goal:</div></td>
+                                <td><div>Title:</div></td>
+                                <td><div>When reached:</div></td>
+                                <td><div>Action on reaching:</div></td>
+                            </tr>
+                            <tr>
+                                <td><input type="number" id="goal_custom2_value" value="50" min="2" max="9999999999" step="1" style="width: 89px;"></td>
+                                <td><input type="text" id="goal_custom2_title" style="width: 96px;"></td>
+                                <td>
+                                    <select id="goal_custom2_increaseSelect" style="width: 185px;">
+                                        <option value="0">Select...</option>
+                                    </select>
+                                </td>
+                                <td><a class="goalActionName" style="color: #667eea; cursor: pointer;">Select</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="goalprogressoverlay" data-widgetid="goal" data-goalmetric="custom2">
+                        <div style="margin-bottom: 6px; display: flex; gap: 5px; align-items: center;">
+                            <input type="text" readonly style="width: 501px;" class="compactPathBox" placeholder="Widget URL will appear here">
+                            <button class="btn"><i class="fas fa-link"></i> Copy URL</button>
+                            <button class="btn"><i class="fas fa-chevron-right"></i> Test</button>
+                            <button class="btn"><i class="fas fa-cog"></i> Customize</button>
+                        </div>
+                        <div class="preview-container">
+                            <div class="preview-controls">
+                                <button class="btn" style="width: 37px;"><i class="fas fa-chevron-left"></i></button>
+                                <iframe src="https://tikfinity.zerody.one/widget/goal?cid=2449591&metric=custom2&preview=1" style="width: 692px; height: 130px; border: 0; border-radius: 4px;"></iframe>
+                                <button class="btn" style="width: 37px;"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="style-indicator">Style: 1/7</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom Goal 3 -->
+            <div class="goalSection" id="goal-custom3">
+                <h3 class="blueheading">Custom Goal 3<span class="proBadge">PRO</span></h3>
+                <div class="goalMetricContainer" data-metric="custom3">
+                    <div class="manualSet">
+                        <span>Change Value:</span>
+                        <input type="number" class="manualSetNumberBox" value="0" min="0" max="99999999" step="1" style="width: 110px;">
+                        <button class="btn">Set</button>
+                    </div>
+                    <div class="goalSettings">
+                        <table>
+                            <tr>
+                                <td><div>Goal:</div></td>
+                                <td><div>Title:</div></td>
+                                <td><div>When reached:</div></td>
+                                <td><div>Action on reaching:</div></td>
+                            </tr>
+                            <tr>
+                                <td><input type="number" id="goal_custom3_value" value="50" min="2" max="9999999999" step="1" style="width: 89px;"></td>
+                                <td><input type="text" id="goal_custom3_title" style="width: 96px;"></td>
+                                <td>
+                                    <select id="goal_custom3_increaseSelect" style="width: 185px;">
+                                        <option value="0">Select...</option>
+                                    </select>
+                                </td>
+                                <td><a class="goalActionName" style="color: #667eea; cursor: pointer;">Select</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="goalprogressoverlay" data-widgetid="goal" data-goalmetric="custom3">
+                        <div style="margin-bottom: 6px; display: flex; gap: 5px; align-items: center;">
+                            <input type="text" readonly style="width: 501px;" class="compactPathBox" placeholder="Widget URL will appear here">
+                            <button class="btn"><i class="fas fa-link"></i> Copy URL</button>
+                            <button class="btn"><i class="fas fa-chevron-right"></i> Test</button>
+                            <button class="btn"><i class="fas fa-cog"></i> Customize</button>
+                        </div>
+                        <div class="preview-container">
+                            <div class="preview-controls">
+                                <button class="btn" style="width: 37px;"><i class="fas fa-chevron-left"></i></button>
+                                <iframe src="https://tikfinity.zerody.one/widget/goal?cid=2449591&metric=custom3&preview=1" style="width: 692px; height: 130px; border: 0; border-radius: 4px;"></iframe>
+                                <button class="btn" style="width: 37px;"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="style-indicator">Style: 1/7</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Copy URL functionality
+    document.querySelectorAll('.btn').forEach(btn => {
+        if (btn.textContent.includes('Copy URL')) {
+            btn.addEventListener('click', function() {
+                const urlInput = this.parentElement.querySelector('.compactPathBox');
+                if (urlInput.value) {
+                    navigator.clipboard.writeText(urlInput.value);
+                    this.textContent = 'Copied!';
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-link"></i> Copy URL';
+                    }, 2000);
+                }
+            });
+        }
+    });
+
+    // Test functionality
+    document.querySelectorAll('.btn').forEach(btn => {
+        if (btn.textContent.includes('Test')) {
+            btn.addEventListener('click', function() {
+                const iframe = this.parentElement.parentElement.querySelector('iframe');
+                if (iframe) {
+                    iframe.src = iframe.src + '&test=1';
+                }
+            });
+        }
+    });
+
+    // Style navigation
+    document.querySelectorAll('.preview-controls .btn').forEach(btn => {
+        if (btn.innerHTML.includes('chevron')) {
+            btn.addEventListener('click', function() {
+                const styleIndicator = this.parentElement.parentElement.querySelector('.style-indicator');
+                const currentStyle = parseInt(styleIndicator.textContent.match(/\d+/)[0]);
+                const isNext = this.innerHTML.includes('chevron-right');
+                
+                let newStyle = isNext ? currentStyle + 1 : currentStyle - 1;
+                if (newStyle > 7) newStyle = 1;
+                if (newStyle < 1) newStyle = 7;
+                
+                styleIndicator.textContent = `Style: ${newStyle}/7`;
+                
+                // Update iframe src with new style
+                const iframe = this.parentElement.querySelector('iframe');
+                if (iframe) {
+                    const url = new URL(iframe.src);
+                    url.searchParams.set('style', newStyle);
+                    iframe.src = url.toString();
+                }
+            });
+        }
+    });
+
+    // Manual set functionality for custom goals
+    document.querySelectorAll('.manualSet .btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('.manualSetNumberBox');
+            const value = input.value;
+            console.log(`Setting custom goal value to: ${value}`);
+            // Here you would typically send this to your backend
+        });
+    });
+</script>
+{% endblock %}

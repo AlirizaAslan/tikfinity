@@ -1,0 +1,155 @@
+{% extends 'tiktok_live/base.html' %}
+
+{% block page_title %}Challenge{% endblock %}
+
+{% block extra_css %}
+<style>
+    .blueheading { color: #667eea; margin-bottom: 15px; }
+    .greyBackgroundSection { background: #1a1a1a; padding: 30px; border-radius: 12px; margin-bottom: 20px; }
+    .greyBackgroundSectionDynamicWidth { min-width: 500px; max-width: 600px; }
+    .redNotification { background: #dc2626; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    .redNotification .error a { color: #fff; text-decoration: underline; }
+    .dx-field { margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+    .dx-field-label { min-width: 200px; color: #ccc; font-weight: 500; }
+    .dx-field-value { flex: 1; display: flex; gap: 10px; align-items: center; }
+    .dx-fieldset { margin-bottom: 30px; }
+    input[type="text"] { background: #252525; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 8px; flex: 1; }
+    input[type="text"]::placeholder { color: #888; }
+    .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; background: #667eea; color: white; display: inline-flex; align-items: center; gap: 8px; }
+    .btn:hover { background: #5568d3; }
+    .btn-danger { background: #dc2626; }
+    .btn-danger:hover { background: #b91c1c; }
+    .btn i { font-size: 14px; }
+    .challengeEnabled { display: none; }
+    .challengeHeadline { font-size: 18px; color: #fff; margin-bottom: 20px; }
+    .challengeHeadline b { color: #fe2c55; }
+    .challengeHeadline span { color: #888; }
+    .duration { color: #10b981; font-weight: bold; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page pageenabled" data-pageid="challenge">
+    <h2 class="blueheading">Challenge</h2>
+    <div>You can temporarily reset the points of all users to 0 to create a neutral entry point in a challenge or contest.<br>
+    When you finish the challenge, you can decide whether the points earned will be discarded or added to the total score.</div>
+
+    <br>
+
+    <div class="redNotification" style="display: none;">
+        <div class="error">Please run the <a href="{% url 'tiktok_live:setup' %}">Setup</a> first to create a free TikFinity Account!</div>
+    </div>
+
+    <br>
+
+    <div class="greyBackgroundSection greyBackgroundSectionDynamicWidth">
+        <div class="challengeDisabled">
+            <div class="dxForm">
+                <div class="form">
+                    <div class="dx-fieldset">
+                        <div class="dx-field">
+                            <div class="dx-field-label">Name of your challenge</div>
+                            <div class="dx-field-value">
+                                <input type="text" id="textboxChallengeName" placeholder="Insert your challenge name...">
+                                <button id="buttonChallengeStart" class="btn" style="width: 180px;">
+                                    <i class="fas fa-chevron-right"></i>
+                                    <span>Start Challenge</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="challengeEnabled">
+            <div class="challengeHeadline">
+                <b id="challengeName">Challenge Name</b> 
+                <span>running since</span> 
+                <span id="challengeDuration" class="duration">00:00:00</span>
+            </div>
+            <br><br>
+            <button id="buttonChallengeStop" class="btn btn-danger" style="width: 200px;">
+                <i class="fas fa-times"></i>
+                <span>End Challenge</span>
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const challengeNameInput = document.getElementById('textboxChallengeName');
+    const startButton = document.getElementById('buttonChallengeStart');
+    const stopButton = document.getElementById('buttonChallengeStop');
+    const challengeDisabled = document.querySelector('.challengeDisabled');
+    const challengeEnabled = document.querySelector('.challengeEnabled');
+    const challengeNameDisplay = document.getElementById('challengeName');
+    const challengeDurationDisplay = document.getElementById('challengeDuration');
+    
+    let challengeStartTime = null;
+    let durationInterval = null;
+
+    // Start challenge
+    startButton.addEventListener('click', function() {
+        const challengeName = challengeNameInput.value.trim();
+        
+        if (!challengeName) {
+            alert('Please enter a challenge name');
+            return;
+        }
+
+        if (confirm(`Start challenge "${challengeName}"? This will reset all user points to 0.`)) {
+            challengeStartTime = new Date();
+            challengeNameDisplay.textContent = challengeName;
+            
+            challengeDisabled.style.display = 'none';
+            challengeEnabled.style.display = 'block';
+            
+            // Start duration timer
+            durationInterval = setInterval(updateDuration, 1000);
+            updateDuration();
+        }
+    });
+
+    // Stop challenge
+    stopButton.addEventListener('click', function() {
+        if (confirm('End the challenge? You can choose to keep or discard the points earned during the challenge.')) {
+            // Show options dialog
+            const keepPoints = confirm('Keep the points earned during the challenge?\n\nOK = Add to total score\nCancel = Discard points');
+            
+            clearInterval(durationInterval);
+            challengeStartTime = null;
+            
+            challengeDisabled.style.display = 'block';
+            challengeEnabled.style.display = 'none';
+            challengeNameInput.value = '';
+            
+            const action = keepPoints ? 'added to total scores' : 'discarded';
+            alert(`Challenge ended successfully! Points have been ${action}.`);
+        }
+    });
+
+    // Update duration display
+    function updateDuration() {
+        if (!challengeStartTime) return;
+        
+        const now = new Date();
+        const diff = Math.floor((now - challengeStartTime) / 1000);
+        
+        const hours = Math.floor(diff / 3600).toString().padStart(2, '0');
+        const minutes = Math.floor((diff % 3600) / 60).toString().padStart(2, '0');
+        const seconds = (diff % 60).toString().padStart(2, '0');
+        
+        challengeDurationDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    // Enter key support
+    challengeNameInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            startButton.click();
+        }
+    });
+</script>
+{% endblock %}

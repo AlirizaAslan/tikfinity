@@ -1,0 +1,34 @@
+{% extends 'tiktok_live/base.html' %}
+
+{% block title %}Last X Overlays - TikFinity{% endblock %}
+
+{% block content %}
+<div style="background: #1a1a1a; padding: 30px; border-radius: 12px;">
+    <h1 style="color: #667eea; margin-bottom: 10px;">📋 Last X Overlays</h1>
+    <p style="color: #888; margin-bottom: 30px;">Display the most recent activities from your viewers including followers, gifters, and commenters.</p>
+
+    <div style="background: #252525; padding: 25px; border-radius: 8px; margin-bottom: 20px;">
+        <h3 style="color: #667eea; margin-bottom: 15px;">Last Followers</h3>
+        <p style="color: #aaa; margin-bottom: 20px;">Show the most recent followers who joined your stream.</p>
+        <button style="padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer;">Configure Followers</button>
+    </div>
+
+    <div style="background: #252525; padding: 25px; border-radius: 8px; margin-bottom: 20px;">
+        <h3 style="color: #667eea; margin-bottom: 15px;">Last Gifters</h3>
+        <p style="color: #aaa; margin-bottom: 20px;">Display recent viewers who sent gifts to your stream.</p>
+        <button style="padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer;">Setup Gifters</button>
+    </div>
+
+    <div style="background: #252525; padding: 25px; border-radius: 8px; margin-bottom: 20px;">
+        <h3 style="color: #667eea; margin-bottom: 15px;">Last Comments</h3>
+        <p style="color: #aaa; margin-bottom: 20px;">Show the latest comments from your chat.</p>
+        <button style="padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer;">Configure Comments</button>
+    </div>
+
+    <div style="background: #252525; padding: 25px; border-radius: 8px;">
+        <h3 style="color: #667eea; margin-bottom: 15px;">Last Shares</h3>
+        <p style="color: #aaa; margin-bottom: 20px;">Display recent viewers who shared your stream.</p>
+        <button style="padding: 12px 24px; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer;">Setup Shares</button>
+    </div>
+</div>
+{% endblock %}

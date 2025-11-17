@@ -1,0 +1,157 @@
+{% extends 'tiktok_live/base.html' %}
+
+{% block page_title %}Overlay Gallery{% endblock %}
+
+{% block extra_css %}
+<style>
+    .blueheading { color: #4a90e2; font-size: 18px; margin-bottom: 15px; }
+    .desktopAppPromotion { background: #2d0539; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
+    .desktopAppPromotion a { color: #4a90e2; text-decoration: none; }
+    .obsOverlayContainer { display: flex; flex-direction: column; gap: 20px; }
+    .obsOverlayOnPage { background: #1a1a1a; padding: 20px; border-radius: 8px; border: 1px solid #333; }
+    .greyBackgroundSectionOverlayFix { position: relative; }
+    .pro-badge { font-size: 0.8em; color: #fe2c55; vertical-align: top; margin-left: 5px; }
+    .overlay-description { margin-bottom: 15px; color: #ccc; line-height: 1.5; }
+    .overlay-controls { display: table; width: 100%; margin-bottom: 10px; }
+    .overlay-controls > div { display: table-row; }
+    .overlay-controls .control-cell { display: table-cell; padding: 2px; vertical-align: top; }
+    .url-input { width: 501px; padding: 8px; background: #252525; border: 1px solid #555; color: #fff; border-radius: 4px; }
+    .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; color: #fff; font-size: 14px; margin: 2px; }
+    .btn-copy { background: #4a90e2; width: 105px; }
+    .btn-test { background: #10b981; width: 100px; }
+    .btn-test:disabled { background: #666; cursor: not-allowed; }
+    .btn-customize { background: #667eea; width: 150px; position: relative; }
+    .btn i { margin-right: 5px; }
+    .overlay-preview { border: 1px solid #4e4e4e; margin-top: 10px; background: #000; }
+    .widget-controls { margin-bottom: 15px; }
+    .widget-controls .btn { margin-right: 10px; }
+    .overlay-hint { display: none; position: absolute; background: #333; padding: 10px; border-radius: 4px; font-size: 12px; z-index: 1000; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page">
+    <div class="desktopAppPromotion">
+        Get the free <a href="/app/">TikFinity Desktop App</a> for Windows to enjoy additional features and stability improvements!
+    </div>
+
+    <h2 class="blueheading">Overlay Gallery</h2>
+    
+    <div style="margin-bottom: 20px; color: #ccc; line-height: 1.6;">
+        Here you can find the general overlays for integration into <strong>OBS (Browser Source)</strong> or <strong>LIVE Studio (Link)</strong>.<br>
+        All functions are divided into individual widgets to achieve the best possible flexibility in alignment.<br><br>
+        To include the overlays listed below in Live Studio, copy the URL and paste it into a new <strong>Link Source</strong>.<br><br>
+        <strong>Note:</strong> To change the color or font of the overlays, click the "Customize" button of the respective overlay.
+    </div>
+
+    <div class="obsOverlayContainer">
+        {% for overlay in overlays %}
+        <div class="obsOverlayOnPage greyBackgroundSectionOverlayFix" style="background-color: {{ overlay.bg_color }};">
+            <h3 class="blueheading">
+                {{ overlay.name }}
+                {% if overlay.is_pro %}<span class="pro-badge">PRO</span>{% endif %}
+            </h3>
+            
+            <div class="overlay-description">{{ overlay.description }}</div>
+
+            {% if overlay.id == 'coinmatch' %}
+            <div class="widget-controls">
+                <button class="btn btn-copy"><i class="fas fa-trophy"></i> Show Winners</button>
+                <button class="btn btn-test"><i class="fas fa-play"></i> Start Match</button>
+                <button class="btn btn-customize"><i class="fas fa-stop"></i> End Match</button>
+                <button class="btn btn-copy"><i class="fas fa-rotate-left"></i> Reset Match</button>
+                <button class="btn btn-test"><i class="fas fa-external-link-alt"></i></button>
+            </div>
+            {% endif %}
+
+            <div class="overlay-controls">
+                <div>
+                    <div class="control-cell">
+                        <input type="text" class="url-input" readonly 
+                               value="{{ base_widget_url }}{{ overlay.id }}/?cid={{ user_id }}&preview=1">
+                    </div>
+                    <div class="control-cell">
+                        <button class="btn btn-copy" onclick="copyURL(this)">Copy URL</button>
+                    </div>
+                    <div class="control-cell">
+                        <button class="btn btn-test {% if not overlay.test_enabled %}btn-test:disabled{% endif %}" 
+                                {% if not overlay.test_enabled %}disabled{% endif %}
+                                onclick="testOverlay('{{ overlay.id }}')">
+                            <i class="fas fa-play"></i> Test
+                        </button>
+                    </div>
+                    <div class="control-cell">
+                        <button class="btn btn-customize" onclick="customizeOverlay('{{ overlay.id }}')">
+                            <i class="fas fa-cog"></i> Customize
+                        </button>
+                        <div class="overlay-hint overlay-hint-{{ overlay.id }}">
+                            Change Font, Colors, Background, etc.<br>
+                            <i class="fas fa-arrow-down" style="font-size: 1.2em;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <iframe src="{{ base_widget_url }}{{ overlay.id }}/?cid={{ user_id }}&preview=1" 
+                    allow="autoplay" 
+                    style="width: {{ overlay.width }}px; height: {{ overlay.height }}px;" 
+                    class="overlay-preview">
+            </iframe>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+function copyURL(button) {
+    const input = button.closest('.overlay-controls').querySelector('.url-input');
+    input.select();
+    document.execCommand('copy');
+    
+    const originalText = button.textContent;
+    button.textContent = 'Copied!';
+    button.style.background = '#10b981';
+    
+    setTimeout(() => {
+        button.textContent = originalText;
+        button.style.background = '#4a90e2';
+    }, 2000);
+}
+
+function testOverlay(overlayId) {
+    // Simulate overlay test
+    alert(`Testing ${overlayId} overlay...`);
+}
+
+function customizeOverlay(overlayId) {
+    // Show customization options
+    alert(`Customize ${overlayId} overlay - Font, Colors, Background, etc.`);
+}
+
+// Show/hide customize hints
+document.querySelectorAll('.btn-customize').forEach(btn => {
+    btn.addEventListener('mouseenter', function() {
+        const hint = this.parentElement.querySelector('.overlay-hint');
+        if (hint) {
+            hint.style.display = 'block';
+            hint.style.top = (this.offsetTop + this.offsetHeight + 5) + 'px';
+            hint.style.left = this.offsetLeft + 'px';
+        }
+    });
+    
+    btn.addEventListener('mouseleave', function() {
+        const hint = this.parentElement.querySelector('.overlay-hint');
+        if (hint) {
+            hint.style.display = 'none';
+        }
+    });
+});
+
+// Auto-select URL on click
+document.querySelectorAll('.url-input').forEach(input => {
+    input.addEventListener('click', function() {
+        this.select();
+    });
+});
+</script>
+{% endblock %}
